@@ -77,7 +77,7 @@ public final class Sieges {
     }
 
     /** Le village peut-il attaquer ce lieu-dit ? Rend la raison du refus, ou null. */
-    static Message blocked(World world, Hamlets.Place h, Village v, long day) {
+    public static Message blocked(World world, Hamlets.Place h, Village v, long day) {
         Village owner = Allegiance.owner(world, h);
         if (v.tier() < 3) {
             return Message.translation(KEYS + "tier");

@@ -168,7 +168,7 @@ public final class AnnexPage extends InteractiveCustomUIPage<AnnexPage.Event> {
     }
 
     /** État de l'avant-poste en une phrase : à fonder (coût, manque), fondation remise, travaux, debout. */
-    static Message stateLine(World world, Store<EntityStore> store, Village village, Workshop w, AnnexState a) {
+    public static Message stateLine(World world, Store<EntityStore> store, Village village, Workshop w, AnnexState a) {
         if (a == null) {
             Map<String, Integer> cost = new LinkedHashMap<>();
             for (VillageLayout.Material m : w.annex().materials()) {

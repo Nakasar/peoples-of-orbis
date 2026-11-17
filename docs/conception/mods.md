@@ -2177,3 +2177,111 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
 - Création du monde plat et téléportation d'un monde à l'autre.
 - Le panneau affiche bien le titre et le message au clic, aussi après redémarrage du serveur.
 - Les prefabs agrandis restent dans leur rectangle (mesure `VillageBuilder.bounds`), sens d'entrée des bâtiments.
+
+## Le gestionnaire qui parle (`steward/`, LLM, désactivé par défaut)
+
+Kevin, 17 novembre 2026 (doc « Le gestionnaire du village parle (LLM) ») : un seul PNJ en dialogue libre, le
+gestionnaire du village, à côté du panneau principal. Il répond aux questions sur le village à partir du panneau et agit
+sur le village comme si le joueur cliquait le panneau. Décisions de Kevin : le crieur actuel est le gestionnaire ; les
+lieux-dits l'ont aussi (leur gardien `<Peuple>_Hamlet_Keeper`, pseudo-village `H:<id>`) ; Claude Haiku 5.5 par défaut,
+réglable ; la clé est fournie et réglée par l'administrateur du serveur ; saisie dans la fenêtre de dialogue ; plusieurs
+actions par message.
+
+### Principe : des fonctions de données et d'action, pas l'interface (`StewardData`, `StewardActions`)
+
+Kevin, 17 novembre 2026 : le gestionnaire ne passe pas par les pages du panneau.
+
+- **Lecture** (`StewardData`, outil `lire(sujet)`) : un texte compact par sujet, lu dans l'état du jeu et pensé pour le
+  modèle : `etat` (le texte du tableau, `VillageBoard.body`), `demandes`, `projets`, `production`, `ouvrages`,
+  `commerce`, `domaine`, `habitants`, `monde` ; `atelier` pour un lieu-dit (`WorkshopPage.textBody`). Chaque élément
+  porte entre crochets l'identifiant que prennent les outils d'action (`[case 2]`, `[emplacement E1]`,
+  `[projet ...]`, `[partenaire ...]`, `[lieu-dit ...]`). Les phrases d'état réutilisent les fonctions de texte du jeu
+  (`PlotPage.stateLine`, `AnnexPage.stateLine`, `OuvragePage.state`, `Requests.task`...), traduites par `TextRender`.
+- **Actions** (`StewardActions`) : un outil nommé par action, qui appelle directement la fonction derrière le bouton :
+  `prendre_demande`, `abandonner_demande`, `rendre_demandes`, `choisir_projet`, `retirer_projet`, `lancer_chantier`,
+  `demolir`, `accorder_annexe`, `detruire_annexe`, `reprendre_ouvrage`, `rebatir_ouvrage`, `attaquer_ouvrage`,
+  `ouvrir_route`, `monter_route`, `payer_credit`, `fermer_route`, `regler_envoi`, `acheter_etal`, `ambassade`,
+  `expedition`, `porter_couleurs`, `refuge_suivant`, `nommer_enfant`, `orienter_apprenti` ; pour un lieu-dit :
+  `prendre_demande`, `abandonner_demande`, `rendre_demandes`, `devenir_maitre`, `ameliorer_atelier`, `prendre_part`.
+  Mêmes fonctions que le panneau (`Requests.take`, `Plots.start`, `TradeRoutes.open`, `TradePage.buyLot`...), donc
+  mêmes contrôles de rang, de faveurs et de matériaux.
+- Chaque action est d'abord **résolue** : paramètres vérifiés contre l'état du moment (identifiant inconnu : le modèle
+  est renvoyé au sujet à lire), libellé lisible. Les fonctions reçoivent un `CapturingPlayerRef` : leurs messages au
+  joueur (refus, résultats) sont gardés et montrés tels quels sous la réponse.
+- Une action qui dépense ou détruit est **à confirmer** (abandonner, lancer, démolir, accorder, détruire, ouvrages,
+  routes sauf le réglage des cases, étal, ambassade, expédition, nommer, orienter, maître, amélioration). Plusieurs
+  actions par message, dans l'ordre : dès qu'une action est à confirmer, elle et les suivantes sont retenues ; un seul
+  clic sur Confirmer les résout de nouveau et les fait dans l'ordre, arrêt au premier refus (la fonction rend faux ou
+  un message de refus).
+
+### Fenêtre de dialogue (`DialoguePage`)
+
+- Bouton « Parler librement » sous le portrait, pour le crieur et le gardien de lieu-dit, quand le serveur a activé le
+  gestionnaire. Le dialogue libre remplace les quatre réponses par un champ de saisie (`$C.@TextField #Input`, valeur
+  lue par `EventData.of("Action","Say").append("@Text","#Input.Value")`, comme `SetNameRespawnPointPage`), puis
+  Confirmer / Annuler (actions retenues) et Ouvrir le panneau. « Réponses habituelles » revient au dialogue écrit.
+- « … » pendant l'attente ; la réponse s'affiche en réplique, les messages du jeu et la liste des actions en attente en
+  aparté.
+
+### Appels au modèle (`Steward`, `LlmClient`)
+
+- Jamais sur le thread du monde : requête HTTP asynchrone (`java.net.http`, Gson du serveur : aucune bibliothèque
+  embarquée), chaque outil revient sur le thread du monde (`world.execute`), la réponse aussi. 8 appels d'outils au plus
+  par message.
+- Backends : API Claude (`/v1/messages`, défaut `claude-haiku-5-5`) ou serveur local compatible OpenAI
+  (`/v1/chat/completions` : Ollama, llama.cpp...). Conversation tenue au format Claude, traduite pour le local.
+- Contexte : consignes (rôle, ton du peuple, 1 à 3 phrases, ne rien inventer, ne pas dire fait une action retenue,
+  hors sujet décliné), liste des sujets, et le texte du tableau pour ce joueur (`VillageBoard.body` ; l'atelier pour un
+  lieu-dit). Mémoire : 10 derniers tours par joueur, oubliée quand il parle à un autre gestionnaire, quitte le serveur,
+  ou après une heure sans parler. Le nom du joueur n'est jamais envoyé (« le joueur »).
+- Secours sans modèle, réplique fixe du jeu (`steward.fallback.*`) : désactivé, clé absente, budget du jour épuisé
+  (jetons, tous joueurs), limite par joueur et par heure, refus ou délai du backend, réponse vide ; trois échecs de suite
+  mettent le gestionnaire en pause 10 minutes. Le panneau reste à un clic.
+- Journal : chaque action faite ou refusée (village, uuid du joueur, onglet/action) ; les échanges seulement avec
+  `LogConversations`.
+
+### Réglages du serveur (`gestionnaire.json`, dossier de données du plugin)
+
+Créé avec les valeurs par défaut au premier démarrage, relu par `/village gestionnaire recharger`. La clé n'y est
+jamais : `ApiKeyEnv` donne le nom de la variable d'environnement qui la porte.
+
+| Clé | Défaut | Rôle |
+|---|---|---|
+| `Enabled` | `false` | Gestionnaire en service (bouton visible, appels permis) |
+| `Backend` | `claude` | `claude` ou `local` |
+| `Endpoint` | vide | Adresse de l'API (vide : celle du backend) |
+| `Model` | vide | Modèle (vide : Claude Haiku 5.5, ou `llama3.1` en local) |
+| `ApiKeyEnv` | `ANTHROPIC_API_KEY` | Variable d'environnement de la clé (backend `claude`) |
+| `LocalApiKeyEnv` | vide | Variable de la clé du backend `local` ; vide : aucune clé envoyée (jamais celle de `ApiKeyEnv`) |
+| `DailyTokenBudget` | 1 000 000 | Jetons par jour, tous joueurs (0 : sans limite) |
+| `PlayerHourlyCalls` | 60 | Messages par joueur et par heure |
+| `TimeoutMs` | 20 000 | Délai d'une requête |
+| `MaxTokens` | 600 | Longueur d'une réponse |
+| `Language` | `fr-FR` | Langue du panneau lu et des réponses |
+| `MemoryTurns` | 10 | Tours gardés par joueur |
+| `MaxToolCalls` | 8 | Outils par message |
+| `MaxInputChars` | 300 | Longueur d'un message du joueur |
+| `LogConversations` | `false` | Questions et réponses dans le log du serveur |
+
+### Commandes (opérateurs)
+
+- `/village gestionnaire etat` : activé, backend, modèle, clé présente, jetons et appels du jour, pause, dernière erreur.
+- `/village gestionnaire lire <sujet>` : ce que le modèle lit d'un sujet du village le plus proche (aucun appel).
+- `/village gestionnaire recharger` : relit les réglages, lève la pause.
+
+### Tester en jeu (gestionnaire)
+
+1. Arrêter le serveur, mettre `"Enabled": true` dans `gestionnaire.json` (dossier de données du plugin), exporter la
+   clé dans la variable `ANTHROPIC_API_KEY` du processus du serveur, relancer (ou `/village gestionnaire recharger`).
+2. `/village gestionnaire etat` : « activé », « Clé : présente ».
+3. `/village gestionnaire lire demandes`, puis `projets`, `commerce` : les données doivent suivre le panneau.
+4. Parler au crieur, « Parler librement », demander « Où en est le chantier ? », puis « Prends la première demande »,
+   puis « Lance le projet de l'emplacement E1 » (doit être retenu, Confirmer le fait).
+5. Gardien d'un lieu-dit : même essai sur l'atelier.
+
+### À vérifier en jeu (gestionnaire)
+
+- Le champ `#Input` (TextField vanilla) prend bien la saisie dans la fenêtre de dialogue, Entrée (`Validating`) envoie.
+- Le serveur peut joindre l'API (réseau sortant de l'hébergeur ; question 12 du doc, sans réponse).
+- Les sujets lus disent la même chose que les onglets du panneau (demandes, projets, routes, lieux-dits).
+- Les refus des actions s'affichent bien sous la réponse (messages capturés).

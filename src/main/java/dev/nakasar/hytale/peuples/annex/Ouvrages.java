@@ -110,7 +110,7 @@ public final class Ouvrages {
     private Ouvrages() {
     }
 
-    static String key(Infrastructures.Work w) {
+    public static String key(Infrastructures.Work w) {
         return w.owner().id() + "/" + w.workshop().getId();
     }
 

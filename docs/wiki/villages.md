@@ -10,6 +10,8 @@
 
 Le **tableau** (à l'ouest du cœur) montre les trois demandes du jour, tirées chaque matin à 6 h. **Prendre** une demande l'ajoute au suivi d'objectifs à l'écran, avec la distance et la direction du lieu ; **Rendre** remet les objets portés ; **Abandonner** la retire. Accroupi, le tableau s'ouvre en version texte. Le **crieur**, deux blocs au sud du tableau, propose les mêmes demandes en parlant.
 
+Sur les serveurs qui l'ont activé, le crieur est aussi le **gestionnaire du village** : **Parler librement** dans sa fenêtre de dialogue permet de lui écrire. Il répond à partir de ce que montre le panneau (demandes, chantier, projets, commerce, voisins, habitants) et peut agir pour toi comme si tu cliquais le panneau : prendre une demande, choisir un projet, et plusieurs choses à la suite. Ce qui coûte ou détruit (lancer un chantier, démolir, ouvrir une route, acheter...) attend ton clic sur **Confirmer** ; il s'arrête à la première action refusée, et les messages du jeu s'affichent sous sa réponse. Le gardien d'un lieu-dit fait de même pour son atelier.
+
 | Type | Ce qu'il faut faire |
 | --- | --- |
 | Récolte | déposer des objets au dépôt du village (ou les rendre au tableau) |

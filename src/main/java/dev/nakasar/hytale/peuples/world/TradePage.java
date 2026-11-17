@@ -238,7 +238,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
     // ---- Étal ----
 
     /** Petit lot de l'étal : la moitié d'un chargement de niveau I (8 communes, 3 fines, 1 luxe). */
-    static int stallLot(String item) {
+    public static int stallLot(String item) {
         return Math.max(1, TradeGoods.grade(item).load(1) / 2);
     }
 
@@ -269,7 +269,8 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
         }
     }
 
-    private Message buy(World world, Store<EntityStore> store, Ref<EntityStore> ref, Village v, String item) {
+    /** Achète un petit lot de l'étal contre une faveur ; rend le refus, ou null (aussi pour le gestionnaire, steward/). */
+    public static Message buyLot(World world, Store<EntityStore> store, Ref<EntityStore> ref, Village v, String item) {
         if (!Reputations.rank(store, ref, v).atLeast(Rank.TOLERE)) {
             return Message.translation(TradeRoutes.KEYS + "why.rankTolere").param("village", v.name());
         }
@@ -394,7 +395,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
         } else if (action.startsWith("Buy")) {
             int i = index(action, "Buy");
             if (i >= 0 && i < stall.size()) {
-                why = buy(world, store, ref, village, stall.get(i));
+                why = buyLot(world, store, ref, village, stall.get(i));
                 done = Message.translation(KEYS + "bought").param("count", stallLot(stall.get(i))).param("item", itemName(stall.get(i)));
             }
         }

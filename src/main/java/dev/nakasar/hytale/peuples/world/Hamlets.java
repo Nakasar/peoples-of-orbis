@@ -191,6 +191,9 @@ public final class Hamlets {
 
     private static final Map<String, List<Ref<EntityStore>>> RESIDENTS = new ConcurrentHashMap<>();
     private static final Map<Ref<EntityStore>, String> RESIDENT_OF = Collections.synchronizedMap(new IdentityHashMap<>());
+    /** Les gardiens des lieux-dits (rôle {@code <Peuple>_Hamlet_Keeper}) : ils sont le gestionnaire qui parle (steward/). */
+    private static final java.util.Set<Ref<EntityStore>> KEEPERS = Collections.synchronizedSet(java.util.Collections.newSetFromMap(new IdentityHashMap<>()));
+    private static final String KEEPER_SUFFIX = "_Hamlet_Keeper";
 
     private Hamlets() {
     }
@@ -224,6 +227,11 @@ public final class Hamlets {
     public static Place of(World world, Ref<EntityStore> npc) {
         String id = npc == null ? null : RESIDENT_OF.get(npc);
         return id == null ? null : get(world, id);
+    }
+
+    /** Le lieu-dit dont ce PNJ est le gardien, ou null. */
+    public static Place keeperOf(World world, Ref<EntityStore> npc) {
+        return npc != null && KEEPERS.contains(npc) ? of(world, npc) : null;
     }
 
     /** Le village d'où le lieu-dit a été tiré (son peuple) ; il n'y est pas rattaché (Kevin, 16 novembre 2026). */
@@ -831,6 +839,9 @@ public final class Hamlets {
             });
             live.add(ref);
             RESIDENT_OF.put(ref, h.id);
+            if (role.endsWith(KEEPER_SUFFIX)) {
+                KEEPERS.add(ref);
+            }
         }
         RESIDENTS.put(h.id, live);
     }
@@ -856,6 +867,7 @@ public final class Hamlets {
         }
         for (Ref<EntityStore> ref : live) {
             RESIDENT_OF.remove(ref);
+            KEEPERS.remove(ref);
             WorldLife.remove(store, ref);
         }
     }
@@ -1044,6 +1056,7 @@ public final class Hamlets {
 
     /** Le PNJ n'est plus (retiré ou mort). */
     static void forget(Ref<EntityStore> ref) {
+        KEEPERS.remove(ref);
         String id = RESIDENT_OF.remove(ref);
         if (id != null) {
             List<Ref<EntityStore>> live = RESIDENTS.get(id);
@@ -1058,5 +1071,6 @@ public final class Hamlets {
         ENTERED.clear();
         RESIDENTS.clear();
         RESIDENT_OF.clear();
+        KEEPERS.clear();
     }
 }
