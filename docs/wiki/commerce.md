@@ -66,8 +66,7 @@ Les caravaniers voyagent de jour. Parlez-leur : ils troquent comme les voyageurs
 
 ### Escorter une caravane
 
-Demandez au caravanier ce qu'il porte, puis proposez-lui votre escorte. Un seul joueur escorte une caravane. Restez près des bêtes jusqu'au bout : à plus de 96 blocs pendant une minute, l'escorte est perdue.
+Demandez au caravanier ce qu'il porte, puis proposez-lui votre escorte. Un seul joueur escorte une caravane. Restez près des bêtes jusqu'au bout : à plus de 48 blocs pendant une minute, l'escorte est perdue.
 
-- Au départ : **+25** de réputation au village d'où part la caravane.
-- À l'arrivée, si vous êtes là : **+12** au village qui la reçoit.
+- À l'arrivée, si vous êtes là : **+25** de réputation au village d'où part la caravane et **+12** à celui qui la reçoit.
 - Si vous repoussez l'embuscade de mi-chemin : une **faveur** du peuple de départ.

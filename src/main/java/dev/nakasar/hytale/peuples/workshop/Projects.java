@@ -135,15 +135,20 @@ public final class Projects {
         if (w == null || world == null) {
             return null;
         }
+        if (w.requires().length == 0 && w.requiresLuxuries() <= 0 && w.requiresRoutes() <= 0) {
+            return null;
+        }
         long day = GameClock.day(world.getEntityStore().getStore());
+        @SuppressWarnings("unchecked")
+        java.util.Map<String, dev.nakasar.hytale.peuples.world.TradeCatalogue.Source>[] catalogue = new java.util.Map[1];
         List<String> items = new ArrayList<>();
         for (String item : w.requires()) {
-            if (!TradeAccess.available(world, village, item, day)) {
+            if (!TradeAccess.available(world, village, item, day, catalogue)) {
                 items.add(item);
             }
         }
-        int luxuries = Math.max(0, w.requiresLuxuries() - TradeAccess.count(world, village, day));
-        int routes = Math.max(0, w.requiresRoutes() - TradeRoutes.used(world, village));
+        int luxuries = w.requiresLuxuries() <= 0 ? 0 : Math.max(0, w.requiresLuxuries() - TradeAccess.count(world, village, day));
+        int routes = w.requiresRoutes() <= 0 ? 0 : Math.max(0, w.requiresRoutes() - TradeRoutes.used(world, village));
         if (items.isEmpty() && luxuries == 0 && routes == 0) {
             return null;
         }
@@ -166,8 +171,10 @@ public final class Projects {
             return null;
         }
         long day = GameClock.day(world.getEntityStore().getStore());
+        @SuppressWarnings("unchecked")
+        java.util.Map<String, dev.nakasar.hytale.peuples.world.TradeCatalogue.Source>[] catalogue = new java.util.Map[1];
         for (String item : s.requires()) {
-            if (TradeAccess.available(world, village, item, day)) {
+            if (TradeAccess.available(world, village, item, day, catalogue)) {
                 return null;
             }
         }

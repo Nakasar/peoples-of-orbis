@@ -270,7 +270,7 @@ public final class TradeCaravans {
                 if (Ambushes.over(world, store, c.walkKey())) {
                     c.ambush = 1;
                     if (Ambushes.repelled(c.walkKey())) {
-                        repelled(world, store, c, from);
+                        repelled(world, store, c, path, from);
                     }
                 }
             }
@@ -459,6 +459,18 @@ public final class TradeCaravans {
         return true;
     }
 
+    /** Vrai si la position est à moins de 2 × {@value Travellers#ESCORT_RANGE} blocs (à plat) de la caravane. */
+    private static boolean near(Vector3d at, Caravan c, Routes.Path path) {
+        if (at == null) {
+            return false;
+        }
+        double range = 2.0 * Travellers.ESCORT_RANGE;
+        double[] here = path.point(c.at);
+        double dx = at.x() - here[0];
+        double dz = at.z() - here[1];
+        return dx * dx + dz * dz <= range * range;
+    }
+
     /** L'escorteur doit rester près de la caravane pendant le trajet (comme pour les voyageurs). */
     private static void followEscort(World world, Store<EntityStore> store, Caravan c, Routes.Path path, Village to, float dt) {
         if ("-".equals(c.escort)) {
@@ -466,15 +478,9 @@ public final class TradeCaravans {
         }
         PlayerRef escort = escortOf(world, c);
         Vector3d at = escort == null ? null : Requests.position(store, escort.getReference());
-        double range = 2.0 * Travellers.ESCORT_RANGE;
-        if (at != null) {
-            double[] here = path.point(c.at);
-            double dx = at.x() - here[0];
-            double dz = at.z() - here[1];
-            if (dx * dx + dz * dz <= range * range) {
-                ESCORT_AWAY_FOR.remove(c.id);
-                return;
-            }
+        if (near(at, c, path)) {
+            ESCORT_AWAY_FOR.remove(c.id);
+            return;
         }
         float away = ESCORT_AWAY_FOR.merge(c.id, dt, Float::sum);
         if (away < Travellers.ESCORT_AWAY) {
@@ -490,10 +496,10 @@ public final class TradeCaravans {
     }
 
     /** L'embuscade est repoussée : l'escorteur encore près de la caravane reçoit une faveur du peuple de départ. */
-    private static void repelled(World world, Store<EntityStore> store, Caravan c, Village from) {
+    private static void repelled(World world, Store<EntityStore> store, Caravan c, Routes.Path path, Village from) {
         PlayerRef escort = escortOf(world, c);
         Ref<EntityStore> ref = escort == null ? null : escort.getReference();
-        if (ref == null || !ref.isValid()) {
+        if (ref == null || !ref.isValid() || !near(Requests.position(store, ref), c, path)) {
             return;
         }
         String favour = from.people().favorItem();

@@ -320,6 +320,9 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
                 boolean mine = data != null && data.request(Workshops.masterId(village, w, state)) != null;
                 if (mine) {
                     PlayerRequest r = data.request(Workshops.masterId(village, w, state));
+                    if (t != null) {
+                        line = Message.translation(KEYS + "nextMaster").param("title", Requests.boardTitle(t, r.needed()));
+                    }
                     line = Message.empty().insert(line).insert("\n").insert(Requests.task(store, playerRef, r, t, village,
                             Requests.position(store, playerRef.getReference())));
                 } else {

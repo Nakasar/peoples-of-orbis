@@ -1299,6 +1299,9 @@ def specialties(doc, wid, people, name_fr, name_en, items, roles, fr, en, errors
                     en[f"barter.W_{wid}_{sid}_{level}.title"] = f"{name_en}: {sen} {ROMAN[level]}"
                 spec["ShareItem"], spec["ShareQuantity"] = two[0][0], two[0][1]
             doc["Specialties"].append(spec)
+            # La page de choix n'a que generate_workshop_ui.SPECIALTIES cartes (WorkshopSpecialtyPage.CARDS).
+            if len(doc["Specialties"]) > 4:
+                raise SystemExit(f"{wid} : {len(doc['Specialties'])} spécialités, 4 cartes au plus sur la page de choix")
             fr[f"workshop.specialty.{wid}.{sid}"] = sfr
             en[f"workshop.specialty.{wid}.{sid}"] = sen
             fr[f"workshop.specialtyLine.{wid}.{sid}"] = lfr

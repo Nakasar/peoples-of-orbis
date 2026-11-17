@@ -77,13 +77,31 @@ public final class TradeAccess {
      * luxe du terroir dès le palier 2 ; pas la réexportation, qui suppose déjà l'accès).
      */
     public static boolean available(World world, Village v, String item, long day) {
+        return available(world, v, item, day, null);
+    }
+
+    /**
+     * Comme {@link #available(World, Village, String, long)}, avec le catalogue du village calculé une fois pour
+     * plusieurs objets : {@code catalogue} est un tableau d'une case, rempli au premier besoin (ou null).
+     */
+    @SuppressWarnings("unchecked")
+    public static boolean available(World world, Village v, String item, long day, Map<String, TradeCatalogue.Source>[] catalogue) {
         if (item == null) {
             return false;
         }
         if (has(world, v, item, day)) {
             return true;
         }
-        TradeCatalogue.Source source = TradeCatalogue.of(world, v, null, day).get(item);
+        Map<String, TradeCatalogue.Source> sources;
+        if (catalogue == null) {
+            sources = TradeCatalogue.of(world, v, null, day);
+        } else {
+            if (catalogue[0] == null) {
+                catalogue[0] = TradeCatalogue.of(world, v, null, day);
+            }
+            sources = catalogue[0];
+        }
+        TradeCatalogue.Source source = sources.get(item);
         if (source != null && source != TradeCatalogue.Source.REEXPORT) {
             return true;
         }

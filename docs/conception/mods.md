@@ -1472,8 +1472,8 @@ Kevin (2026-11-16, doc « Structurer les types de bâtiments », commentaires in
   cuir (Kweebecs, Renoncés), fer (Trorks, Ferans) ou cuivre (Slothians). Choix refusé au terrain (`plot.requires`) ;
   spécialité refusée ; boutique ramenée au niveau I tant que la ressource manque.
 - **Escorte des caravanes** (`TradeCaravans.escort`, dialogue `Monde_Commerce` → « Que portes-tu ? » → escorte) :
-  un seul escorteur, perdu à plus de 2 × 48 blocs pendant 60 s ; +25 de réputation au départ et +12 à l'arrivée s'il
-  est là ; une faveur du peuple de départ si l'embuscade est repoussée (`Ambushes.repelled`).
+  un seul escorteur, perdu à plus de 2 × 24 blocs (`Travellers.ESCORT_RANGE`) pendant 60 s ; à l'arrivée, s'il est
+  là, +25 de réputation au village de départ et +12 à celui d'arrivée (comme les voyageurs) ; une faveur du peuple de départ si l'embuscade est repoussée et qu'il est près de la caravane (`Ambushes.repelled`).
 
 ### À vérifier en jeu (familles)
 

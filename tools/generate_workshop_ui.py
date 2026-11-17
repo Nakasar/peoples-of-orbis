@@ -300,8 +300,8 @@ def page(theme_id):
     return "\n".join(L).replace("Style: LabelStyle(", "Style: (") + "\n"
 
 
-SPECIALTIES = 3            # spécialités au plus par bâtiment (3 pour un enclos, 2 sinon)
-SPEC_WIDTH, SPEC_HEIGHT = 980, 520
+SPECIALTIES = 4            # spécialités au plus par bâtiment (4 pour la Bergerie du givre avec la Laiterie, 2 ou 3 sinon)
+SPEC_WIDTH, SPEC_HEIGHT = 1180, 520
 
 
 def specialty_page(theme_id):
