@@ -95,7 +95,7 @@ public final class Sieges {
             return Message.translation(KEYS + "truce").param("village", owner.name());
         }
         if (!Allegiance.canHold(world, v)) {
-            return Message.translation(Heraldry.KEYS + "embassy.full").param("village", v.name()).param("cap", Allegiance.cap(v));
+            return Message.translation(Heraldry.KEYS + "embassy.full").param("village", v.name()).param("cap", Allegiance.cap(world, v));
         }
         if (Allegiance.expeditionCooling(world, v, day)) {
             return Message.translation(KEYS + "cooling");
@@ -103,8 +103,9 @@ public final class Sieges {
         if (!HamletTrips.ofKind(world, HamletTrips.EXPEDITION).isEmpty()) {
             return Message.translation(KEYS + "busy");
         }
-        if (Math.sqrt(v.horizontalDistanceSquared(h.x(), h.z())) > Allegiance.RANGE) {
-            return Message.translation(Heraldry.KEYS + "embassy.far").param("range", Allegiance.RANGE);
+        double[] start = dev.nakasar.hytale.peuples.annex.Infrastructures.expeditionStart(world, v, h.x(), h.z());
+        if (Math.hypot(start[0] - h.x(), start[1] - h.z()) > Allegiance.RANGE) {
+            return Message.translation(Heraldry.KEYS + "embassy.far").param("range", Allegiance.RANGE); // depuis le fortin le plus avancé
         }
         return null;
     }
@@ -227,8 +228,9 @@ public final class Sieges {
         Walk walk = Walk.of(t.walkKey());
         List<Ref<EntityStore>> live = walk.alive();
         if (live.isEmpty() && t.walkers > 0 && WorldLife.budget(world, t.walkers)) {
-            // Les soldats arrivent du côté de leur village, à une douzaine de blocs de la place.
-            double dx = v.x() - m[0], dz = v.z() - m[1];
+            // Les soldats arrivent à une douzaine de blocs de la place.
+            double[] from = t.start(v); // du côté d'où la troupe est partie (fortin ou village)
+            double dx = from[0] - m[0], dz = from[1] - m[1];
             double len = Math.max(1, Math.hypot(dx, dz));
             for (int i = 0; i < t.walkers; i++) {
                 Vector3d at = WorldLife.ground(world, (int) Math.floor(m[0] + dx / len * 12 + (i - t.walkers / 2.0) * 2),
@@ -243,6 +245,9 @@ public final class Sieges {
             }
             live = walk.alive();
         }
+        // Pas de régénération hors combat pendant tout l'assaut, pour les deux camps (règle n° 1, Kevin 2026-11-17).
+        WorldLife.assault(live);
+        WorldLife.assault(Garrisons.alive(h.id()));
         Vector3d centre = WorldLife.ground(world, m[0], m[1], 6);
         if (centre != null) {
             for (Ref<EntityStore> ref : live) {

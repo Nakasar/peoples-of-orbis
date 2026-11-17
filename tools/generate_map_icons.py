@@ -76,6 +76,33 @@ def annex_figure(scale):
     return mask
 
 
+def annex_flag(scale):
+    """Le fanion seul de l'avant-poste (pour le teindre à la couleur de la bannière du village qui tient l'ouvrage)."""
+    s = scale
+    mask = Image.new("L", (SIZE * s, SIZE * s), 0)
+    ImageDraw.Draw(mask).polygon([(37 * s, 7 * s), (46 * s, 11 * s), (37 * s, 16 * s)], fill=255)
+    return mask
+
+
+# Couleurs des bannières, dans l'ordre de Heraldry.COLOURS / COLOUR_HEX (tools/generate_conquest.py).
+BANNER_COLOURS = {"Red": "#a8242a", "Blue": "#284c9c", "Green": "#2e783e", "Yellow": "#deb034", "White": "#e2ded0",
+                  "Black": "#4a4650", "Purple": "#6a3084", "Orange": "#d66e24"}
+
+
+def rgb(hexa, alpha=255):
+    return tuple(int(hexa[i:i + 2], 16) for i in (1, 3, 5)) + (alpha,)
+
+
+def ouvrage_icon(body, flag, thickness):
+    """Ouvrage (Kevin, 2026-11-17) : la cabane de l'avant-poste, fanion teint à la couleur de bannière du village qui le tient."""
+    img = icon(body, thickness, annex_figure)
+    big = SIZE * SS
+    tint = Image.new("RGBA", (big, big), (0, 0, 0, 0))
+    tint.paste(Image.new("RGBA", (big, big), flag), (0, 0), annex_flag(SS))
+    img.alpha_composite(tint.resize((SIZE, SIZE), Image.LANCZOS))
+    return img
+
+
 def hamlet_figure(scale):
     """Lieu-dit : un poteau indicateur à deux planches fléchées (vers la gauche et vers la droite) sur une butte."""
     s = scale
@@ -111,6 +138,21 @@ def main():
     icon((232, 120, 84, 255), 3, trork_figure).save(OUT / "Nakasar_Peuples_TrorkCompass.png")
     icon((240, 228, 190, 255), 2, annex_figure).save(OUT / "Nakasar_Peuples_Annex.png")
     icon((226, 196, 106, 255), 3, annex_figure).save(OUT / "Nakasar_Peuples_AnnexCompass.png")
+    # Ouvrages : fanion à la couleur de bannière du village qui le tient ; siège = cabane rouge (alterne pour clignoter),
+    # ruine = gris (annex/AnnexMarkers).
+    sheet_icons = []
+    for name, hexa in BANNER_COLOURS.items():
+        m = ouvrage_icon((240, 228, 190, 255), rgb(hexa), 2)
+        m.save(OUT / f"Nakasar_Peuples_Ouvrage_{name}.png")
+        ouvrage_icon((226, 196, 106, 255), rgb(hexa), 3).save(OUT / f"Nakasar_Peuples_Ouvrage_{name}Compass.png")
+        sheet_icons.append(m)
+    siege = icon((236, 64, 52, 255), 2, annex_figure)
+    siege.save(OUT / "Nakasar_Peuples_Ouvrage_Siege.png")
+    icon((236, 64, 52, 255), 3, annex_figure).save(OUT / "Nakasar_Peuples_Ouvrage_SiegeCompass.png")
+    ruin = icon((140, 136, 128, 255), 2, annex_figure)
+    ruin.save(OUT / "Nakasar_Peuples_Ouvrage_Ruin.png")
+    icon((120, 116, 110, 255), 3, annex_figure).save(OUT / "Nakasar_Peuples_Ouvrage_RuinCompass.png")
+    sheet_icons += [siege, ruin]
     icon((222, 234, 248, 255), 2, hamlet_figure).save(OUT / "Nakasar_Peuples_Hamlet.png")
     icon((128, 184, 232, 255), 3, hamlet_figure).save(OUT / "Nakasar_Peuples_HamletCompass.png")
     print("icônes écrites dans", OUT.relative_to(ROOT))
@@ -120,6 +162,10 @@ def main():
         sheet.alpha_composite(marker.resize((4 * SIZE, 4 * SIZE), Image.NEAREST), (10, 10))
         sheet.alpha_composite(compass.resize((4 * SIZE, 4 * SIZE), Image.NEAREST), (20 + 4 * SIZE, 10))
         sheet.save(args.preview / "icones_carte.png")
+        strip = Image.new("RGBA", (len(sheet_icons) * (3 * SIZE + 8) + 8, 3 * SIZE + 16), (88, 108, 136, 255))
+        for i, m in enumerate(sheet_icons):
+            strip.alpha_composite(m.resize((3 * SIZE, 3 * SIZE), Image.NEAREST), (8 + i * (3 * SIZE + 8), 8))
+        strip.save(args.preview / "icones_ouvrages.png")
 
 
 if __name__ == "__main__":

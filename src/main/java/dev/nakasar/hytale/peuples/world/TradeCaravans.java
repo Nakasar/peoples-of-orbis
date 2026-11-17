@@ -264,7 +264,8 @@ public final class TradeCaravans {
                 arrive(world, store, c, from, to);
                 continue;
             }
-            boolean moving = !night;
+            // Halte de nuit : là où elle est, ou au poste routier devant elle (Kevin, 2026-11-17).
+            boolean moving = !night || dev.nakasar.hytale.peuples.annex.Infrastructures.nightWalk(world, from, path, c.at);
             if (c.ambush == 2) {
                 moving = false;
                 if (Ambushes.over(world, store, c.walkKey())) {

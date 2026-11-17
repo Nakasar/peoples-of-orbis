@@ -51,6 +51,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *   <li>Un porteur tué lâche sa part de la cargaison au sol. Tué par un joueur : malus de réputation violent
  *       ({@value #KILL_PENALTY}, en plus de celui du meurtre d'un villageois) auprès du village. Plus de porteur : la
  *       livraison du jour est perdue, le convoi suivant part le lendemain matin.</li>
+ *   <li>La nuit, un convoi qui atteint un poste routier ({@link Infrastructures#nightHalt}) s'y arrête jusqu'au jour ;
+ *       sans poste devant lui, il marche de nuit comme de jour.</li>
  *   <li>Arrivé : la cargaison restante entre au dépôt (dès que son coffre est chargé). Dépôt plein : ce qui n'entre
  *       pas reste porté et le convoi attend devant le dépôt qu'on y fasse de la place.</li>
  * </ul>
@@ -120,6 +122,25 @@ public final class Convoys {
         // Monde vivant : embuscade à mi-chemin ; tant que la bande est là, le convoi attend.
         if (dev.nakasar.hytale.peuples.world.Ambushes.convoy(world, store, key, a, path, village.people(), refs, players)) {
             return;
+        }
+        // Halte de nuit au poste routier (Kevin, 2026-11-17) : arrivé au poste la nuit, le convoi y attend le jour.
+        if (GameClock.isNight(store)) {
+            double halt = Infrastructures.nightHalt(world, village, path, a.convoyAt());
+            if (halt >= 0 && a.convoyAt() >= halt - Infrastructures.HALT_BEFORE) {
+                for (int i = 0; i < refs.size(); i++) {
+                    NPCEntity npc = store.getComponent(refs.get(i), NPCEntity.getComponentType());
+                    if (npc != null) {
+                        npc.setLeashPoint(ground(world, a, path, a.convoyAt(), i));
+                    }
+                }
+                if (!near(players, here[0], here[1], SPAWN_RADIUS)) {
+                    despawn(store, key);
+                } else if (refs.isEmpty()) {
+                    spawn(world, store, village, w, a, key, path);
+                }
+                STUCK.remove(key);
+                return;
+            }
         }
         if (!near(players, here[0], here[1], SPAWN_RADIUS)) {
             despawn(store, key);

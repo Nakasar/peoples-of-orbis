@@ -24,10 +24,10 @@ Un lieu-dit peut passer à un village de quatre façons :
 
 - **L'ambassade** : deux négociateurs et un garde partent du village et parlementent une heure sur la place. Leurs chances montent si le lieu-dit les apprécie déjà, si un ami du village les escorte, si un habitant leur a écrit une lettre ; elles baissent avec chaque garde du propriétaire présent. Si le village est rival du propriétaire et que des gardes sont là, l'ambassade est chassée.
 - **Le ralliement** : un lieu-dit qui adore un village depuis une semaine finit par se donner à lui.
-- **La conquête** : un village du palier 3 peut envoyer une troupe contre le lieu-dit d'un rival. Si vous êtes présent, c'est un vrai combat entre les soldats et les gardes ; sinon, il se règle sans vous. Le vainqueur occupe le lieu-dit une semaine, et le lieu-dit lui en veut.
+- **La conquête** : un village du palier 3 peut envoyer une troupe contre le lieu-dit d'un rival. Si vous êtes présent, c'est un vrai combat entre les soldats et les gardes ; sinon, il se règle sans vous. La troupe part du [fortin](infrastructures.md) du village le plus proche du lieu-dit, s'il en a un plus près que le village. Pendant tout l'assaut, ni les soldats ni les gardes ne se soignent hors combat. Le vainqueur occupe le lieu-dit une semaine, et le lieu-dit lui en veut.
 - **La sécession** : un lieu-dit maltraité par son propriétaire finit par rejeter son autorité et redevient libre.
 
-Un village tient un lieu-dit au palier 2, trois au palier 3, et un de plus par niveau de sa **Maison du conseil**, un bâtiment qu'on construit sur un emplacement libre (spécialités Diplomatie et Garnison).
+Un village tient un lieu-dit au palier 2, trois au palier 3, et un de plus par niveau de sa **Maison du conseil**, un bâtiment qu'on construit sur un emplacement libre (spécialités Diplomatie et Garnison), et un de plus s'il tient une **forteresse** (la sienne, ou celle d'un rival qu'il a prise).
 
 ## Un lieu-dit tenu
 
