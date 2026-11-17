@@ -2230,8 +2230,14 @@ Kevin, 17 novembre 2026 : le gestionnaire ne passe pas par les pages du panneau.
   par message.
 - Backends : API Claude (`/v1/messages`, défaut `claude-haiku-5-5`) ou serveur local compatible OpenAI
   (`/v1/chat/completions` : Ollama, llama.cpp...). Conversation tenue au format Claude, traduite pour le local.
-- Contexte : consignes (rôle, ton du peuple, 1 à 3 phrases, ne rien inventer, ne pas dire fait une action retenue,
-  hors sujet décliné), liste des sujets, et le texte du tableau pour ce joueur (`VillageBoard.body` ; l'atelier pour un
+- Le modèle JOUE le PNJ (Kevin, 2026-11-17, après essai en jeu : réponses trop mécaniques). Consignes : il est cet
+  habitant, avec la voix de son peuple (`Steward.voice`, plus les répliques écrites du crieur du peuple
+  `dialogue.<Peuple>_Crieur.*` comme exemples de ton) ; jamais de chiffre de jeu (essor, points de réputation, seuils),
+  jamais de jargon (« demande n°1 », case, onglet, outil, identifiant) ; le rang se dit tel quel (Étranger, Ami...) et
+  règle le ton ; pas de récitation de l'état à un simple bonjour. L'essor est donné au modèle en mots
+  (`StewardData.essorInWords`) ; les chiffres et ids lus restent pour choisir les paramètres des outils.
+- Contexte : ces consignes (plus 1 à 3 phrases, ne rien inventer, ne pas dire fait une action retenue, hors sujet
+  éludé), liste des sujets, et le texte du tableau pour ce joueur (`VillageBoard.body` ; l'atelier pour un
   lieu-dit). Mémoire : 10 derniers tours par joueur, oubliée quand il parle à un autre gestionnaire, quitte le serveur,
   ou après une heure sans parler. Le nom du joueur n'est jamais envoyé (« le joueur »).
 - Secours sans modèle, réplique fixe du jeu (`steward.fallback.*`) : désactivé, clé absente, budget du jour épuisé
