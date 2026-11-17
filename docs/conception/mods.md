@@ -2165,6 +2165,11 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
 - Les rectangles d'un même bâtiment ont la même taille : la plus grande boîte de ses paliers (mesurée sur les prefabs
   chargés) plus 3 blocs d'herbe de marge, liseré de laine rouge `Cloth_Block_Wool_Red` au sol. Chaque palier est
   centré dans son rectangle.
+- Panneau de métier (Kevin, 17 novembre 2026 : « rajoute le panneau sur les prefabs à l'emplacement où il apparaît ») :
+  champ `Board` du palier (« dx dz lacet Bloc », bloc vanilla dont hérite le tableau du peuple, sans tableau à ouvrir),
+  posé par `ReviewMap.placeBoard` avec `Workshops.boardSpot`, la même recherche qu'en jeu (plaqué au mur, ou entré dans
+  le bâtiment). Bâtiments de métier et projets : place de `tools/building_growth.py` (section `Review`) ; avant-postes :
+  sur leur fondation (`Fixe`). Un bâtiment propre n'a pas de panneau.
 - Liseré de **laine bleue** `Cloth_Block_Wool_Blue` (Kevin, 17 novembre 2026) : palier que le bâtiment peut montrer en
   jeu mais dont la version ne tient pas à sa place au village (`Incompatibles` de `paliers-batiments.json`, calculés par
   `tools/building_growth.py`) ; le village garde alors une version plus petite. La raison est dans les notes du panneau.
@@ -2217,6 +2222,8 @@ village, sinon celle du palier d'avant :
   façade. Si cette case est sur la place, chez un voisin, hors du terrain ou contre un autre panneau, il passe au bord
   intérieur de l'emprise (`Inside`). En jeu, `Workshops.placeBoard` le plaque contre le mur derrière lui ; si la façade
   est pleine à cet endroit, il entre dans le bâtiment jusqu'à la première case libre (8 blocs au plus) ;
+  placement à la main : table `BOARD_MANUAL` de `tools/building_growth.py`, (plan, bâtiment, palier) → (dx, dz, lacet)
+  relatifs au point de collage, dans le repère du prefab non tourné (celui de la carte de revue) ;
 - avant-poste : chaque pièce garde sa rotation, bouge au plus de 4 blocs, reste dans `Annex.Rect`, sans chevaucher une
   autre pièce ni le panneau. Le panneau d'un avant-poste reste sur sa fondation, hors de `Annex.Rect` : un avant-poste
   incompatible l'est parce que la version plus grande sort de son rectangle.
