@@ -45,7 +45,9 @@ RES = ROOT / "src/main/resources/Server"
 COMMON = ROOT / "src/main/resources/Common"
 ROLES = RES / "NPC/Roles/Nakasar/Peuples"
 ITEMS = RES / "Item/Items/Nakasar/Peuples"
-FRACTAL_ICONS = ROOT.parent / "nakasar-fractals/src/main/resources/Common/UI/StatusEffects/Nakasar/Fractals"
+# Icônes reprises du mod Fractales (dépôt Nakasar/hytale-modding) : déjà copiées dans STATUS_ICONS, recopiées seulement
+# si le dépôt hytale-modding est cloné à côté de celui-ci.
+FRACTAL_ICONS = ROOT.parent / "hytale-modding/mods/nakasar-fractals/src/main/resources/Common/UI/StatusEffects/Nakasar/Fractals"
 STATUS_ICONS = COMMON / "UI/StatusEffects/Nakasar/Peuples"
 TITLE_MAX = 24
 LANG_BEGIN = "# ---- Étape 8 : zones 2 et 3 (généré par tools/generate_zones.py, ne pas modifier à la main) ----"
@@ -793,7 +795,10 @@ def climate_assets():
     # Icônes : hypothermie et chaleur copiées de la fractale Tempête de neige ; soif et désaltéré dessinées ici.
     STATUS_ICONS.mkdir(parents=True, exist_ok=True)
     for name in [f"Hypothermia_{n}" for n in range(1, 6)] + ["Warmth"]:
-        shutil.copyfile(FRACTAL_ICONS / f"{name}.png", STATUS_ICONS / f"{name}.png")
+        if (FRACTAL_ICONS / f"{name}.png").exists():
+            shutil.copyfile(FRACTAL_ICONS / f"{name}.png", STATUS_ICONS / f"{name}.png")
+        elif not (STATUS_ICONS / f"{name}.png").exists():
+            raise SystemExit(f"Icône {name}.png absente : clonez Nakasar/hytale-modding à côté de ce dépôt.")
     draw_status_icons()
 
 

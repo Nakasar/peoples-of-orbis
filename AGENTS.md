@@ -1,7 +1,10 @@
 # Consignes pour les agents
 
-Ce dépôt contient les mods Hytale de Nakasar (`mods/nakasar-vampires`, `mods/nakasar-fractals`, `mods/nakasar-peuples`). La documentation est
-rédigée en français.
+Ce dépôt contient le mod Hytale **Peuples d'Orbis** de Nakasar (plugin Java + pack d'assets, à la racine : `src/`,
+`tools/`), sa conception (`docs/conception/`) et son wiki joueur (`docs/wiki/` + site `wiki/`, publié sur
+https://orbis.nakasar.xyz). Les autres mods Nakasar (Vampires, Fractales) vivent dans le dépôt
+[Nakasar/hytale-modding](https://github.com/Nakasar/hytale-modding) ; les règles ci-dessous valent pour tous. La
+documentation est rédigée en français.
 
 ## Règles permanentes (valables pour TOUS les mods)
 
@@ -34,5 +37,6 @@ Consignes de Kevin (25 octobre 2026), à respecter pour chaque mob, boss, élite
 
 ## Vérifications
 
-`./gradlew validateJson build` puis, par mod, `validateRoles` et `validateAssets`. Un id vanilla que le validateur ne
+`./gradlew build` (compile, `validateJson`, `checkSystemRegistrations`, `validateRoles`, `validateAssets`) ; le wiki :
+`cd wiki && npm ci && npm run build` (liens cassés refusés). Un id vanilla que le validateur ne
 connaît pas s'ajoute dans `tools/vanilla-refs-0.7.2.txt`, uniquement après l'avoir vu dans les fichiers du jeu.

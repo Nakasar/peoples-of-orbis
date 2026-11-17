@@ -16,12 +16,11 @@ son climat, la récompense des champions et l'onglet **Peuples** du wiki joueur.
 | Faveur | `Nakasar_Peuples_Favor_Slothian`, Cendre bénie (modèle des gravats de charbon) |
 | Fin de chaîne | `Nakasar_Peuples_Vigil`, Veille des Slothians (modèle du cœur du Vide) |
 
-Tout le contenu est généré par `mods/nakasar-peuples/tools/generate_slothians.py`, qui réutilise les briques de
+Tout le contenu est généré par `tools/generate_slothians.py`, qui réutilise les briques de
 `generate_zones.py` (rôles de service et de métier, raids, dialogues, demandes, échoppes, langues). Les langues forment
 un bloc « étape 9 » en tête des deux fichiers `nakasar_peuples.lang` (contrôle des doublons et des titres de 24
 caractères, comme à l'étape 8).
 
-    cd mods/nakasar-peuples
     python3 tools/generate_slothians.py --preview /chemin/apercus   # plan PNG du monastère en option
 
 ## Les rôles, écrits depuis les modèles vanilla

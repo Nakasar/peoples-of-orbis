@@ -286,7 +286,7 @@ public class ValidateRoles {
     array.forEach(e -> builders.add(e.getAsJsonObject()));
     builders.sort(java.util.Comparator.comparing((com.google.gson.JsonObject o) -> str(o, "Category")).thenComparing(o -> str(o, "Name")));
     StringBuilder md = new StringBuilder("# Briques des rôles de PNJ (serveur Hytale 0.7.2)\n\n"
-        + "Généré par `java -cp Server-0.7.2.jar mods/nakasar-fractals/tools/ValidateRoles.java --descriptors docs/npc-reference-0.7.2.md`.\n"
+        + "Généré par `java -cp Server-0.7.2.jar tools/ValidateRoles.java --descriptors docs/npc-reference-0.7.2.md`.\n"
         + "`*` = obligatoire ; `(computable)` = accepte `{\"Compute\": \"...\"}`.\n\n");
     for (var b : builders) {
       md.append("## ").append(str(b, "Category")).append(" / ").append(str(b, "Name")).append("  [").append(str(b, "State")).append("]\n");

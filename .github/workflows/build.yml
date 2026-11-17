@@ -1,5 +1,7 @@
 name: build
 
+# Compile le plugin, lance les validateurs (validateJson, checkSystemRegistrations, validateRoles, validateAssets :
+# tous branchés sur `check`) et publie le jar du mod en artefact.
 on:
   push:
     branches: ["main"]
@@ -19,12 +21,11 @@ jobs:
           distribution: temurin
           java-version: "25"
       - uses: gradle/actions/setup-gradle@v5
-      - name: Build (compile, validateJson, jar, zip, pack)
-        run: ./gradlew build packMods --no-daemon
-      # L'artefact téléchargé depuis GitHub est un zip contenant directement les jars des mods (Vampires, Fractales, Peuples) :
-      # il s'extrait tel quel dans le dossier mods/ d'une save.
+      - name: Build (compile, validateurs, jar)
+        run: ./gradlew build --no-daemon
+      # Le jar s'extrait du zip téléchargé et se dépose tel quel dans le dossier mods/ d'une save ou d'un serveur.
       - uses: actions/upload-artifact@v6
         with:
-          name: Nakasar-Mods-Pack
-          path: build/mods-pack/
+          name: Nakasar-Peuples
+          path: build/libs/Nakasar-Peuples-*.jar
           if-no-files-found: error

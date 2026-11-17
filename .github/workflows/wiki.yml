@@ -1,18 +1,14 @@
 name: wiki
 
-# Construit le wiki joueur (site Docusaurus dans wiki/, pages Markdown dans docs/wiki) à chaque PR qui le
-# touche, et le publie sur GitHub Pages à chaque push sur main. Prérequis : Settings > Pages > Source =
-# « GitHub Actions ».
+# Construit le wiki joueur (site Docusaurus dans wiki/, pages Markdown dans docs/wiki, icônes du pack) à chaque PR
+# qui le touche, et le publie sur GitHub Pages (https://orbis.nakasar.xyz) à chaque push sur main. Prérequis :
+# Settings > Pages > Source = « GitHub Actions » et domaine personnalisé orbis.nakasar.xyz (voir README).
 on:
   push:
     branches: ["main"]
-    paths: ["wiki/**", "docs/wiki/**", "mods/nakasar-vampires/src/main/resources/Common/**",
-            "mods/nakasar-fractals/src/main/resources/Common/**",
-            ".github/workflows/wiki.yml"]
+    paths: ["wiki/**", "docs/wiki/**", "src/main/resources/Common/**", ".github/workflows/wiki.yml"]
   pull_request:
-    paths: ["wiki/**", "docs/wiki/**", "mods/nakasar-vampires/src/main/resources/Common/**",
-            "mods/nakasar-fractals/src/main/resources/Common/**",
-            ".github/workflows/wiki.yml"]
+    paths: ["wiki/**", "docs/wiki/**", "src/main/resources/Common/**", ".github/workflows/wiki.yml"]
   workflow_dispatch:
 
 permissions:

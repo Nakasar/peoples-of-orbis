@@ -16,12 +16,11 @@ l'étape 7 (camp trork, PR #111).
 | Objet de passage | Bracelet de vent (saut x1,35) | Manteau du givre (annule le froid) |
 
 Tout le contenu (plans, rôles, dialogues, demandes, échoppes, raids, objets, effets, icônes, langues) est généré par
-`mods/nakasar-peuples/tools/generate_zones.py`. Les langues de l'étape 8 forment un bloc en tête des deux fichiers
+`tools/generate_zones.py`. Les langues de l'étape 8 forment un bloc en tête des deux fichiers
 `nakasar_peuples.lang`, réécrit à chaque passage. Le générateur échoue si une clé du bloc existe déjà ailleurs dans le
 fichier, ou si un titre de demande dépasse **24 caractères**. Kevin, le 14 novembre 2026 : « Tous les titres doivent tenir et ne
 pas être coupés » dans le suivi d'objectifs.
 
-    cd mods/nakasar-peuples
     python3 tools/generate_zones.py --preview /chemin/apercus   # plans PNG des deux villages en option
 
 ## Les villages se posent seuls

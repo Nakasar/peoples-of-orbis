@@ -1,6 +1,6 @@
 # Peuples d'Orbis : le mod
 
-Mod `mods/nakasar-peuples` (manifest `Nakasar:Peuples`, jar `Nakasar-Peuples-<version>.jar`, plugin
+Mod Peuples d'Orbis (dépôt Nakasar/peoples-of-orbis, manifest `Nakasar:Peuples`, jar `Nakasar-Peuples-<version>.jar`, plugin
 `dev.nakasar.hytale.peuples.PeuplesPlugin`). Des villages vivants des peuples d'Orbis, façon Millénaire, qui grandissent
 avec l'aide du joueur. Le game design document validé par Kevin le 14 novembre 2026 :
 https://claude.ai/artifact/FJ15VjWp3pgnt9kmRWjfV7 (plan en 9 étapes, une PR par étape).
@@ -2091,7 +2091,7 @@ Colonne « Monde » : auberges, campements, vestiges et Source de l'Écho (lus d
 
 Régénérer après un changement des plans, avant-postes, lieux-dits ou structures :
 
-    python3 mods/nakasar-peuples/tools/building_tiers.py
+    python3 tools/building_tiers.py
 
 Le script écrit `src/main/resources/nakasar-peuples/revue-batiments.json` (229 bâtiments et structures, 817
 rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt` et prefabs du mod).

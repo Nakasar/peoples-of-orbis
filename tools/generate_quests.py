@@ -10,7 +10,7 @@ destruction et boss, pour les cinq peuples.
     (generate_raids.raider) : ils gardent leur repaire (point d'attache) et frappent à vue. Les coups annoncés, les
     renforts et la barre de vie sont en Java (boss/QuestBosses, boss/QuestBossBar) ;
   * les zones d'annonce rouges des chefs (Server/Particles/Nakasar/Peuples/Warnings), copie de
-    nakasar-fractals/tools/generate_warnings.py avec les ids préfixés Nakasar_Peuples_ et seulement les formes en usage
+    hytale-modding/mods/nakasar-fractals/tools/generate_warnings.py avec les ids préfixés Nakasar_Peuples_ et seulement les formes en usage
     (cercle, ligne 14 × 3, cône de 90°), et boss/WarningShapes.java ;
   * les vingt modèles de demande (Server/Nakasar/Requests/<Peuple>/<Peuple>_{Caravan,Harvest,Destroy,Boss}_*.json) ;
   * le bloc « Quêtes » des fichiers .lang fr-FR et en-US (entre deux marqueurs, réécrit à chaque passage).
@@ -222,7 +222,7 @@ def requests(pid, spec):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Zones d'annonce (copie de nakasar-fractals/tools/generate_warnings.py)
+# Zones d'annonce (copie de hytale-modding/mods/nakasar-fractals/tools/generate_warnings.py)
 # ----------------------------------------------------------------------------------------------------------------------
 
 SCALE = 0.68

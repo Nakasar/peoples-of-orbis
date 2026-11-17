@@ -1,0 +1,29 @@
+name: release
+
+# Publie une version du mod : pousser une étiquette vX.Y.Z (git tag v0.2.0 && git push origin v0.2.0) construit le
+# jar avec cette version (manifest compris), lance tous les validateurs et crée la release GitHub avec le jar.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "25"
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Build (compile, validateurs, jar)
+        run: ./gradlew build --no-daemon -Pmod_version="${GITHUB_REF_NAME#v}"
+      - name: Release GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" build/libs/Nakasar-Peuples-*.jar
+          --title "Peuples d'Orbis $GITHUB_REF_NAME" --generate-notes --verify-tag
