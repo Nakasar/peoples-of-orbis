@@ -10,7 +10,7 @@ $C.@PageOverlay {
   LayoutMode: Middle;
 
   $C.@DecoratedContainer {
-    Anchor: (Width: 980, Height: 520);
+    Anchor: (Width: 1180, Height: 520);
 
     #Title {
       Group {
@@ -76,7 +76,7 @@ $C.@PageOverlay {
         Group #Spec2 {
           LayoutMode: Top;
           FlexWeight: 1;
-          Anchor: (Right: 0);
+          Anchor: (Right: 14);
           Padding: (Horizontal: 16, Vertical: 14);
           Background: (Color: #2b2043(0.75));
           Group #SpecStripe2 { Anchor: (Height: 3, Bottom: 12); Background: (Color: #b99be8(0.6)); }
@@ -95,6 +95,29 @@ $C.@PageOverlay {
           Group { FlexWeight: 1; }
           Label #SpecState2 { Anchor: (Height: 36, Bottom: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, Wrap: true); Text: ""; }
           $C.@SmallSecondaryTextButton #SpecChoose2 { @Text = ""; @Anchor = Anchor(Height: 32); }
+        }
+        Group #Spec3 {
+          LayoutMode: Top;
+          FlexWeight: 1;
+          Anchor: (Right: 0);
+          Padding: (Horizontal: 16, Vertical: 14);
+          Background: (Color: #2b2043(0.75));
+          Group #SpecStripe3 { Anchor: (Height: 3, Bottom: 12); Background: (Color: #b99be8(0.6)); }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 64);
+            Group {
+              LayoutMode: Full;
+              Anchor: (Width: 64, Height: 64, Right: 14);
+              Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+              ItemIcon #SpecIcon3 { Anchor: (Full: 8); }
+            }
+            Label #SpecName3 { Style: (FontSize: 18, FontName: "Secondary", RenderBold: true, RenderUppercase: true, TextColor: #b99be8, VerticalAlignment: Center, Wrap: true); Text: ""; FlexWeight: 1; }
+          }
+          Label #SpecLine3 { Anchor: (Top: 12); Style: @Body; Text: ""; }
+          Group { FlexWeight: 1; }
+          Label #SpecState3 { Anchor: (Height: 36, Bottom: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, Wrap: true); Text: ""; }
+          $C.@SmallSecondaryTextButton #SpecChoose3 { @Text = ""; @Anchor = Anchor(Height: 32); }
         }
       }
       Group {

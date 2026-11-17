@@ -34,7 +34,7 @@ public final class WorkshopSpecialtyPage extends InteractiveCustomUIPage<Worksho
     private static final String LAYOUT = "Pages/Nakasar/Peuples/WorkshopSpecialtyPage.ui";
     private static final String KEYS = Workshops.KEYS;
     private static final List<String> THEMED = List.of("Kweebec", "Trork", "Feran", "Renonce", "Slothian");
-    private static final int CARDS = 3;
+    private static final int CARDS = 4;
 
     /** Donnée d'un clic : {@code Choose0..2}, {@code Back}. */
     public static final class Event {

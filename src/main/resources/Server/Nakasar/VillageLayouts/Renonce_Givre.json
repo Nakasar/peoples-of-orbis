@@ -265,6 +265,21 @@
       "Plot": "E1"
     },
     {
+      "Id": "E1_Caserne",
+      "Tier": 2,
+      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_004",
+      "X": 28,
+      "Z": -30,
+      "Rotation": 0,
+      "MinX": -7,
+      "MaxX": 7,
+      "MinZ": -7,
+      "MaxZ": 7,
+      "MinY": -6,
+      "MaxY": 7,
+      "Plot": "E1"
+    },
+    {
       "Id": "E1_Bibliotheque",
       "Tier": 2,
       "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
@@ -292,6 +307,21 @@
       "MaxZ": 7,
       "MinY": -4,
       "MaxY": 14,
+      "Plot": "E1"
+    },
+    {
+      "Id": "E1_Halle",
+      "Tier": 2,
+      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_005",
+      "X": 28,
+      "Z": -30,
+      "Rotation": 0,
+      "MinX": -7,
+      "MaxX": 7,
+      "MinZ": -7,
+      "MaxZ": 7,
+      "MinY": -7,
+      "MaxY": 6,
       "Plot": "E1"
     },
     {
@@ -385,6 +415,21 @@
       "Plot": "E2"
     },
     {
+      "Id": "E2_Caserne",
+      "Tier": 3,
+      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_004",
+      "X": -39,
+      "Z": 13,
+      "Rotation": 0,
+      "MinX": -7,
+      "MaxX": 7,
+      "MinZ": -7,
+      "MaxZ": 7,
+      "MinY": -6,
+      "MaxY": 7,
+      "Plot": "E2"
+    },
+    {
       "Id": "E2_Bibliotheque",
       "Tier": 3,
       "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
@@ -412,6 +457,21 @@
       "MaxZ": 7,
       "MinY": -4,
       "MaxY": 14,
+      "Plot": "E2"
+    },
+    {
+      "Id": "E2_Halle",
+      "Tier": 3,
+      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_005",
+      "X": -39,
+      "Z": 13,
+      "Rotation": 0,
+      "MinX": -7,
+      "MaxX": 7,
+      "MinZ": -7,
+      "MaxZ": 7,
+      "MinY": -7,
+      "MaxY": 6,
       "Plot": "E2"
     },
     {
@@ -505,6 +565,21 @@
       "Plot": "E3"
     },
     {
+      "Id": "E3_Caserne",
+      "Tier": 2,
+      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_004",
+      "X": 0,
+      "Z": 48,
+      "Rotation": 0,
+      "MinX": -7,
+      "MaxX": 7,
+      "MinZ": -7,
+      "MaxZ": 7,
+      "MinY": -6,
+      "MaxY": 7,
+      "Plot": "E3"
+    },
+    {
       "Id": "E3_Bibliotheque",
       "Tier": 2,
       "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
@@ -532,6 +607,21 @@
       "MaxZ": 7,
       "MinY": -4,
       "MaxY": 14,
+      "Plot": "E3"
+    },
+    {
+      "Id": "E3_Halle",
+      "Tier": 2,
+      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_005",
+      "X": 0,
+      "Z": 48,
+      "Rotation": 0,
+      "MinX": -7,
+      "MaxX": 7,
+      "MinZ": -7,
+      "MaxZ": 7,
+      "MinY": -7,
+      "MaxY": 6,
       "Plot": "E3"
     }
   ],
@@ -757,6 +847,19 @@
       "Builder": false
     },
     {
+      "Id": "Capitaine_E1",
+      "Tier": 2,
+      "Role": "Nakasar_Peuples_Renonce_Guard",
+      "Dialogue": "Renonce_Guard",
+      "Building": "E1_Caserne",
+      "WorkX": 28,
+      "WorkZ": -21,
+      "Home": "E1_Caserne",
+      "HomeX": 28,
+      "HomeZ": -21,
+      "Builder": false
+    },
+    {
       "Id": "Archiviste_E1",
       "Tier": 2,
       "Role": "Nakasar_Peuples_Renonce_Elder",
@@ -778,6 +881,19 @@
       "WorkX": 28,
       "WorkZ": -21,
       "Home": "E1_Temple",
+      "HomeX": 28,
+      "HomeZ": -21,
+      "Builder": false
+    },
+    {
+      "Id": "Maitre_Halle_E1",
+      "Tier": 2,
+      "Role": "Nakasar_Peuples_Renonce_Merchant",
+      "Dialogue": "Renonce_Marchand",
+      "Building": "E1_Halle",
+      "WorkX": 28,
+      "WorkZ": -21,
+      "Home": "E1_Halle",
       "HomeX": 28,
       "HomeZ": -21,
       "Builder": false
@@ -861,6 +977,19 @@
       "Builder": false
     },
     {
+      "Id": "Capitaine_E2",
+      "Tier": 3,
+      "Role": "Nakasar_Peuples_Renonce_Guard",
+      "Dialogue": "Renonce_Guard",
+      "Building": "E2_Caserne",
+      "WorkX": -30,
+      "WorkZ": 13,
+      "Home": "E2_Caserne",
+      "HomeX": -30,
+      "HomeZ": 13,
+      "Builder": false
+    },
+    {
       "Id": "Archiviste_E2",
       "Tier": 3,
       "Role": "Nakasar_Peuples_Renonce_Elder",
@@ -882,6 +1011,19 @@
       "WorkX": -30,
       "WorkZ": 13,
       "Home": "E2_Temple",
+      "HomeX": -30,
+      "HomeZ": 13,
+      "Builder": false
+    },
+    {
+      "Id": "Maitre_Halle_E2",
+      "Tier": 3,
+      "Role": "Nakasar_Peuples_Renonce_Merchant",
+      "Dialogue": "Renonce_Marchand",
+      "Building": "E2_Halle",
+      "WorkX": -30,
+      "WorkZ": 13,
+      "Home": "E2_Halle",
       "HomeX": -30,
       "HomeZ": 13,
       "Builder": false
@@ -965,6 +1107,19 @@
       "Builder": false
     },
     {
+      "Id": "Capitaine_E3",
+      "Tier": 2,
+      "Role": "Nakasar_Peuples_Renonce_Guard",
+      "Dialogue": "Renonce_Guard",
+      "Building": "E3_Caserne",
+      "WorkX": 0,
+      "WorkZ": 39,
+      "Home": "E3_Caserne",
+      "HomeX": 0,
+      "HomeZ": 39,
+      "Builder": false
+    },
+    {
       "Id": "Archiviste_E3",
       "Tier": 2,
       "Role": "Nakasar_Peuples_Renonce_Elder",
@@ -986,6 +1141,19 @@
       "WorkX": 0,
       "WorkZ": 39,
       "Home": "E3_Temple",
+      "HomeX": 0,
+      "HomeZ": 39,
+      "Builder": false
+    },
+    {
+      "Id": "Maitre_Halle_E3",
+      "Tier": 2,
+      "Role": "Nakasar_Peuples_Renonce_Merchant",
+      "Dialogue": "Renonce_Marchand",
+      "Building": "E3_Halle",
+      "WorkX": 0,
+      "WorkZ": 39,
+      "Home": "E3_Halle",
       "HomeX": 0,
       "HomeZ": 39,
       "Builder": false

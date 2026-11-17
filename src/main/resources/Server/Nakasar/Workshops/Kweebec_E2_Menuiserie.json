@@ -63,12 +63,19 @@
       "Quantity": 6
     }
   ],
+  "Requires": [
+    "Ingredient_Leather_Medium"
+  ],
   "Specialties": [
     {
       "Id": "Mobilier",
       "NameKey": "nakasar_peuples.workshop.specialty.Kweebec_E2_Menuiserie.Mobilier",
       "LineKey": "nakasar_peuples.workshop.specialtyLine.Kweebec_E2_Menuiserie.Mobilier",
       "Icon": "Furniture_Kweebec_Table",
+      "Requires": [
+        "Ingredient_Bolt_Cotton",
+        "Ingredient_Bolt_Wool"
+      ],
       "Shops": [
         "Nakasar_Peuples_W_Kweebec_E2_Menuiserie_Mobilier_2",
         "Nakasar_Peuples_W_Kweebec_E2_Menuiserie_Mobilier_3"

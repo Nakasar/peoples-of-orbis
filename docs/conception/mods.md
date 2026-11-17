@@ -1446,12 +1446,40 @@ Kevin (2026-11-16, doc « Structurer les types de bâtiments », commentaires in
 
 - Poste routier : halte de nuit des convois ; Fortin comme point de départ des expéditions ; gardes d'ouvrage plus
   solides avec la Caserne ; forteresse prise comptée pour le plafond de lieux-dits de l'occupant.
-- Bibliothèque : effets Cartographes (carte) et Maîtres (commandes de maître réduites) ; Temple : Bénédiction et fête
-  hebdomadaire ; Négociants à 30 d'influence (la spécialité garde l'effet de l'ancienne Diplomatie).
-- Slothians : pas encore d'atelier. Les Renoncés n'ont pas de Caserne : leur Chenil (Défense) prend Garnison à la place des Traîneaux.
+- Temple : Bénédiction et fête hebdomadaire.
+- Cartographes : les gisements riches proches ne sont pas encore sur la carte (seulement les lieux-dits).
+- Halle marchande : la case d'export de plus au niveau III.
 - Carte : le nom du repère dit occupant, siège ou ruine ; pas de couleur de bannière ni de clignotement.
 
+### Fait le 17 novembre 2026 (idées laissées de côté des PR #170 et #172)
+
+- **Bibliothèque** (`Projects.KNOWLEDGE`) : Maîtres (`Projects.masterNeeded`) = commandes de maître de récolte,
+  fabrication et plantation à 75 % (arrondi au-dessus), quantité gardée sur la demande prise (`PlayerRequest.Needed`) ;
+  Cartographes = lieux-dits posés à moins de 600 blocs du village marqués sur la carte des joueurs au moins Tolérés
+  (`HamletMarkers.refresh`).
+- **Ambassade** : Négociants (`Allegiance.DIPLOMACY`) = ambassade dès 30 d'influence (`Allegiance.embassyMin`), en
+  plus de +15 % et du ralliement à 70.
+- **Halle marchande** (id `Halle`, catégorie `Commerce`, une par peuple, métier `Maitre_Halle`) : +1 place de route
+  par niveau (`TradeRoutes.hallLevel`) ; Courtiers = une faveur vaut 4 de crédit (`Projects.creditPerFavour`),
+  Entrepôts = une livraison ouvre l'accès 10 jours (`Projects.deliveryDays`).
+- **Slothians** : Taillerie (Artisanat, Pierre sacrée / Dorures, consomme basalte et charbon). **Renoncés** : Caserne
+  de la garnison du givre (Défense) ; le Chenil redevient Élevage avec Traîneaux ; Laiterie à la Bergerie du givre
+  (fromage du givre, chèvres).
+- **Verrouillage par l'accès** (`Projects.projectMissing` / `specialtyMissing`, `TradeAccess.available` = accès,
+  production locale ou terroir au palier ≥ 2) : champs `Requires` (toutes), `RequiresLuxuries`, `RequiresRoutes` des
+  projets, `Requires` (une au moins) des spécialités, depuis `tools/plots.py` (`PROJECT_REQUIRES`, `ARTISAN_REQUIRES`,
+  `SPEC_REQUIRES`). Temple : améthyste + 2 luxes ; Bibliothèque : soie ; Ambassade : 2 routes ouvertes ; Artisans :
+  cuir (Kweebecs, Renoncés), fer (Trorks, Ferans) ou cuivre (Slothians). Choix refusé au terrain (`plot.requires`) ;
+  spécialité refusée ; boutique ramenée au niveau I tant que la ressource manque.
+- **Escorte des caravanes** (`TradeCaravans.escort`, dialogue `Monde_Commerce` → « Que portes-tu ? » → escorte) :
+  un seul escorteur, perdu à plus de 2 × 24 blocs (`Travellers.ESCORT_RANGE`) pendant 60 s ; à l'arrivée, s'il est
+  là, +25 de réputation au village de départ et +12 à celui d'arrivée (comme les voyageurs) ; une faveur du peuple de départ si l'embuscade est repoussée et qu'il est près de la caravane (`Ambushes.repelled`).
+
 ### À vérifier en jeu (familles)
+
+- Escorte : la réputation à l'arrivée, la faveur après l'embuscade repoussée.
+- Les prefabs des Halles marchandes et de la Taillerie (orientation, entrée).
+- Les lieux-dits des Cartographes sur la carte.
 
 - Les trois terrains de la page Projets (largeur des boutons), la liste qui défile.
 - Les prefabs des nouveaux projets (orientation, entrée) et les gisements mesurés.
@@ -1924,8 +1952,7 @@ Textes, onglet, demandes et dialogue : `tools/generate_trade.py`.
   Rival) ou village ↔ lieu-dit posé sans embargo (pseudo-village `H:<lieu-dit>`). Ouverte à l'onglet Commerce par un
   joueur Ami du village et Toléré du partenaire (5 faveurs), ou par le conseil du matin (1/10 par village avec une
   place libre, 6 routes autonomes au plus par monde ; cases choisies seules, luxes manquants d'abord). Places : palier
-  0/1/2/3 → 0/1/2/3, + niveau de la Halle marchande (atelier `*_Halle`, fil des familles de bâtiments ; 0 tant qu'il
-  n'existe pas) ; lieu-dit 2, 3 animé.
+  0/1/2/3 → 0/1/2/3, + niveau de la Halle marchande (projet `Halle`, catégorie Commerce) ; lieu-dit 2, 3 animé.
 - **Niveaux** I/II/III : 1/2/3 cases d'export par côté, caravane tous les 3/2/1 jours. II : `Routes.gap == 0`, 8
   arrivées, palier 2 des deux bouts ; III : 20 arrivées, palier 3 d'un bout, auberge ouverte si la liaison ≥ 400
   (`Inns`). 5 faveurs par niveau. 3 caravanes perdues d'affilée : −1 niveau. Rivalité ou embargo : suspendue, rompue
@@ -1942,7 +1969,7 @@ Textes, onglet, demandes et dialogue : `tools/generate_trade.py`.
   mi-chemin : 1/6 (1/12 route balisée), évitée par `Territories.spared` ; témoin → `Ambushes.roll(force)`, sinon −⅓ de
   chaque marchandise. Porteurs tous tués : cargaison au sol (`Deposits.drop`), perte comptée. Arrivée : dépôt (le reste
   dans la boîte `~inbox:<village>`, vidée quand le dépôt est chargé), accès, +1 essor, passage `Links.pass`, influence
-  du lieu-dit (`Allegiance.merchantArrived`). Dialogue `Monde_Commerce` (TradeShop, TradeWhere), rumeurs.
+  du lieu-dit (`Allegiance.merchantArrived`). Dialogue `Monde_Commerce` (TradeShop, TradeWhere, TradeEscort), rumeurs.
 - **Accès** (`TradeAccess`, partie `TradeAccess`, `village|objet = dernier jour`) : 7 jours par livraison. Au matin,
   2 luxes du dépôt chargé prolongent de 3 jours un accès qui finit. Une demande « Luxe d'ailleurs » remplie
   (`Requests/<Peuple>/Luxe/`, Gather palier ≥ 2, tirée seulement si le village n'a pas ce luxe) donne 3 jours d'accès

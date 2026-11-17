@@ -278,17 +278,9 @@ public final class TradeRoutes {
         return Math.max(0, Math.min(3, v.tier())) + hallLevel(v);
     }
 
-    /**
-     * Niveau de la Halle marchande (fil « familles de bâtiments ») : une place de route de plus par niveau. Tant que ce
-     * bâtiment n'existe pas dans le mod, 0.
-     */
+    /** Niveau de la Halle marchande (projet Commerce, bâtie) : une place de route de plus par niveau. */
     static int hallLevel(Village v) {
-        for (var ws : v.workshops()) {
-            if (ws.id() != null && ws.id().endsWith("_Halle")) {
-                return ws.level();
-            }
-        }
-        return 0;
+        return v.isHamlet() ? 0 : dev.nakasar.hytale.peuples.workshop.Projects.level(v, dev.nakasar.hytale.peuples.workshop.Projects.COMMERCE);
     }
 
     public static int used(World world, Village v) {
@@ -489,7 +481,7 @@ public final class TradeRoutes {
         if (!pay(store, ref, v, 1)) {
             return Message.translation(KEYS + "why.offering").param("count", 1);
         }
-        r.addCredit(v.id(), CREDIT_PER_FAVOUR);
+        r.addCredit(v.id(), dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(v));
         save(world, r);
         return null;
     }

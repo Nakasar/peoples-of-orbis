@@ -66,6 +66,9 @@
       "Quantity": 1
     }
   ],
+  "Requires": [
+    "Ingredient_Leather_Medium"
+  ],
   "Specialties": [
     {
       "Id": "Viandes_Fumees",

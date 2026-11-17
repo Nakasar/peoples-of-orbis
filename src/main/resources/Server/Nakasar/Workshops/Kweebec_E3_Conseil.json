@@ -57,6 +57,7 @@
     }
   ],
   "Category": "Diplomatie",
+  "RequiresRoutes": 2,
   "Specialties": [
     {
       "Id": "Diplomatie",

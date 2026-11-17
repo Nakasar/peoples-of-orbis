@@ -66,12 +66,18 @@
       "Quantity": 2
     }
   ],
+  "Requires": [
+    "Ingredient_Leather_Medium"
+  ],
   "Specialties": [
     {
       "Id": "Armes",
       "NameKey": "nakasar_peuples.workshop.specialty.Renonce_E1_Forge.Armes",
       "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_E1_Forge.Armes",
       "Icon": "Weapon_Spear_Iron",
+      "Requires": [
+        "Ingredient_Bar_Iron"
+      ],
       "Shops": [
         "Nakasar_Peuples_W_Renonce_E1_Forge_Armes_2",
         "Nakasar_Peuples_W_Renonce_E1_Forge_Armes_3"

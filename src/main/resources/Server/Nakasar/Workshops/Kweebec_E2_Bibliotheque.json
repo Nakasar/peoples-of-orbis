@@ -57,6 +57,9 @@
     }
   ],
   "Category": "Savoir",
+  "Requires": [
+    "Ingredient_Bolt_Silk"
+  ],
   "Specialties": [
     {
       "Id": "Cartographes",

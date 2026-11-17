@@ -44,6 +44,8 @@ public final class Ambushes {
 
     private static final Map<String, Band> ACTIVE = new ConcurrentHashMap<>();
     private static final Set<String> CONVOYS_ROLLED = ConcurrentHashMap.newKeySet();
+    /** Caravanes commerciales dont la dernière embuscade a été repoussée (bande tuée avant la fin du temps) : lu par {@link #repelled}. */
+    private static final Set<String> REPELLED = ConcurrentHashMap.newKeySet();
 
     private Ambushes() {
     }
@@ -123,6 +125,9 @@ public final class Ambushes {
         }
         release(store, key, band);
         if (!timeout) {
+            if (key.startsWith("TC:")) {
+                REPELLED.add(key); // caravanes des routes commerciales : la faveur de l'escorteur
+            }
             Vector3d at = null;
             Walk w = Walk.peek(key);
             if (w != null && !w.alive().isEmpty()) {
@@ -154,6 +159,11 @@ public final class Ambushes {
             }
         }
         ACTIVE.remove(key);
+    }
+
+    /** Vrai (une seule fois) si la dernière embuscade de la file `key` a été repoussée. */
+    static boolean repelled(String key) {
+        return REPELLED.remove(key);
     }
 
     public static boolean active(String key) {
@@ -214,5 +224,6 @@ public final class Ambushes {
     public static void clearAll() {
         ACTIVE.clear();
         CONVOYS_ROLLED.clear();
+        REPELLED.clear();
     }
 }

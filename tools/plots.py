@@ -245,7 +245,7 @@ PROJECTS = {
                     ("Nasses", "Filets et nasses", "Nets and traps", "Tool_Fishing_Trap", "Nasses, appâts et belles prises.",
                      "Traps, bait and fine catches.", [("Tool_Fishing_Trap", 2, 2), ("Tool_Trap_Bait", 3, 1)],
                      [("Food_Fish_Raw_Epic", 1, 6), ("Tool_Fishing_Trap", 4, 3)], None)]),
-        dict(id="Chenil", category="Defense", prefab=NPC + "Outlander/Misc/Outlander_Misc_002", rotation=0, job="Maitre_Chien", kind="Hunter",
+        dict(id="Chenil", category="Elevage", prefab=NPC + "Outlander/Misc/Outlander_Misc_002", rotation=0, job="Maitre_Chien", kind="Hunter",
              fr="Chenil", en="Kennel", job_fr="Maître-chien", job_en="Dog master", icon="Ingredient_Bone_Fragment",
              orders=[("Meat", "Gather", "Food_Wildmeat_Raw", 8, "Viande des chiens", "Meat for the dogs"),
                      ("Bones", "Gather", "Food_Chicken_Raw", 6, "Volaille des chiens", "Fowl for the dogs"),
@@ -254,10 +254,9 @@ PROJECTS = {
              specs=[("Loups_Garde", "Loups de garde", "Guard wolves", "Ingredient_Hide_Heavy", "Peaux et harnais ; en raid, +1 garde.",
                      "Hides and harness; +1 guard in raids.", [("Ingredient_Hide_Heavy", 2, 1), ("Armor_Leather_Medium_Head", 1, 3)],
                      [("Armor_Leather_Medium_Chest", 1, 4), ("Tool_Capture_Crate", 1, 4)], {"Guards": 1}),
-                    # Le Chenil tient lieu de Caserne chez les Renoncés : Garnison remplace les Traîneaux (même boutique).
-                    ("Garnison", "Garnison", "Garrison", "Ingredient_Strap_Leather",
-                     "Un garde de plus dans chaque lieu-dit, ouvrage et expédition ; sangles, bois et cartes du givre.",
-                     "One more guard in each hamlet, work and expedition; straps, wood and frost maps.", [("Ingredient_Strap_Leather", 4, 1), ("Wood_Fir_Trunk", 16, 1)],
+                    # Kevin (2026-11-17) : les Renoncés ont maintenant leur Caserne ; le Chenil (Élevage) retrouve ses Traîneaux.
+                    ("Traineaux", "Traîneaux", "Sleds", "Ingredient_Strap_Leather", "Sangles, bois et cartes du givre.",
+                     "Straps, wood and frost maps.", [("Ingredient_Strap_Leather", 4, 1), ("Wood_Fir_Trunk", 16, 1)],
                      [("Tool_Map", 1, 4), ("Armor_Wool_Legs", 1, 4)], None)]),
         dict(id="Deuxieme_Bergerie", category="Elevage", prefab=PEN + "Renonce_Pen", rotation=0, job="Berger_Bis", kind="Breeder",
              fr="Deuxième bergerie", en="Second fold", job_fr="Berger", job_en="Shepherd", icon="Ingredient_Fabric_Scrap_Wool",
@@ -328,8 +327,8 @@ PROJECTS = {
 # +15 %, ralliement dès +70) et Garnison (un garde de plus par lieu-dit, relève le jour même, un soldat de plus par
 # expédition ; Garnison est maintenant à la Caserne). Au niveau III, le tribut prend un tiers de la production au lieu d'un quart.
 COUNCIL_SPECS = [
-    ("Diplomatie", "Négociants", "Negotiators", "Recipe_Page", "Ambassades plus sûres, ralliement plus tôt ; rouleaux et parchemins.",
-     "Surer embassies, earlier rallies; bolts and scrolls.", [("Ingredient_Bolt_Cotton", 4, 1), ("Recipe_Page", 2, 1)],
+    ("Diplomatie", "Négociants", "Negotiators", "Recipe_Page", "Ambassades dès 30 d'influence et plus sûres, ralliement plus tôt ; rouleaux et parchemins.",
+     "Embassies from 30 influence and surer, earlier rallies; bolts and scrolls.", [("Ingredient_Bolt_Cotton", 4, 1), ("Recipe_Page", 2, 1)],
      [("Ingredient_Bolt_Linen", 4, 2), ("Ingredient_Bolt_Wool", 4, 2)], None),
     # Garnison passe à la Caserne (doc « Structurer les types de bâtiments », Kevin 2026-11-16) ; l'Ambassade prend les Hérauts.
     ("Herauts", "Hérauts", "Heralds", "Deco_Scroll", "Les relations avec les autres villages remontent deux fois plus vite ; cartes et bannières.",
@@ -411,9 +410,11 @@ def temple(prefab, kind, fr, en, job_fr, job_en, offering, candle, specs, dialog
 
 
 KNOWLEDGE_SPECS = [
-    ("Cartographes", "Cartographes", "Cartographers", "Deco_Map", "Cartes et relevés des environs.", "Maps and surveys of the land.",
+    ("Cartographes", "Cartographes", "Cartographers", "Deco_Map", "Les lieux-dits à moins de 600 blocs apparaissent sur la carte ; cartes et relevés.",
+     "Hamlets within 600 blocks show on the map; maps and surveys.",
      [("Deco_Map", 1, 2), ("Tool_Map", 1, 3)], [("Objective_Treasure_Map", 1, 5), ("Deco_Book_Pile_Large", 1, 3)], None),
-    ("Maitres", "Maîtres", "Masters", "Recipe_Page", "Recettes et livres de savoir.", "Recipes and books of lore.",
+    ("Maitres", "Maîtres", "Masters", "Recipe_Page", "Commandes de maître réduites d'un quart ; recettes et livres de savoir.",
+     "Master orders a quarter smaller; recipes and books of lore.",
      [("Recipe_Page", 2, 2), ("Deco_Inkwell", 1, 2)], [("Recipe_Food_Pie_Meat", 1, 4), ("Recipe_Food_Pie_Pumpkin", 1, 4)], None),
 ]
 
@@ -463,6 +464,10 @@ PROJECTS["Feran_Oasis"] += [
            cult_specs([("Food_Kebab_Fruit", 2, 1), ("Furniture_Temple_Wind_Candle", 2, 2)], [("Food_Salad_Berry", 3, 2), ("Furniture_Feran_Bookshelf", 1, 3)])),
 ]
 PROJECTS["Renonce_Givre"] += [
+    caserne("Outlander/Misc/Outlander_Misc_004", "Guard", "Garnison du givre", "Frost garrison", "Capitaine repenti",
+            "Penitent captain", "Wood_Fir_Trunk", "Ingredient_Bar_Iron",
+            ([("Weapon_Spear_Iron", 1, 4), ("Armor_Leather_Medium_Head", 1, 2)], [("Weapon_Shield_Iron", 1, 4), ("Armor_Wool_Chest", 1, 3)]),
+            ([("Weapon_Club_Iron", 1, 4), ("Armor_Leather_Heavy_Legs", 1, 4)], [("Weapon_Crossbow_Iron", 1, 5), ("Armor_Leather_Heavy_Chest", 1, 5)])),
     bibliotheque("Outlander/Houses/Tier1/Outlander_Houses_Tier1_003", "Elder", "Archives du givre", "Frost archives", "Archiviste",
                  "Archivist", "Ingredient_Hide_Light", "Ingredient_Charcoal", KNOWLEDGE_SPECS),
     temple("Outlander/Misc/Outlander_Misc_006", "Elder", "Chapelle des repentis", "Chapel of the repentant", "Chapelain",
@@ -475,6 +480,59 @@ PROJECTS["Slothian_Monastere"] += [
             ([("Weapon_Spear_Crude", 2, 3), ("Armor_Cloth_Linen_Head", 1, 2)], [("Weapon_Shield_Wood", 2, 3), ("Armor_Cloth_Linen_Chest", 1, 3)]),
             ([("Weapon_Spear_Iron", 1, 5), ("Armor_Cloth_Linen_Legs", 1, 3)], [("Weapon_Shield_Iron", 1, 5), ("Armor_Cloth_Silk_Chest", 1, 5)])),
 ]
+
+# ---- Halle marchande (catégorie Commerce, Kevin 2026-11-17 ; doc des routes commerciales) ----
+# Une place de route commerciale de plus par niveau (world/TradeRoutes.slots). Spécialités Courtiers (une faveur versée
+# au crédit d'une route vaut 4 au lieu de 3) et Entrepôts (une marchandise livrée par caravane ouvre l'accès 10 jours
+# au lieu de 7) : workshop/Projects.
+HALL_SPECS = [
+    ("Courtiers", "Courtiers", "Brokers", "Deco_Scroll",
+     "Une faveur versée au crédit d'une route vaut 4 au lieu de 3 ; étoffes et cartes.",
+     "A favour paid into a route's credit is worth 4 instead of 3; cloth and maps.",
+     [("Ingredient_Bolt_Linen", 3, 1), ("Deco_Map", 1, 2)], [("Ingredient_Bolt_Silk", 1, 3), ("Tool_Map", 1, 3)], None),
+    ("Entrepots", "Entrepôts", "Warehouses", "Tool_Capture_Crate",
+     "Ce que livrent les caravanes reste en accès 10 jours au lieu de 7 ; sacs et caisses.",
+     "What caravans deliver stays available for 10 days instead of 7; bags and crates.",
+     [("Tool_Feedbag", 1, 2), ("Ingredient_Strap_Leather", 3, 1)], [("Tool_Capture_Crate", 1, 4), ("Container_Bucket", 2, 2)], None),
+]
+
+
+def halle(prefab, wood, extra, extra_fr, extra_en, dialogue, rotation=0):
+    return dict(id="Halle", category="Commerce", prefab=NPC + prefab, rotation=rotation, job="Maitre_Halle", kind="Merchant",
+                dialogue=dialogue, fr="Halle marchande", en="Market hall", job_fr="Maître de la halle", job_en="Hall master",
+                icon="Ingredient_Bolt_Linen",
+                orders=[("Stalls", "Gather", wood, 16, "Bois des étals", "Wood for the stalls"),
+                        ("Awnings", "Gather", "Plant_Crop_Cotton_Item", 10, "Coton des bâches", "Cotton for the awnings"),
+                        ("Goods", "Gather", extra, 6, extra_fr, extra_en)],
+                base=[("Ingredient_Stick", 8, 1), ("Container_Bucket", 1, 2), ("Ingredient_Bolt_Linen", 1, 2)], specs=HALL_SPECS)
+
+
+PROJECTS["Kweebec_Oak"].append(halle("Kweebec/Oak/Shops/Kweebec_Oak_Shops_008", "Wood_Oak_Trunk", "Ingredient_Tree_Sap",
+                                     "Sève pour les conserves", "Sap for preserves", "Kweebec_Marchand"))
+PROJECTS["Trork_Camp"].append(halle("Trork/Misc/Large/Trork_Misc_Large_006", "Wood_Oak_Trunk", "Ingredient_Hide_Light",
+                                    "Peaux pour le troc", "Hides for barter", "Trork_Marchand"))
+PROJECTS["Feran_Oasis"].append(halle("Feran/Tier2/Hut/Feran_Tier2_Hut_002", "Wood_Dry_Trunk", "Ingredient_Salt",
+                                     "Sel pour le troc", "Salt for barter", "Feran_Marchand"))
+PROJECTS["Renonce_Givre"].append(halle("Outlander/Misc/Outlander_Misc_005", "Wood_Fir_Trunk", "Ingredient_Hide_Medium",
+                                       "Fourrures pour le troc", "Furs for barter", "Renonce_Marchand"))
+PROJECTS["Slothian_Monastere"].append(halle("Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002", "Wood_Jungle_Trunk",
+                                            "Furniture_Jungle_Candle", "Bougies pour le troc", "Candles for barter", "Slothian_Marchand"))
+
+# ---- Atelier slothian (Kevin 2026-11-17) : la Taillerie du basalte, premier atelier d'Artisanat des Slothians ----
+PROJECTS["Slothian_Monastere"].append(
+    dict(id="Taillerie", category="Artisanat", prefab=NPC + "Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001", rotation=0,
+         job="Tailleur", kind="AshBearer", fr="Taillerie du basalte", en="Basalt workshop", job_fr="Tailleur de pierre",
+         job_en="Stonecutter", icon="Rock_Basalt_Brick_Ornate",
+         orders=[("Basalt", "Gather", "Rock_Basalt_Cobble", 20, "Basalte à tailler", "Basalt to cut"),
+                 ("Charcoal", "Gather", "Ingredient_Charcoal", 8, "Charbon du four", "Charcoal for the kiln"),
+                 ("Crystals", "Gather", "Ingredient_Crystal_Cyan", 2, "Cristaux à polir", "Crystals to polish")],
+         base=[("Rock_Basalt_Brick", 16, 1), ("Rock_Volcanic_Brick", 16, 1), ("Furniture_Jungle_Torch", 2, 1)],
+         specs=[("Pierre_Sacree", "Pierre sacrée", "Sacred stone", "Rock_Basalt_Brick_Ornate", "Basalte poli, ornements et piliers.",
+                 "Polished basalt, ornaments and pillars.", [("Rock_Basalt_Brick_Smooth", 16, 1), ("Rock_Basalt_Brick_Ornate", 8, 2)],
+                 [("Rock_Basalt_Brick_Pillar_Base", 4, 2), ("Rock_Volcanic_Brick_Ornate", 8, 2)], None),
+                ("Dorures", "Dorures", "Gilding", "Rock_Gold_Brick_Ornate", "Pierre dorée et cristaux d'or ; demande de l'or.",
+                 "Gilded stone and golden crystals; needs gold.", [("Rock_Gold_Brick", 4, 3), ("Rock_Gold_Brick_Decorative", 4, 3)],
+                 [("Rock_Gold_Brick_Ornate", 4, 4), ("Ingredient_Crystal_Yellow", 2, 3)], None)]))
 
 # Les ateliers sont des raffineries : ressources prises chaque matin au dépôt, par niveau (workshop/Inputs). Certaines
 # ne viennent pas du territoire du peuple (sel feran pour le fumoir renoncé, cuivre pour la forge trork…) : une route
@@ -489,7 +547,45 @@ INPUTS = {
     ("Feran_Oasis", "Volerie"): [("Food_Wildmeat_Raw", 2)],
     ("Renonce_Givre", "Forge"): [("Ingredient_Bar_Iron", 1), ("Ingredient_Charcoal", 2)],
     ("Renonce_Givre", "Fumoir"): [("Food_Wildmeat_Raw", 3), ("Ingredient_Salt", 1)],
+    ("Slothian_Monastere", "Taillerie"): [("Rock_Basalt_Cobble", 6), ("Ingredient_Charcoal", 2)],
 }
+
+
+# Verrouillage par l'accès aux ressources (Kevin, 17 novembre 2026 ; doc des routes commerciales, « Propositions ») : le
+# village doit disposer de la ressource, par une route commerciale (accès) ou sa propre production
+# (world/TradeAccess.available). Spécialité : une des ressources suffit ; sans elle on ne la choisit pas, et si l'accès se
+# perd, sa boutique et sa Part de l'Hôte ferment (la boutique de base reste). Jamais de métal pour les Kweebecs.
+SPEC_REQUIRES = {
+    ("Kweebec_Oak", "Menuiserie", "Mobilier"): ["Ingredient_Bolt_Cotton", "Ingredient_Bolt_Wool"],   # coussins et literie
+    ("Trork_Camp", "Tannerie", "Cuirs"): ["Ingredient_Salt"],                                           # sel feran du tannage
+    ("Feran_Oasis", "Tissage", "Voiles"): ["Ingredient_Fabric_Scrap_Wool", "Ingredient_Bolt_Silk"],    # laine ou soie
+    ("Feran_Oasis", "Volerie", "Fleches"): ["Ingredient_Bar_Iron"],
+    ("Renonce_Givre", "Forge", "Armes"): ["Ingredient_Bar_Iron"],                                       # forge sans mine
+    ("Slothian_Monastere", "Taillerie", "Dorures"): ["Ingredient_Bar_Gold"],                            # or, luxe d'ailleurs
+}
+
+# Projets : toutes les ressources de "Items", au moins "Luxuries" luxes qui comptent, "Routes" routes ouvertes.
+# Artisanat (chaque atelier) : le métal ou le cuir fin selon le peuple.
+ARTISAN_REQUIRES = {
+    "Kweebec_Oak": ["Ingredient_Leather_Medium"],
+    "Trork_Camp": ["Ingredient_Bar_Iron"],
+    "Feran_Oasis": ["Ingredient_Bar_Iron"],
+    "Renonce_Givre": ["Ingredient_Leather_Medium"],
+    "Slothian_Monastere": ["Ingredient_Bar_Copper"],
+}
+PROJECT_REQUIRES = {
+    "Temple": {"Items": ["Ingredient_Crystal_Purple"], "Luxuries": 2},   # deux luxes dont les cristaux pourpres
+    "Bibliotheque": {"Items": ["Ingredient_Bolt_Silk"]},
+    "Conseil": {"Routes": 2},                                              # l'Ambassade : deux routes ouvertes
+}
+
+
+def requires(layout_id, project):
+    """Exigences d'accès du projet (dict Items/Luxuries/Routes, vide sans exigence)."""
+    out = dict(PROJECT_REQUIRES.get(project["id"], {}))
+    if project.get("category") == "Artisanat" and not project.get("legacy"):
+        out["Items"] = out.get("Items", []) + ARTISAN_REQUIRES[layout_id]
+    return out
 
 
 def building_id(plot, project):

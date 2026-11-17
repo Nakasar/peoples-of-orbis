@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *   <li>{@code {"Type": "WorldAction", "Action": "..."}} : Shop, Rumour, Escort, Letter, Parley (voyageurs) ; InnShop,
  *       InnTravel, InnLetter (aubergiste) ; CampTurnIn, CampDefend, CampDonate, CampShop (campements) ; HideAndSeek
  *       (enfants) ; FeastOffering, FairRace (hôtes du calendrier).</li>
- *   <li>Commerce : TradeShop, TradeWhere (caravaniers des routes commerciales).</li>
+ *   <li>Commerce : TradeShop, TradeWhere, TradeEscort (caravaniers des routes commerciales).</li>
  *   <li>Conquête : HamletOwner (« à qui appartient ce lieu ? »), HamletRally (lettre de ralliement ; aussi en
  *   WorldCheck).</li>
  *   <li>{@code {"Type": "WorldCheck", "Check": "..."}} : InnLevel2, InnLevel3, Parley (villages rivaux et joueur Ami des
@@ -116,13 +116,16 @@ public final class WorldDialogueTypes {
                     return action.equals("TripShop") ? HamletTrips.openShop(world, c.store(), c.ref(), c.playerRef(), t)
                             : HamletTrips.where(world, c.store(), c.playerRef(), t);
                 }
-                case "TradeShop", "TradeWhere" -> {
+                case "TradeShop", "TradeWhere", "TradeEscort" -> {
                     TradeCaravans.Caravan t = TradeCaravans.of(world, npc);
                     if (t == null) {
                         return false;
                     }
-                    return action.equals("TradeShop") ? TradeCaravans.openShop(world, c.store(), c.ref(), c.playerRef(), t)
-                            : TradeCaravans.where(world, c.store(), c.playerRef(), t);
+                    return switch (action) {
+                        case "TradeShop" -> TradeCaravans.openShop(world, c.store(), c.ref(), c.playerRef(), t);
+                        case "TradeEscort" -> TradeCaravans.escort(world, c.playerRef(), t);
+                        default -> TradeCaravans.where(world, c.store(), c.playerRef(), t);
+                    };
                 }
                 case "CampTurnIn", "CampDefend", "CampDonate", "CampShop" -> {
                     Camps.Camp camp = Camps.of(world, npc);

@@ -315,11 +315,14 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
         switch (next) {
             case MASTER -> {
                 RequestTemplate t = Workshops.master(w, state);
-                line = Message.translation(KEYS + "nextMaster").param("title", t == null ? Message.raw("?") : Requests.boardTitle(t));
+                line = Message.translation(KEYS + "nextMaster").param("title", t == null ? Message.raw("?") : Requests.boardTitle(t, Projects.masterNeeded(village, t)));
                 PeuplesPlayer data = PeuplesPlayer.get(store, playerRef.getReference());
                 boolean mine = data != null && data.request(Workshops.masterId(village, w, state)) != null;
                 if (mine) {
                     PlayerRequest r = data.request(Workshops.masterId(village, w, state));
+                    if (t != null) {
+                        line = Message.translation(KEYS + "nextMaster").param("title", Requests.boardTitle(t, r.needed()));
+                    }
                     line = Message.empty().insert(line).insert("\n").insert(Requests.task(store, playerRef, r, t, village,
                             Requests.position(store, playerRef.getReference())));
                 } else {

@@ -62,6 +62,9 @@
       "Quantity": 4
     }
   ],
+  "Requires": [
+    "Ingredient_Bar_Iron"
+  ],
   "Specialties": [
     {
       "Id": "Lin_Coton",
@@ -80,6 +83,10 @@
       "NameKey": "nakasar_peuples.workshop.specialty.Feran_E2_Tissage.Voiles",
       "LineKey": "nakasar_peuples.workshop.specialtyLine.Feran_E2_Tissage.Voiles",
       "Icon": "Armor_Cloth_Linen_Head",
+      "Requires": [
+        "Ingredient_Fabric_Scrap_Wool",
+        "Ingredient_Bolt_Silk"
+      ],
       "Shops": [
         "Nakasar_Peuples_W_Feran_E2_Tissage_Voiles_2",
         "Nakasar_Peuples_W_Feran_E2_Tissage_Voiles_3"

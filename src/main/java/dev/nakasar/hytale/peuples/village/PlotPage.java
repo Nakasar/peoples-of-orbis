@@ -223,6 +223,7 @@ public final class PlotPage extends InteractiveCustomUIPage<PlotPage.Event> {
     private void catalog(UICommandBuilder cmd, UIEventBuilder events, Store<EntityStore> store, Ref<EntityStore> ref, Village village,
                          VillageLayout.Plot plot) {
         cmd.set("#CatalogHeader.TextSpans", Message.translation(KEYS + "page.catalog").param("plot", plot.id()));
+        World world = store.getExternalData().getWorld();
         PlotState s = village.plot(plot.id());
         boolean locked = s.working() || (s.project() != null && village.isBuilt(s.project()));
         boolean allowed = Plots.block(store, ref, village, plot) == null;
@@ -240,9 +241,9 @@ public final class PlotPage extends InteractiveCustomUIPage<PlotPage.Event> {
             }
             cmd.set("#ProjName" + n + ".TextSpans", Message.translation(Chantiers.buildingKey(b.id())));
             boolean chosen = b.id().equals(s.project());
-            String refusal = chosen ? null : Plots.refusal(village, plot.id(), b);
+            String refusal = chosen ? null : Plots.refusal(world, village, plot.id(), b);
             boolean taken = refusal != null;
-            cmd.set("#ProjLine" + n + ".TextSpans", projectLine(village, w, refusal));
+            cmd.set("#ProjLine" + n + ".TextSpans", projectLine(world, village, w, refusal));
             String button = null;
             if (allowed && !locked) {
                 button = chosen ? "page.clear" : taken ? null : s.project() == null ? "page.choose" : "page.switch";
@@ -257,8 +258,12 @@ public final class PlotPage extends InteractiveCustomUIPage<PlotPage.Event> {
     }
 
     /** Le villageois du projet et ses spécialités (ou « déjà sur l'autre terrain »). */
-    private static Message projectLine(Village village, Workshop w, String refusal) {
+    private static Message projectLine(World world, Village village, Workshop w, String refusal) {
         Message category = Message.translation(KEYS + "category." + (w == null || w.category() == null ? "none" : w.category()));
+        if ("requires".equals(refusal)) {
+            return Message.translation(KEYS + "page.requires").param("category", category)
+                    .param("list", dev.nakasar.hytale.peuples.workshop.Projects.projectMissing(world, village, w));
+        }
         if (refusal != null) {
             return Message.translation(KEYS + "page." + refusal).param("category", category);
         }

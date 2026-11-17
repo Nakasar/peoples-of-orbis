@@ -259,8 +259,17 @@ def dialogue():
         "Nodes": [
             {"Id": "Accueil", "TextKey": k + "accueil", "Responses": [
                 {"TextKey": k + "troc", "Effects": [{"Type": "WorldAction", "Action": "TradeShop"}]},
-                {"TextKey": k + "cargaison", "Effects": [{"Type": "WorldAction", "Action": "TradeWhere"}], "Next": "Accueil"},
+                # Quatre réponses au plus par nœud : l'escorte se propose après « Que portes-tu ? ».
+                {"TextKey": k + "cargaison", "Effects": [{"Type": "WorldAction", "Action": "TradeWhere"}], "Next": "Route"},
                 {"TextKey": "nakasar_peuples.dialogue.Monde.rumeur", "Effects": [{"Type": "WorldAction", "Action": "Rumour"}], "Next": "Rumeur"},
+                {"TextKey": "nakasar_peuples.dialogue.Monde.aurevoir"},
+            ]},
+            {"Id": "Route", "TextKey": k + "routeTexte", "Responses": [
+                {"TextKey": k + "escorte", "Effects": [{"Type": "WorldAction", "Action": "TradeEscort"}], "Next": "Escorte"},
+                {"TextKey": "nakasar_peuples.dialogue.Monde.retour", "Next": "Accueil"},
+                {"TextKey": "nakasar_peuples.dialogue.Monde.aurevoir"},
+            ]},
+            {"Id": "Escorte", "TextKey": k + "escorteTexte", "Responses": [
                 {"TextKey": "nakasar_peuples.dialogue.Monde.aurevoir"},
             ]},
             {"Id": "Rumeur", "TextKey": "nakasar_peuples.dialogue.Monde.rumeurTexte", "Responses": [
@@ -279,6 +288,11 @@ def dialogue():
       "The road is long and the pack beasts are loaded. Want to see what I keep for barter?")
     t(d + "troc", "Montre-moi ton troc.", "Show me your wares.")
     t(d + "cargaison", "Que portes-tu, et pour qui ?", "What are you carrying, and for whom?")
+    t(d + "routeTexte", "La route n'est pas sûre partout. Une lame de plus près des bêtes ne serait pas de refus.",
+      "The road isn't safe everywhere. One more blade by the beasts would be welcome.")
+    t(d + "escorte", "Je vous escorte jusqu'au bout de la route.", "I'll escort you to the end of the road.")
+    t(d + "escorteTexte", "Bonne nouvelle ! Reste près des bêtes, surtout à mi-chemin : c'est là qu'ils frappent.",
+      "Good news! Stay close to the beasts, above all halfway: that's where they strike.")
 
 
 # ---- Textes du Java (clés nakasar_peuples.world.trade.<clé>) ----
@@ -299,6 +313,15 @@ TEXTS = [
     ("empty", "La caravane vers {to} ne part pas : le dépôt n'a rien de ce qu'elle devait porter.",
      "The caravan to {to} does not leave: the deposit holds none of its goods."),
     ("arrived", "La caravane de {from} est arrivée : {goods}.", "The caravan from {from} has arrived: {goods}."),
+    # Escorte d'une caravane (Kevin, 17 novembre 2026)
+    ("escortStart", "Tu escortes la caravane jusqu'à {to}. Reste près d'elle jusqu'à l'arrivée.",
+     "You're escorting the caravan to {to}. Stay close until it arrives."),
+    ("escortTaken", "Quelqu'un escorte déjà cette caravane.", "Someone is already escorting this caravan."),
+    ("escortLost", "Tu as laissé la caravane pour {to} : l'escorte est perdue.", "You left the caravan bound for {to}: the escort is lost."),
+    ("escortDone", "Escorte de la caravane réussie jusqu'à {to} !", "Caravan escort to {to} complete!"),
+    ("escortRepelled", "Embuscade repoussée ! Les caravaniers te remercient : {count} {favor}.",
+     "Ambush repelled! The traders thank you: {count} {favor}."),
+    ("escortReason", "escorte d'une caravane", "escorting a caravan"),
     ("ambushedAway", "La caravane de {from} a été attaquée en chemin : un tiers de sa cargaison est perdu.",
      "The caravan from {from} was attacked on the way: a third of its cargo is lost."),
     ("lost", "La caravane entre {from} et {to} a été détruite ; sa cargaison gît sur la route.",

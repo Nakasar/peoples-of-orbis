@@ -71,6 +71,44 @@ public final class TradeAccess {
         return until(world, v, item) >= day;
     }
 
+    /**
+     * Le village dispose de la ressource ce jour (verrouillage des spécialités et des projets, Kevin, 17 novembre 2026) :
+     * il y a accès par une route ou une demande, ou il la produit lui-même (avant-poste, atelier spécialisé, tribut,
+     * luxe du terroir dès le palier 2 ; pas la réexportation, qui suppose déjà l'accès).
+     */
+    public static boolean available(World world, Village v, String item, long day) {
+        return available(world, v, item, day, null);
+    }
+
+    /**
+     * Comme {@link #available(World, Village, String, long)}, avec le catalogue du village calculé une fois pour
+     * plusieurs objets : {@code catalogue} est un tableau d'une case, rempli au premier besoin (ou null).
+     */
+    @SuppressWarnings("unchecked")
+    public static boolean available(World world, Village v, String item, long day, Map<String, TradeCatalogue.Source>[] catalogue) {
+        if (item == null) {
+            return false;
+        }
+        if (has(world, v, item, day)) {
+            return true;
+        }
+        Map<String, TradeCatalogue.Source> sources;
+        if (catalogue == null) {
+            sources = TradeCatalogue.of(world, v, null, day);
+        } else {
+            if (catalogue[0] == null) {
+                catalogue[0] = TradeCatalogue.of(world, v, null, day);
+            }
+            sources = catalogue[0];
+        }
+        TradeCatalogue.Source source = sources.get(item);
+        if (source != null && source != TradeCatalogue.Source.REEXPORT) {
+            return true;
+        }
+        TradeGoods.Luxury own = TradeGoods.terroir(v.people());
+        return own != null && own.item().equals(item) && v.tier() >= 2;
+    }
+
     /** Objets en accès ce jour (objet → dernier jour), dans l'ordre d'arrivée. */
     public static Map<String, Long> items(World world, Village v, long day) {
         Map<String, Long> out = new LinkedHashMap<>();
