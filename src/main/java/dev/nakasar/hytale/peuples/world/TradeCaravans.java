@@ -9,6 +9,7 @@ import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.NotificationUtil;
 import dev.nakasar.hytale.peuples.PeuplesPlugin;
 import dev.nakasar.hytale.peuples.annex.Routes;
 import dev.nakasar.hytale.peuples.dialogue.Dialogue;
@@ -47,13 +48,21 @@ import java.util.concurrent.ThreadLocalRandom;
  * ({@link Ambushes}) ; sinon la caravane perd un tiers de sa cargaison. Tous les porteurs tués : la cargaison tombe
  * au sol et la route compte une perte ({@value TradeRoutes#LOST_LIMIT} d'affilée font perdre un niveau).
  *
+ * <p>Escorte (Kevin, 17 novembre 2026, laissée de côté par la PR #170) : un joueur la propose au caravanier. S'il reste
+ * près de la caravane ({@value Travellers#ESCORT_AWAY} s au plus à plus de 2 × {@value Travellers#ESCORT_RANGE} blocs)
+ * et qu'il est là à l'arrivée, il gagne la réputation d'escorte des voyageurs : +{@value Travellers#ESCORT_REPUTATION}
+ * auprès du village de départ, la moitié auprès de celui d'arrivée. S'il repousse l'embuscade (bande tuée), une faveur
+ * du peuple de départ aussitôt.
+ *
  * <p>État sauvé ({@link WorldLifeRegistry.Part#TRADE_CARAVANS}) :
- * {@code id = route|de|vers|blocs|porteurs|embuscade (0 à venir, 1 passée, 2 en cours)|objet:n,objet:n}.
+ * {@code id = route|de|vers|blocs|porteurs|embuscade (0 à venir, 1 passée, 2 en cours)|objet:n,objet:n|escorteur (uuid ou -)}.
  */
 public final class TradeCaravans {
 
     public static final int AMBUSH_ODDS = 6;
     public static final String DIALOGUE = "Monde_Commerce";
+    /** Faveurs du peuple de départ pour l'escorteur qui repousse l'embuscade. */
+    public static final int ESCORT_FAVOURS = 1;
 
     /** Une caravane (état sauvé). */
     public static final class Caravan {
@@ -64,6 +73,7 @@ public final class TradeCaravans {
         double at;
         int walkers;
         int ambush;
+        String escort = "-";
         final Map<String, Integer> cargo = new LinkedHashMap<>();
 
         Caravan(String id) {
@@ -89,6 +99,7 @@ public final class TradeCaravans {
                         c.cargo.merge(s.substring(0, cut), Integer.parseInt(s.substring(cut + 1)), Integer::sum);
                     }
                 }
+                c.escort = p.length > 7 && !p[7].isBlank() ? p[7] : "-";
                 return c;
             } catch (NumberFormatException e) {
                 return null;
@@ -102,7 +113,7 @@ public final class TradeCaravans {
                     b.append(b.length() == 0 ? "" : ",").append(e.getKey()).append(':').append(e.getValue());
                 }
             }
-            return route + "|" + from + "|" + to + "|" + String.format(Locale.ROOT, "%.1f", at) + "|" + walkers + "|" + ambush + "|" + b;
+            return route + "|" + from + "|" + to + "|" + String.format(Locale.ROOT, "%.1f", at) + "|" + walkers + "|" + ambush + "|" + b + "|" + escort;
         }
 
         String walkKey() {
@@ -127,6 +138,8 @@ public final class TradeCaravans {
     }
 
     private static final Map<Ref<EntityStore>, String> OWNER = Collections.synchronizedMap(new IdentityHashMap<>());
+    /** Secondes passées par l'escorteur loin de sa caravane (id de la caravane). */
+    private static final Map<String, Float> ESCORT_AWAY_FOR = new java.util.concurrent.ConcurrentHashMap<>();
 
     private TradeCaravans() {
     }
@@ -157,6 +170,8 @@ public final class TradeCaravans {
         WorldLife.registry(world).put(WorldLifeRegistry.Part.TRADE_CARAVANS, c.id, null);
         Walk.end(store, c.walkKey());
         Ambushes.cancel(store, c.walkKey());
+        Ambushes.repelled(c.walkKey());
+        ESCORT_AWAY_FOR.remove(c.id);
     }
 
     /** La route est fermée : ses caravanes rentrent, leur cargaison revient au dépôt du village de départ. */
@@ -254,6 +269,9 @@ public final class TradeCaravans {
                 moving = false;
                 if (Ambushes.over(world, store, c.walkKey())) {
                     c.ambush = 1;
+                    if (Ambushes.repelled(c.walkKey())) {
+                        repelled(world, store, c, from);
+                    }
                 }
             }
             Walk walk = Walk.of(c.walkKey());
@@ -273,6 +291,7 @@ public final class TradeCaravans {
                     path = fresh;
                 }
             }
+            followEscort(world, store, c, path, to, dt);
             if (c.ambush == 0 && c.at >= path.length() / 2) {
                 c.ambush = 1;
                 ambush(world, store, players, c, path, from, to, walk);
@@ -331,6 +350,7 @@ public final class TradeCaravans {
             Links.pass(world, Links.key(from.id(), to.id()), day, Math.max(1, c.walkers));
         }
         Villages.addEssor(to, 1);
+        escortArrived(world, store, c, from, to);
         TradeRoutes.announce(world, to, Message.translation(TradeRoutes.KEYS + "arrived").param("from", TradeRoutes.name(world, from))
                 .param("goods", goodsLine(c.cargo)), NotificationStyle.Success);
         drop(world, store, c);
@@ -407,6 +427,101 @@ public final class TradeCaravans {
         drop(world, store, c);
     }
 
+    // ---- Escorte ----
+
+    private static PlayerRef escortOf(World world, Caravan c) {
+        if ("-".equals(c.escort)) {
+            return null;
+        }
+        for (PlayerRef p : world.getPlayerRefs()) {
+            if (p.getUuid().toString().equals(c.escort)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    /** Le joueur propose son escorte au caravanier (une seule escorte par caravane). */
+    static boolean escort(World world, PlayerRef player, Caravan c) {
+        Village to = TradeRoutes.village(world, c.to);
+        if (to == null) {
+            return false;
+        }
+        String me = player.getUuid().toString();
+        if (!"-".equals(c.escort) && !me.equals(c.escort) && escortOf(world, c) != null) {
+            DialogueSpeech.say(player, Message.translation(TradeRoutes.KEYS + "escortTaken"));
+            return false;
+        }
+        c.escort = me;
+        ESCORT_AWAY_FOR.remove(c.id);
+        save(world, c);
+        DialogueSpeech.say(player, Message.translation(TradeRoutes.KEYS + "escortStart").param("to", TradeRoutes.name(world, to)));
+        return true;
+    }
+
+    /** L'escorteur doit rester près de la caravane pendant le trajet (comme pour les voyageurs). */
+    private static void followEscort(World world, Store<EntityStore> store, Caravan c, Routes.Path path, Village to, float dt) {
+        if ("-".equals(c.escort)) {
+            return;
+        }
+        PlayerRef escort = escortOf(world, c);
+        Vector3d at = escort == null ? null : Requests.position(store, escort.getReference());
+        double range = 2.0 * Travellers.ESCORT_RANGE;
+        if (at != null) {
+            double[] here = path.point(c.at);
+            double dx = at.x() - here[0];
+            double dz = at.z() - here[1];
+            if (dx * dx + dz * dz <= range * range) {
+                ESCORT_AWAY_FOR.remove(c.id);
+                return;
+            }
+        }
+        float away = ESCORT_AWAY_FOR.merge(c.id, dt, Float::sum);
+        if (away < Travellers.ESCORT_AWAY) {
+            return;
+        }
+        ESCORT_AWAY_FOR.remove(c.id);
+        c.escort = "-";
+        if (escort != null) {
+            Message m = Message.translation(TradeRoutes.KEYS + "escortLost").param("to", TradeRoutes.name(world, to));
+            escort.sendMessage(m);
+            NotificationUtil.sendNotification(escort.getPacketHandler(), m, NotificationStyle.Warning);
+        }
+    }
+
+    /** L'embuscade est repoussée : l'escorteur encore près de la caravane reçoit une faveur du peuple de départ. */
+    private static void repelled(World world, Store<EntityStore> store, Caravan c, Village from) {
+        PlayerRef escort = escortOf(world, c);
+        Ref<EntityStore> ref = escort == null ? null : escort.getReference();
+        if (ref == null || !ref.isValid()) {
+            return;
+        }
+        String favour = from.people().favorItem();
+        Requests.give(store, ref, new ItemStack(favour, ESCORT_FAVOURS));
+        Message m = Message.translation(TradeRoutes.KEYS + "escortRepelled").param("count", ESCORT_FAVOURS)
+                .param("favor", dev.nakasar.hytale.peuples.village.VillageBoard.itemName(favour));
+        escort.sendMessage(m);
+        NotificationUtil.sendNotification(escort.getPacketHandler(), m, NotificationStyle.Success);
+    }
+
+    /** Arrivée : l'escorteur qui est là gagne la réputation d'escorte (départ entière, arrivée la moitié). */
+    private static void escortArrived(World world, Store<EntityStore> store, Caravan c, Village from, Village to) {
+        PlayerRef p = escortOf(world, c);
+        Vector3d at = p == null ? null : Requests.position(store, p.getReference());
+        if (at == null) {
+            return;
+        }
+        double reach = Villages.RADIUS + Travellers.ESCORT_RANGE;
+        if (to.horizontalDistanceSquared(at.x(), at.z()) > reach * reach) {
+            return;
+        }
+        Reputations.change(world, store, p.getReference(), p, from, Travellers.ESCORT_REPUTATION, TradeRoutes.KEYS + "escortReason");
+        Reputations.change(world, store, p.getReference(), p, to, Travellers.ESCORT_REPUTATION / 2, TradeRoutes.KEYS + "escortReason");
+        Message m = Message.translation(TradeRoutes.KEYS + "escortDone").param("to", TradeRoutes.name(world, to));
+        p.sendMessage(m);
+        NotificationUtil.sendNotification(p.getPacketHandler(), m, NotificationStyle.Success);
+    }
+
     // ---- Dialogue ----
 
     static void talk(World world, Store<EntityStore> store, Ref<EntityStore> player, PlayerRef playerRef, Ref<EntityStore> npc) {
@@ -465,5 +580,6 @@ public final class TradeCaravans {
 
     public static void clearAll() {
         OWNER.clear();
+        ESCORT_AWAY_FOR.clear();
     }
 }
