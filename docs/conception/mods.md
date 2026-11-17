@@ -2165,6 +2165,9 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
 - Les rectangles d'un même bâtiment ont la même taille : la plus grande boîte de ses paliers (mesurée sur les prefabs
   chargés) plus 3 blocs d'herbe de marge, liseré de laine rouge `Cloth_Block_Wool_Red` au sol. Chaque palier est
   centré dans son rectangle.
+- Liseré de **laine bleue** `Cloth_Block_Wool_Blue` (Kevin, 17 novembre 2026) : palier que le bâtiment peut montrer en
+  jeu mais dont la version ne tient pas à sa place au village (`Incompatibles` de `paliers-batiments.json`, calculés par
+  `tools/building_growth.py`) ; le village garde alors une version plus petite. La raison est dans les notes du panneau.
 - Un panneau muet `Nakasar_Peuples_Review_Sign` (panneau de village vanilla) dans le coin sud-ouest de chaque
   rectangle : l'utiliser affiche à l'écran le bâtiment et « Peuple · palier N/4 · Catégorie », et dans le chat les
   prefabs collés et les notes (`review/ReviewSignInteraction`).

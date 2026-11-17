@@ -73,6 +73,11 @@ public final class ReviewMap {
     static final String GRASS = "Soil_Grass";
     /** Liseré des rectangles (Kevin : laine rouge). */
     static final String BORDER = "Cloth_Block_Wool_Red";
+    /**
+     * Liseré d'un palier dont la version ne tient pas au village (Kevin, 17 novembre 2026 : laine bleue) : le village
+     * garde une version plus petite ({@code tools/building_growth.py}).
+     */
+    static final String BORDER_INCOMPATIBLE = "Cloth_Block_Wool_Blue";
     public static final String SIGN = "Nakasar_Peuples_Review_Sign";
     /** Herbe libre entre le liseré et le bâtiment (le panneau y tient). */
     static final int MARGIN = 3;
@@ -147,6 +152,9 @@ public final class ReviewMap {
          */
         @SerializedName("Reserve")
         int[] reserve;
+        /** Vrai si cette version ne tient pas au village (liseré bleu, raison dans les notes). */
+        @SerializedName("Incompatible")
+        boolean incompatible;
     }
 
     static synchronized Data data() {
@@ -562,7 +570,8 @@ public final class ReviewMap {
     private static void buildSpot(World world, Spot s) {
         ChunkStore chunks = world.getChunkStore();
         Store<EntityStore> store = world.getEntityStore().getStore();
-        // Rectangle : air au-dessus, herbe dedans, liseré de laine rouge au bord.
+        // Rectangle : air au-dessus, herbe dedans, liseré de laine rouge au bord (bleue si le palier ne tient pas au village).
+        String border = s.tier.incompatible ? BORDER_INCOMPATIBLE : BORDER;
         for (int x = s.x0; x <= s.x1; x++) {
             for (int z = s.z0; z <= s.z1; z++) {
                 for (int y = GROUND + 1; y <= GROUND + s.height + CLEAR_ABOVE; y++) {
@@ -571,7 +580,7 @@ public final class ReviewMap {
                     }
                 }
                 boolean edge = x == s.x0 || x == s.x1 || z == s.z0 || z == s.z1;
-                Blocks.set(chunks, x, GROUND, z, edge ? BORDER : GRASS, 0);
+                Blocks.set(chunks, x, GROUND, z, edge ? border : GRASS, 0);
             }
         }
         for (String line : s.tier.pieces) {

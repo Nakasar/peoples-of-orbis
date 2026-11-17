@@ -36,6 +36,8 @@ ROOT = Path(__file__).resolve().parent.parent
 NAK = ROOT / "src/main/resources/Server/Nakasar"
 OUT = ROOT / "src/main/resources/nakasar-peuples/paliers-batiments.json"
 PALIERS = (1, 2, 3, 4)
+# Paliers que montrent les bâtiments à niveaux (BuildingPaliers.LEVEL_PALIER : I, II, III).
+LEVEL_PALIERS = (1, 3, 4)
 # Décalages du point de collage essayés pour qu'une version plus grande tienne (Kevin : « alignement ») : le plus petit
 # d'abord, au plus MAX_SHIFT blocs ; le bâtiment garde sa rotation (entrée tournée du même côté).
 MAX_SHIFT = 8
@@ -76,7 +78,19 @@ def wanted(steps, palier):
     return min(palier - 1, len(steps) - 1)
 
 
-def layout_entries(layout, workshops):
+def reachable(layout, b, workshops, palier):
+    """Vrai si le bâtiment peut montrer ce palier en jeu (BuildingPaliers : village + 1, ou niveau I/II/III -> 1/3/4)."""
+    mine = [w for w in workshops.values() if w.get("Building") == b["Id"] and w.get("People") == layout["People"]
+            and not w.get("Annex") and not w.get("Hamlet")]
+    if mine and all(w.get("Legacy") for w in mine):
+        return False  # projet hérité, plus construit
+    leveled = bool(mine)
+    if leveled:
+        return palier in LEVEL_PALIERS
+    return palier >= b["Tier"] + 1
+
+
+def layout_entries(layout, workshops, layout_id, incompatible):
     people = layout["People"]
     plaza = layout["PlazaRadius"] + 1
     plaza_rect = [-plaza, plaza, -plaza, plaza]
@@ -101,6 +115,33 @@ def layout_entries(layout, workshops):
         cz = (base[bid][2] + base[bid][3]) / 2
         last = (0, 0, 0)
 
+        def rival(k):
+            """Autre projet du même terrain : jamais bâti en même temps que celui-ci (son panneau n'y est pas)."""
+            return bool(b.get("Plot")) and k != bid and k.startswith(b["Plot"] + "_")
+
+        def why(r):
+            """Raisons pour lesquelles l'emprise `r` (sans décalage) ne tient pas, en clair."""
+            out = []
+            if overlaps(r, plaza_rect, 0):
+                out.append("touche la place")
+            if b.get("Plot"):
+                if not contains(plots[b["Plot"]], r, 1):
+                    out.append(f"déborde du terrain {b['Plot']}")
+            else:
+                out += [f"empiète sur le terrain {k}" for k, pr in plots.items() if overlaps(r, pr)]
+            out += [f"touche {k}" for k, o in reserved.items() if k != bid and overlaps(r, o) and not (
+                b.get("Plot") and k.startswith(b["Plot"] + "_"))]
+            covered = {}
+            for k, x, z in boards:
+                if r[0] <= x <= r[1] and r[2] <= z <= r[3] and not rival(k):
+                    covered.setdefault((x, z), []).append(k)
+            for keys in covered.values():
+                out.append("couvre son propre panneau" if keys == [bid] else "couvre le panneau de " + ", ".join(keys))
+            far = max(math.hypot(a, c) for a in r[:2] for c in r[2:])
+            if far > radius:
+                out.append(f"sort du rayon du village ({far:.0f} > {radius})")
+            return out
+
         def fits(r):
             if overlaps(r, plaza_rect, 0):
                 return False
@@ -113,7 +154,7 @@ def layout_entries(layout, workshops):
             if any(overlaps(r, o) for k, o in reserved.items() if k != bid and not (
                     b.get("Plot") and k.startswith(b["Plot"] + "_"))):
                 return False
-            if any(r[0] <= x <= r[1] and r[2] <= z <= r[3] for _, x, z in boards):
+            if any(r[0] <= x <= r[1] and r[2] <= z <= r[3] for k, x, z in boards if not rival(k)):
                 return False
             # Le bâtiment reste à sa place : sa nouvelle emprise couvre le centre de l'ancienne.
             if not (r[0] <= cx <= r[1] and r[2] <= cz <= r[3]):
@@ -135,6 +176,13 @@ def layout_entries(layout, workshops):
                     break
             if pick[0] < want:
                 report["blocked"] += 1
+                if reachable(layout, b, workshops, palier):
+                    r = rect_of(steps[want], b["X"], b["Z"], b["Rotation"])
+                    reasons = why(r) or ["ne tient nulle part à moins de %d blocs" % MAX_SHIFT]
+                    incompatible.append({"People": people, "Layout": layout_id, "Id": bid, "Palier": palier,
+                                         "Voulu": steps[want].rsplit("/", 1)[-1],
+                                         "Montre": steps[pick[0]].rsplit("/", 1)[-1],
+                                         "Raison": " ; ".join(dict.fromkeys(reasons))})
             if pick[0] > 0:
                 report["grown"] += 1
             last = pick
@@ -150,7 +198,7 @@ def layout_entries(layout, workshops):
     return out, report
 
 
-def annex_entries(workshops):
+def annex_entries(workshops, incompatible):
     out = {}
     report = {"grown": 0, "blocked": 0}
     for wid, w in sorted(workshops.items()):
@@ -201,6 +249,21 @@ def annex_entries(workshops):
                         break
                 if pick[0] < want:
                     report["blocked"] += 1
+                    if palier in LEVEL_PALIERS and a.get("Slot", 1) <= 1:
+                        r = piece_rect(i, (want, 0, 0))
+                        reasons = []
+                        if r and not contains(frame, r):
+                            reasons.append("déborde du rectangle de l'avant-poste")
+                        if r and r[0] - 1 <= 0 <= r[1] + 1 and r[2] - 1 <= 0 <= r[3] + 1:
+                            reasons.append("couvre le panneau")
+                        reasons += [f"touche la pièce {pieces[j][0].rsplit('/', 1)[-1]}" for j in range(len(pieces))
+                                    if j != i and r and piece_rect(j, current[j]) and overlaps(r, piece_rect(j, current[j]))]
+                        incompatible.append({"People": w.get("People"), "Layout": None, "Id": "AP_" + a["Type"],
+                                             "Workshop": wid, "Palier": palier,
+                                             "Voulu": steps[want].rsplit("/", 1)[-1],
+                                             "Montre": steps[pick[0]].rsplit("/", 1)[-1],
+                                             "Raison": " ; ".join(dict.fromkeys(reasons or [
+                                                 "ne tient nulle part à moins de %d blocs" % ANNEX_SHIFT]))})
                 current[i] = pick
             lines = [f"{ladders[i][c[0]]} {pieces[i][1] + c[1]} {pieces[i][2] + c[2]} {pieces[i][3]}"
                      for i, c in enumerate(current)]
@@ -223,20 +286,23 @@ def main():
                     "version plus grande qui tienne n'est pas listé.",
         "Layouts": {},
         "Annexes": {},
+        "Incompatibles": [],
     }
+    incompatible = doc["Incompatibles"]
     total = {"grown": 0, "blocked": 0}
     for f in sorted((NAK / "VillageLayouts").glob("*.json")):
         layout = json.loads(f.read_text(encoding="utf-8"))
-        entries, rep = layout_entries(layout, workshops)
+        entries, rep = layout_entries(layout, workshops, f.stem, incompatible)
         doc["Layouts"][f.stem] = entries
         print(f"{f.stem}: {len(entries)}/{len(layout['Buildings'])} bâtiments changent d'apparence "
               f"({rep['blocked']} paliers retenus faute de place)")
         for k in total:
             total[k] += rep[k]
-    annexes, rep = annex_entries(workshops)
+    annexes, rep = annex_entries(workshops, incompatible)
     doc["Annexes"] = annexes
     print(f"avant-postes : {len(annexes)} changent d'apparence ({rep['blocked']} paliers de pièce retenus faute de place)")
     OUT.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"{len(incompatible)} paliers incompatibles (visibles en jeu, version voulue qui ne tient pas)")
     print(f"→ {OUT.relative_to(ROOT)}")
 
 

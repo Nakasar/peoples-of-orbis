@@ -450,6 +450,23 @@ def tiers_of(e):
     return tiers
 
 
+def incompatibles():
+    """(peuple, Id de la carte, palier) -> raisons : paliers dont la version ne tient pas au village."""
+    f = Path(__file__).resolve().parent.parent / "src/main/resources/nakasar-peuples/paliers-batiments.json"
+    if not f.exists():
+        return {}
+    out = {}
+    for i in json.loads(f.read_text(encoding="utf-8")).get("Incompatibles", []):
+        ident = i["Id"]
+        m = re.match(r"(E\d)_(.+)", ident)
+        reason = i["Raison"]
+        if m:
+            ident = "Projet_" + m.group(2)
+            reason = f"terrain {m.group(1)} : {reason}"
+        out.setdefault((i["People"], ident, i["Palier"]), []).append(reason)
+    return out
+
+
 def fmt(p):
     return f"{p[0]} {p[1]} {p[2]} {p[3]} {p[4]}"
 
@@ -470,6 +487,7 @@ def main():
         "Sections": [],
     }
     total_cells = 0
+    incompatible = incompatibles()
     missing = set()
     for people, entries in sections:
         rows = []
@@ -478,6 +496,12 @@ def main():
                 if e["Category"] != c:
                     continue
                 tiers = tiers_of(e)
+                for t in tiers:
+                    reasons = incompatible.get((people, e["Id"], t["Tier"]))
+                    if reasons:
+                        # Version de ce palier qui ne tient pas au village (tools/building_growth.py) : liseré bleu.
+                        t["Incompatible"] = True
+                        t["Notes"] = t["Notes"] + ["ne tient pas au village : " + " ; ".join(reasons)]
                 for t in tiers:
                     for line in t["Pieces"]:
                         path = line.split()[0]
