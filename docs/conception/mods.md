@@ -2236,6 +2236,10 @@ Kevin, 17 novembre 2026 : le gestionnaire ne passe pas par les pages du panneau.
   jamais de jargon (« demande n°1 », case, onglet, outil, identifiant) ; le rang se dit tel quel (Étranger, Ami...) et
   règle le ton ; pas de récitation de l'état à un simple bonjour. L'essor est donné au modèle en mots
   (`StewardData.essorInWords`) ; les chiffres et ids lus restent pour choisir les paramètres des outils.
+- Le village vit entre deux messages (Kevin, 2026-11-17 : le PNJ disait « je dois corriger mes réponses ») : la session
+  garde les titres des demandes vus au message précédent (`StewardSession.boardSeen`) ; s'ils ont changé, une note
+  entre crochets en tête du message du joueur dit ce qui est parti et ce qui est arrivé, et la consigne fait annoncer
+  le changement comme une nouvelle, jamais comme une erreur. Pas d'inventaire de ce qui manque sans qu'on le demande.
 - Contexte : ces consignes (plus 1 à 3 phrases, ne rien inventer, ne pas dire fait une action retenue, hors sujet
   éludé), liste des sujets, et le texte du tableau pour ce joueur (`VillageBoard.body` ; l'atelier pour un
   lieu-dit). Mémoire : 10 derniers tours par joueur, oubliée quand il parle à un autre gestionnaire, quitte le serveur,
