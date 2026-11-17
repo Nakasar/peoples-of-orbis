@@ -57,6 +57,10 @@
     }
   ],
   "Category": "Culte",
+  "Requires": [
+    "Ingredient_Crystal_Purple"
+  ],
+  "RequiresLuxuries": 2,
   "Specialties": [
     {
       "Id": "Protection",

@@ -1,7 +1,16 @@
 package dev.nakasar.hytale.peuples.workshop;
 
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.universe.world.World;
+import dev.nakasar.hytale.peuples.request.GameClock;
 import dev.nakasar.hytale.peuples.village.Village;
+import dev.nakasar.hytale.peuples.village.VillageBoard;
+import dev.nakasar.hytale.peuples.world.TradeAccess;
+import dev.nakasar.hytale.peuples.world.TradeRoutes;
 import dev.nakasar.hytale.peuples.village.WorkshopState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Les catégories des projets de terrain (Kevin, 2026-11-16) : au plus un projet par catégorie, sauf l'Artisanat
@@ -83,6 +92,69 @@ public final class Projects {
     /** Essor gagné avec le Temple (+10 %, arrondi au-dessus). */
     public static int essor(Village village, int gained) {
         return gained > 0 && opened(village, CULT) != null ? (gained * (100 + ESSOR_PERCENT) + 99) / 100 : gained;
+    }
+
+    // ---- Verrouillage par l'accès aux ressources (Kevin, 17 novembre 2026 ; doc des routes commerciales) ----
+
+    /**
+     * Ce qui manque au village pour choisir le projet `w` (champs {@code Requires}, {@code RequiresLuxuries},
+     * {@code RequiresRoutes}), ou null. Une ressource compte si le village y a accès (route, demande) ou la produit
+     * ({@link dev.nakasar.hytale.peuples.world.TradeAccess#available}).
+     */
+    public static Message projectMissing(World world, Village village, Workshop w) {
+        if (w == null || world == null) {
+            return null;
+        }
+        long day = GameClock.day(world.getEntityStore().getStore());
+        List<String> items = new ArrayList<>();
+        for (String item : w.requires()) {
+            if (!TradeAccess.available(world, village, item, day)) {
+                items.add(item);
+            }
+        }
+        int luxuries = Math.max(0, w.requiresLuxuries() - TradeAccess.count(world, village, day));
+        int routes = Math.max(0, w.requiresRoutes() - TradeRoutes.used(world, village));
+        if (items.isEmpty() && luxuries == 0 && routes == 0) {
+            return null;
+        }
+        Message out = null;
+        if (!items.isEmpty()) {
+            out = Message.translation(Workshops.KEYS + "requires.items").param("list", names(items, "requires.and"));
+        }
+        if (luxuries > 0) {
+            out = join(out, Message.translation(Workshops.KEYS + "requires.luxuries").param("count", w.requiresLuxuries()));
+        }
+        if (routes > 0) {
+            out = join(out, Message.translation(Workshops.KEYS + "requires.routes").param("count", w.requiresRoutes()));
+        }
+        return out;
+    }
+
+    /** Ce qui manque pour la spécialité (une des ressources {@code Requires} au moins), ou null. */
+    public static Message specialtyMissing(World world, Village village, Workshop.Specialty s) {
+        if (s == null || world == null || s.requires().length == 0) {
+            return null;
+        }
+        long day = GameClock.day(world.getEntityStore().getStore());
+        for (String item : s.requires()) {
+            if (TradeAccess.available(world, village, item, day)) {
+                return null;
+            }
+        }
+        return Message.translation(Workshops.KEYS + "requires.items").param("list", names(java.util.Arrays.asList(s.requires()), "requires.or"));
+    }
+
+    private static Message join(Message a, Message b) {
+        return a == null ? b : Message.translation(Workshops.KEYS + "requires.join").param("a", a).param("b", b);
+    }
+
+    private static Message names(List<String> items, String glue) {
+        Message out = null;
+        for (String item : items) {
+            Message one = VillageBoard.itemName(item);
+            out = out == null ? one : Message.translation(Workshops.KEYS + glue).param("a", out).param("b", one);
+        }
+        return out == null ? Message.empty() : out;
     }
 
     /** Vrai si le Temple protège le village de l'incendie de ce raid perdu (une fois sur deux). */

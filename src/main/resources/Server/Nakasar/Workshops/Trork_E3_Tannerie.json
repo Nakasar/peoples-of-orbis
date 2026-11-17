@@ -62,12 +62,18 @@
       "Quantity": 3
     }
   ],
+  "Requires": [
+    "Ingredient_Bar_Iron"
+  ],
   "Specialties": [
     {
       "Id": "Cuirs",
       "NameKey": "nakasar_peuples.workshop.specialty.Trork_E3_Tannerie.Cuirs",
       "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E3_Tannerie.Cuirs",
       "Icon": "Ingredient_Leather_Medium",
+      "Requires": [
+        "Ingredient_Salt"
+      ],
       "Shops": [
         "Nakasar_Peuples_W_Trork_E3_Tannerie_Cuirs_2",
         "Nakasar_Peuples_W_Trork_E3_Tannerie_Cuirs_3"

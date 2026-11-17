@@ -56,6 +56,9 @@
     }
   ],
   "Category": "Artisanat",
+  "Requires": [
+    "Ingredient_Bar_Iron"
+  ],
   "Specialties": [
     {
       "Id": "Epices",

@@ -906,6 +906,11 @@ public final class Workshops {
             player.sendMessage(block);
             return false;
         }
+        Message lacking = Projects.specialtyMissing(world, village, spec);
+        if (lacking != null) {
+            player.sendMessage(Message.translation(KEYS + "specialtyRequires").param("list", lacking));
+            return false;
+        }
         Workshop twin = twinWith(village, w, spec.id());
         if (twin != null) {
             player.sendMessage(Message.translation(KEYS + "specialtyTwin").param("building", Message.translation(twin.nameKey())));
@@ -1005,7 +1010,14 @@ public final class Workshops {
             player.sendMessage(Message.translation(KEYS + "shopStopped").param("list", Inputs.list(Inputs.needs(village, w))));
             return false;
         }
-        String id = shop(w, ws, shopLevel(store, ref, village, ws));
+        int level = shopLevel(store, ref, village, ws);
+        Message lacking = level >= 2 ? Projects.specialtyMissing(store.getExternalData().getWorld(), village, w.specialty(ws.specialty())) : null;
+        if (lacking != null) {
+            // La ressource de la spécialité manque (accès perdu) : seule la boutique de base reste ouverte.
+            player.sendMessage(Message.translation(KEYS + "shopRequires").param("list", lacking));
+            level = 1;
+        }
+        String id = shop(w, ws, level);
         if (id == null) {
             player.sendMessage(Message.translation(KEYS + "shopRank").param("rank", Message.translation(Rank.TOLERE.nameKey())));
             return false;
@@ -1027,6 +1039,10 @@ public final class Workshops {
         }
         if (!Inputs.running(village, w)) {
             return Message.translation(KEYS + "shopStopped").param("list", Inputs.list(Inputs.needs(village, w)));
+        }
+        Message lacking = Projects.specialtyMissing(store.getExternalData().getWorld(), village, w.specialty(ws.specialty()));
+        if (lacking != null) {
+            return Message.translation(KEYS + "shopRequires").param("list", lacking);
         }
         if (!Reputations.rank(store, ref, village).atLeast(SHARE_RANK)) {
             return Message.translation(KEYS + "shareRank").param("rank", Message.translation(SHARE_RANK.nameKey()));

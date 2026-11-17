@@ -66,6 +66,9 @@
       "Quantity": 1
     }
   ],
+  "Requires": [
+    "Ingredient_Bar_Iron"
+  ],
   "Specialties": [
     {
       "Id": "Armes_Os",

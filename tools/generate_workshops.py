@@ -486,6 +486,19 @@ TASKS = {
 
 # Textes de la page du bâtiment (WorkshopPage) et des messages (Workshops), fr puis en.
 PAGE = {
+    # Verrouillage par l'accès aux ressources (plots.SPEC_REQUIRES, plots.requires)
+    "workshop.requires.items": ("{list}", "{list}"),
+    "workshop.requires.and": ("{a}, {b}", "{a}, {b}"),
+    "workshop.requires.or": ("{a} ou {b}", "{a} or {b}"),
+    "workshop.requires.join": ("{a} ; {b}", "{a}; {b}"),
+    "workshop.requires.luxuries": ("{count} luxes", "{count} luxuries"),
+    "workshop.requires.routes": ("{count} routes commerciales ouvertes", "{count} open trade routes"),
+    "workshop.specialtyRequires": ("Cette spécialité demande que le village dispose de : {list} (par une route commerciale ou sa propre production).",
+                                   "This specialty needs the village to have: {list} (through a trade route or its own production)."),
+    "workshop.shopRequires": ("Il manque au village : {list}. La boutique de la spécialité est fermée ; seule celle de base est ouverte.",
+                              "The village lacks: {list}. The specialty shop is closed; only the basic one is open."),
+    "plot.requires": ("Ce projet demande que le village dispose de : {list}.", "This project needs the village to have: {list}."),
+    "plot.page.requires": ("{category} : il faut {list}.", "{category}: needs {list}."),
     "workshop.hamletKeeper": ("le tenancier du lieu-dit", "the hamlet keeper"),
     "workshop.title": ("{building} de {village}", "{building} of {village}"),
     "workshop.level.1": ("Niveau I · Ouvert", "Level I · Open"),
@@ -800,6 +813,8 @@ LAYOUT_PEOPLE = {"Kweebec_Oak": "Kweebec", "Trork_Camp": "Trork", "Feran_Oasis":
 
 
 PLOT_META = {}
+# Ressources demandées par les spécialités des projets (plots.SPEC_REQUIRES), clé (bâtiment, spécialité).
+SPEC_NEEDS = {}
 
 
 def plot_workshops(fr, en, errors):
@@ -817,7 +832,7 @@ def plot_workshops(fr, en, errors):
             for project in projects:
                 wid = f"{people}_{pid}_{project['id']}"
                 PLOT_META[wid] = (project.get("category"), bool(project.get("legacy")),
-                                  plots.INPUTS.get((layout_id, project["id"]), []))
+                                  plots.INPUTS.get((layout_id, project["id"]), []), plots.requires(layout_id, project))
                 bid = plots.building_id(pid, project["id"])
                 jid = plots.job_id(pid, project["job"])
                 fr[f"building.{bid}"], en[f"building.{bid}"] = project["fr"], project["en"]
@@ -839,6 +854,12 @@ def plot_workshops(fr, en, errors):
                 for sp in project["specs"]:
                     if sp[8]:
                         RAID[(wid, sp[0])] = sp[8]
+                    need = plots.SPEC_REQUIRES.get((layout_id, project["id"], sp[0]))
+                    if need:
+                        SPEC_NEEDS[(wid, sp[0])] = need
+                for (lid, pid_, sid) in plots.SPEC_REQUIRES:
+                    if lid == layout_id and pid_ == project["id"] and sid not in {sp[0] for sp in project["specs"]}:
+                        errors.append(f"plots.SPEC_REQUIRES : spécialité inconnue {lid}/{pid_}/{sid}")
     return twins
 
 # Avant-postes de métier (Kevin, 2026-11-15, tools/outposts.py) : un bâtiment de métier <Peuple>_AP_<Type> par peuple et
@@ -1247,6 +1268,14 @@ def specialties(doc, wid, people, name_fr, name_en, items, roles, fr, en, errors
                 if people == "Trork":
                     errors.append(f"{wid}/{sid} : les Trorks ne subissent pas de raid")
                 spec["Raid"] = RAID[(wid, sid)]
+            need = SPEC_NEEDS.get((wid, sid))
+            if need:
+                for item in need:
+                    if item not in items:
+                        errors.append(f"{wid}/{sid} : ressource demandée inconnue {item}")
+                    if people == "Kweebec" and item.startswith("Ingredient_Bar_"):
+                        errors.append(f"{wid}/{sid} : les Kweebecs n'échangent aucun métal ({item})")
+                spec["Requires"] = need
             two, three = shops.get(sid, ([], []))
             if not two or not three:
                 errors.append(f"{wid}/{sid} : boutique des niveaux II et III manquante")
@@ -1385,7 +1414,7 @@ def main():
         if wid in twins:
             doc["Twin"] = twins[wid]
         if wid in PLOT_META:
-            category, legacy, inputs = PLOT_META[wid]
+            category, legacy, inputs, need = PLOT_META[wid]
             if category:
                 doc["Category"] = category
             if legacy:
@@ -1395,6 +1424,17 @@ def main():
                     errors.append(f"{wid} : ressource d'atelier inconnue {item}")
             if inputs:
                 doc["Inputs"] = [{"ItemId": i, "Quantity": q} for i, q in inputs]
+            for item in need.get("Items", []):
+                if item not in items:
+                    errors.append(f"{wid} : ressource demandée inconnue {item}")
+                if people == "Kweebec" and item.startswith("Ingredient_Bar_"):
+                    errors.append(f"{wid} : les Kweebecs n'échangent aucun métal ({item})")
+            if need.get("Items"):
+                doc["Requires"] = need["Items"]
+            if need.get("Luxuries"):
+                doc["RequiresLuxuries"] = need["Luxuries"]
+            if need.get("Routes"):
+                doc["RequiresRoutes"] = need["Routes"]
         specialties(doc, wid, people, name_fr, name_en, items, roles, fr, en, errors, building)
         (OUT / f"{wid}.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         fr[f"workshop.{wid}.name"] = name_fr

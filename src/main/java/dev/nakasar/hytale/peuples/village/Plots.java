@@ -112,9 +112,10 @@ public final class Plots {
 
     /**
      * Pourquoi ce projet ne peut pas être choisi sur ce terrain (clé sous {@link #KEYS}), ou null : projet hérité,
-     * déjà sur un autre terrain, ou catégorie pleine (une par catégorie, trois ateliers).
+     * déjà sur un autre terrain, catégorie pleine (une par catégorie, trois ateliers), ou ressource manquante
+     * ({@code requires} : {@link dev.nakasar.hytale.peuples.workshop.Projects#projectMissing}).
      */
-    public static String refusal(Village village, String plotId, VillageLayout.Building b) {
+    public static String refusal(World world, Village village, String plotId, VillageLayout.Building b) {
         if (b.id().equals(village.plot(plotId).project())) {
             return null;
         }
@@ -128,6 +129,9 @@ public final class Plots {
         String category = w == null ? null : w.category();
         if (category != null && categoryCount(village, plotId, category) >= dev.nakasar.hytale.peuples.workshop.Projects.max(category)) {
             return "categoryFull";
+        }
+        if (dev.nakasar.hytale.peuples.workshop.Projects.projectMissing(world, village, w) != null) {
+            return "requires";
         }
         return null;
     }
@@ -196,7 +200,12 @@ public final class Plots {
         if (b == null || !plot.id().equals(b.plot())) {
             return false;
         }
-        String refusal = refusal(village, plot.id(), b);
+        String refusal = refusal(world, village, plot.id(), b);
+        if ("requires".equals(refusal)) {
+            player.sendMessage(Message.translation(KEYS + "requires").param("list",
+                    dev.nakasar.hytale.peuples.workshop.Projects.projectMissing(world, village, workshop(village, b.id()))));
+            return false;
+        }
         if (refusal != null) {
             String category = category(village, b.id());
             player.sendMessage(Message.translation(KEYS + refusal).param("category",

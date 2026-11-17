@@ -67,6 +67,9 @@
       "Quantity": 4
     }
   ],
+  "Requires": [
+    "Ingredient_Leather_Medium"
+  ],
   "Specialties": [
     {
       "Id": "Arcs_Legers",

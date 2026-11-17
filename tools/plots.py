@@ -492,6 +492,42 @@ INPUTS = {
 }
 
 
+# Verrouillage par l'accès aux ressources (Kevin, 17 novembre 2026 ; doc des routes commerciales, « Propositions ») : le
+# village doit disposer de la ressource, par une route commerciale (accès) ou sa propre production
+# (world/TradeAccess.available). Spécialité : une des ressources suffit ; sans elle on ne la choisit pas, et si l'accès se
+# perd, sa boutique et sa Part de l'Hôte ferment (la boutique de base reste). Jamais de métal pour les Kweebecs.
+SPEC_REQUIRES = {
+    ("Kweebec_Oak", "Menuiserie", "Mobilier"): ["Ingredient_Bolt_Cotton", "Ingredient_Bolt_Wool"],   # coussins et literie
+    ("Trork_Camp", "Tannerie", "Cuirs"): ["Ingredient_Salt"],                                           # sel feran du tannage
+    ("Feran_Oasis", "Tissage", "Voiles"): ["Ingredient_Fabric_Scrap_Wool", "Ingredient_Bolt_Silk"],    # laine ou soie
+    ("Feran_Oasis", "Volerie", "Fleches"): ["Ingredient_Bar_Iron"],
+    ("Renonce_Givre", "Forge", "Armes"): ["Ingredient_Bar_Iron"],                                       # forge sans mine
+}
+
+# Projets : toutes les ressources de "Items", au moins "Luxuries" luxes qui comptent, "Routes" routes ouvertes.
+# Artisanat (chaque atelier) : le métal ou le cuir fin selon le peuple.
+ARTISAN_REQUIRES = {
+    "Kweebec_Oak": ["Ingredient_Leather_Medium"],
+    "Trork_Camp": ["Ingredient_Bar_Iron"],
+    "Feran_Oasis": ["Ingredient_Bar_Iron"],
+    "Renonce_Givre": ["Ingredient_Leather_Medium"],
+    "Slothian_Monastere": ["Ingredient_Bar_Copper"],
+}
+PROJECT_REQUIRES = {
+    "Temple": {"Items": ["Ingredient_Crystal_Purple"], "Luxuries": 2},   # deux luxes dont les cristaux pourpres
+    "Bibliotheque": {"Items": ["Ingredient_Bolt_Silk"]},
+    "Conseil": {"Routes": 2},                                              # l'Ambassade : deux routes ouvertes
+}
+
+
+def requires(layout_id, project):
+    """Exigences d'accès du projet (dict Items/Luxuries/Routes, vide sans exigence)."""
+    out = dict(PROJECT_REQUIRES.get(project["id"], {}))
+    if project.get("category") == "Artisanat" and not project.get("legacy"):
+        out["Items"] = out.get("Items", []) + ARTISAN_REQUIRES[layout_id]
+    return out
+
+
 def building_id(plot, project):
     return f"{plot}_{project}"
 

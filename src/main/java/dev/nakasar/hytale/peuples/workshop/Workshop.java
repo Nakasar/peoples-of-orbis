@@ -283,6 +283,7 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
                 .append(new KeyedCodec<>("ShareItem", Codec.STRING), (s, v) -> s.shareItem = v, s -> s.shareItem).add()
                 .append(new KeyedCodec<>("ShareQuantity", Codec.INTEGER), (s, v) -> s.shareQuantity = v == null ? 1 : Math.max(1, v), s -> s.shareQuantity).add()
                 .append(new KeyedCodec<>("Raid", Raid.CODEC), (s, v) -> s.raid = v, s -> s.raid).add()
+                .append(new KeyedCodec<>("Requires", Codec.STRING_ARRAY), (s, v) -> s.requires = v == null ? new String[0] : v, s -> s.requires).add()
                 .build();
 
         String id;
@@ -296,6 +297,13 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
         String shareItem;
         int shareQuantity = 1;
         Raid raid;
+        /** Ressources dont le village doit disposer (une au moins) pour choisir et faire tourner la spécialité. */
+        String[] requires = new String[0];
+
+        /** Ressources demandées (une au moins suffit), vide : aucune. */
+        public String[] requires() {
+            return requires;
+        }
 
         /** Effet en raid (spécialité de garde), ou null. */
         public Raid raid() {
@@ -399,6 +407,15 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
                     (w, v) -> w.inputs = v == null ? new VillageLayout.Material[0] : v, w -> w.inputs)
             .documentation("Atelier : objets pris au dépôt chaque matin (× niveau) ; sans eux, l'atelier est à l'arrêt ce jour-là.")
             .add()
+            .append(new KeyedCodec<>("Requires", Codec.STRING_ARRAY), (w, v) -> w.requires = v == null ? new String[0] : v, w -> w.requires)
+            .documentation("Projet de terrain : ressources dont le village doit disposer (toutes) pour le choisir (accès ou production).")
+            .add()
+            .append(new KeyedCodec<>("RequiresLuxuries", Codec.INTEGER), (w, v) -> w.requiresLuxuries = v == null ? 0 : v, w -> w.requiresLuxuries)
+            .documentation("Projet de terrain : luxes qui doivent compter pour le village (world/TradeAccess.count).")
+            .add()
+            .append(new KeyedCodec<>("RequiresRoutes", Codec.INTEGER), (w, v) -> w.requiresRoutes = v == null ? 0 : v, w -> w.requiresRoutes)
+            .documentation("Projet de terrain : routes commerciales ouvertes par le village.")
+            .add()
             .append(new KeyedCodec<>("Hamlet", Codec.STRING), (w, v) -> w.hamlet = v == null || v.isBlank() ? null : v, w -> w.hamlet)
             .documentation("Lieu-dit (world/Hamlets) : genre du lieu-dit dont c'est le bâtiment, aux paliers de son avant-poste équivalent.")
             .add()
@@ -429,6 +446,9 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
     String category;
     boolean legacy;
     VillageLayout.Material[] inputs = new VillageLayout.Material[0];
+    String[] requires = new String[0];
+    int requiresLuxuries;
+    int requiresRoutes;
 
     Workshop() {
     }
@@ -492,6 +512,19 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
 
     public boolean legacy() {
         return legacy;
+    }
+
+    /** Ressources (toutes) dont le village doit disposer pour choisir ce projet. */
+    public String[] requires() {
+        return requires;
+    }
+
+    public int requiresLuxuries() {
+        return requiresLuxuries;
+    }
+
+    public int requiresRoutes() {
+        return requiresRoutes;
     }
 
     /** Objets consommés chaque matin par niveau (atelier), vide sinon. */
