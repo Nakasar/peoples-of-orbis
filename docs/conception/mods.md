@@ -2214,7 +2214,7 @@ village, sinon celle du palier d'avant :
   autre pièce ni le panneau.
 
 Sortie `src/main/resources/nakasar-peuples/paliers-batiments.json` (plan → bâtiment → paliers 1-4 avec prefab, décalage
-`DX`/`DZ` et emprise ; avant-poste → pièces par palier). Le 17 novembre 2026 : 105 bâtiments de village sur 214 et 92
+`DX`/`DZ` et emprise ; avant-poste → pièces par palier). Le 17 novembre 2026 : 127 bâtiments de village sur 214 et 92
 bâtiments d'avant-poste changent d'apparence ; les autres n'ont pas de version vanilla plus grande ou pas la place
 (Feran et Slothians surtout : plans serrés). `validateAssets` vérifie les prefabs et que le palier 1 est encore le
 bâtiment du plan (sinon relancer le générateur après un changement des plans ou des avant-postes) :
