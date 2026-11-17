@@ -184,8 +184,8 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
             List<String> in = r.importsOf(v.id());
             for (int j = 0; j < CASES; j++) {
                 boolean open = j < r.level();
-                String o1 = "#RouteOut" + n + "_" + j;
-                String i1 = "#RouteIn" + n + "_" + j;
+                String o1 = "#RouteOut" + n + "C" + j;
+                String i1 = "#RouteIn" + n + "C" + j;
                 cmd.set(o1 + ".Visible", open);
                 cmd.set(i1 + ".Visible", open);
                 if (open) {

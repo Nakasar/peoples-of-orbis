@@ -47,7 +47,7 @@ Produit `build/libs/Nakasar-Peuples-<version>.jar`. `build` lance aussi les vali
 - `checkSystemRegistrations` : aucune classe de système enregistrée deux fois (le plugin entier échouerait) ;
 - `validateRoles` (`tools/ValidateRoles.java`) : rôles de PNJ chargés par le BuilderManager du serveur ;
 - `validateAssets` (`tools/ValidateAssets.java`) : chaque asset décodé avec les codecs du serveur, ids de blocs des
-  prefabs, références vanilla (`tools/vanilla-*.txt`), sons stéréo, textures des pages `.ui`.
+  prefabs, références vanilla (`tools/vanilla-*.txt`), sons stéréo, textures et syntaxe des pages `.ui` (ids `#Nom` en lettres et chiffres seulement, accolades équilibrées).
 
 Un id vanilla que le validateur ne connaît pas s'ajoute dans `tools/vanilla-refs-0.7.2.txt`, uniquement après l'avoir
 vu dans les fichiers du jeu.
