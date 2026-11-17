@@ -15,16 +15,10 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Le joueur tel que le voit une page du panneau que le gestionnaire « clique » hors écran ({@link BoardReader}) : tout
- * est rendu par le vrai joueur (uuid, nom, langue, position, permissions, paquets pour les sons et les notifications),
- * sauf deux choses.
- * <ul>
- *   <li>Ses messages ({@link #sendMessage}) sont gardés : la fenêtre de dialogue les montre tels quels sous la réponse
- *   du gestionnaire (un refus du jeu reste le texte du jeu, le modèle ne le reformule pas).</li>
- *   <li>{@link #getReference()} rend null : la page n'est pas à l'écran, ses {@code rebuild()} et {@code close()} (qui
- *   passent par là) ne touchent pas la fenêtre de dialogue ouverte. Les fonctions du panneau reçoivent le vrai
- *   {@code ref} du joueur en paramètre, comme quand il clique.</li>
- * </ul>
+ * Le joueur tel que le voient les fonctions du jeu appelées par le gestionnaire ({@link StewardActions}) : tout est
+ * rendu par le vrai joueur (uuid, nom, langue, position, permissions, référence, paquets pour les sons et les
+ * notifications), sauf ses messages ({@link #sendMessage}), gardés : la fenêtre de dialogue les montre tels quels sous la
+ * réponse du gestionnaire (un refus du jeu reste le texte du jeu, le modèle ne le reformule pas).
  */
 final class CapturingPlayerRef extends PlayerRef {
 
@@ -52,7 +46,7 @@ final class CapturingPlayerRef extends PlayerRef {
 
     @Override
     public Ref<EntityStore> getReference() {
-        return null;
+        return real.getReference();
     }
 
     @Override

@@ -288,7 +288,7 @@ public final class TradeRoutes {
     }
 
     /** Distance cœur à cœur (place du marché pour un lieu-dit). */
-    static double distance(Village x, Village y) {
+    public static double distance(Village x, Village y) {
         return WorldLife.distance(x, y);
     }
 

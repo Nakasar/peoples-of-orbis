@@ -230,7 +230,7 @@ public final class OuvragePage extends InteractiveCustomUIPage<OuvragePage.Event
     }
 
     /** État de l'ouvrage en une phrase. */
-    private static Message state(World world, Store<EntityStore> store, Village village, Infrastructures.Work w, Village holder) {
+    public static Message state(World world, Store<EntityStore> store, Village village, Infrastructures.Work w, Village holder) {
         AnnexState a = w.state();
         Message level = Message.translation(Workshops.KEYS + "levelShort." + w.level());
         if (a.besieged()) {

@@ -2187,26 +2187,32 @@ lieux-dits l'ont aussi (leur gardien `<Peuple>_Hamlet_Keeper`, pseudo-village `H
 réglable ; la clé est fournie et réglée par l'administrateur du serveur ; saisie dans la fenêtre de dialogue ; plusieurs
 actions par message.
 
-### Principe : le modèle lit et clique les vraies pages (`BoardReader`)
+### Principe : des fonctions de données et d'action, pas l'interface (`StewardData`, `StewardActions`)
 
-- Rien n'est recopié : chaque onglet (Tableau, Projets, Production, Ouvrages, Monde, Domaine, Commerce, Habitants ;
-  Atelier pour un lieu-dit) est la vraie page du panneau, bâtie hors écran dans un `UICommandBuilder` et un
-  `UIEventBuilder` qui notent ce qu'elle afficherait : textes visibles (traduits côté serveur par `TextRender`), boutons
-  avec la donnée de leur clic, boutons grisés. Une page ajoutée ou changée au panneau l'est aussi pour le gestionnaire.
-- Un « clic » envoie à la page la même donnée que le client (`handleDataEvent` en JSON) : mêmes fonctions, mêmes
-  contrôles de rang, de faveurs et de matériaux. La page reçoit un `CapturingPlayerRef` : les messages du jeu (refus,
-  résultats) sont gardés et montrés tels quels sous la réponse du gestionnaire, et `getReference()` rend null pour que
-  ses `rebuild()`/`close()` ne touchent pas la fenêtre de dialogue ouverte.
-- Les pages sont gardées par conversation : une sélection (terrain choisi dans Projets, page des habitants) tient d'un
-  appel à l'autre, comme à l'écran.
-- Deux outils seulement : `lire_onglet(onglet)` et `cliquer(onglet, bouton)`. Chaque action est classée par onglet
-  (`BoardReader.Tab`) : faite tout de suite (lecture, navigation, prendre ou rendre une demande, choisir un projet),
-  à confirmer (dépense ou destruction : lancer un chantier, démolir, accorder une annexe, ouvrir/monter/fermer une route,
-  acheter, ambassade, expédition, nommer, orienter...), ou interdite (onglets, texte, boutique : autre fenêtre). Une
-  action inconnue demande confirmation.
-- Plusieurs actions par message, dans l'ordre : dès qu'une action est à confirmer, elle et les suivantes sont retenues ;
-  un seul clic sur Confirmer les fait dans l'ordre et s'arrête au premier refus. Refus = le contenu de l'onglet n'a pas
-  changé après le clic. Un bouton que l'écran fait cliquer deux fois (démolir : « Confirmer ? ») l'est deux fois.
+Kevin, 17 novembre 2026 : le gestionnaire ne passe pas par les pages du panneau.
+
+- **Lecture** (`StewardData`, outil `lire(sujet)`) : un texte compact par sujet, lu dans l'état du jeu et pensé pour le
+  modèle : `etat` (le texte du tableau, `VillageBoard.body`), `demandes`, `projets`, `production`, `ouvrages`,
+  `commerce`, `domaine`, `habitants`, `monde` ; `atelier` pour un lieu-dit (`WorkshopPage.textBody`). Chaque élément
+  porte entre crochets l'identifiant que prennent les outils d'action (`[case 2]`, `[emplacement E1]`,
+  `[projet ...]`, `[partenaire ...]`, `[lieu-dit ...]`). Les phrases d'état réutilisent les fonctions de texte du jeu
+  (`PlotPage.stateLine`, `AnnexPage.stateLine`, `OuvragePage.state`, `Requests.task`...), traduites par `TextRender`.
+- **Actions** (`StewardActions`) : un outil nommé par action, qui appelle directement la fonction derrière le bouton :
+  `prendre_demande`, `abandonner_demande`, `rendre_demandes`, `choisir_projet`, `retirer_projet`, `lancer_chantier`,
+  `demolir`, `accorder_annexe`, `detruire_annexe`, `reprendre_ouvrage`, `rebatir_ouvrage`, `attaquer_ouvrage`,
+  `ouvrir_route`, `monter_route`, `payer_credit`, `fermer_route`, `regler_envoi`, `acheter_etal`, `ambassade`,
+  `expedition`, `porter_couleurs`, `refuge_suivant`, `nommer_enfant`, `orienter_apprenti` ; pour un lieu-dit :
+  `prendre_demande`, `abandonner_demande`, `rendre_demandes`, `devenir_maitre`, `ameliorer_atelier`, `prendre_part`.
+  Mêmes fonctions que le panneau (`Requests.take`, `Plots.start`, `TradeRoutes.open`, `TradePage.buyLot`...), donc
+  mêmes contrôles de rang, de faveurs et de matériaux.
+- Chaque action est d'abord **résolue** : paramètres vérifiés contre l'état du moment (identifiant inconnu : le modèle
+  est renvoyé au sujet à lire), libellé lisible. Les fonctions reçoivent un `CapturingPlayerRef` : leurs messages au
+  joueur (refus, résultats) sont gardés et montrés tels quels sous la réponse.
+- Une action qui dépense ou détruit est **à confirmer** (abandonner, lancer, démolir, accorder, détruire, ouvrages,
+  routes sauf le réglage des cases, étal, ambassade, expédition, nommer, orienter, maître, amélioration). Plusieurs
+  actions par message, dans l'ordre : dès qu'une action est à confirmer, elle et les suivantes sont retenues ; un seul
+  clic sur Confirmer les résout de nouveau et les fait dans l'ordre, arrêt au premier refus (la fonction rend faux ou
+  un message de refus).
 
 ### Fenêtre de dialogue (`DialoguePage`)
 
@@ -2225,7 +2231,7 @@ actions par message.
 - Backends : API Claude (`/v1/messages`, défaut `claude-haiku-5-5`) ou serveur local compatible OpenAI
   (`/v1/chat/completions` : Ollama, llama.cpp...). Conversation tenue au format Claude, traduite pour le local.
 - Contexte : consignes (rôle, ton du peuple, 1 à 3 phrases, ne rien inventer, ne pas dire fait une action retenue,
-  hors sujet décliné), liste des onglets, et le texte du tableau pour ce joueur (`VillageBoard.body` ; l'atelier pour un
+  hors sujet décliné), liste des sujets, et le texte du tableau pour ce joueur (`VillageBoard.body` ; l'atelier pour un
   lieu-dit). Mémoire : 10 derniers tours par joueur, oubliée quand il parle à un autre gestionnaire, quitte le serveur,
   ou après une heure sans parler. Le nom du joueur n'est jamais envoyé (« le joueur »).
 - Secours sans modèle, réplique fixe du jeu (`steward.fallback.*`) : désactivé, clé absente, budget du jour épuisé
@@ -2259,7 +2265,7 @@ jamais : `ApiKeyEnv` donne le nom de la variable d'environnement qui la porte.
 ### Commandes (opérateurs)
 
 - `/village gestionnaire etat` : activé, backend, modèle, clé présente, jetons et appels du jour, pause, dernière erreur.
-- `/village gestionnaire lire <onglet>` : ce que le modèle lit d'un onglet du village le plus proche (aucun appel).
+- `/village gestionnaire lire <sujet>` : ce que le modèle lit d'un sujet du village le plus proche (aucun appel).
 - `/village gestionnaire recharger` : relit les réglages, lève la pause.
 
 ### Tester en jeu (gestionnaire)
@@ -2267,7 +2273,7 @@ jamais : `ApiKeyEnv` donne le nom de la variable d'environnement qui la porte.
 1. Arrêter le serveur, mettre `"Enabled": true` dans `gestionnaire.json` (dossier de données du plugin), exporter la
    clé dans la variable `ANTHROPIC_API_KEY` du processus du serveur, relancer (ou `/village gestionnaire recharger`).
 2. `/village gestionnaire etat` : « activé », « Clé : présente ».
-3. `/village gestionnaire lire tableau`, puis `projets`, `commerce` : le texte doit suivre l'écran.
+3. `/village gestionnaire lire demandes`, puis `projets`, `commerce` : les données doivent suivre le panneau.
 4. Parler au crieur, « Parler librement », demander « Où en est le chantier ? », puis « Prends la première demande »,
    puis « Lance le projet de l'emplacement E1 » (doit être retenu, Confirmer le fait).
 5. Gardien d'un lieu-dit : même essai sur l'atelier.
@@ -2276,5 +2282,5 @@ jamais : `ApiKeyEnv` donne le nom de la variable d'environnement qui la porte.
 
 - Le champ `#Input` (TextField vanilla) prend bien la saisie dans la fenêtre de dialogue, Entrée (`Validating`) envoie.
 - Le serveur peut joindre l'API (réseau sortant de l'hébergeur ; question 12 du doc, sans réponse).
-- Lecture des onglets : textes cachés qui fuiraient (enfants d'un groupe caché), libellés des boutons sans `.Text`.
-- Clic hors écran : aucune page ne doit toucher la fenêtre de dialogue (rebuild/close sans référence).
+- Les sujets lus disent la même chose que les onglets du panneau (demandes, projets, routes, lieux-dits).
+- Les refus des actions s'affichent bien sous la réponse (messages capturés).

@@ -19,7 +19,7 @@ import dev.nakasar.hytale.peuples.village.Village;
  * {@code /village gestionnaire} (opérateurs) : le gestionnaire qui parle ({@link Steward}).
  * <ul>
  *   <li>{@code etat} : activé ou non, backend et modèle, clé présente, jetons du jour, dernière erreur ;</li>
- *   <li>{@code lire <onglet>} : ce que le modèle lit d'un onglet du panneau du village le plus proche (aucun appel) ;</li>
+ *   <li>{@code lire <sujet>} : ce que le modèle lit d'un sujet (demandes, projets...) du village le plus proche (aucun appel) ;</li>
  *   <li>{@code recharger} : relit {@value StewardConfig#FILE} et lève la pause après des échecs.</li>
  * </ul>
  */
@@ -50,7 +50,7 @@ final class StewardCommand extends AbstractCommandCollection {
     }
 
     private static final class ReadCommand extends AbstractPlayerCommand {
-        private final RequiredArg<String> tab = withRequiredArg("onglet", KEYS + "read.tab", ArgTypes.STRING);
+        private final RequiredArg<String> tab = withRequiredArg("sujet", KEYS + "read.tab", ArgTypes.STRING);
 
         ReadCommand() {
             super("lire", KEYS + "read.desc");
@@ -63,7 +63,7 @@ final class StewardCommand extends AbstractCommandCollection {
             if (village == null) {
                 return;
             }
-            for (String line : Steward.readTab(world, store, ref, player, village.id(), tab.get(context)).split("\n")) {
+            for (String line : Steward.readTopic(world, store, ref, player, village.id(), tab.get(context)).split("\n")) {
                 player.sendMessage(Message.raw(line));
             }
         }

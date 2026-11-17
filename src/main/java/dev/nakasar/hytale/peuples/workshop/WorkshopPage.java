@@ -466,7 +466,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
     // ---- Version texte et tchat ----
 
     /** Texte du panneau pour la page vanilla BlockLore (accroupi). */
-    static Message textBody(Store<EntityStore> store, Ref<EntityStore> ref, Village village, Workshop w) {
+    public static Message textBody(Store<EntityStore> store, Ref<EntityStore> ref, Village village, Workshop w) {
         WorkshopState state = village.workshop(w.getId());
         PeuplesPlayer data = PeuplesPlayer.get(store, ref);
         boolean open = Workshops.canTake(store, ref, village);

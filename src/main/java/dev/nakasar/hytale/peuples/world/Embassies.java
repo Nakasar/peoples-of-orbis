@@ -52,7 +52,7 @@ public final class Embassies {
     }
 
     /** Le village peut-il envoyer une ambassade vers ce lieu-dit (sans compter le seuil d'influence) ? Rend la raison du refus, ou null. */
-    static Message blocked(World world, Hamlets.Place h, Village v, long day) {
+    public static Message blocked(World world, Hamlets.Place h, Village v, long day) {
         Village owner = Allegiance.owner(world, h);
         if (owner != null && owner.id().equals(v.id())) {
             return Message.translation(KEYS + "already").param("hamlet", h.name());

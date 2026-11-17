@@ -144,7 +144,7 @@ public final class PlotPage extends InteractiveCustomUIPage<PlotPage.Event> {
     }
 
     /** État du terrain en une phrase : fermé, libre, projet choisi (matériaux), chantier, bâti. */
-    static Message stateLine(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot, PlotState s) {
+    public static Message stateLine(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot, PlotState s) {
         if (!Plots.isOpen(village, plot)) {
             return Message.translation(KEYS + "state.locked").param("tier", Message.translation(Tiers.nameKey(plot.tier())));
         }

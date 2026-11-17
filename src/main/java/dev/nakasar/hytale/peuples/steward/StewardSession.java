@@ -1,32 +1,27 @@
 package dev.nakasar.hytale.peuples.steward;
 
 import com.google.gson.JsonObject;
-import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * La conversation d'un joueur avec un gestionnaire : ses derniers tours (question, réponse ; {@link StewardConfig#memoryTurns}),
- * les pages du panneau qu'il a « ouvertes » hors écran ({@link BoardReader}), et les actions qui attendent son clic sur
- * Confirmer. Oubliée quand il parle à un autre gestionnaire, quand il quitte le serveur, ou après une heure sans parler.
+ * et les actions qui attendent son clic sur Confirmer. Oubliée quand il parle à un autre gestionnaire, quand il quitte le serveur, ou après une heure sans parler.
  */
 final class StewardSession {
 
-    /** Une action retenue jusqu'au clic sur Confirmer : l'onglet, l'action du bouton, et le libellé lu par le modèle. */
-    record Pending(BoardReader.Tab tab, String action, String label) {
+    /** Une action retenue jusqu'au clic sur Confirmer : l'outil, ses paramètres, et son libellé. */
+    record Pending(StewardActions.Spec spec, JsonObject input, String label) {
     }
 
     static final long IDLE_MS = 60L * 60 * 1000;
 
     final String villageId;
     final CapturingPlayerRef player;
-    final Map<BoardReader.Tab, InteractiveCustomUIPage<?>> pages = new EnumMap<>(BoardReader.Tab.class);
     /** Tours passés, au format des messages de l'API Claude (rôle user puis assistant, texte seul). */
     final Deque<JsonObject> history = new ArrayDeque<>();
     final List<Pending> pending = new ArrayList<>();
