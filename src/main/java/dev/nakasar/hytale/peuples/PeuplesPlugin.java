@@ -263,6 +263,8 @@ public final class PeuplesPlugin extends JavaPlugin {
         Villagers.clearAll();
         dev.nakasar.hytale.peuples.population.Population.clearAll();
         dev.nakasar.hytale.peuples.annex.Annexes.clearAll();
+        dev.nakasar.hytale.peuples.village.Rebuilds.clearAll();
+        dev.nakasar.hytale.peuples.village.BuildingPaliers.clearCache();
         dev.nakasar.hytale.peuples.workshop.Livestock.clearAll();
         dev.nakasar.hytale.peuples.village.Plots.clearAll();
         Raids.clearAll();

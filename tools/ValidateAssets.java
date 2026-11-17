@@ -1600,6 +1600,95 @@ public class ValidateAssets {
     /** Commandes d'un bâtiment de métier : de quoi remplir les 3 cases du niveau III sans doublon. */
     static final int MIN_WORKSHOP_ORDERS = 3;
 
+    /**
+     * Paliers d'apparence des bâtiments ({@code nakasar-peuples/paliers-batiments.json}, tools/building_growth.py) : chaque
+     * bâtiment et avant-poste existe, chaque prefab est connu (vanilla relevé ou prefab du mod), et le palier 1 est encore
+     * le bâtiment du plan (sinon le fichier date d'avant un changement des plans : relancer le générateur).
+     */
+    private static int checkBuildingPaliers(Path root, String vanillaPrefabs) throws Exception {
+        Path file = root.getParent().resolve("nakasar-peuples/paliers-batiments.json");
+        if (!Files.isRegularFile(file)) {
+            return 0;
+        }
+        Set<String> known = new HashSet<>();
+        if (vanillaPrefabs != null) {
+            for (String line : Files.readAllLines(Path.of(vanillaPrefabs))) {
+                if (!line.isBlank() && !line.startsWith("#")) {
+                    known.add(line.trim().split("\\s+")[0]);
+                }
+            }
+        }
+        java.util.function.Predicate<String> knownPrefab = prefab -> vanillaPrefabs == null || known.contains(prefab)
+                || Files.isRegularFile(root.resolve("Prefabs/" + prefab + ".prefab.json"));
+        List<String> problems = new ArrayList<>();
+        BsonDocument doc = BsonDocument.parse(Files.readString(file));
+        BsonDocument layouts = doc.containsKey("Layouts") ? doc.getDocument("Layouts") : new BsonDocument();
+        for (String layoutId : layouts.keySet()) {
+            Path lf = root.resolve("Nakasar/VillageLayouts/" + layoutId + ".json");
+            if (!Files.isRegularFile(lf)) {
+                problems.add("plan inconnu " + layoutId);
+                continue;
+            }
+            Map<String, BsonDocument> buildings = new HashMap<>();
+            for (BsonValue b : BsonDocument.parse(Files.readString(lf)).getArray("Buildings")) {
+                buildings.put(b.asDocument().getString("Id").getValue(), b.asDocument());
+            }
+            BsonDocument entries = layouts.getDocument(layoutId);
+            for (String id : entries.keySet()) {
+                BsonDocument b = buildings.get(id);
+                if (b == null) {
+                    problems.add(layoutId + " : bâtiment inconnu " + id);
+                    continue;
+                }
+                for (BsonValue t : entries.getArray(id)) {
+                    BsonDocument tier = t.asDocument();
+                    String prefab = tier.getString("Prefab").getValue();
+                    if (!knownPrefab.test(prefab)) {
+                        problems.add(layoutId + "/" + id + " : prefab inconnu " + prefab);
+                    }
+                    if (tier.getInt32("Palier").getValue() == 1 && (!prefab.equals(b.getString("Prefab").getValue())
+                            || tier.getInt32("DX").getValue() != 0 || tier.getInt32("DZ").getValue() != 0)) {
+                        problems.add(layoutId + "/" + id + " : le palier 1 n'est plus le bâtiment du plan (relancer tools/building_growth.py)");
+                    }
+                }
+            }
+        }
+        BsonDocument annexes = doc.containsKey("Annexes") ? doc.getDocument("Annexes") : new BsonDocument();
+        for (String id : annexes.keySet()) {
+            Path wf = root.resolve("Nakasar/Workshops/" + id + ".json");
+            BsonDocument w = Files.isRegularFile(wf) ? BsonDocument.parse(Files.readString(wf)) : null;
+            if (w == null || !w.containsKey("Annex")) {
+                problems.add("avant-poste inconnu " + id);
+                continue;
+            }
+            List<String> plan = new ArrayList<>();
+            for (BsonValue v : w.getDocument("Annex").getArray("Prefabs")) {
+                plan.add(v.asString().getValue().trim());
+            }
+            for (BsonValue t : annexes.getArray(id)) {
+                BsonDocument tier = t.asDocument();
+                List<String> lines = new ArrayList<>();
+                for (BsonValue v : tier.getArray("Prefabs")) {
+                    String line = v.asString().getValue().trim();
+                    lines.add(line);
+                    if (!knownPrefab.test(line.split("\\s+")[0])) {
+                        problems.add(id + " : prefab inconnu " + line);
+                    }
+                }
+                if (tier.getInt32("Palier").getValue() == 1 && !lines.equals(plan)) {
+                    problems.add(id + " : le palier 1 n'est plus l'avant-poste (relancer tools/building_growth.py)");
+                }
+            }
+        }
+        for (String p : problems) {
+            System.out.println("ERROR nakasar-peuples/paliers-batiments.json : " + p);
+        }
+        if (problems.isEmpty()) {
+            System.out.println("OK    paliers d'apparence de " + layouts.size() + " plans et " + annexes.size() + " avant-postes");
+        }
+        return problems.isEmpty() ? 0 : 1;
+    }
+
     private static int checkVillageLayouts(Path root, String vanillaPrefabs) throws Exception {
         Path layouts = root.resolve("Nakasar/VillageLayouts");
         if (!Files.isDirectory(layouts) || vanillaPrefabs == null) {
@@ -2103,6 +2192,7 @@ public class ValidateAssets {
         WORKSHOP_NPCS = System.getProperty("refs") == null ? null : vanillaNpcRefs();
         errors += checkWorkshops(root, System.getProperty("prefabs"));
         errors += checkHamlets(root, System.getProperty("prefabs"));
+        errors += checkBuildingPaliers(root, System.getProperty("prefabs"));
         errors += checkTargetBlocks(root);
         errors += checkMapMarkerIcons(root);
         errors += checkReputation(root);

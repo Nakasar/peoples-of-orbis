@@ -108,6 +108,9 @@ public final class AnnexState {
             .append(new KeyedCodec<>("SiegeSoldiers", Codec.INTEGER), (a, v) -> a.siegeSoldiers = v == null ? 0 : v, a -> a.siegeSoldiers)
             .documentation("Soldats de l'expédition encore en vie.")
             .add()
+            .append(new KeyedCodec<>("Palier", Codec.INTEGER), (a, v) -> a.palier = v == null ? 0 : v, a -> a.palier)
+            .documentation("Palier d'apparence (1 à 4) des bâtiments collés ; 0 : bâti avant les paliers, donc le palier 1.")
+            .add()
             .build();
 
     String id = "";
@@ -142,6 +145,7 @@ public final class AnnexState {
     long siegeArrive;
     int siegeSoldiers;
     boolean cleared;
+    int palier;
 
     public boolean cleared() {
         return cleared;
@@ -269,6 +273,15 @@ public final class AnnexState {
 
     public boolean built() {
         return stage == BUILT;
+    }
+
+    /** Palier d'apparence des bâtiments collés de l'avant-poste (1 s'ils ont été bâtis avant les paliers). */
+    public int palier() {
+        return Math.max(1, palier);
+    }
+
+    public void setPalier(int value) {
+        palier = value;
     }
 
     public long grantedDay() {

@@ -52,7 +52,7 @@ public final class VillageBuilder {
         int p = layout.plazaRadius() + 1;
         List<int[]> rects = new ArrayList<>();
         for (VillageLayout.Building b : layout.buildings()) {
-            rects.add(b.rect());
+            rects.add(BuildingPaliers.reserved(layout, b));
         }
         for (VillageLayout.Plot plot : layout.plots()) {
             rects.add(plot.rect());

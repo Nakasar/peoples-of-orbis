@@ -127,6 +127,28 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
         public int[] rect() {
             return new int[] {x + minX, x + maxX, z + minZ, z + maxZ};
         }
+
+        /**
+         * Le même bâtiment (id, palier du plan, terrain, rotation) sous une autre apparence : prefab, point de collage
+         * décalé de (dx, dz) et emprise relative au nouveau point de collage ({@link BuildingPaliers}).
+         */
+        Building variant(String variantPrefab, int dx, int dz, int vMinX, int vMaxX, int vMinZ, int vMaxZ, int vMinY, int vMaxY) {
+            Building b = new Building();
+            b.id = id;
+            b.plot = plot;
+            b.tier = tier;
+            b.rotation = rotation;
+            b.prefab = variantPrefab;
+            b.x = x + dx;
+            b.z = z + dz;
+            b.minX = vMinX;
+            b.maxX = vMaxX;
+            b.minZ = vMinZ;
+            b.maxZ = vMaxZ;
+            b.minY = vMinY;
+            b.maxY = vMaxY;
+            return b;
+        }
     }
 
     /** Un matériau d'un chantier : objet vanilla et quantité, pris au dépôt. */

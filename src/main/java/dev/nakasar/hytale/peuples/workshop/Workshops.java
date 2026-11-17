@@ -275,7 +275,7 @@ public final class Workshops {
      * la terre, le panneau s'enfonçait sous les racines et la mousse des villages kweebecs ; il se pose maintenant sur
      * le premier bloc plein du dessus ({@link #standY}). Sans effet tant que la zone n'est pas chargée.
      */
-    static void placeBoard(World world, Village village, Workshop w, WorkshopState state) {
+    public static void placeBoard(World world, Village village, Workshop w, WorkshopState state) {
         if (w.isAnnex()) {
             dev.nakasar.hytale.peuples.annex.Annexes.placeBoard(world, village, w, state);
             return;
@@ -826,6 +826,13 @@ public final class Workshops {
                 placeDecor(world, ws.board(), up.decor());
             }
         }
+        // Nouvelle apparence du bâtiment pour son niveau (Kevin, 2026-11-17 : un bâtiment à niveaux ne change d'apparence
+        // qu'à sa propre montée de niveau) : prefab plus grand recollé sur place, panneau et décor reposés.
+        if (w.isAnnex()) {
+            dev.nakasar.hytale.peuples.annex.Annexes.afterLevel(world, village, w);
+        } else if (!w.isHamlet()) {
+            dev.nakasar.hytale.peuples.village.Rebuilds.afterLevel(world, village, w);
+        }
         Message name = Message.translation(w.nameKey());
         Message levelName = Message.translation(KEYS + "level." + level);
         Chantiers.announce(world, village, Message.translation(KEYS + "levelUp").param("building", name).param("level", levelName),
@@ -834,7 +841,7 @@ public final class Workshops {
     }
 
     /** Pose le décor vanilla d'un niveau ({@code "dx dy dz lacet Bloc"} relatifs au panneau), seulement dans l'air. */
-    static void placeDecor(World world, int[] origin, String[] decor) {
+    public static void placeDecor(World world, int[] origin, String[] decor) {
         ChunkStore chunks = world.getChunkStore();
         for (String line : decor) {
             String[] p = line.trim().split("\\s+");
@@ -1105,7 +1112,7 @@ public final class Workshops {
             if (raid.posted() > 0 && layout != null) {
                 for (VillageLayout.Building b : layout.buildings()) {
                     if (b.id().equals(w.building())) {
-                        int[] r = b.rect();
+                        int[] r = dev.nakasar.hytale.peuples.village.BuildingPaliers.current(village, layout, b).rect();
                         int cx = village.x() + Math.floorDiv(r[0] + r[1], 2);
                         int cz = village.z() + Math.floorDiv(r[2] + r[3], 2);
                         for (int i = 0; i < raid.posted() + extra; i++) {
