@@ -30,6 +30,7 @@ import dev.nakasar.hytale.peuples.village.HamletRegistry;
 import dev.nakasar.hytale.peuples.village.PlotPage;
 import dev.nakasar.hytale.peuples.village.PlotState;
 import dev.nakasar.hytale.peuples.village.Plots;
+import dev.nakasar.hytale.peuples.village.Tiers;
 import dev.nakasar.hytale.peuples.village.Village;
 import dev.nakasar.hytale.peuples.village.VillageBoard;
 import dev.nakasar.hytale.peuples.village.VillageLayout;
@@ -148,9 +149,35 @@ final class StewardData {
         return out;
     }
 
+    /**
+     * L'essor comme le sent un habitant : le PNJ ne cite jamais de chiffre (Kevin, 2026-11-17), il dit où en est le
+     * village.
+     */
+    static String essorInWords(Village v) {
+        int max = Tiers.threshold(v.tier());
+        if (max <= 0) {
+            return "le village a atteint sa pleine grandeur";
+        }
+        double f = (double) v.essor() / max;
+        if (f >= 1) {
+            return "le village est prêt à grandir : il n'attend plus que son prochain chantier";
+        }
+        if (f < 0.05) {
+            return "rien n'a encore vraiment bougé, tout reste à faire";
+        }
+        if (f < 0.35) {
+            return "le village commence tout juste à prendre de l'élan";
+        }
+        if (f < 0.7) {
+            return "le village avance bien, on le sent grandir";
+        }
+        return "il ne manque plus grand-chose avant que le village grandisse";
+    }
+
     static String read(Ctx c, Topic topic) {
         return switch (topic) {
-            case ETAT -> TextRender.text(VillageBoard.body(c.world(), c.village(), c.store(), c.ref()), c.language());
+            case ETAT -> TextRender.text(VillageBoard.body(c.world(), c.village(), c.store(), c.ref()), c.language())
+                    + "\nEssor, à dire en mots (jamais en chiffres) : " + essorInWords(c.village());
             case DEMANDES -> requests(c);
             case PROJETS -> plots(c);
             case PRODUCTION -> annexes(c);
