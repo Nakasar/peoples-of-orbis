@@ -98,7 +98,7 @@ abstract class LlmClient {
         CompletableFuture<Reply> send(String system, JsonArray tools, JsonArray messages) {
             String key = config.apiKey();
             if (key == null) {
-                return CompletableFuture.failedFuture(new Failure(0, "clé absente (variable " + config.apiKeyEnv + ")"));
+                return CompletableFuture.failedFuture(new Failure(0, "clé absente (variable " + config.keyEnv() + ")"));
             }
             JsonObject body = new JsonObject();
             body.addProperty("model", config.modelOrDefault());

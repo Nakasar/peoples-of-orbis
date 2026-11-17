@@ -25,11 +25,7 @@ final class StewardSession {
     /** Tours passés, au format des messages de l'API Claude (rôle user puis assistant, texte seul). */
     final Deque<JsonObject> history = new ArrayDeque<>();
     final List<Pending> pending = new ArrayList<>();
-    /** Une question en cours : la fenêtre attend la réponse, une deuxième est refusée. */
-    volatile boolean busy;
     long lastUsed = System.currentTimeMillis();
-    /** Heures des derniers messages (limite par heure). */
-    final Deque<Long> calls = new ArrayDeque<>();
 
     StewardSession(String villageId, PlayerRef player) {
         this.villageId = villageId;
@@ -51,18 +47,5 @@ final class StewardSession {
             return;
         }
         last.addProperty("content", last.get("content").getAsString() + "\n[" + text + "]");
-    }
-
-    /** Vrai si le joueur peut encore envoyer un message cette heure (et le compte). */
-    boolean allowCall(int perHour) {
-        long now = System.currentTimeMillis();
-        while (!calls.isEmpty() && now - calls.peekFirst() > 3_600_000L) {
-            calls.removeFirst();
-        }
-        if (calls.size() >= perHour) {
-            return false;
-        }
-        calls.addLast(now);
-        return true;
     }
 }

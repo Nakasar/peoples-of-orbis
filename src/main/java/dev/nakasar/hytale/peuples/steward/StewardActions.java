@@ -6,6 +6,7 @@ import com.hypixel.hytale.server.core.Message;
 import dev.nakasar.hytale.peuples.annex.Annexes;
 import dev.nakasar.hytale.peuples.annex.Infrastructures;
 import dev.nakasar.hytale.peuples.annex.Ouvrages;
+import dev.nakasar.hytale.peuples.player.PeuplesPlayer;
 import dev.nakasar.hytale.peuples.population.Population;
 import dev.nakasar.hytale.peuples.request.GameClock;
 import dev.nakasar.hytale.peuples.request.Requests;
@@ -14,12 +15,15 @@ import dev.nakasar.hytale.peuples.village.Chantiers;
 import dev.nakasar.hytale.peuples.village.Plots;
 import dev.nakasar.hytale.peuples.village.Village;
 import dev.nakasar.hytale.peuples.village.VillageLayout;
+import dev.nakasar.hytale.peuples.village.Villages;
 import dev.nakasar.hytale.peuples.workshop.Workshop;
 import dev.nakasar.hytale.peuples.workshop.Workshops;
+import dev.nakasar.hytale.peuples.world.Allegiance;
 import dev.nakasar.hytale.peuples.world.Colours;
 import dev.nakasar.hytale.peuples.world.Embassies;
 import dev.nakasar.hytale.peuples.world.Hamlets;
 import dev.nakasar.hytale.peuples.world.Sieges;
+import dev.nakasar.hytale.peuples.world.TradeAccess;
 import dev.nakasar.hytale.peuples.world.TradeCatalogue;
 import dev.nakasar.hytale.peuples.world.TradeGoods;
 import dev.nakasar.hytale.peuples.world.TradePage;
@@ -27,6 +31,7 @@ import dev.nakasar.hytale.peuples.world.TradeRoutes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 /**
@@ -196,6 +201,10 @@ final class StewardActions {
             case "abandonner_demande" -> {
                 int slot = slot(in, "case");
                 VillageRequest r = request(c, slot);
+                PeuplesPlayer data = PeuplesPlayer.get(c.store(), c.ref());
+                if (data == null || data.request(r.id()) == null) {
+                    throw new Invalid("Le joueur n'a pas pris la demande de la case " + (slot + 1) + " : rien à abandonner.");
+                }
                 yield new Resolved("Abandonner la demande « " + c.t(Requests.title(r.template())) + " »", true,
                         () -> Outcome.of(Requests.abandon(c.world(), c.store(), c.ref(), c.player(), r.id())));
             }
@@ -310,16 +319,24 @@ final class StewardActions {
             }
             case "acheter_etal" -> {
                 String item = str(in, "objet");
-                if (item == null || TradeGoods.itemKey(item) == null) {
-                    throw new Invalid("Objet inconnu : lis le sujet commerce.");
+                // Seulement ce que montre l'étal : un objet reçu par les routes, en stock pour un lot entier.
+                Map<String, Integer> deposit = Villages.depositContents(c.world(), v);
+                if (item == null || !TradeAccess.items(c.world(), v, c.day()).containsKey(item)
+                        || deposit == null || deposit.getOrDefault(item, 0) < TradePage.stallLot(item)) {
+                    throw new Invalid("Cet objet n'est pas à l'étal : lis le sujet commerce.");
                 }
                 yield new Resolved("Acheter " + TradePage.stallLot(item) + " × " + c.t(Message.translation(TradeGoods.itemKey(item))) + " à l'étal",
                         true, () -> Outcome.of(TradePage.buyLot(c.world(), c.store(), c.ref(), v, item)));
             }
             case "ambassade", "expedition" -> {
                 Hamlets.Place h = Hamlets.get(c.world(), str(in, "lieu_dit"));
-                if (h == null) {
-                    throw new Invalid("Lieu-dit inconnu : lis le sujet domaine.");
+                // Comme le panneau Domaine : un lieu-dit bâti, à portée, que le village ne tient pas déjà.
+                if (h == null || h.stage() != Hamlets.BUILT || Math.sqrt(v.horizontalDistanceSquared(h.x(), h.z())) > Allegiance.RANGE) {
+                    throw new Invalid("Lieu-dit inconnu ou hors de portée : lis le sujet domaine.");
+                }
+                Village owner = Allegiance.owner(c.world(), h);
+                if (owner != null && owner.id().equals(v.id())) {
+                    throw new Invalid("Ce lieu-dit est déjà tenu par le village.");
                 }
                 boolean embassy = s.name().equals("ambassade");
                 yield new Resolved((embassy ? "Ambassade vers " : "Expédition contre ") + c.t(h.name()), true,

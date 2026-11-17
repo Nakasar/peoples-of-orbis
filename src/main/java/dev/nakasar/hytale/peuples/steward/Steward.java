@@ -16,7 +16,9 @@ import dev.nakasar.hytale.peuples.village.Villages;
 import dev.nakasar.hytale.peuples.world.Hamlets;
 
 import java.time.LocalDate;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -55,6 +57,9 @@ public final class Steward {
     }
 
     private static final Map<UUID, StewardSession> SESSIONS = new ConcurrentHashMap<>();
+    /** Par joueur, hors session : survit au changement de village, pour que la limite horaire ne se contourne pas. */
+    private static final Map<UUID, Quota> QUOTAS = new ConcurrentHashMap<>();
+    private static final Map<String, Pattern> MASKS = new ConcurrentHashMap<>();
     private static final AtomicLong TOKENS_TODAY = new AtomicLong();
     private static volatile LocalDate tokenDay = LocalDate.now();
     private static final AtomicLong CALLS_TODAY = new AtomicLong();
@@ -99,6 +104,31 @@ public final class Steward {
 
     public static void clearAll() {
         SESSIONS.clear();
+        QUOTAS.clear();
+        MASKS.clear();
+    }
+
+    /** Un joueur : son message en cours (un seul à la fois) et l'heure de ses derniers messages (limite par heure). */
+    private static final class Quota {
+        volatile boolean busy;
+        private final Deque<Long> calls = new ArrayDeque<>();
+
+        /** Vrai si le joueur peut encore envoyer un message cette heure (et le compte). */
+        synchronized boolean allowCall(int perHour) {
+            long now = System.currentTimeMillis();
+            while (!calls.isEmpty() && now - calls.peekFirst() > 3_600_000L) {
+                calls.removeFirst();
+            }
+            if (calls.size() >= perHour) {
+                return false;
+            }
+            calls.addLast(now);
+            return true;
+        }
+    }
+
+    private static Quota quota(PlayerRef player) {
+        return QUOTAS.computeIfAbsent(player.getUuid(), u -> new Quota());
     }
 
     /** Actions qui attendent le clic du joueur sur Confirmer (libellés lus par le modèle). */
@@ -130,7 +160,6 @@ public final class Steward {
             s = new StewardSession(villageId, player);
             SESSIONS.put(player.getUuid(), s);
         }
-        s.lastUsed = now;
         return s;
     }
 
@@ -153,20 +182,22 @@ public final class Steward {
             return;
         }
         String refusal = refusal(config);
-        StewardSession session = session(villageId, player);
-        if (refusal == null && session.busy) {
+        Quota quota = quota(player);
+        if (refusal == null && quota.busy) {
             refusal = "busy";
         }
-        if (refusal == null && !session.allowCall(config.playerHourlyCalls)) {
+        if (refusal == null && !quota.allowCall(config.playerHourlyCalls)) {
             refusal = "rate";
         }
         if (refusal != null) {
             done.accept(fallback(refusal));
             return;
         }
-        session.busy = true;
+        StewardSession session = session(villageId, player);
+        session.lastUsed = System.currentTimeMillis();
+        quota.busy = true;
         session.pending.clear();
-        Turn turn = new Turn(world, ref, player, session, config, village, done);
+        Turn turn = new Turn(world, ref, player, session, quota, config, village, done);
         String system = systemPrompt(world, store, ref, player, village, npcName, npcRole, config.language);
         JsonArray messages = new JsonArray();
         session.history.forEach(m -> messages.add(m.deepCopy()));
@@ -190,11 +221,12 @@ public final class Steward {
         if (System.currentTimeMillis() < pausedUntil) {
             return "paused";
         }
+        return overBudget(config) ? "budget" : null;
+    }
+
+    private static boolean overBudget(StewardConfig config) {
         rollDay();
-        if (config.dailyTokenBudget > 0 && TOKENS_TODAY.get() >= config.dailyTokenBudget) {
-            return "budget";
-        }
-        return null;
+        return config.dailyTokenBudget > 0 && TOKENS_TODAY.get() >= config.dailyTokenBudget;
     }
 
     private static void rollDay() {
@@ -216,6 +248,7 @@ public final class Steward {
         final Ref<EntityStore> ref;
         final PlayerRef player;
         final StewardSession session;
+        final Quota quota;
         final StewardConfig config;
         final Village village;
         final Consumer<Answer> done;
@@ -226,12 +259,13 @@ public final class Steward {
         /** Une action a été refusée par le jeu : les suivantes de ce message ne sont pas tentées. */
         boolean halted;
 
-        Turn(World world, Ref<EntityStore> ref, PlayerRef player, StewardSession session, StewardConfig config, Village village,
-             Consumer<Answer> done) {
+        Turn(World world, Ref<EntityStore> ref, PlayerRef player, StewardSession session, Quota quota, StewardConfig config,
+             Village village, Consumer<Answer> done) {
             this.world = world;
             this.ref = ref;
             this.player = player;
             this.session = session;
+            this.quota = quota;
             this.config = config;
             this.village = village;
             this.done = done;
@@ -246,13 +280,27 @@ public final class Steward {
             } catch (RuntimeException e) {
                 call = CompletableFuture.failedFuture(e);
             }
-            call.whenComplete((reply, error) -> world.execute(() -> {
-                if (error != null) {
-                    fail(error);
-                } else {
-                    handle(system, messages, reply);
+            call.whenComplete((reply, error) -> {
+                try {
+                    world.execute(() -> {
+                        try {
+                            if (error != null) {
+                                fail(error);
+                            } else {
+                                handle(system, messages, reply);
+                            }
+                        } catch (RuntimeException e) {
+                            LOGGER.atWarning().withCause(e).log("Gestionnaire %s : tour en échec", session.villageId);
+                            if (quota.busy) {
+                                fail(e);
+                            }
+                        }
+                    });
+                } catch (RuntimeException e) {
+                    // Le monde s'arrête : plus de réponse possible, mais le joueur ne reste pas « occupé ».
+                    quota.busy = false;
                 }
-            }));
+            });
         }
 
         void handle(String system, JsonArray messages, LlmClient.Reply reply) {
@@ -285,6 +333,10 @@ public final class Steward {
             toolMessage.addProperty("role", "user");
             toolMessage.add("content", results);
             messages.add(toolMessage);
+            if (overBudget(config)) {
+                stop("budget");
+                return;
+            }
             next(system, messages);
         }
 
@@ -297,14 +349,22 @@ public final class Steward {
                 pausedUntil = System.currentTimeMillis() + PAUSE_MS;
                 LOGGER.atWarning().log("Gestionnaire : %d échecs de suite, pause de 10 minutes", FAILURES_BEFORE_PAUSE);
             }
-            session.busy = false;
+            quota.busy = false;
             session.pending.clear();
             Answer a = fallback("error");
             done.accept(new Answer(a.line(), List.copyOf(game), List.of(), true));
         }
 
+        /** Fin du tour sans réponse du modèle (budget épuisé en cours de route) : les actions faites ou retenues restent. */
+        void stop(String why) {
+            quota.busy = false;
+            List<String> waiting = new ArrayList<>();
+            session.pending.forEach(p -> waiting.add(p.label()));
+            done.accept(new Answer(fallback(why).line(), List.copyOf(game), waiting, true));
+        }
+
         void finish(String text) {
-            session.busy = false;
+            quota.busy = false;
             String reply = text == null || text.isBlank() ? null : text.strip();
             if (reply != null && reply.length() > 600) {
                 reply = reply.substring(0, 597) + "...";
@@ -385,28 +445,38 @@ public final class Steward {
         List<Message> game = new ArrayList<>();
         List<String> done = new ArrayList<>();
         String stopped = null;
-        for (StewardSession.Pending p : List.copyOf(s.pending)) {
-            StewardActions.Resolved action;
+        List<StewardSession.Pending> queue = List.copyOf(s.pending);
+        // Vidée avant d'agir : une action faite ne peut jamais être rejouée par un second clic, même après une erreur.
+        s.pending.clear();
+        s.lastUsed = System.currentTimeMillis();
+        for (StewardSession.Pending p : queue) {
             try {
                 if (v == null) {
                     throw new StewardActions.Invalid("Le village n'existe plus.");
                 }
-                action = StewardActions.resolve(ctx(world, ref, s, v, config.language), p.spec(), p.input());
+                StewardActions.Resolved action = StewardActions.resolve(ctx(world, ref, s, v, config.language), p.spec(), p.input());
+                if (!action.label().equals(p.label())) {
+                    // Les mêmes paramètres désignent autre chose qu'au moment où le joueur a lu le libellé.
+                    throw new StewardActions.Invalid("changé");
+                }
+                Result r = perform(s, action);
+                game.addAll(r.messages());
+                LOGGER.atInfo().log("Gestionnaire %s : %s confirme %s (%s)", s.villageId, player.getUuid(), p.spec().name(), r.ok() ? "fait" : "refusé");
+                if (!r.ok()) {
+                    stopped = p.label();
+                    break;
+                }
+                done.add(p.label());
             } catch (StewardActions.Invalid e) {
                 stopped = p.label();
                 game.add(Message.translation(KEYS + "changed").param("action", p.label()));
                 break;
-            }
-            Result r = perform(s, action);
-            game.addAll(r.messages());
-            LOGGER.atInfo().log("Gestionnaire %s : %s confirme %s (%s)", s.villageId, player.getUuid(), p.spec().name(), r.ok() ? "fait" : "refusé");
-            if (!r.ok()) {
+            } catch (RuntimeException e) {
+                LOGGER.atWarning().withCause(e).log("Gestionnaire %s : action confirmée %s en échec", s.villageId, p.spec().name());
                 stopped = p.label();
                 break;
             }
-            done.add(p.label());
         }
-        s.pending.clear();
         s.note("Le joueur a confirmé. Fait : " + (done.isEmpty() ? "rien" : String.join(" ; ", done))
                 + (stopped == null ? "" : ". Refusé, arrêt : " + stopped));
         Message line = stopped == null ? Message.translation(KEYS + "confirmed")
@@ -534,7 +604,10 @@ public final class Steward {
         if (text == null || name == null || name.length() < 2) {
             return text;
         }
-        return Pattern.compile(Pattern.quote(name), Pattern.CASE_INSENSITIVE).matcher(text).replaceAll("le joueur");
+        // Mot entier seulement : un pseudo « Tour » ne doit toucher ni « Tours » ni un id comme [annexe Tour_...].
+        Pattern p = MASKS.computeIfAbsent(name, n -> Pattern.compile("(?<![\\p{L}\\p{N}_])" + Pattern.quote(n) + "(?![\\p{L}\\p{N}_])",
+                Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
+        return p.matcher(text).replaceAll("le joueur");
     }
 
     // ------------------------------------------------------------------------------------------------ état (commande)
@@ -545,7 +618,7 @@ public final class Steward {
         StewardConfig c = StewardConfig.get();
         List<String> out = new ArrayList<>();
         out.add("Gestionnaire : " + (c.enabled ? "activé" : "désactivé") + " ; backend " + c.backend + ", modèle " + c.modelOrDefault());
-        out.add("Clé (" + c.apiKeyEnv + ") : " + (c.apiKey() == null ? "absente" : "présente"));
+        out.add("Clé (" + (c.keyEnv().isEmpty() ? "aucune variable" : c.keyEnv()) + ") : " + (c.apiKey() == null ? "absente" : "présente"));
         out.add("Jetons aujourd'hui : " + TOKENS_TODAY.get() + " / " + (c.dailyTokenBudget == 0 ? "sans limite" : c.dailyTokenBudget)
                 + " ; appels : " + CALLS_TODAY.get());
         long pause = pausedUntil - System.currentTimeMillis();

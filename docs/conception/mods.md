@@ -2251,7 +2251,8 @@ jamais : `ApiKeyEnv` donne le nom de la variable d'environnement qui la porte.
 | `Backend` | `claude` | `claude` ou `local` |
 | `Endpoint` | vide | Adresse de l'API (vide : celle du backend) |
 | `Model` | vide | Modèle (vide : Claude Haiku 5.5, ou `llama3.1` en local) |
-| `ApiKeyEnv` | `ANTHROPIC_API_KEY` | Variable d'environnement de la clé |
+| `ApiKeyEnv` | `ANTHROPIC_API_KEY` | Variable d'environnement de la clé (backend `claude`) |
+| `LocalApiKeyEnv` | vide | Variable de la clé du backend `local` ; vide : aucune clé envoyée (jamais celle de `ApiKeyEnv`) |
 | `DailyTokenBudget` | 1 000 000 | Jetons par jour, tous joueurs (0 : sans limite) |
 | `PlayerHourlyCalls` | 60 | Messages par joueur et par heure |
 | `TimeoutMs` | 20 000 | Délai d'une requête |

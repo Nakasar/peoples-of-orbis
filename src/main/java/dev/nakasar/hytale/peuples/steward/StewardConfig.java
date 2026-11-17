@@ -36,6 +36,11 @@ public final class StewardConfig {
     public String model = "";
     /** Nom de la variable d'environnement qui porte la clé (jamais la clé elle-même). */
     public String apiKeyEnv = "ANTHROPIC_API_KEY";
+    /**
+     * Backend local : variable d'environnement de sa clé, vide par défaut (aucune clé envoyée). Jamais {@link #apiKeyEnv},
+     * pour qu'une clé Claude ne parte pas vers un serveur tiers.
+     */
+    public String localApiKeyEnv = "";
     /** Jetons (entrée + sortie) par jour de serveur, tous joueurs confondus ; au-delà, le gestionnaire se tait jusqu'à minuit. */
     public long dailyTokenBudget = 1_000_000;
     /** Messages par joueur et par heure. */
@@ -109,6 +114,7 @@ public final class StewardConfig {
         endpoint = endpoint == null ? "" : endpoint.trim();
         model = model == null ? "" : model.trim();
         apiKeyEnv = apiKeyEnv == null ? "" : apiKeyEnv.trim();
+        localApiKeyEnv = localApiKeyEnv == null ? "" : localApiKeyEnv.trim();
         language = language == null || language.isBlank() ? "fr-FR" : language.trim();
         dailyTokenBudget = Math.max(0, dailyTokenBudget);
         playerHourlyCalls = Math.max(1, playerHourlyCalls);
@@ -134,12 +140,18 @@ public final class StewardConfig {
         return LOCAL.equals(backend) ? "http://127.0.0.1:11434/v1/chat/completions" : "https://api.anthropic.com/v1/messages";
     }
 
-    /** La clé lue dans l'environnement, ou null (le backend local peut s'en passer). */
+    /** La variable d'environnement de la clé du backend choisi ({@link #localApiKeyEnv} pour le local). */
+    public String keyEnv() {
+        return LOCAL.equals(backend) ? localApiKeyEnv : apiKeyEnv;
+    }
+
+    /** La clé du backend choisi, lue dans l'environnement, ou null (le backend local peut s'en passer). */
     public String apiKey() {
-        if (apiKeyEnv.isEmpty()) {
+        String env = keyEnv();
+        if (env.isEmpty()) {
             return null;
         }
-        String key = System.getenv(apiKeyEnv);
+        String key = System.getenv(env);
         return key == null || key.isBlank() ? null : key.trim();
     }
 }
