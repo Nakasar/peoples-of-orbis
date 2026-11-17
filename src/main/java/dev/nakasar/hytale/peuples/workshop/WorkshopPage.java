@@ -316,7 +316,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
             case MASTER -> {
                 RequestTemplate t = Workshops.master(w, state);
                 line = Message.translation(KEYS + "nextMaster").param("title", t == null ? Message.raw("?") : Requests.boardTitle(t, Projects.masterNeeded(village, t)));
-                PeuplesPlayer data = PeuplesPlayer.get(store, playerRef.getReference());
+                PeuplesPlayer data = PeuplesPlayer.get(store, ref);
                 boolean mine = data != null && data.request(Workshops.masterId(village, w, state)) != null;
                 if (mine) {
                     PlayerRequest r = data.request(Workshops.masterId(village, w, state));
@@ -324,7 +324,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
                         line = Message.translation(KEYS + "nextMaster").param("title", Requests.boardTitle(t, r.needed()));
                     }
                     line = Message.empty().insert(line).insert("\n").insert(Requests.task(store, playerRef, r, t, village,
-                            Requests.position(store, playerRef.getReference())));
+                            Requests.position(store, ref)));
                 } else {
                     action = "Master";
                 }

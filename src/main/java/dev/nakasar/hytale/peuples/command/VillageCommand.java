@@ -134,6 +134,7 @@ public final class VillageCommand extends AbstractCommandCollection {
         addSubCommand(new AgeCommand());
         addSubCommand(new BirthCommand());
         addSubCommand(new DeathCommand());
+        addSubCommand(new StewardCommand());
         ZoneCommands.all().forEach(this::addSubCommand);
     }
 

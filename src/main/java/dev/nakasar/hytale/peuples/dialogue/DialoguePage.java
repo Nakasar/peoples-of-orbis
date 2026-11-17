@@ -33,6 +33,12 @@ public final class DialoguePage extends InteractiveCustomUIPage<DialoguePage.Eve
 
     public static final String LAYOUT = "Pages/Nakasar/Peuples/DialoguePage.ui";
     private static final String LEAVE = "Leave";
+    /** Gestionnaire qui parle (steward/) : passer en dialogue libre, envoyer, confirmer, annuler, ouvrir le panneau. */
+    private static final String TALK = "Talk";
+    private static final String SAY = "Say";
+    private static final String CONFIRM = "Confirm";
+    private static final String CANCEL = "Cancel";
+    private static final String BOARD = "Board";
     private static final String LOCKED_COLOR = "#c49a6c";
     private static final String LOCKED_TEXT_COLOR = "#7c838c";
 
@@ -41,9 +47,13 @@ public final class DialoguePage extends InteractiveCustomUIPage<DialoguePage.Eve
         public static final BuilderCodec<Event> CODEC = BuilderCodec.builder(Event.class, Event::new)
                 .append(new KeyedCodec<>("Action", Codec.STRING), (e, v) -> e.action = v, e -> e.action)
                 .add()
+                .append(new KeyedCodec<>("@Text", Codec.STRING), (e, v) -> e.text = v, e -> e.text)
+                .add()
                 .build();
 
         String action;
+        /** Ce que le joueur a écrit au gestionnaire (champ #Input). */
+        String text;
     }
 
     private final Dialogue dialogue;
@@ -58,6 +68,15 @@ public final class DialoguePage extends InteractiveCustomUIPage<DialoguePage.Eve
     private Ref<EntityStore> talker;
     /** L'habitant que montre le PNJ (générations de villageois) : son nom remplace celui du dialogue. */
     private dev.nakasar.hytale.peuples.population.Population.Identity identity;
+    /** Village (ou lieu-dit H:) dont le PNJ est le gestionnaire qui parle ; null pour les autres PNJ. */
+    private String stewardVillage;
+    /** Dialogue libre affiché à la place des réponses. */
+    private boolean talking;
+    /** Une question est partie : la fenêtre attend la réponse. */
+    private boolean waiting;
+    private Message stewardLine;
+    private List<Message> stewardGame = List.of();
+    private List<String> stewardPending = List.of();
 
     public DialoguePage(PlayerRef playerRef, Dialogue dialogue, DialogueNode start) {
         this(playerRef, dialogue, start, null);
@@ -70,6 +89,11 @@ public final class DialoguePage extends InteractiveCustomUIPage<DialoguePage.Eve
         this.start = start;
         this.portrait = portrait;
         this.node = start;
+    }
+
+    /** Le PNJ est le gestionnaire de `villageId` : le bouton « Parler librement » s'affiche si le serveur l'a activé. */
+    void steward(String villageId) {
+        this.stewardVillage = villageId;
     }
 
     void identity(dev.nakasar.hytale.peuples.population.Population.Identity identity) {
@@ -111,6 +135,20 @@ public final class DialoguePage extends InteractiveCustomUIPage<DialoguePage.Eve
         if (portrait != null) {
             cmd.set("#Portrait.AssetPath", portrait);
         }
+        boolean steward = stewardVillage != null && dev.nakasar.hytale.peuples.steward.Steward.enabled();
+        cmd.set("#Talk.Visible", steward);
+        if (steward) {
+            cmd.set("#Talk.Text", Message.translation(dev.nakasar.hytale.peuples.steward.Steward.KEYS + (talking ? "back" : "talk")));
+            events.addEventBinding(CustomUIEventBindingType.Activating, "#Talk", EventData.of("Action", TALK));
+        }
+        cmd.set("#StewardRow.Visible", steward && talking);
+        cmd.set("#ConfirmRow.Visible", steward && talking);
+        cmd.set("#Leave.Text", Message.translation(Dialogues.KEYS + "leave"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Leave", EventData.of("Action", LEAVE));
+        if (steward && talking) {
+            buildSteward(cmd, events);
+            return;
+        }
         // Paroles du dernier choix (où va le Klops, une rumeur, un refus...) sous la réplique ; seules si le PNJ n'a
         // plus de réplique (réponse qui fermait le dialogue) : le joueur les lit avant de partir.
         Message line = DialogueSpeech.withSaid(node == null ? null : Message.translation(node.textKey()), said);
@@ -145,8 +183,119 @@ public final class DialoguePage extends InteractiveCustomUIPage<DialoguePage.Eve
             cmd.set("#Hint" + i + ".TextSpans", hint == null ? Message.raw(" ") : hint);
             events.addEventBinding(CustomUIEventBindingType.Activating, answer, EventData.of("Action", Integer.toString(i)));
         }
-        cmd.set("#Leave.Text", Message.translation(Dialogues.KEYS + "leave"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#Leave", EventData.of("Action", LEAVE));
+    }
+
+    /**
+     * Dialogue libre avec le gestionnaire (steward/) : sa réponse en réplique, les messages du jeu (refus, résultats)
+     * et les actions qui attendent Confirmer en aparté, le champ de saisie et ses boutons à la place des réponses.
+     */
+    private void buildSteward(UICommandBuilder cmd, UIEventBuilder events) {
+        String keys = dev.nakasar.hytale.peuples.steward.Steward.KEYS;
+        Message line = waiting ? Message.translation(keys + "thinking") : stewardLine != null ? stewardLine : Message.translation(keys + "intro");
+        cmd.set("#Line.TextSpans", line);
+        Message aside = null;
+        for (Message m : stewardGame) {
+            aside = aside == null ? Message.empty().insert(m) : aside.insert(Message.raw("\n")).insert(m);
+        }
+        if (!stewardPending.isEmpty()) {
+            Message list = Message.translation(keys + "pendingList").param("actions", String.join(" ; ", stewardPending)).color(LOCKED_COLOR);
+            aside = aside == null ? list : aside.insert(Message.raw("\n")).insert(list);
+        }
+        cmd.set("#Aside.Visible", aside != null);
+        cmd.set("#Aside.TextSpans", aside == null ? Message.raw(" ") : aside);
+        for (int i = 0; i < Dialogue.MAX_RESPONSES; i++) {
+            cmd.set("#Answer" + i + ".Visible", false);
+        }
+        cmd.set("#Say.Text", Message.translation(keys + "say"));
+        cmd.set("#Say.Disabled", waiting);
+        EventData say = EventData.of("Action", SAY).append("@Text", "#Input.Value");
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Say", say);
+        events.addEventBinding(CustomUIEventBindingType.Validating, "#Input", say);
+        boolean pending = !stewardPending.isEmpty() && !waiting;
+        cmd.set("#Confirm.Visible", pending);
+        cmd.set("#Cancel.Visible", pending);
+        cmd.set("#Confirm.Text", Message.translation(keys + "confirm"));
+        cmd.set("#Cancel.Text", Message.translation(keys + "cancel"));
+        cmd.set("#OpenBoard.Text", Message.translation(keys + "board"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Confirm", EventData.of("Action", CONFIRM));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Cancel", EventData.of("Action", CANCEL));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#OpenBoard", EventData.of("Action", BOARD));
+    }
+
+    /** Événements du dialogue libre ; vrai si l'action en était un. */
+    private boolean handleSteward(Ref<EntityStore> ref, Store<EntityStore> store, Event data) {
+        World world = store.getExternalData().getWorld();
+        switch (data.action) {
+            case TALK -> {
+                talking = !talking;
+                if (!talking) {
+                    node = start;
+                    said = List.of();
+                }
+                rebuild();
+            }
+            case SAY -> {
+                if (waiting || data.text == null || data.text.isBlank()) {
+                    return true;
+                }
+                waiting = true;
+                stewardGame = List.of();
+                stewardPending = List.of();
+                rebuild();
+                String language = dev.nakasar.hytale.peuples.steward.StewardConfig.get().language;
+                Message name = identity != null ? identity.name()
+                        : dialogue.npcNameKey() == null ? null : Message.translation(dialogue.npcNameKey());
+                String npcName = name == null ? null : dev.nakasar.hytale.peuples.steward.TextRender.text(name, language);
+                String npcRole = dialogue.roleKey() == null ? null
+                        : dev.nakasar.hytale.peuples.steward.TextRender.text(Message.translation(dialogue.roleKey()), language);
+                dev.nakasar.hytale.peuples.steward.Steward.ask(world, store, ref, playerRef, stewardVillage, npcName, npcRole, data.text,
+                        answer -> {
+                            waiting = false;
+                            show(answer);
+                            refreshIfOpen();
+                        });
+            }
+            case CONFIRM -> {
+                if (!waiting) {
+                    show(dev.nakasar.hytale.peuples.steward.Steward.confirm(world, store, ref, playerRef));
+                    rebuild();
+                }
+            }
+            case CANCEL -> {
+                dev.nakasar.hytale.peuples.steward.Steward.cancel(playerRef);
+                stewardPending = List.of();
+                stewardLine = Message.translation(dev.nakasar.hytale.peuples.steward.Steward.KEYS + "cancelled");
+                rebuild();
+            }
+            case BOARD -> {
+                releaseCamera();
+                if (!dev.nakasar.hytale.peuples.steward.Steward.openBoard(world, store, ref, playerRef, stewardVillage)) {
+                    rebuild();
+                }
+            }
+            default -> {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void show(dev.nakasar.hytale.peuples.steward.Steward.Answer answer) {
+        stewardLine = answer.line();
+        stewardGame = answer.game();
+        stewardPending = answer.pending();
+    }
+
+    /** La réponse arrive plus tard : ne redessiner que si cette fenêtre est encore celle du joueur. */
+    private void refreshIfOpen() {
+        Ref<EntityStore> ref = playerRef.getReference();
+        if (ref == null || !ref.isValid()) {
+            return;
+        }
+        Player player = ref.getStore().getComponent(ref, Player.getComponentType());
+        if (player != null && player.getPageManager().getCustomPage() == this) {
+            rebuild();
+        }
     }
 
     /** Fermeture par Échap, par « Partir », par un effet ou par une autre fenêtre ouverte à sa place : caméra rendue, PNJ libéré. */
@@ -173,6 +322,9 @@ public final class DialoguePage extends InteractiveCustomUIPage<DialoguePage.Eve
         if (data == null || data.action == null || LEAVE.equals(data.action)) {
             releaseCamera();
             close();
+            return;
+        }
+        if (stewardVillage != null && handleSteward(ref, store, data)) {
             return;
         }
         if (node == null) {

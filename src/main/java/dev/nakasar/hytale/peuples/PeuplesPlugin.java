@@ -236,6 +236,11 @@ public final class PeuplesPlugin extends JavaPlugin {
                 dev.nakasar.hytale.peuples.world.WorldLocationCondition.CODEC, dev.nakasar.hytale.peuples.world.WorldLocationCondition.Config.CODEC);
         WorldEventsPlugin.registerCondition(this, RaidLocationCondition.TYPE, RaidLocationCondition.CODEC, RaidLocationCondition.Config.CODEC);
 
+        // Gestionnaire qui parle (steward/) : réglages du serveur hors du pack, conversation oubliée au départ du joueur.
+        dev.nakasar.hytale.peuples.steward.StewardConfig.load(getDataDirectory());
+        getEventRegistry().register(com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent.class,
+                e -> dev.nakasar.hytale.peuples.steward.Steward.forget(e.getPlayerRef().getUuid()));
+
         getCommandRegistry().registerCommand(new VillageCommand());
         getCommandRegistry().registerCommand(new dev.nakasar.hytale.peuples.world.WorldCommand());
 
@@ -265,5 +270,6 @@ public final class PeuplesPlugin extends JavaPlugin {
         Klops.clearAll();
         dev.nakasar.hytale.peuples.zone.Climate.clearAll();
         dev.nakasar.hytale.peuples.world.WorldLife.clearAll();
+        dev.nakasar.hytale.peuples.steward.Steward.clearAll();
     }
 }

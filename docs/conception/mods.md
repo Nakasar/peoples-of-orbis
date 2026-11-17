@@ -2177,3 +2177,104 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
 - Création du monde plat et téléportation d'un monde à l'autre.
 - Le panneau affiche bien le titre et le message au clic, aussi après redémarrage du serveur.
 - Les prefabs agrandis restent dans leur rectangle (mesure `VillageBuilder.bounds`), sens d'entrée des bâtiments.
+
+## Le gestionnaire qui parle (`steward/`, LLM, désactivé par défaut)
+
+Kevin, 17 novembre 2026 (doc « Le gestionnaire du village parle (LLM) ») : un seul PNJ en dialogue libre, le
+gestionnaire du village, à côté du panneau principal. Il répond aux questions sur le village à partir du panneau et agit
+sur le village comme si le joueur cliquait le panneau. Décisions de Kevin : le crieur actuel est le gestionnaire ; les
+lieux-dits l'ont aussi (leur gardien `<Peuple>_Hamlet_Keeper`, pseudo-village `H:<id>`) ; Claude Haiku 5.5 par défaut,
+réglable ; la clé est fournie et réglée par l'administrateur du serveur ; saisie dans la fenêtre de dialogue ; plusieurs
+actions par message.
+
+### Principe : le modèle lit et clique les vraies pages (`BoardReader`)
+
+- Rien n'est recopié : chaque onglet (Tableau, Projets, Production, Ouvrages, Monde, Domaine, Commerce, Habitants ;
+  Atelier pour un lieu-dit) est la vraie page du panneau, bâtie hors écran dans un `UICommandBuilder` et un
+  `UIEventBuilder` qui notent ce qu'elle afficherait : textes visibles (traduits côté serveur par `TextRender`), boutons
+  avec la donnée de leur clic, boutons grisés. Une page ajoutée ou changée au panneau l'est aussi pour le gestionnaire.
+- Un « clic » envoie à la page la même donnée que le client (`handleDataEvent` en JSON) : mêmes fonctions, mêmes
+  contrôles de rang, de faveurs et de matériaux. La page reçoit un `CapturingPlayerRef` : les messages du jeu (refus,
+  résultats) sont gardés et montrés tels quels sous la réponse du gestionnaire, et `getReference()` rend null pour que
+  ses `rebuild()`/`close()` ne touchent pas la fenêtre de dialogue ouverte.
+- Les pages sont gardées par conversation : une sélection (terrain choisi dans Projets, page des habitants) tient d'un
+  appel à l'autre, comme à l'écran.
+- Deux outils seulement : `lire_onglet(onglet)` et `cliquer(onglet, bouton)`. Chaque action est classée par onglet
+  (`BoardReader.Tab`) : faite tout de suite (lecture, navigation, prendre ou rendre une demande, choisir un projet),
+  à confirmer (dépense ou destruction : lancer un chantier, démolir, accorder une annexe, ouvrir/monter/fermer une route,
+  acheter, ambassade, expédition, nommer, orienter...), ou interdite (onglets, texte, boutique : autre fenêtre). Une
+  action inconnue demande confirmation.
+- Plusieurs actions par message, dans l'ordre : dès qu'une action est à confirmer, elle et les suivantes sont retenues ;
+  un seul clic sur Confirmer les fait dans l'ordre et s'arrête au premier refus. Refus = le contenu de l'onglet n'a pas
+  changé après le clic. Un bouton que l'écran fait cliquer deux fois (démolir : « Confirmer ? ») l'est deux fois.
+
+### Fenêtre de dialogue (`DialoguePage`)
+
+- Bouton « Parler librement » sous le portrait, pour le crieur et le gardien de lieu-dit, quand le serveur a activé le
+  gestionnaire. Le dialogue libre remplace les quatre réponses par un champ de saisie (`$C.@TextField #Input`, valeur
+  lue par `EventData.of("Action","Say").append("@Text","#Input.Value")`, comme `SetNameRespawnPointPage`), puis
+  Confirmer / Annuler (actions retenues) et Ouvrir le panneau. « Réponses habituelles » revient au dialogue écrit.
+- « … » pendant l'attente ; la réponse s'affiche en réplique, les messages du jeu et la liste des actions en attente en
+  aparté.
+
+### Appels au modèle (`Steward`, `LlmClient`)
+
+- Jamais sur le thread du monde : requête HTTP asynchrone (`java.net.http`, Gson du serveur : aucune bibliothèque
+  embarquée), chaque outil revient sur le thread du monde (`world.execute`), la réponse aussi. 8 appels d'outils au plus
+  par message.
+- Backends : API Claude (`/v1/messages`, défaut `claude-haiku-5-5`) ou serveur local compatible OpenAI
+  (`/v1/chat/completions` : Ollama, llama.cpp...). Conversation tenue au format Claude, traduite pour le local.
+- Contexte : consignes (rôle, ton du peuple, 1 à 3 phrases, ne rien inventer, ne pas dire fait une action retenue,
+  hors sujet décliné), liste des onglets, et le texte du tableau pour ce joueur (`VillageBoard.body` ; l'atelier pour un
+  lieu-dit). Mémoire : 10 derniers tours par joueur, oubliée quand il parle à un autre gestionnaire, quitte le serveur,
+  ou après une heure sans parler. Le nom du joueur n'est jamais envoyé (« le joueur »).
+- Secours sans modèle, réplique fixe du jeu (`steward.fallback.*`) : désactivé, clé absente, budget du jour épuisé
+  (jetons, tous joueurs), limite par joueur et par heure, refus ou délai du backend, réponse vide ; trois échecs de suite
+  mettent le gestionnaire en pause 10 minutes. Le panneau reste à un clic.
+- Journal : chaque action faite ou refusée (village, uuid du joueur, onglet/action) ; les échanges seulement avec
+  `LogConversations`.
+
+### Réglages du serveur (`gestionnaire.json`, dossier de données du plugin)
+
+Créé avec les valeurs par défaut au premier démarrage, relu par `/village gestionnaire recharger`. La clé n'y est
+jamais : `ApiKeyEnv` donne le nom de la variable d'environnement qui la porte.
+
+| Clé | Défaut | Rôle |
+|---|---|---|
+| `Enabled` | `false` | Gestionnaire en service (bouton visible, appels permis) |
+| `Backend` | `claude` | `claude` ou `local` |
+| `Endpoint` | vide | Adresse de l'API (vide : celle du backend) |
+| `Model` | vide | Modèle (vide : Claude Haiku 5.5, ou `llama3.1` en local) |
+| `ApiKeyEnv` | `ANTHROPIC_API_KEY` | Variable d'environnement de la clé |
+| `DailyTokenBudget` | 1 000 000 | Jetons par jour, tous joueurs (0 : sans limite) |
+| `PlayerHourlyCalls` | 60 | Messages par joueur et par heure |
+| `TimeoutMs` | 20 000 | Délai d'une requête |
+| `MaxTokens` | 600 | Longueur d'une réponse |
+| `Language` | `fr-FR` | Langue du panneau lu et des réponses |
+| `MemoryTurns` | 10 | Tours gardés par joueur |
+| `MaxToolCalls` | 8 | Outils par message |
+| `MaxInputChars` | 300 | Longueur d'un message du joueur |
+| `LogConversations` | `false` | Questions et réponses dans le log du serveur |
+
+### Commandes (opérateurs)
+
+- `/village gestionnaire etat` : activé, backend, modèle, clé présente, jetons et appels du jour, pause, dernière erreur.
+- `/village gestionnaire lire <onglet>` : ce que le modèle lit d'un onglet du village le plus proche (aucun appel).
+- `/village gestionnaire recharger` : relit les réglages, lève la pause.
+
+### Tester en jeu (gestionnaire)
+
+1. Arrêter le serveur, mettre `"Enabled": true` dans `gestionnaire.json` (dossier de données du plugin), exporter la
+   clé dans la variable `ANTHROPIC_API_KEY` du processus du serveur, relancer (ou `/village gestionnaire recharger`).
+2. `/village gestionnaire etat` : « activé », « Clé : présente ».
+3. `/village gestionnaire lire tableau`, puis `projets`, `commerce` : le texte doit suivre l'écran.
+4. Parler au crieur, « Parler librement », demander « Où en est le chantier ? », puis « Prends la première demande »,
+   puis « Lance le projet de l'emplacement E1 » (doit être retenu, Confirmer le fait).
+5. Gardien d'un lieu-dit : même essai sur l'atelier.
+
+### À vérifier en jeu (gestionnaire)
+
+- Le champ `#Input` (TextField vanilla) prend bien la saisie dans la fenêtre de dialogue, Entrée (`Validating`) envoie.
+- Le serveur peut joindre l'API (réseau sortant de l'hébergeur ; question 12 du doc, sans réponse).
+- Lecture des onglets : textes cachés qui fuiraient (enfants d'un groupe caché), libellés des boutons sans `.Text`.
+- Clic hors écran : aucune page ne doit toucher la fenêtre de dialogue (rebuild/close sans référence).

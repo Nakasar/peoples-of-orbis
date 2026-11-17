@@ -112,6 +112,42 @@ Group {
             Label #Text3 { Style: @AnswerStyle; }
             Label #Hint3 { Anchor: (Left: 14); Style: @HintStyle; }
           }
+
+          // Gestionnaire qui parle (steward/) : champ de saisie à la place des réponses, puis Confirmer / Annuler les
+          // actions retenues et Ouvrir le panneau. Cachés hors du dialogue libre.
+          Group #StewardRow {
+            LayoutMode: Left;
+            Anchor: (Top: 2, Height: 38);
+            Visible: false;
+
+            $C.@TextField #Input {
+              FlexWeight: 1;
+            }
+
+            $C.@SmallSecondaryTextButton #Say {
+              @Anchor = Anchor(Left: 8, Top: 3);
+            }
+          }
+
+          Group #ConfirmRow {
+            LayoutMode: Left;
+            Anchor: (Top: 8, Height: 32);
+            Visible: false;
+
+            $C.@SmallSecondaryTextButton #Confirm {
+            }
+
+            $C.@SmallSecondaryTextButton #Cancel {
+              @Anchor = Anchor(Left: 8);
+            }
+
+            Group {
+              FlexWeight: 1;
+            }
+
+            $C.@SmallSecondaryTextButton #OpenBoard {
+            }
+          }
         }
 
         Group {
@@ -136,6 +172,11 @@ Group {
 
       Group {
         FlexWeight: 1;
+      }
+
+      $C.@SmallSecondaryTextButton #Talk {
+        @Anchor = Anchor(Bottom: 6);
+        Visible: false;
       }
 
       $C.@SmallSecondaryTextButton #Leave {
