@@ -23,10 +23,11 @@ import dev.nakasar.hytale.peuples.world.WorldPage;
 /**
  * Barre des onglets en haut du panneau du village (maquette Claude Design « Panneau du village — refonte », Kevin,
  * 16 novembre 2026) : Tableau, Projets, Production, Ouvrages, Monde, Domaine (conquête des lieux-dits), Commerce (routes
- * commerciales), Habitants (générations), et l'heure du jeu. Chaque page du panneau porte la
- * même barre ({@code tab_strip} de {@code tools/generate_board_ui.py}) : l'onglet ouvert est un aplat
- * ({@code #Tab<X>On}), les autres des boutons ({@code #Tab<X>Button}). Les pages appellent {@link #fill} dans leur
- * {@code build} et {@link #handle} en tête de leur {@code handleDataEvent}.
+ * commerciales), Habitants (générations), et l'heure du jeu. Une icône par onglet (Kevin, 17 novembre 2026 : les noms
+ * coupés égaraient), son nom en info-bulle, et celui de l'onglet ouvert à côté de la barre ({@code #TabName<X>}).
+ * Chaque page du panneau porte la même barre ({@code tab_strip} de {@code tools/generate_board_ui.py}) : l'onglet
+ * ouvert est un aplat ({@code #Tab<X>On}), les autres des boutons à icône ({@code #Tab<X>Button}). Les pages appellent
+ * {@link #fill} dans leur {@code build} et {@link #handle} en tête de leur {@code handleDataEvent}.
  */
 public final class BoardTabs {
 
@@ -38,14 +39,15 @@ public final class BoardTabs {
 
     /** Textes des onglets, ceux qui s'ouvrent ici, et l'heure. */
     public static void fill(UICommandBuilder cmd, UIEventBuilder events, Store<EntityStore> store, Village village) {
-        tab(cmd, events, "#TabBoardButton", "#TabBoardLabel", "Board", Message.translation(WorldPage.KEYS + "tab.board"));
-        tab(cmd, events, "#TabPlotsButton", "#TabPlotsLabel", "Plots", Message.translation(Plots.KEYS + "button"));
-        tab(cmd, events, "#TabAnnexesButton", "#TabAnnexesLabel", "Annexes", Message.translation(Annexes.KEYS + "button"));
-        tab(cmd, events, "#TabWorksButton", "#TabWorksLabel", "Works", Message.translation(Annexes.KEYS + "works.tab"));
-        tab(cmd, events, "#TabWorldButton", "#TabWorldLabel", "World", Message.translation(WorldPage.KEYS + "button"));
-        tab(cmd, events, "#TabDomainButton", "#TabDomainLabel", "Domain", Message.translation(DomainPage.KEYS + "tab"));
-        tab(cmd, events, "#TabTradeButton", "#TabTradeLabel", "Trade", Message.translation(dev.nakasar.hytale.peuples.world.TradePage.TAB));
-        tab(cmd, events, "#TabPeopleButton", "#TabPeopleLabel", "People",
+        tab(cmd, events, "Board", "#TabBoardButton", "#TabNameBoard", Message.translation(WorldPage.KEYS + "tab.board"));
+        tab(cmd, events, "Plots", "#TabPlotsButton", "#TabNamePlots", Message.translation(Plots.KEYS + "button"));
+        tab(cmd, events, "Annexes", "#TabAnnexesButton", "#TabNameAnnexes", Message.translation(Annexes.KEYS + "button"));
+        tab(cmd, events, "Works", "#TabWorksButton", "#TabNameWorks", Message.translation(Annexes.KEYS + "works.tab"));
+        tab(cmd, events, "World", "#TabWorldButton", "#TabNameWorld", Message.translation(WorldPage.KEYS + "button"));
+        tab(cmd, events, "Domain", "#TabDomainButton", "#TabNameDomain", Message.translation(DomainPage.KEYS + "tab"));
+        tab(cmd, events, "Trade", "#TabTradeButton", "#TabNameTrade",
+                Message.translation(dev.nakasar.hytale.peuples.world.TradePage.TAB));
+        tab(cmd, events, "People", "#TabPeopleButton", "#TabNamePeople",
                 Message.translation(dev.nakasar.hytale.peuples.population.Population.KEYS + "page.tab"));
         // Emplacements : seulement si le plan du village en a ; Avant-postes : si le peuple en a (l'onglet dit le palier).
         cmd.set("#TabPlots.Visible", village != null && Plots.plots(village).length > 0);
@@ -57,9 +59,10 @@ public final class BoardTabs {
                 .param("hour", GameClock.hour(store)));
     }
 
-    private static void tab(UICommandBuilder cmd, UIEventBuilder events, String button, String label, String id, Message text) {
-        cmd.set(button + ".Text", text);
-        cmd.set(label + ".TextSpans", text);
+    /** Un onglet : son nom en info-bulle du bouton à icône, et à côté de la barre quand c'est l'onglet ouvert. */
+    private static void tab(UICommandBuilder cmd, UIEventBuilder events, String id, String button, String name, Message text) {
+        cmd.set(button + ".TooltipTextSpans", text);
+        cmd.set(name + ".TextSpans", text);
         events.addEventBinding(CustomUIEventBindingType.Activating, button, EventData.of("Action", PREFIX + id));
     }
 
