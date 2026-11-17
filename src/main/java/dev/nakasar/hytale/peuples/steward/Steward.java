@@ -202,13 +202,46 @@ public final class Steward {
         String system = systemPrompt(world, store, ref, player, village, npcName, npcRole, config.language);
         JsonArray messages = new JsonArray();
         session.history.forEach(m -> messages.add(m.deepCopy()));
-        JsonObject user = textMessage("user", mask(said, player));
+        JsonObject user = textMessage("user", mask(changes(world, ref, session, village, config.language) + said, player));
         messages.add(user);
         turn.user = user;
         if (config.logConversations) {
             LOGGER.atInfo().log("Gestionnaire %s <- %s : %s", villageId, player.getUuid(), said);
         }
         turn.next(system, messages);
+    }
+
+    /**
+     * Ce qui a changé au tableau depuis le message précédent, en tête du message du joueur : le modèle l'apprend comme
+     * une nouvelle, au lieu de croire s'être trompé en relisant ses réponses d'avant (Kevin, 2026-11-17).
+     */
+    private static String changes(World world, Ref<EntityStore> ref, StewardSession session, Village village, String language) {
+        List<String> now;
+        try {
+            now = StewardData.boardTitles(ctx(world, ref, session, village, language));
+        } catch (RuntimeException e) {
+            return "";
+        }
+        List<String> before = session.boardSeen;
+        session.boardSeen = now;
+        if (before == null || before.equals(now)) {
+            return "";
+        }
+        List<String> gone = new ArrayList<>(before);
+        gone.removeAll(now);
+        List<String> added = new ArrayList<>(now);
+        added.removeAll(before);
+        if (gone.isEmpty() && added.isEmpty()) {
+            return "";
+        }
+        StringBuilder out = new StringBuilder("[Depuis le message précédent, le tableau a changé (ce n'est pas une erreur, le village vit) :");
+        if (!gone.isEmpty()) {
+            out.append(" plus au tableau : ").append(String.join(", ", gone)).append(" ;");
+        }
+        if (!added.isEmpty()) {
+            out.append(" nouvelles demandes : ").append(String.join(", ", added)).append(" ;");
+        }
+        return out.append("]\n").toString();
     }
 
     /** Pourquoi le gestionnaire ne peut pas appeler le modèle maintenant, ou null. */
@@ -537,6 +570,12 @@ public final class Steward {
                 à lui en fonction : méfiant ou distant avec un étranger ou un honni, chaleureux avec un ami.
                 - Ne récite pas l'état du village sans qu'on te le demande. À un simple bonjour, réponds comme un \
                 habitant (un mot d'accueil, une nouvelle du village au plus).
+                - Le village vit pendant que vous parlez : demandes remplies ou renouvelées, chantiers qui avancent. \
+                Ce que tu as dit plus tôt était vrai à ce moment-là. Si ça a changé (une note entre crochets te le dit), \
+                annonce-le comme une nouvelle (« une nouvelle demande vient d'arriver », « celle-là, quelqu'un l'a \
+                remplie »), jamais comme une erreur ou une correction de ta part.
+                - Ne fais pas l'inventaire de ce qui manque ou est vide (pas de route, étal vide, rien reçu) si on ne te \
+                le demande pas, et jamais avec des mots de gestion (« lux », « route commerciale »).
                 - N'invente rien : aucun objet, nom, lieu ou événement absent de ce que tu sais. Si tu ne sais pas, \
                 lis d'abord (outil lire), sinon dis que tu ne sais pas, à ta façon.
 

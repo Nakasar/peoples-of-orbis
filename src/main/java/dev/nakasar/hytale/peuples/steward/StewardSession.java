@@ -25,6 +25,8 @@ final class StewardSession {
     /** Tours passés, au format des messages de l'API Claude (rôle user puis assistant, texte seul). */
     final Deque<JsonObject> history = new ArrayDeque<>();
     final List<Pending> pending = new ArrayList<>();
+    /** Les demandes au tableau lors du dernier message (null : pas encore vues) : le village vit entre deux messages. */
+    List<String> boardSeen;
     long lastUsed = System.currentTimeMillis();
 
     StewardSession(String villageId, PlayerRef player) {

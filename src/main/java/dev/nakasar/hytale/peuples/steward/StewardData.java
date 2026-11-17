@@ -192,6 +192,20 @@ final class StewardData {
 
     // ---------------------------------------------------------------------------------------------------- demandes
 
+    /** Titres des demandes au tableau, pour voir ce qui a changé entre deux messages du joueur. */
+    static List<String> boardTitles(Ctx c) {
+        Village v = c.village();
+        Requests.refresh(c.store(), v);
+        List<String> out = new ArrayList<>();
+        for (VillageRequest r : v.requests()) {
+            RequestTemplate t = r == null ? null : r.template();
+            if (t != null) {
+                out.add(c.t(Requests.title(t)));
+            }
+        }
+        return out;
+    }
+
     private static String requests(Ctx c) {
         Village v = c.village();
         Requests.refresh(c.store(), v);
