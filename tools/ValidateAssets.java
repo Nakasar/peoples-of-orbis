@@ -25,7 +25,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -1766,6 +1768,9 @@ public class ValidateAssets {
         }
         Pattern texture = Pattern.compile("\"([^\"]+\\.png)\"");
         for (Path ui : uis) {
+            errors += checkUiSyntax(root, ui);
+        }
+        for (Path ui : uis) {
             Matcher m = texture.matcher(Files.readString(ui));
             while (m.find()) {
                 Path target = ui.getParent().resolve(m.group(1)).normalize();
@@ -1826,6 +1831,74 @@ public class ValidateAssets {
         }
         }
         return errors;
+    }
+
+    /**
+     * Syntaxe d'une page .ui telle que le client la lit (une erreur déconnecte le client au chargement, pour TOUTES
+     * les pages) : un id d'élément {@code #Nom} n'a que lettres et chiffres (le client lit {@code #RouteOut0_0} comme
+     * {@code #RouteOut0} puis attend {@code {}) ; accolades et parenthèses équilibrées hors chaînes et commentaires.
+     */
+    private static int checkUiSyntax(Path root, Path ui) throws Exception {
+        String text = Files.readString(ui);
+        String name = root.getParent().relativize(ui).toString();
+        int errors = 0;
+        Deque<Integer> open = new ArrayDeque<>();
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c == '"') {
+                for (i++; i < text.length() && text.charAt(i) != '"'; i++) {
+                    if (text.charAt(i) == '\\') {
+                        i++;
+                    }
+                }
+            } else if (c == '/' && i + 1 < text.length() && text.charAt(i + 1) == '/') {
+                while (i + 1 < text.length() && text.charAt(i + 1) != '\n') {
+                    i++;
+                }
+            } else if (c == '#') {
+                int j = i + 1;
+                while (j < text.length() && Character.isLetterOrDigit(text.charAt(j))) {
+                    j++;
+                }
+                if (j < text.length() && (text.charAt(j) == '_' || text.charAt(j) == '-')) {
+                    int end = j;
+                    while (end < text.length() && (Character.isLetterOrDigit(text.charAt(end)) || text.charAt(end) == '_' || text.charAt(end) == '-')) {
+                        end++;
+                    }
+                    errors++;
+                    System.out.println("ERROR " + name + " (" + uiPos(text, j) + ") : id " + text.substring(i, end)
+                            + " invalide, le client n'accepte que lettres et chiffres après #");
+                }
+                i = j - 1;
+            } else if (c == '{' || c == '(') {
+                open.push(i);
+            } else if (c == '}' || c == ')') {
+                char expected = c == '}' ? '{' : '(';
+                if (open.isEmpty() || text.charAt(open.peek()) != expected) {
+                    System.out.println("ERROR " + name + " (" + uiPos(text, i) + ") : " + c + " sans " + expected + " ouvrant");
+                    return errors + 1;
+                }
+                open.pop();
+            }
+        }
+        if (!open.isEmpty()) {
+            errors++;
+            System.out.println("ERROR " + name + " (" + uiPos(text, open.peek()) + ") : " + text.charAt(open.peek()) + " jamais refermé");
+        }
+        return errors;
+    }
+
+    /** Position {@code ligne:colonne} (base 1, comme le client) d'un index dans un texte. */
+    private static String uiPos(String text, int index) {
+        int line = 1;
+        int start = 0;
+        for (int k = 0; k < index; k++) {
+            if (text.charAt(k) == '\n') {
+                line++;
+                start = k + 1;
+            }
+        }
+        return line + ":" + (index - start + 1);
     }
 
     /** Icônes des marqueurs de carte des blocs du pack ({@code BlockMapMarker}) : présentes sous Common/UI/WorldMap/MapMarkers. */

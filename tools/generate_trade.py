@@ -140,7 +140,7 @@ def trade_page(theme_id):
             w("              Anchor: (Height: 26, Top: 4);")
             w(f'              {label(f"Route{side}Label{i}", "@Small", anchor="Width: 90")}')
             for j in range(CASES):
-                w(f'              $C.@SmallSecondaryTextButton #Route{side}{i}_{j} {{ @Text = ""; @Anchor = Anchor(Width: 190, Height: 26, Right: 6); }}')
+                w(f'              $C.@SmallSecondaryTextButton #Route{side}{i}C{j} {{ @Text = ""; @Anchor = Anchor(Width: 190, Height: 26, Right: 6); }}')
             w("            }")
         w("          }")
         w("          Group {")
