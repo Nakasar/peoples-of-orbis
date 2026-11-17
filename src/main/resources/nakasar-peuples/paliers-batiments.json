@@ -11689,5 +11689,4333 @@
    "Montre": "Trork_Tier_1_Watchtower_001",
    "Raison": "déborde du rectangle de l'avant-poste ; couvre le panneau ; touche la pièce Trork_Warning_Trork_Warning_002"
   }
- ]
+ ],
+ "Review": {
+  "Feran_Oasis": {
+   "Entree_Oasis": {
+    "1": [
+     3,
+     -4,
+     2,
+     "Npc/Feran/Tier2/Entrance/Feran_Tier2_Entrance_001"
+    ],
+    "2": [
+     3,
+     -4,
+     2,
+     "Npc/Feran/Tier2/Entrance/Feran_Tier2_Entrance_001"
+    ],
+    "3": [
+     3,
+     -4,
+     2,
+     "Npc/Feran/Tier2/Entrance/Feran_Tier2_Entrance_001"
+    ],
+    "4": [
+     3,
+     -4,
+     2,
+     "Npc/Feran/Tier2/Entrance/Feran_Tier2_Entrance_001"
+    ]
+   },
+   "Enclos_Oasis": {
+    "1": [
+     3,
+     7,
+     0,
+     "Nakasar/Peuples/Pens/Feran_Pen"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Nakasar/Peuples/Pens/Feran_Pen_T2"
+    ],
+    "3": [
+     3,
+     9,
+     0,
+     "Nakasar/Peuples/Pens/Feran_Pen_T3"
+    ],
+    "4": [
+     3,
+     9,
+     0,
+     "Nakasar/Peuples/Pens/Feran_Pen_T4"
+    ]
+   },
+   "Hutte_Pilier": {
+    "1": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "2": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "3": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "4": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ]
+   },
+   "E1_Caravanserail": {
+    "1": [
+     3,
+     -10,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002"
+    ],
+    "2": [
+     1,
+     -10,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     2,
+     -13,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     2,
+     -13,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E1_Tissage": {
+    "1": [
+     3,
+     -10,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001"
+    ],
+    "2": [
+     1,
+     -10,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     2,
+     -13,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     2,
+     -13,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E1_Citerne": {
+    "1": [
+     3,
+     -2,
+     2,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ],
+    "2": [
+     3,
+     -2,
+     2,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ],
+    "3": [
+     3,
+     -2,
+     2,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ],
+    "4": [
+     3,
+     -2,
+     2,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ]
+   },
+   "E1_Volerie": {
+    "1": [
+     3,
+     -6,
+     2,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "2": [
+     3,
+     -6,
+     2,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "3": [
+     3,
+     -6,
+     2,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "4": [
+     3,
+     -6,
+     2,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ]
+   },
+   "E1_Deuxieme_Enclos": {
+    "1": [
+     3,
+     -7,
+     2,
+     "Nakasar/Peuples/Pens/Feran_Pen"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Nakasar/Peuples/Pens/Feran_Pen_T2"
+    ],
+    "3": [
+     3,
+     -9,
+     2,
+     "Nakasar/Peuples/Pens/Feran_Pen_T3"
+    ],
+    "4": [
+     3,
+     -10,
+     2,
+     "Nakasar/Peuples/Pens/Feran_Pen_T4"
+    ]
+   },
+   "E1_Conseil": {
+    "1": [
+     2,
+     -11,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003"
+    ],
+    "2": [
+     1,
+     -10,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     3,
+     -13,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     3,
+     -13,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E1_Caserne": {
+    "1": [
+     3,
+     -6,
+     2,
+     "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001"
+    ],
+    "2": [
+     3,
+     -6,
+     2,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "3": [
+     3,
+     -10,
+     2,
+     "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002"
+    ],
+    "4": [
+     3,
+     -10,
+     2,
+     "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001"
+    ]
+   },
+   "E1_Bibliotheque": {
+    "1": [
+     2,
+     -11,
+     2,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ],
+    "2": [
+     2,
+     -11,
+     2,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ],
+    "3": [
+     2,
+     -11,
+     2,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ],
+    "4": [
+     2,
+     -11,
+     2,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ]
+   },
+   "E1_Temple": {
+    "1": [
+     3,
+     -11,
+     2,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ],
+    "2": [
+     3,
+     -11,
+     2,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ],
+    "3": [
+     3,
+     -11,
+     2,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ],
+    "4": [
+     3,
+     -11,
+     2,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ]
+   },
+   "E1_Halle": {
+    "1": [
+     3,
+     -10,
+     2,
+     "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002"
+    ],
+    "2": [
+     1,
+     -10,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     2,
+     -13,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     2,
+     -13,
+     2,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E2_Caravanserail": {
+    "1": [
+     -10,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002"
+    ],
+    "2": [
+     -13,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     -13,
+     2,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     -13,
+     2,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E2_Tissage": {
+    "1": [
+     -10,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001"
+    ],
+    "2": [
+     -13,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     -13,
+     2,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     -13,
+     2,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E2_Citerne": {
+    "1": [
+     -3,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ],
+    "2": [
+     -3,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ],
+    "3": [
+     -3,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ],
+    "4": [
+     -3,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ]
+   },
+   "E2_Volerie": {
+    "1": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "2": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "3": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "4": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ]
+   },
+   "E2_Deuxieme_Enclos": {
+    "1": [
+     -7,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Feran_Pen"
+    ],
+    "2": [
+     -8,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Feran_Pen_T2"
+    ],
+    "3": [
+     -9,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Feran_Pen_T3"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Feran_Pen_T4"
+    ]
+   },
+   "E2_Conseil": {
+    "1": [
+     -12,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003"
+    ],
+    "2": [
+     -13,
+     4,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     -13,
+     2,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     -13,
+     2,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E2_Caserne": {
+    "1": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001"
+    ],
+    "2": [
+     -6,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "3": [
+     -10,
+     4,
+     3,
+     "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002"
+    ],
+    "4": [
+     -10,
+     4,
+     3,
+     "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001"
+    ]
+   },
+   "E2_Bibliotheque": {
+    "1": [
+     -9,
+     2,
+     3,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ],
+    "2": [
+     -9,
+     2,
+     3,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ],
+    "3": [
+     -9,
+     2,
+     3,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ],
+    "4": [
+     -9,
+     2,
+     3,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ]
+   },
+   "E2_Temple": {
+    "1": [
+     -10,
+     2,
+     3,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ],
+    "2": [
+     -10,
+     2,
+     3,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ],
+    "3": [
+     -10,
+     2,
+     3,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ],
+    "4": [
+     -10,
+     2,
+     3,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ]
+   },
+   "E2_Halle": {
+    "1": [
+     -10,
+     3,
+     3,
+     "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002"
+    ],
+    "2": [
+     -13,
+     3,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     -13,
+     2,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     -13,
+     2,
+     3,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E3_Caravanserail": {
+    "1": [
+     10,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002"
+    ],
+    "2": [
+     10,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     12,
+     2,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     12,
+     2,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E3_Tissage": {
+    "1": [
+     10,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001"
+    ],
+    "2": [
+     10,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     12,
+     2,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     12,
+     2,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E3_Citerne": {
+    "1": [
+     3,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ],
+    "2": [
+     3,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ],
+    "3": [
+     3,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ],
+    "4": [
+     3,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005"
+    ]
+   },
+   "E3_Volerie": {
+    "1": [
+     6,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "2": [
+     6,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "3": [
+     6,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "4": [
+     6,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ]
+   },
+   "E3_Deuxieme_Enclos": {
+    "1": [
+     7,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Feran_Pen"
+    ],
+    "2": [
+     8,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Feran_Pen_T2"
+    ],
+    "3": [
+     9,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Feran_Pen_T3"
+    ],
+    "4": [
+     10,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Feran_Pen_T4"
+    ]
+   },
+   "E3_Conseil": {
+    "1": [
+     10,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003"
+    ],
+    "2": [
+     10,
+     4,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     12,
+     2,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     12,
+     2,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   },
+   "E3_Caserne": {
+    "1": [
+     6,
+     3,
+     1,
+     "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001"
+    ],
+    "2": [
+     6,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001"
+    ],
+    "3": [
+     10,
+     4,
+     1,
+     "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002"
+    ],
+    "4": [
+     10,
+     4,
+     1,
+     "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001"
+    ]
+   },
+   "E3_Bibliotheque": {
+    "1": [
+     8,
+     2,
+     1,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ],
+    "2": [
+     8,
+     2,
+     1,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ],
+    "3": [
+     8,
+     2,
+     1,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ],
+    "4": [
+     8,
+     2,
+     1,
+     "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001"
+    ]
+   },
+   "E3_Temple": {
+    "1": [
+     10,
+     2,
+     1,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ],
+    "2": [
+     10,
+     2,
+     1,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ],
+    "3": [
+     10,
+     2,
+     1,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ],
+    "4": [
+     10,
+     2,
+     1,
+     "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001"
+    ]
+   },
+   "E3_Halle": {
+    "1": [
+     10,
+     3,
+     1,
+     "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002"
+    ],
+    "2": [
+     10,
+     3,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004"
+    ],
+    "3": [
+     12,
+     2,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ],
+    "4": [
+     12,
+     2,
+     1,
+     "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"
+    ]
+   }
+  },
+  "Kweebec_Oak": {
+   "Potager": {
+    "1": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Garden/Medium/Kweebec_Oak_Garden_Medium_001"
+    ],
+    "2": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_001"
+    ],
+    "3": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_003"
+    ],
+    "4": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_003"
+    ]
+   },
+   "Puits": {
+    "1": [
+     3,
+     -5,
+     2,
+     "Npc/Kweebec/Oak/Well/Kweebec_Oak_Well_001"
+    ],
+    "2": [
+     3,
+     -5,
+     2,
+     "Npc/Kweebec/Oak/Well/Kweebec_Oak_Well_001"
+    ],
+    "3": [
+     3,
+     -5,
+     2,
+     "Npc/Kweebec/Oak/Well/Kweebec_Oak_Well_001"
+    ],
+    "4": [
+     3,
+     -5,
+     2,
+     "Npc/Kweebec/Oak/Well/Kweebec_Oak_Well_001"
+    ]
+   },
+   "Enclos": {
+    "1": [
+     -7,
+     3,
+     3,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_003"
+    ],
+    "2": [
+     -7,
+     3,
+     3,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_005"
+    ],
+    "3": [
+     -7,
+     2,
+     3,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_002"
+    ],
+    "4": [
+     -7,
+     2,
+     3,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_004"
+    ]
+   },
+   "Grande_Maison": {
+    "1": [
+     1,
+     -12,
+     2,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001"
+    ],
+    "2": [
+     4,
+     -14,
+     2,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002"
+    ],
+    "3": [
+     4,
+     -14,
+     2,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002"
+    ],
+    "4": [
+     4,
+     -14,
+     2,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002"
+    ]
+   },
+   "Tour_Est": {
+    "1": [
+     -6,
+     3,
+     3,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ],
+    "2": [
+     -6,
+     3,
+     3,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ],
+    "3": [
+     -6,
+     3,
+     3,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ],
+    "4": [
+     -6,
+     3,
+     3,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ]
+   },
+   "E1_Archerie": {
+    "1": [
+     3,
+     3,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ]
+   },
+   "E1_Herboristerie": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ]
+   },
+   "E1_Grand_Bassin": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ],
+    "2": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ]
+   },
+   "E1_Menuiserie": {
+    "1": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ]
+   },
+   "E1_Deuxieme_Enclos": {
+    "1": [
+     3,
+     7,
+     0,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_005"
+    ],
+    "2": [
+     3,
+     7,
+     0,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_002"
+    ],
+    "3": [
+     3,
+     7,
+     0,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_004"
+    ],
+    "4": [
+     3,
+     9,
+     0,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_001"
+    ]
+   },
+   "E1_Conseil": {
+    "1": [
+     3,
+     10,
+     0,
+     "Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001"
+    ],
+    "2": [
+     4,
+     12,
+     0,
+     "Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002"
+    ],
+    "3": [
+     1,
+     12,
+     0,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001"
+    ],
+    "4": [
+     4,
+     12,
+     0,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002"
+    ]
+   },
+   "E1_Caserne": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004"
+    ],
+    "2": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ],
+    "3": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ],
+    "4": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ]
+   },
+   "E1_Bibliotheque": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_006"
+    ],
+    "2": [
+     3,
+     3,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007"
+    ]
+   },
+   "E1_Temple": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ]
+   },
+   "E1_Halle": {
+    "1": [
+     4,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008"
+    ],
+    "2": [
+     3,
+     3,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007"
+    ]
+   },
+   "E2_Archerie": {
+    "1": [
+     3,
+     3,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ]
+   },
+   "E2_Herboristerie": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ]
+   },
+   "E2_Grand_Bassin": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ],
+    "2": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ]
+   },
+   "E2_Menuiserie": {
+    "1": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ]
+   },
+   "E2_Deuxieme_Enclos": {
+    "1": [
+     3,
+     7,
+     0,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_005"
+    ],
+    "2": [
+     3,
+     7,
+     0,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_002"
+    ],
+    "3": [
+     3,
+     7,
+     0,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_004"
+    ],
+    "4": [
+     3,
+     9,
+     0,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_001"
+    ]
+   },
+   "E2_Conseil": {
+    "1": [
+     3,
+     10,
+     0,
+     "Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001"
+    ],
+    "2": [
+     4,
+     12,
+     0,
+     "Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002"
+    ],
+    "3": [
+     1,
+     12,
+     0,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001"
+    ],
+    "4": [
+     4,
+     12,
+     0,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002"
+    ]
+   },
+   "E2_Caserne": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004"
+    ],
+    "2": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ],
+    "3": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ],
+    "4": [
+     2,
+     5,
+     0,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ]
+   },
+   "E2_Bibliotheque": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_006"
+    ],
+    "2": [
+     3,
+     3,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007"
+    ]
+   },
+   "E2_Temple": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ]
+   },
+   "E2_Halle": {
+    "1": [
+     4,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008"
+    ],
+    "2": [
+     3,
+     3,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007"
+    ]
+   },
+   "E3_Archerie": {
+    "1": [
+     4,
+     2,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001"
+    ],
+    "2": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ],
+    "4": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ]
+   },
+   "E3_Herboristerie": {
+    "1": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003"
+    ],
+    "2": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ],
+    "4": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ]
+   },
+   "E3_Grand_Bassin": {
+    "1": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ],
+    "2": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ],
+    "3": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ],
+    "4": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005"
+    ]
+   },
+   "E3_Menuiserie": {
+    "1": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "2": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "4": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ]
+   },
+   "E3_Deuxieme_Enclos": {
+    "1": [
+     7,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_005"
+    ],
+    "2": [
+     7,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_002"
+    ],
+    "3": [
+     7,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_004"
+    ],
+    "4": [
+     8,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_001"
+    ]
+   },
+   "E3_Conseil": {
+    "1": [
+     8,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001"
+    ],
+    "2": [
+     14,
+     2,
+     1,
+     "Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002"
+    ],
+    "3": [
+     11,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001"
+    ],
+    "4": [
+     14,
+     2,
+     1,
+     "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002"
+    ]
+   },
+   "E3_Caserne": {
+    "1": [
+     5,
+     2,
+     1,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004"
+    ],
+    "2": [
+     5,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ],
+    "3": [
+     5,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ],
+    "4": [
+     5,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002"
+    ]
+   },
+   "E3_Bibliotheque": {
+    "1": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_006"
+    ],
+    "2": [
+     4,
+     2,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001"
+    ],
+    "3": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003"
+    ],
+    "4": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007"
+    ]
+   },
+   "E3_Temple": {
+    "1": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007"
+    ],
+    "2": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004"
+    ],
+    "3": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ],
+    "4": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005"
+    ]
+   },
+   "E3_Halle": {
+    "1": [
+     5,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008"
+    ],
+    "2": [
+     4,
+     2,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001"
+    ],
+    "3": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003"
+    ],
+    "4": [
+     4,
+     3,
+     1,
+     "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007"
+    ]
+   }
+  },
+  "Renonce_Givre": {
+   "Maison_Du_Chasseur": {
+    "1": [
+     4,
+     -7,
+     2,
+     "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_005"
+    ],
+    "2": [
+     3,
+     -12,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_005"
+    ],
+    "3": [
+     3,
+     -12,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_005"
+    ],
+    "4": [
+     3,
+     -12,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_005"
+    ]
+   },
+   "Bergerie_Du_Givre": {
+    "1": [
+     -3,
+     7,
+     0,
+     "Nakasar/Peuples/Pens/Renonce_Pen"
+    ],
+    "2": [
+     -3,
+     8,
+     0,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T2"
+    ],
+    "3": [
+     -3,
+     9,
+     0,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T3"
+    ],
+    "4": [
+     -3,
+     10,
+     0,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T4"
+    ]
+   },
+   "Tour_Du_Fort": {
+    "1": [
+     -4,
+     3,
+     3,
+     "Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_001"
+    ],
+    "2": [
+     -5,
+     3,
+     3,
+     "Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001"
+    ],
+    "3": [
+     -5,
+     3,
+     3,
+     "Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001"
+    ],
+    "4": [
+     -5,
+     3,
+     3,
+     "Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001"
+    ]
+   },
+   "E1_Forge": {
+    "1": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001"
+    ],
+    "2": [
+     2,
+     14,
+     0,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001"
+    ],
+    "3": [
+     2,
+     14,
+     0,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001"
+    ],
+    "4": [
+     2,
+     14,
+     0,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001"
+    ]
+   },
+   "E1_Fumoir": {
+    "1": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_001"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ],
+    "3": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_005"
+    ],
+    "4": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E1_Cabane_De_Peche": {
+    "1": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_003"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_002"
+    ],
+    "3": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_001"
+    ],
+    "4": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ]
+   },
+   "E1_Chenil": {
+    "1": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_002"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_001"
+    ],
+    "3": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ],
+    "4": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_005"
+    ]
+   },
+   "E1_Deuxieme_Bergerie": {
+    "1": [
+     3,
+     7,
+     0,
+     "Nakasar/Peuples/Pens/Renonce_Pen"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T2"
+    ],
+    "3": [
+     3,
+     9,
+     0,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T3"
+    ],
+    "4": [
+     3,
+     10,
+     0,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T4"
+    ]
+   },
+   "E1_Conseil": {
+    "1": [
+     0,
+     12,
+     0,
+     "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003"
+    ],
+    "2": [
+     4,
+     12,
+     0,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ],
+    "3": [
+     4,
+     12,
+     0,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ],
+    "4": [
+     4,
+     12,
+     0,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ]
+   },
+   "E1_Caserne": {
+    "1": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "3": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "4": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E1_Bibliotheque": {
+    "1": [
+     3,
+     10,
+     0,
+     "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003"
+    ],
+    "2": [
+     0,
+     12,
+     0,
+     "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003"
+    ],
+    "3": [
+     4,
+     12,
+     0,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ],
+    "4": [
+     4,
+     12,
+     0,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ]
+   },
+   "E1_Temple": {
+    "1": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "3": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "4": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E1_Halle": {
+    "1": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_005"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "3": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "4": [
+     3,
+     8,
+     0,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E2_Forge": {
+    "1": [
+     9,
+     2,
+     1,
+     "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001"
+    ],
+    "2": [
+     12,
+     3,
+     1,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001"
+    ],
+    "3": [
+     12,
+     3,
+     1,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001"
+    ],
+    "4": [
+     12,
+     3,
+     1,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001"
+    ]
+   },
+   "E2_Fumoir": {
+    "1": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_001"
+    ],
+    "2": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ],
+    "3": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_005"
+    ],
+    "4": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E2_Cabane_De_Peche": {
+    "1": [
+     7,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_003"
+    ],
+    "2": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_002"
+    ],
+    "3": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_001"
+    ],
+    "4": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ]
+   },
+   "E2_Chenil": {
+    "1": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_002"
+    ],
+    "2": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_001"
+    ],
+    "3": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ],
+    "4": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_005"
+    ]
+   },
+   "E2_Deuxieme_Bergerie": {
+    "1": [
+     7,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Renonce_Pen"
+    ],
+    "2": [
+     8,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T2"
+    ],
+    "3": [
+     9,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T3"
+    ],
+    "4": [
+     10,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T4"
+    ]
+   },
+   "E2_Conseil": {
+    "1": [
+     8,
+     4,
+     1,
+     "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003"
+    ],
+    "2": [
+     13,
+     3,
+     1,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ],
+    "3": [
+     13,
+     3,
+     1,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ],
+    "4": [
+     13,
+     3,
+     1,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ]
+   },
+   "E2_Caserne": {
+    "1": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ],
+    "2": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "3": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "4": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E2_Bibliotheque": {
+    "1": [
+     8,
+     2,
+     1,
+     "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003"
+    ],
+    "2": [
+     8,
+     4,
+     1,
+     "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003"
+    ],
+    "3": [
+     13,
+     2,
+     1,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ],
+    "4": [
+     13,
+     2,
+     1,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ]
+   },
+   "E2_Temple": {
+    "1": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "2": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "3": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "4": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E2_Halle": {
+    "1": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_005"
+    ],
+    "2": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "3": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "4": [
+     8,
+     3,
+     1,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E3_Forge": {
+    "1": [
+     3,
+     -9,
+     2,
+     "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001"
+    ],
+    "2": [
+     2,
+     -13,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001"
+    ],
+    "3": [
+     2,
+     -13,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001"
+    ],
+    "4": [
+     2,
+     -13,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001"
+    ]
+   },
+   "E3_Fumoir": {
+    "1": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_001"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ],
+    "3": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_005"
+    ],
+    "4": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E3_Cabane_De_Peche": {
+    "1": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_003"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_002"
+    ],
+    "3": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_001"
+    ],
+    "4": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ]
+   },
+   "E3_Chenil": {
+    "1": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_002"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_001"
+    ],
+    "3": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ],
+    "4": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_005"
+    ]
+   },
+   "E3_Deuxieme_Bergerie": {
+    "1": [
+     3,
+     -7,
+     2,
+     "Nakasar/Peuples/Pens/Renonce_Pen"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T2"
+    ],
+    "3": [
+     3,
+     -9,
+     2,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T3"
+    ],
+    "4": [
+     3,
+     -10,
+     2,
+     "Nakasar/Peuples/Pens/Renonce_Pen_T4"
+    ]
+   },
+   "E3_Conseil": {
+    "1": [
+     0,
+     -10,
+     2,
+     "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003"
+    ],
+    "2": [
+     4,
+     -12,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ],
+    "3": [
+     4,
+     -12,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ],
+    "4": [
+     4,
+     -12,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ]
+   },
+   "E3_Caserne": {
+    "1": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_004"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "3": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "4": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E3_Bibliotheque": {
+    "1": [
+     3,
+     -11,
+     2,
+     "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003"
+    ],
+    "2": [
+     0,
+     -10,
+     2,
+     "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003"
+    ],
+    "3": [
+     4,
+     -13,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ],
+    "4": [
+     4,
+     -13,
+     2,
+     "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003"
+    ]
+   },
+   "E3_Temple": {
+    "1": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "3": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "4": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   },
+   "E3_Halle": {
+    "1": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_005"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "3": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ],
+    "4": [
+     3,
+     -8,
+     2,
+     "Npc/Outlander/Misc/Outlander_Misc_006"
+    ]
+   }
+  },
+  "Slothian_Monastere": {
+   "Etal_Des_Cendres": {
+    "1": [
+     -4,
+     2,
+     3,
+     "Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001"
+    ],
+    "2": [
+     -4,
+     2,
+     3,
+     "Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001"
+    ],
+    "3": [
+     -4,
+     2,
+     3,
+     "Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001"
+    ],
+    "4": [
+     -4,
+     2,
+     3,
+     "Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001"
+    ]
+   },
+   "Porte_Du_Monastere": {
+    "1": [
+     3,
+     -4,
+     2,
+     "Npc/Slothian/Disabled/Gate/Slothian_Disabled_Gate_001"
+    ],
+    "2": [
+     3,
+     -4,
+     2,
+     "Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_001"
+    ],
+    "3": [
+     3,
+     -4,
+     2,
+     "Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_002"
+    ],
+    "4": [
+     3,
+     -4,
+     2,
+     "Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_002"
+    ]
+   },
+   "Bauge_De_Veille": {
+    "1": [
+     3,
+     7,
+     0,
+     "Nakasar/Peuples/Pens/Slothian_Pen"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T2"
+    ],
+    "3": [
+     3,
+     9,
+     0,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T3"
+    ],
+    "4": [
+     3,
+     9,
+     0,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T4"
+    ]
+   },
+   "Temple_De_Veille": {
+    "1": [
+     -4,
+     3,
+     3,
+     "Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001"
+    ],
+    "2": [
+     -4,
+     3,
+     3,
+     "Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001"
+    ],
+    "3": [
+     -4,
+     3,
+     3,
+     "Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001"
+    ],
+    "4": [
+     -4,
+     3,
+     3,
+     "Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001"
+    ]
+   },
+   "E1_Scriptorium": {
+    "1": [
+     2,
+     -11,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003"
+    ],
+    "2": [
+     3,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "3": [
+     3,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     3,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E1_Cabane_De_Peche": {
+    "1": [
+     2,
+     -10,
+     2,
+     "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002"
+    ],
+    "2": [
+     2,
+     -10,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_002"
+    ],
+    "3": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002"
+    ],
+    "4": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002"
+    ]
+   },
+   "E1_Sanctuaire": {
+    "1": [
+     3,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ],
+    "2": [
+     3,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ],
+    "3": [
+     3,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ],
+    "4": [
+     3,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ]
+   },
+   "E1_Puits_De_Basalte": {
+    "1": [
+     3,
+     -8,
+     2,
+     "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001"
+    ],
+    "2": [
+     2,
+     -10,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001"
+    ],
+    "3": [
+     2,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     2,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E1_Deuxieme_Bauge": {
+    "1": [
+     3,
+     -7,
+     2,
+     "Nakasar/Peuples/Pens/Slothian_Pen"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T2"
+    ],
+    "3": [
+     3,
+     -9,
+     2,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T3"
+    ],
+    "4": [
+     3,
+     -10,
+     2,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T4"
+    ]
+   },
+   "E1_Conseil": {
+    "1": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002"
+    ],
+    "2": [
+     2,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "3": [
+     2,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     2,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E1_Caserne": {
+    "1": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001"
+    ],
+    "2": [
+     2,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "3": [
+     2,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     2,
+     -9,
+     2,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E1_Halle": {
+    "1": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002"
+    ],
+    "2": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ],
+    "3": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ],
+    "4": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ]
+   },
+   "E1_Taillerie": {
+    "1": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001"
+    ],
+    "2": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002"
+    ],
+    "3": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ],
+    "4": [
+     3,
+     -10,
+     2,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ]
+   },
+   "E2_Scriptorium": {
+    "1": [
+     -10,
+     2,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003"
+    ],
+    "2": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "3": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E2_Cabane_De_Peche": {
+    "1": [
+     -11,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002"
+    ],
+    "2": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_002"
+    ],
+    "3": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002"
+    ]
+   },
+   "E2_Sanctuaire": {
+    "1": [
+     -10,
+     5,
+     3,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ],
+    "2": [
+     -10,
+     5,
+     3,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ],
+    "3": [
+     -10,
+     5,
+     3,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ],
+    "4": [
+     -10,
+     5,
+     3,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ]
+   },
+   "E2_Puits_De_Basalte": {
+    "1": [
+     -9,
+     1,
+     3,
+     "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001"
+    ],
+    "2": [
+     -10,
+     2,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001"
+    ],
+    "3": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E2_Deuxieme_Bauge": {
+    "1": [
+     -7,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Slothian_Pen"
+    ],
+    "2": [
+     -8,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T2"
+    ],
+    "3": [
+     -9,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T3"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T4"
+    ]
+   },
+   "E2_Conseil": {
+    "1": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002"
+    ],
+    "2": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "3": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E2_Caserne": {
+    "1": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001"
+    ],
+    "2": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "3": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E2_Halle": {
+    "1": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002"
+    ],
+    "2": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ],
+    "3": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ]
+   },
+   "E2_Taillerie": {
+    "1": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001"
+    ],
+    "2": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002"
+    ],
+    "3": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ]
+   },
+   "E3_Scriptorium": {
+    "1": [
+     8,
+     2,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003"
+    ],
+    "2": [
+     9,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "3": [
+     9,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     9,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E3_Cabane_De_Peche": {
+    "1": [
+     10,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002"
+    ],
+    "2": [
+     9,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_002"
+    ],
+    "3": [
+     10,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002"
+    ],
+    "4": [
+     10,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002"
+    ]
+   },
+   "E3_Sanctuaire": {
+    "1": [
+     10,
+     5,
+     1,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ],
+    "2": [
+     10,
+     5,
+     1,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ],
+    "3": [
+     10,
+     5,
+     1,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ],
+    "4": [
+     10,
+     5,
+     1,
+     "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001"
+    ]
+   },
+   "E3_Puits_De_Basalte": {
+    "1": [
+     10,
+     1,
+     1,
+     "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001"
+    ],
+    "2": [
+     10,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001"
+    ],
+    "3": [
+     9,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     9,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E3_Deuxieme_Bauge": {
+    "1": [
+     7,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Slothian_Pen"
+    ],
+    "2": [
+     8,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T2"
+    ],
+    "3": [
+     9,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T3"
+    ],
+    "4": [
+     10,
+     3,
+     1,
+     "Nakasar/Peuples/Pens/Slothian_Pen_T4"
+    ]
+   },
+   "E3_Conseil": {
+    "1": [
+     10,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002"
+    ],
+    "2": [
+     9,
+     4,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "3": [
+     9,
+     4,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     9,
+     4,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E3_Caserne": {
+    "1": [
+     10,
+     3,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001"
+    ],
+    "2": [
+     9,
+     4,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "3": [
+     9,
+     4,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ],
+    "4": [
+     9,
+     4,
+     1,
+     "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001"
+    ]
+   },
+   "E3_Halle": {
+    "1": [
+     10,
+     3,
+     1,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002"
+    ],
+    "2": [
+     10,
+     4,
+     1,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ],
+    "3": [
+     10,
+     4,
+     1,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ],
+    "4": [
+     10,
+     4,
+     1,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ]
+   },
+   "E3_Taillerie": {
+    "1": [
+     10,
+     3,
+     1,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001"
+    ],
+    "2": [
+     10,
+     3,
+     1,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002"
+    ],
+    "3": [
+     10,
+     4,
+     1,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ],
+    "4": [
+     10,
+     4,
+     1,
+     "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003"
+    ]
+   }
+  },
+  "Trork_Camp": {
+   "Feu_De_Camp": {
+    "1": [
+     2,
+     -3,
+     2,
+     "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_001"
+    ],
+    "2": [
+     2,
+     -3,
+     2,
+     "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002"
+    ],
+    "3": [
+     2,
+     -3,
+     2,
+     "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002"
+    ],
+    "4": [
+     2,
+     -3,
+     2,
+     "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002"
+    ]
+   },
+   "Piege": {
+    "1": [
+     3,
+     -3,
+     2,
+     "Npc/Trork/Trap/Trork_Trap_Trork_Trap_001"
+    ],
+    "2": [
+     3,
+     -3,
+     2,
+     "Npc/Trork/Trap/Trork_Trap_Trork_Trap_001"
+    ],
+    "3": [
+     3,
+     -3,
+     2,
+     "Npc/Trork/Trap/Trork_Trap_Trork_Trap_001"
+    ],
+    "4": [
+     3,
+     -3,
+     2,
+     "Npc/Trork/Trap/Trork_Trap_Trork_Trap_001"
+    ]
+   },
+   "Fosse_Aux_Betes": {
+    "1": [
+     -3,
+     7,
+     0,
+     "Nakasar/Peuples/Pens/Trork_Pen"
+    ],
+    "2": [
+     -3,
+     8,
+     0,
+     "Nakasar/Peuples/Pens/Trork_Pen_T2"
+    ],
+    "3": [
+     -3,
+     8,
+     0,
+     "Nakasar/Peuples/Pens/Trork_Pen_T3"
+    ],
+    "4": [
+     -3,
+     9,
+     0,
+     "Nakasar/Peuples/Pens/Trork_Pen_T4"
+    ]
+   },
+   "Entrepot": {
+    "1": [
+     5,
+     2,
+     1,
+     "Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001"
+    ],
+    "2": [
+     5,
+     2,
+     1,
+     "Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001"
+    ],
+    "3": [
+     5,
+     2,
+     1,
+     "Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001"
+    ],
+    "4": [
+     5,
+     2,
+     1,
+     "Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001"
+    ]
+   },
+   "E1_Forge_De_Guerre": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_002"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_004"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_006"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E1_Camp_Bucherons": {
+    "1": [
+     2,
+     4,
+     0,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ],
+    "2": [
+     2,
+     4,
+     0,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ],
+    "3": [
+     2,
+     4,
+     0,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ],
+    "4": [
+     2,
+     4,
+     0,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ]
+   },
+   "E1_Carriere": {
+    "1": [
+     3,
+     2,
+     0,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ],
+    "2": [
+     3,
+     2,
+     0,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ],
+    "3": [
+     3,
+     2,
+     0,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ],
+    "4": [
+     3,
+     2,
+     0,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ]
+   },
+   "E1_Tannerie": {
+    "1": [
+     3,
+     6,
+     0,
+     "Npc/Trork/Tent/Trork_Tent_001"
+    ],
+    "2": [
+     3,
+     5,
+     0,
+     "Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001"
+    ],
+    "3": [
+     2,
+     6,
+     0,
+     "Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001"
+    ],
+    "4": [
+     2,
+     7,
+     0,
+     "Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001"
+    ]
+   },
+   "E1_Deuxieme_Fosse": {
+    "1": [
+     3,
+     7,
+     0,
+     "Nakasar/Peuples/Pens/Trork_Pen"
+    ],
+    "2": [
+     3,
+     8,
+     0,
+     "Nakasar/Peuples/Pens/Trork_Pen_T2"
+    ],
+    "3": [
+     3,
+     9,
+     0,
+     "Nakasar/Peuples/Pens/Trork_Pen_T3"
+    ],
+    "4": [
+     3,
+     10,
+     0,
+     "Nakasar/Peuples/Pens/Trork_Pen_T4"
+    ]
+   },
+   "E1_Conseil": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "2": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E1_Caserne": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_004"
+    ],
+    "2": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_006"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E1_Bibliotheque": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_005"
+    ],
+    "2": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_001"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_002"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_004"
+    ]
+   },
+   "E1_Temple": {
+    "1": [
+     1,
+     4,
+     0,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ],
+    "2": [
+     1,
+     4,
+     0,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ],
+    "3": [
+     1,
+     4,
+     0,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ],
+    "4": [
+     1,
+     4,
+     0,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ]
+   },
+   "E1_Halle": {
+    "1": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_006"
+    ],
+    "2": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "3": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "4": [
+     3,
+     4,
+     0,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E2_Forge_De_Guerre": {
+    "1": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_002"
+    ],
+    "2": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_004"
+    ],
+    "3": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_006"
+    ],
+    "4": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E2_Camp_Bucherons": {
+    "1": [
+     2,
+     -5,
+     2,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ],
+    "2": [
+     2,
+     -5,
+     2,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ],
+    "3": [
+     2,
+     -5,
+     2,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ],
+    "4": [
+     2,
+     -5,
+     2,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ]
+   },
+   "E2_Carriere": {
+    "1": [
+     3,
+     -2,
+     2,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ],
+    "2": [
+     3,
+     -2,
+     2,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ],
+    "3": [
+     3,
+     -2,
+     2,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ],
+    "4": [
+     3,
+     -2,
+     2,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ]
+   },
+   "E2_Tannerie": {
+    "1": [
+     3,
+     -5,
+     2,
+     "Npc/Trork/Tent/Trork_Tent_001"
+    ],
+    "2": [
+     3,
+     -5,
+     2,
+     "Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001"
+    ],
+    "3": [
+     3,
+     -5,
+     2,
+     "Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001"
+    ],
+    "4": [
+     3,
+     -6,
+     2,
+     "Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001"
+    ]
+   },
+   "E2_Deuxieme_Fosse": {
+    "1": [
+     3,
+     -7,
+     2,
+     "Nakasar/Peuples/Pens/Trork_Pen"
+    ],
+    "2": [
+     3,
+     -8,
+     2,
+     "Nakasar/Peuples/Pens/Trork_Pen_T2"
+    ],
+    "3": [
+     3,
+     -9,
+     2,
+     "Nakasar/Peuples/Pens/Trork_Pen_T3"
+    ],
+    "4": [
+     3,
+     -10,
+     2,
+     "Nakasar/Peuples/Pens/Trork_Pen_T4"
+    ]
+   },
+   "E2_Conseil": {
+    "1": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "2": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "3": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "4": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E2_Caserne": {
+    "1": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_004"
+    ],
+    "2": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_006"
+    ],
+    "3": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "4": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E2_Bibliotheque": {
+    "1": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_005"
+    ],
+    "2": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_001"
+    ],
+    "3": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_002"
+    ],
+    "4": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_004"
+    ]
+   },
+   "E2_Temple": {
+    "1": [
+     1,
+     -6,
+     2,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ],
+    "2": [
+     1,
+     -6,
+     2,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ],
+    "3": [
+     1,
+     -6,
+     2,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ],
+    "4": [
+     1,
+     -6,
+     2,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ]
+   },
+   "E2_Halle": {
+    "1": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_006"
+    ],
+    "2": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "3": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "4": [
+     3,
+     -4,
+     2,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E3_Forge_De_Guerre": {
+    "1": [
+     -3,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_002"
+    ],
+    "2": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_004"
+    ],
+    "3": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_006"
+    ],
+    "4": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E3_Camp_Bucherons": {
+    "1": [
+     -4,
+     2,
+     3,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ],
+    "2": [
+     -4,
+     2,
+     3,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ],
+    "3": [
+     -4,
+     2,
+     3,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ],
+    "4": [
+     -4,
+     2,
+     3,
+     "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001"
+    ]
+   },
+   "E3_Carriere": {
+    "1": [
+     -1,
+     2,
+     3,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ],
+    "2": [
+     -1,
+     2,
+     3,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ],
+    "3": [
+     -1,
+     2,
+     3,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ],
+    "4": [
+     -1,
+     2,
+     3,
+     "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005"
+    ]
+   },
+   "E3_Tannerie": {
+    "1": [
+     -5,
+     3,
+     3,
+     "Npc/Trork/Tent/Trork_Tent_001"
+    ],
+    "2": [
+     -5,
+     2,
+     3,
+     "Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001"
+    ],
+    "3": [
+     -6,
+     3,
+     3,
+     "Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001"
+    ],
+    "4": [
+     -6,
+     3,
+     3,
+     "Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001"
+    ]
+   },
+   "E3_Deuxieme_Fosse": {
+    "1": [
+     -7,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Trork_Pen"
+    ],
+    "2": [
+     -8,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Trork_Pen_T2"
+    ],
+    "3": [
+     -9,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Trork_Pen_T3"
+    ],
+    "4": [
+     -10,
+     3,
+     3,
+     "Nakasar/Peuples/Pens/Trork_Pen_T4"
+    ]
+   },
+   "E3_Conseil": {
+    "1": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "2": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "3": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "4": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E3_Caserne": {
+    "1": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_004"
+    ],
+    "2": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_006"
+    ],
+    "3": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "4": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   },
+   "E3_Bibliotheque": {
+    "1": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_005"
+    ],
+    "2": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_001"
+    ],
+    "3": [
+     -3,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_002"
+    ],
+    "4": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_004"
+    ]
+   },
+   "E3_Temple": {
+    "1": [
+     -6,
+     2,
+     3,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ],
+    "2": [
+     -6,
+     2,
+     3,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ],
+    "3": [
+     -6,
+     2,
+     3,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ],
+    "4": [
+     -6,
+     2,
+     3,
+     "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002"
+    ]
+   },
+   "E3_Halle": {
+    "1": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_006"
+    ],
+    "2": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "3": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ],
+    "4": [
+     -4,
+     3,
+     3,
+     "Npc/Trork/Misc/Large/Trork_Misc_Large_003"
+    ]
+   }
+  }
+ }
 }

@@ -43,8 +43,21 @@ LEVEL_PALIERS = (1, 3, 4)
 MAX_SHIFT = 8
 # Avant-postes : chaque pièce bouge de moins, dans le rectangle de l'avant-poste.
 ANNEX_SHIFT = 4
+# Panneaux placés à la main (Kevin, 17 novembre 2026 : « potentiellement, on va le placer manuellement ») :
+# (plan, bâtiment, palier) -> (dx, dz, lacet) relatifs au point de collage du prefab de ce palier, dans le repère du
+# prefab non tourné, comme sur la carte de revue (origine de la composition) ; lacet 0 face au sud, 1 à l'est, 2 au
+# nord, 3 à l'ouest. Remplace la place calculée, en jeu (tournée avec le bâtiment) et sur la carte de revue. Exemple : ("Feran_Oasis", "E1_Conseil", 3): (0, 12, 0).
+BOARD_MANUAL = {
+}
 OFFSETS = sorted(((dx, dz) for dx in range(-MAX_SHIFT, MAX_SHIFT + 1) for dz in range(-MAX_SHIFT, MAX_SHIFT + 1)),
                  key=lambda o: (abs(o[0]) + abs(o[1]), abs(o[0]), o))
+
+
+def rotate(x, z, rotation):
+    """Comme Annexes.rotate / PrefabRotation du serveur : un quart de tour donne x' = z, z' = -x."""
+    for _ in range(rotation & 3):
+        x, z = z, -x
+    return x, z
 
 
 def overlaps(a, b, margin=1):
@@ -90,7 +103,7 @@ def reachable(layout, b, workshops, palier):
     return palier >= b["Tier"] + 1
 
 
-def layout_entries(layout, workshops, layout_id, incompatible):
+def layout_entries(layout, workshops, layout_id, incompatible, review):
     people = layout["People"]
     plaza = layout["PlazaRadius"] + 1
     plaza_rect = [-plaza, plaza, -plaza, plaza]
@@ -241,7 +254,14 @@ def layout_entries(layout, workshops, layout_id, incompatible):
             reserved[bid] = union(reserved[bid], r)
             entry = {"Palier": palier, "Prefab": path, "DX": pick[1], "DZ": pick[2], "MinX": r[0] - ax,
                      "MaxX": r[1] - ax, "MinZ": r[2] - az, "MaxZ": r[3] - az, "MinY": bb[2], "MaxY": bb[3]}
-            if own is not None and pick != (0, 0, 0):
+            manual = BOARD_MANUAL.get((layout_id, bid, palier))
+            if own is not None and manual is not None:
+                mx, mz = rotate(manual[0], manual[1], b["Rotation"])
+                spot, inside = [ax + mx, az + mz, (manual[2] + b["Rotation"]) & 3], False
+                entry["Board"] = spot
+                entry["Manual"] = True
+                moved.append((bid, spot[0], spot[1]))
+            elif own is not None and pick != (0, 0, 0):
                 spot, inside = board_for(r)
                 entry["Board"] = spot
                 if inside:
@@ -251,6 +271,21 @@ def layout_entries(layout, workshops, layout_id, incompatible):
                     report["front"] += 1
                 moved.append((bid, spot[0], spot[1]))
             chosen.append(entry)
+            if own is not None:
+                # Carte de revue : le panneau de la version qu'elle montre (voulue), relatif à son point de collage.
+                # La carte montre le prefab sans rotation : on ramène le panneau dans le repère du prefab.
+                if manual is not None:
+                    rel = [manual[0], manual[1], manual[2] & 3]
+                else:
+                    if pick[0] == want:
+                        at = entry.get("Board") or [own[0], own[1], own_yaw & 3]
+                        wx, wz = at[0] - ax, at[1] - az
+                    else:
+                        at, _ = board_for(rect_of(steps[want], b["X"], b["Z"], b["Rotation"]))
+                        wx, wz = at[0] - b["X"], at[1] - b["Z"]
+                    lx, lz = rotate(wx, wz, -b["Rotation"])
+                    rel = [lx, lz, (at[2] - b["Rotation"]) & 3]
+                review.setdefault(bid, {})[str(palier)] = rel + [steps[want]]
         if any(c["Prefab"] != b["Prefab"] for c in chosen):
             out[bid] = chosen
     return out, report
@@ -345,12 +380,13 @@ def main():
         "Layouts": {},
         "Annexes": {},
         "Incompatibles": [],
+        "Review": {},
     }
     incompatible = doc["Incompatibles"]
     total = {"grown": 0, "blocked": 0}
     for f in sorted((NAK / "VillageLayouts").glob("*.json")):
         layout = json.loads(f.read_text(encoding="utf-8"))
-        entries, rep = layout_entries(layout, workshops, f.stem, incompatible)
+        entries, rep = layout_entries(layout, workshops, f.stem, incompatible, doc["Review"].setdefault(f.stem, {}))
         doc["Layouts"][f.stem] = entries
         print(f"{f.stem}: {len(entries)}/{len(layout['Buildings'])} bâtiments changent d'apparence "
               f"({rep['blocked']} paliers retenus faute de place ; panneaux déplacés : {rep['front']} devant la "

@@ -18,6 +18,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.universe.world.worldgen.provider.FlatWorldGenProvider;
 import dev.nakasar.hytale.peuples.village.Blocks;
 import dev.nakasar.hytale.peuples.village.Terrain;
+import dev.nakasar.hytale.peuples.workshop.Workshops;
 import dev.nakasar.hytale.peuples.village.VillageBuilder;
 import org.joml.Vector3d;
 
@@ -152,6 +153,13 @@ public final class ReviewMap {
          */
         @SerializedName("Reserve")
         int[] reserve;
+        /**
+         * Panneau du bâtiment de métier là où il apparaît en jeu (Kevin, 17 novembre 2026) : « dx dz lacet Bloc »
+         * relatif à l'origine, plaqué au mur ou entré dans le bâtiment comme {@link Workshops#boardSpot} ; avec
+         * « Fixe » (avant-poste, sur sa fondation) posé tel quel sur le sol.
+         */
+        @SerializedName("Board")
+        String board;
         /** Vrai si cette version ne tient pas au village (liseré bleu, raison dans les notes). */
         @SerializedName("Incompatible")
         boolean incompatible;
@@ -237,6 +245,13 @@ public final class ReviewMap {
             if (p.length >= 3) {
                 int x = Integer.parseInt(p[0]), z = Integer.parseInt(p[2]);
                 box = union(box, x, x, z, z, 1 + Integer.parseInt(p[1]));
+            }
+        }
+        if (t.board != null) {
+            String[] p = t.board.trim().split("\\s+");
+            if (p.length >= 4) {
+                int x = Integer.parseInt(p[0]), z = Integer.parseInt(p[1]);
+                box = union(box, x, x, z, z, 1);
             }
         }
         return box == null ? new int[]{-2, 2, -2, 2, 4} : box;
@@ -623,8 +638,35 @@ public final class ReviewMap {
                 Blocks.set(chunks, x, y, z, null, 0);
             }
         }
+        placeBoard(world, chunks, s);
         // Panneau muet dans le coin sud-ouest : l'utiliser dit le bâtiment et le palier.
         Blocks.set(chunks, s.signX, GROUND + 1, s.signZ, SIGN, 0);
+    }
+
+    /** Panneau de métier du palier (bloc vanilla du peuple, sans tableau), où {@code Workshops.placeBoard} le pose. */
+    private static void placeBoard(World world, ChunkStore chunks, Spot s) {
+        if (s.tier.board == null) {
+            return;
+        }
+        String[] p = s.tier.board.trim().split("\\s+");
+        if (p.length < 4) {
+            return;
+        }
+        int x = s.ox + Integer.parseInt(p[0]);
+        int z = s.oz + Integer.parseInt(p[1]);
+        int yaw = Integer.parseInt(p[2]) & 3;
+        int[] at;
+        if (p.length > 4 && "Fixe".equals(p[4])) {
+            at = new int[] {x, GROUND + 1, z};
+        } else {
+            at = Workshops.boardSpot(chunks, new Terrain(world), x, z, yaw);
+        }
+        if (at == null) {
+            LOGGER.atWarning().log("Nakasar Peuples : revue, pas de place pour le panneau de %s", s.key);
+            return;
+        }
+        Blocks.set(chunks, at[0], at[1], at[2], p[3], yaw);
+        Workshops.hangBoard(chunks, s.section.people, at[0], at[1], at[2], yaw);
     }
 
     // ---- Panneau ----

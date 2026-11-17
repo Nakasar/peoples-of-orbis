@@ -291,59 +291,54 @@ public final class Workshops {
         }
         ChunkStore chunks = world.getChunkStore();
         int yaw = spot.length > 2 ? spot[2] : 0;
+        int[] at = boardSpot(chunks, new Terrain(world), village.x() + spot[0], village.z() + spot[1], yaw);
+        if (at == null) {
+            return;
+        }
+        if (Blocks.set(chunks, at[0], at[1], at[2], village.people().boardBlock(), yaw)) {
+            state.setBoard(at[0], at[1], at[2]);
+            hangBoard(chunks, village, at[0], at[1], at[2], yaw);
+            PeuplesPlugin.get().getLogger().atInfo().log("Peuples : panneau du bâtiment %s posé en %d %d %d (%s)",
+                    w.getId(), at[0], at[1], at[2], village.name());
+        }
+    }
+
+    /**
+     * Case du panneau d'un bâtiment de métier prévu en (x, z) du monde, face `yaw` : la case (ou une voisine le long de
+     * la face) libre ou de végétation non pleine, plaquée contre le mur derrière elle ({@link #flushSpot}). Si la façade
+     * est pleine à cet endroit (mur, version plus grande du bâtiment), le panneau entre dans le bâtiment : première case
+     * libre derrière la façade, contre le mur suivant (Kevin, 17 novembre 2026). Null si la zone n'est pas chargée ou
+     * s'il n'y a pas de place. Sert aussi à la carte de revue ({@code ReviewMap}), pour le montrer où il apparaît.
+     */
+    public static int[] boardSpot(ChunkStore chunks, Terrain terrain, int sx, int sz, int yaw) {
         // Décalages le long de la face : est-ouest pour une face nord ou sud (lacets 0, 2), nord-sud sinon.
         boolean alongX = yaw == 0 || yaw == 2;
-        Terrain terrain = new Terrain(world);
         for (int d : new int[] {0, 1, -1}) {
-            int x = village.x() + spot[0] + (alongX ? d : 0);
-            int z = village.z() + spot[1] + (alongX ? 0 : d);
+            int x = sx + (alongX ? d : 0);
+            int z = sz + (alongX ? 0 : d);
             int y = standY(chunks, terrain, x, z);
             if (y == UNLOADED_SPOT) {
-                return;
+                return null;
             }
             if (y == Terrain.NONE) {
                 continue;
             }
-            int[] flush = flushSpot(chunks, terrain, x, y, z, yaw);
-            if (flush == null) {
-                return;
-            }
-            x = flush[0];
-            y = flush[1];
-            z = flush[2];
-            if (Blocks.set(chunks, x, y, z, village.people().boardBlock(), yaw)) {
-                state.setBoard(x, y, z);
-                hangBoard(chunks, village, x, y, z, yaw);
-                PeuplesPlugin.get().getLogger().atInfo().log("Peuples : panneau du bâtiment %s posé en %d %d %d (%s)",
-                        w.getId(), x, y, z, village.name());
-                return;
-            }
+            return flushSpot(chunks, terrain, x, y, z, yaw);
         }
-        // Façade pleine à cette place (mur, version plus grande du bâtiment) : le panneau entre dans le bâtiment, sur la
-        // première case libre derrière la façade, contre le mur suivant (Kevin, 17 novembre 2026).
         int[] b = back(yaw);
         for (int step = 1; step <= INSIDE_REACH; step++) {
-            int x = village.x() + spot[0] + b[0] * step;
-            int z = village.z() + spot[1] + b[1] * step;
+            int x = sx + b[0] * step;
+            int z = sz + b[1] * step;
             int y = standY(chunks, terrain, x, z);
             if (y == UNLOADED_SPOT) {
-                return;
+                return null;
             }
             if (y == Terrain.NONE || Blocks.solid(chunks, x, y + 1, z)) {
                 continue;
             }
-            int[] flush = flushSpot(chunks, terrain, x, y, z, yaw);
-            if (flush == null) {
-                return;
-            }
-            if (Blocks.set(chunks, flush[0], flush[1], flush[2], village.people().boardBlock(), yaw)) {
-                state.setBoard(flush[0], flush[1], flush[2]);
-                hangBoard(chunks, village, flush[0], flush[1], flush[2], yaw);
-                PeuplesPlugin.get().getLogger().atInfo().log("Peuples : panneau du bâtiment %s posé dedans en %d %d %d (%s)",
-                        w.getId(), flush[0], flush[1], flush[2], village.name());
-                return;
-            }
+            return flushSpot(chunks, terrain, x, y, z, yaw);
         }
+        return null;
     }
 
     /** Profondeur où chercher, derrière une façade pleine, une case libre pour le panneau. */
@@ -482,7 +477,12 @@ public final class Workshops {
      * panneau.
      */
     public static void hangBoard(ChunkStore chunks, Village village, int x, int y, int z, int yaw) {
-        if (!"Kweebec".equals(village.people().id()) || Blocks.solid(chunks, x, y + 1, z)) {
+        hangBoard(chunks, village.people().id(), x, y, z, yaw);
+    }
+
+    /** {@link #hangBoard(ChunkStore, Village, int, int, int, int)} pour le peuple d'id `people`. */
+    public static void hangBoard(ChunkStore chunks, String people, int x, int y, int z, int yaw) {
+        if (!"Kweebec".equals(people) || Blocks.solid(chunks, x, y + 1, z)) {
             return;
         }
         int[] b = back(yaw);
