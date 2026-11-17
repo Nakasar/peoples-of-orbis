@@ -17,7 +17,8 @@ import java.util.List;
  * (jusqu'à {@value #CRAFT_MAX}), et leurs effets sur le village.
  * <ul>
  *   <li>{@value #DEFENSE} (Caserne) : 1 + niveau gardes de plus autour du cœur en raid ; spécialité {@value #GARRISON} :
- *   +1 garde dans chaque lieu-dit tenu, chaque ouvrage et chaque expédition ;</li>
+ *   +1 garde dans chaque lieu-dit tenu, chaque ouvrage et chaque expédition ; gardes des ouvrages tenus +25 % de vie par
+ *   niveau (annex/Ouvrages.barracks) ;</li>
  *   <li>{@value #DIPLOMACY} (Ambassade, l'ancienne Maison du conseil) : règles du conseil (world/Allegiance) ;</li>
  *   <li>{@value #KNOWLEDGE} (Bibliothèque) : savoir-faire +{@value #KNOWLEDGE_PERCENT} % pour tous les bâtiments de métier ;</li>
  *   <li>{@value #CULT} (Temple) : essor +{@value #ESSOR_PERCENT} % ; spécialité {@value #PROTECTION} : un raid perdu ne

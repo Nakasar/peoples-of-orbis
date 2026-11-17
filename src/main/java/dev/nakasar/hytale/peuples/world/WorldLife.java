@@ -73,6 +73,10 @@ public final class WorldLife {
     private static final Map<Ref<EntityStore>, Side> SIDES = Collections.synchronizedMap(new IdentityHashMap<>());
     private static final Map<Ref<EntityStore>, Talker> TALKERS = Collections.synchronizedMap(new IdentityHashMap<>());
     private static final Map<Ref<EntityStore>, Mortal> MORTALS = Collections.synchronizedMap(new IdentityHashMap<>());
+    /** Combattants d'un assaut en cours (ouvrage ou lieu-dit) → fin de la marque, en ms (renouvelée à chaque pas). */
+    private static final Map<Ref<EntityStore>, Long> ASSAULT = Collections.synchronizedMap(new IdentityHashMap<>());
+    /** Durée d'une marque d'assaut : plus que deux pas lents ({@code WorldLifeSystem}, 2 s), pour ne jamais clignoter. */
+    public static final long ASSAULT_MARK_MILLIS = 5000L;
     /** Joueur -> PNJ du monde vivant à qui il parle (les effets de dialogue le lisent). */
     private static final Map<UUID, Ref<EntityStore>> TALKING = new ConcurrentHashMap<>();
 
@@ -136,6 +140,7 @@ public final class WorldLife {
 
     public static void forget(Ref<EntityStore> ref) {
         NPCS.remove(ref);
+        ASSAULT.remove(ref);
         SIDES.remove(ref);
         TALKERS.remove(ref);
         MORTALS.remove(ref);
@@ -153,6 +158,33 @@ public final class WorldLife {
         Camps.forget(ref);
         Calendar.forget(ref);
         Surroundings.forget(ref);
+    }
+
+    /**
+     * Marque des combattants d'un assaut en cours (Kevin, 2026-11-17) : tant que la marque dure, la régénération vanilla
+     * hors combat leur est coupée ({@code VillageNoRegenSystem}), même pour les gardes amicaux ; elle revient seule
+     * {@value #ASSAULT_MARK_MILLIS} ms après la fin de l'assaut.
+     */
+    public static void assault(Iterable<Ref<EntityStore>> refs) {
+        long until = System.currentTimeMillis() + ASSAULT_MARK_MILLIS;
+        for (Ref<EntityStore> ref : refs) {
+            if (ref != null && ref.isValid()) {
+                ASSAULT.put(ref, until);
+            }
+        }
+    }
+
+    /** Vrai si `ref` combat dans un assaut en cours ; oublie la marque passée. */
+    public static boolean inAssault(Ref<EntityStore> ref) {
+        Long until = ASSAULT.get(ref);
+        if (until == null) {
+            return false;
+        }
+        if (until < System.currentTimeMillis()) {
+            ASSAULT.remove(ref);
+            return false;
+        }
+        return true;
     }
 
     /** Oublie le camp de combat d'une entité qui n'est pas un PNJ du monde vivant (porteur de convoi). */

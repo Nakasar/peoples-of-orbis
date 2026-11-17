@@ -309,16 +309,19 @@ public final class Allegiance {
         return s != null && specialty.equals(s.specialty());
     }
 
-    /** Lieux-dits que le village peut tenir : 1 au palier 2, 3 au palier 3, plus un par niveau de sa Maison du conseil. */
-    public static int cap(Village v) {
+    /**
+     * Lieux-dits que le village peut tenir : 1 au palier 2, 3 au palier 3, plus un par niveau de sa Maison du conseil,
+     * plus un s'il tient une forteresse (la sienne pas prise, ou celle d'un rival qu'il occupe).
+     */
+    public static int cap(World world, Village v) {
         if (v == null || v.isHamlet() || v.tier() < 2) {
             return 0;
         }
-        return (v.tier() >= 3 ? 3 : 1) + councilLevel(v) + dev.nakasar.hytale.peuples.annex.Infrastructures.ownFortress(v);
+        return (v.tier() >= 3 ? 3 : 1) + councilLevel(v) + dev.nakasar.hytale.peuples.annex.Infrastructures.fortressBonus(world, v);
     }
 
     public static boolean canHold(World world, Village v) {
-        return holdings(world, v).size() < cap(v);
+        return holdings(world, v).size() < cap(world, v);
     }
 
     // ---- Embargo ----
@@ -728,7 +731,7 @@ public final class Allegiance {
             }
             out.add(Message.translation(KEYS + "cmd.line").param("village", v.name()).param("value", influence(world, h, v))
                     .param("relation", owner == null || owner == v ? 0 : Relations.value(world, owner, v))
-                    .param("holds", holdings(world, v).size()).param("cap", cap(v)));
+                    .param("holds", holdings(world, v).size()).param("cap", cap(world, v)));
         }
         return out;
     }

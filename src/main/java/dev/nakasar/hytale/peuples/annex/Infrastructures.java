@@ -17,10 +17,14 @@ import java.util.concurrent.ThreadLocalRandom;
  *   <li>Tour de garde : raid annoncé {@code Warn} s plus tôt par niveau, pour chaque tour à moins de
  *   {@value #TOWER_WARN_RANGE} blocs du cœur ; embuscades deux fois moins fréquentes à moins de
  *   {@value #TOWER_AMBUSH_RANGE} blocs ;</li>
- *   <li>Poste routier : plus aucune embuscade à moins de {@value #POST_RANGE} blocs ;</li>
+ *   <li>Poste routier : plus aucune embuscade à moins de {@value #POST_RANGE} blocs ; halte de nuit : convois,
+ *   caravanes et voyageurs marchent de nuit jusqu'au poste devant eux (à {@value #NIGHT_REACH} blocs de route au plus)
+ *   et y dorment jusqu'au jour ({@link #nightHalt}) ;</li>
  *   <li>Fortin : le territoire du village s'étend de {@value #FORT_TERRITORY} blocs autour ; +1 garde aux lieux-dits
- *   tenus à moins de {@value #FORT_HAMLET_RANGE} blocs ;</li>
- *   <li>Forteresse : un raid perdu brûle un bâtiment sans faire perdre de palier ; +1 lieu-dit tenu.</li>
+ *   tenus à moins de {@value #FORT_HAMLET_RANGE} blocs ; les expéditions (lieux-dits, ouvrages) partent du fortin tenu le
+ *   plus proche de leur cible s'il en est plus près que le village ({@link #expeditionStart}) ;</li>
+ *   <li>Forteresse : un raid perdu brûle un bâtiment sans faire perdre de palier ; +1 lieu-dit tenu, aussi pour
+ *   l'occupant qui l'a prise.</li>
  * </ul>
  */
 public final class Infrastructures {
@@ -34,6 +38,12 @@ public final class Infrastructures {
     public static final int POST_RANGE = 64;
     public static final int FORT_TERRITORY = 96;
     public static final int FORT_HAMLET_RANGE = 200;
+    /** Un poste routier accueille la halte de nuit s'il est à moins de tant de blocs de la route. */
+    public static final int HALT_RANGE = 24;
+    /** Blocs de route qu'une file accepte encore de marcher de nuit pour atteindre le poste. */
+    public static final int NIGHT_REACH = 300;
+    /** La file s'arrête à tant de blocs avant le point de la route le plus proche du poste. */
+    public static final double HALT_BEFORE = 3;
 
     /** Un ouvrage du monde : son village propriétaire, son bâtiment de métier et son état. */
     public record Work(Village owner, Workshop workshop, AnnexState state) {
@@ -118,6 +128,45 @@ public final class Infrastructures {
         return tower && ThreadLocalRandom.current().nextBoolean();
     }
 
+    /**
+     * Halte de nuit (Kevin, 2026-11-17) : abscisse, sur la route `path`, du poste routier actif le plus proche devant la
+     * file partie de `from` (à moins de {@value #NIGHT_REACH} blocs de route, ou déjà dessus), ou -1. Un poste tenu par
+     * un rival du village de la file ne l'accueille pas.
+     */
+    public static double nightHalt(World world, Village from, Routes.Path path, double at) {
+        if (path == null) {
+            return -1;
+        }
+        double best = -1;
+        for (Work w : all(world)) {
+            if (!w.active() || !POST.equals(w.type())) {
+                continue;
+            }
+            Village holder = Villages.registry(world).byId(w.holder());
+            if (holder == null || (from != null && holder != from
+                    && dev.nakasar.hytale.peuples.world.Relations.value(world, holder, from) <= dev.nakasar.hytale.peuples.world.Relations.RIVAL)) {
+                continue;
+            }
+            double s = path.closest(w.state().x(), w.state().z(), at - HALT_BEFORE - 1, at + NIGHT_REACH);
+            double[] p = path.point(s);
+            double dx = p[0] - w.state().x();
+            double dz = p[1] - w.state().z();
+            if (dx * dx + dz * dz > (double) HALT_RANGE * HALT_RANGE || s >= path.length() - HALT_BEFORE) {
+                continue;
+            }
+            if (best < 0 || s < best) {
+                best = s;
+            }
+        }
+        return best;
+    }
+
+    /** Vrai si la file doit encore marcher de nuit : un poste routier l'attend devant (sinon elle s'arrête où elle est). */
+    public static boolean nightWalk(World world, Village from, Routes.Path path, double at) {
+        double halt = nightHalt(world, from, path, at);
+        return halt >= 0 && at < halt - HALT_BEFORE;
+    }
+
     /** Village maître du terrain en (x, z) grâce à un fortin actif, ou null. */
     public static Village territory(World world, double x, double z) {
         for (Work w : all(world)) {
@@ -126,6 +175,32 @@ public final class Infrastructures {
             }
         }
         return null;
+    }
+
+    /**
+     * Fortin d'où part une expédition de `village` vers (x, z) (Kevin, 2026-11-17) : le fortin actif qu'il tient le plus
+     * près de la cible, s'il en est plus près que le cœur du village ; null sinon (départ du village).
+     */
+    public static Work expeditionFort(World world, Village village, double x, double z) {
+        if (world == null || village == null) {
+            return null;
+        }
+        double best = village.horizontalDistanceSquared(x, z);
+        Work out = null;
+        for (Work w : held(world, village, FORT)) {
+            double d = w.distanceSquared(x, z);
+            if (d < best) {
+                best = d;
+                out = w;
+            }
+        }
+        return out;
+    }
+
+    /** Point de départ (x, z) d'une expédition de `village` vers (x, z) : son fortin le plus avancé, sinon son cœur. */
+    public static double[] expeditionStart(World world, Village village, double x, double z) {
+        Work f = expeditionFort(world, village, x, z);
+        return f == null ? new double[] {village.x() + 0.5, village.z() + 0.5} : new double[] {f.state().x() + 0.5, f.state().z() + 0.5};
     }
 
     /** +1 garde au lieu-dit en (x, z) si `owner` tient un fortin à moins de {@value #FORT_HAMLET_RANGE} blocs. */
@@ -139,11 +214,13 @@ public final class Infrastructures {
     }
 
 
-    /** +1 lieu-dit tenu si le village a sa forteresse debout et pas prise (sans monde : celle qu'il occupe ne compte pas ici). */
-    public static int ownFortress(Village village) {
-        for (AnnexState a : village.annexes()) {
-            Workshop w = Workshop.get(a.id());
-            if (w != null && w.isAnnex() && FORTRESS.equals(w.annex().type()) && a.built() && !a.occupied()) {
+    /**
+     * +1 lieu-dit tenu si le village tient une forteresse debout : la sienne pas prise, ou celle d'un rival qu'il occupe
+     * (Kevin, 2026-11-17). Un siège en cours ne la retire pas du plafond, sinon chaque assaut ferait perdre un lieu-dit.
+     */
+    public static int fortressBonus(World world, Village village) {
+        for (Work w : all(world)) {
+            if (FORTRESS.equals(w.type()) && w.state().built() && w.holder().equals(village.id())) {
                 return 1;
             }
         }

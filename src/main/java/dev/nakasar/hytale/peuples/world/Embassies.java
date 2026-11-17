@@ -57,11 +57,11 @@ public final class Embassies {
         if (owner != null && owner.id().equals(v.id())) {
             return Message.translation(KEYS + "already").param("hamlet", h.name());
         }
-        if (Allegiance.cap(v) <= 0) {
+        if (Allegiance.cap(world, v) <= 0) {
             return Message.translation(KEYS + "tier");
         }
         if (!Allegiance.canHold(world, v)) {
-            return Message.translation(KEYS + "full").param("village", v.name()).param("cap", Allegiance.cap(v));
+            return Message.translation(KEYS + "full").param("village", v.name()).param("cap", Allegiance.cap(world, v));
         }
         if (Allegiance.cooling(world, h, v, day)) {
             return Message.translation(KEYS + "cooling").param("hamlet", h.name());

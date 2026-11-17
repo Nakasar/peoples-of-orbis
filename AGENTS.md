@@ -17,7 +17,9 @@ Consignes de Kevin (25 octobre 2026), à respecter pour chaque mob, boss, élite
    - Exception (Kevin, 16 novembre 2026) : les PNJ **amicaux** de Peuples d'Orbis (villageois, gardes, marchands,
      voyageurs, bêtes) gardent la régénération vanilla ; son `VillageNoRegenSystem` ne la coupe que pour les PNJ
      hostiles (attitude par défaut `Hostile` envers les joueurs, PNJ des demandes hostiles). Le `NoRegenSystem` des
-     Vampires laisse les rôles `Nakasar_Peuples_*` à ce mod.
+     Vampires laisse les rôles `Nakasar_Peuples_*` à ce mod. Pendant un **assaut** (ouvrage ou lieu-dit), les
+     combattants des deux camps, même amicaux, n'ont plus de régénération jusqu'à la fin de l'assaut (Kevin,
+     17 novembre 2026 : `WorldLife.assault`).
    - Tout soin écrit en Java (régénération d'un boss, soigneurs, serviteurs) ne s'applique qu'en combat et jamais sous
      le composant `Invulnerable` (mod Vampires : `boss/RecentDamage.mayHeal`).
 2. **Assets vanilla d'abord.** Avant de créer un bloc, un modèle 3D, une texture, une animation ou un monstre, chercher

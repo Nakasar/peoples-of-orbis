@@ -85,6 +85,9 @@ public final class HamletTrips {
         double at;
         int walkers;
         long until;
+        /** Départ d'une expédition (fortin le plus avancé, Kevin 2026-11-17) ; NaN : le cœur du village. */
+        double startX = Double.NaN;
+        double startZ = Double.NaN;
 
         Trip(String id) {
             this.id = id;
@@ -104,6 +107,10 @@ public final class HamletTrips {
                 t.at = Double.parseDouble(p[4]);
                 t.walkers = Integer.parseInt(p[5]);
                 t.until = Long.parseLong(p[6]);
+                if (p.length >= 9 && !p[7].isEmpty() && !p[8].isEmpty()) {
+                    t.startX = Double.parseDouble(p[7]);
+                    t.startZ = Double.parseDouble(p[8]);
+                }
                 return t;
             } catch (NumberFormatException e) {
                 return null;
@@ -112,7 +119,18 @@ public final class HamletTrips {
 
         String format() {
             return hamlet + "|" + village + "|" + kind + "|" + leg + "|" + String.format(Locale.ROOT, "%.1f", at)
-                    + "|" + walkers + "|" + until;
+                    + "|" + walkers + "|" + until
+                    + (Double.isNaN(startX) ? "" : String.format(Locale.ROOT, "|%.1f|%.1f", startX, startZ));
+        }
+
+        /** Point de départ (et de retour) de la tournée : le fortin d'une expédition, sinon le cœur du village. */
+        double[] start(Village v) {
+            return Double.isNaN(startX) ? new double[] {v.x() + 0.5, v.z() + 0.5} : new double[] {startX, startZ};
+        }
+
+        /** Vrai si la tournée est partie d'un fortin. */
+        public boolean fromFort() {
+            return !Double.isNaN(startX);
         }
 
         String walkKey() {
@@ -308,6 +326,15 @@ public final class HamletTrips {
         t.kind = kind;
         t.leg = OUT;
         t.walkers = Math.max(1, walkers);
+        if (kind == EXPEDITION) {
+            int[] m = h.market();
+            dev.nakasar.hytale.peuples.annex.Infrastructures.Work fort =
+                    dev.nakasar.hytale.peuples.annex.Infrastructures.expeditionFort(world, from, m[0] + 0.5, m[1] + 0.5);
+            if (fort != null) {
+                t.startX = fort.state().x() + 0.5;
+                t.startZ = fort.state().z() + 0.5;
+            }
+        }
         save(world, t);
         PeuplesPlugin.get().getLogger().atInfo().log("Peuples (conquête) : tournée %s de %s vers le lieu-dit %s (%d)", kind, from.name(),
                 h.id(), t.walkers);
@@ -327,15 +354,16 @@ public final class HamletTrips {
 
     // ---- Marche ----
 
-    /** Route de l'étape en cours (aller : cœur du village → place du lieu-dit ; retour : l'inverse). */
+    /** Route de l'étape en cours (aller : cœur du village, ou fortin d'une expédition → place du lieu-dit ; retour : l'inverse). */
     static Routes.Path path(World world, Trip t, Village v, Hamlets.Place h, boolean fresh) {
         String key = t.id + ":" + t.leg;
         int version = Villages.registry(world).beaconVersion();
         Routes.Path p = fresh ? null : PATHS.get(key);
         if (p == null || p.version() != version) {
             int[] m = h.market();
-            p = t.leg == BACK ? Routes.path(world, m[0] + 0.5, m[1] + 0.5, v.x() + 0.5, v.z() + 0.5, fresh)
-                    : Routes.path(world, v.x() + 0.5, v.z() + 0.5, m[0] + 0.5, m[1] + 0.5, fresh);
+            double[] s = t.start(v);
+            p = t.leg == BACK ? Routes.path(world, m[0] + 0.5, m[1] + 0.5, s[0], s[1], fresh)
+                    : Routes.path(world, s[0], s[1], m[0] + 0.5, m[1] + 0.5, fresh);
             PATHS.put(key, p);
         }
         return p;
@@ -388,7 +416,9 @@ public final class HamletTrips {
             Walk walk = Walk.of(t.walkKey());
             boolean wasReal = walk.real();
             People people = v.people();
-            t.at = walk.step(world, store, players, path, t.at, dt, t.walkers, !night, v.y(),
+            // Halte de nuit : là où la file est, ou au poste routier devant elle (Kevin, 2026-11-17).
+            boolean moving = !night || dev.nakasar.hytale.peuples.annex.Infrastructures.nightWalk(world, v, path, t.at);
+            t.at = walk.step(world, store, players, path, t.at, dt, t.walkers, moving, v.y(),
                     (i, at, yaw) -> spawnWalker(store, t, people, i, at, yaw));
             if (!wasReal && walk.real()) {
                 for (Ref<EntityStore> ref : walk.alive()) {

@@ -6,6 +6,10 @@ import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.protocol.packets.interface_.NotificationStyle;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.StaticModifier;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -38,7 +42,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * La vie des ouvrages (Kevin, 2026-11-16) : siège, capture, reprise, raids, ruine et relève.
  * <ul>
  *   <li><b>Expédition</b> : un village rival du village qui tient l'ouvrage (relation au plus {@value #ATTACK_RELATION},
- *   hors trêve, palier 3) envoie {@value #SOLDIERS} soldats (un de plus avec la spécialité Garnison de sa Caserne). Il part
+ *   hors trêve, palier 3) envoie {@value #SOLDIERS} soldats (un de plus avec la spécialité Garnison de sa Caserne), depuis son
+ *   fortin le plus avancé s'il en tient un plus près de la cible que le village (marche et portée comptées de là). Il part
  *   de lui-même (une chance sur dix par semaine) ou à la demande d'un joueur Hôte au panneau du rival, contre
  *   {@value #OFFERING} faveurs. La troupe marche ({@value #MARCH_PER_BLOCK} s de jeu par bloc, une heure au moins) ;
  *   pendant ce temps l'ouvrage est assiégé et son effet suspendu ;</li>
@@ -46,8 +51,10 @@ import java.util.concurrent.ConcurrentHashMap;
  *   contre gardes camp 0) : l'attaquant (soldats et joueurs de son camp) doit tenir seul le disque de capture de {@value #CAPTURE_RADIUS} blocs autour du
  *   panneau pendant {@value #CAPTURE_SECONDS} s (disque rouge au sol, à sa taille exacte), {@value #ASSAULT_SECONDS} s au
  *   plus. Personne : réglé seul (soldats × palier contre gardes × palier + tours de garde proches, à 20 % près). Les
- *   combattants sont des rôles de défenseurs amicaux envers les joueurs : ils gardent la régénération vanilla hors
- *   combat (exception de la règle n° 1). Les gardes tombés restent comptés si l'assaut repasse sans témoin ;</li>
+ *   combattants sont des rôles de défenseurs amicaux envers les joueurs, mais leur régénération vanilla hors combat est
+ *   coupée pendant tout l'assaut (règle n° 1, Kevin 2026-11-17 : {@link WorldLife#assault}). Les gardes de l'ouvrage
+ *   ont {@value #BARRACKS_HEALTH} % de vie de plus par niveau de la Caserne du village qui le tient. Les gardes tombés
+ *   restent comptés si l'assaut repasse sans témoin ;</li>
  *   <li><b>Capture</b> : l'ouvrage passe à l'attaquant, même au-delà de ses limites (Kevin) ; ses soldats restants le
  *   gardent. Le propriétaire peut le reprendre (bouton Reprendre au panneau, rang Ami, sans frais) ; au palier 3 il lance
  *   lui-même sa reprise après {@value #RETAKE_DAYS} jours ; au bout de {@value #LOST_DAYS} jours l'ouvrage est perdu
@@ -75,6 +82,8 @@ public final class Ouvrages {
     public static final int REBUILD_HOURS = 12;
     public static final int RELATION_LOSS = -25;
     public static final int ANNOUNCE_RANGE = 600;
+    /** Vie de plus des gardes de l'ouvrage, en %, par niveau de la Caserne du village qui le tient (Kevin, 2026-11-17). */
+    public static final int BARRACKS_HEALTH = 25;
     /** Force des habitants de l'ouvrage dans l'assaut sans témoin. */
     private static final int SENTRY = 2;
     /** Le disque rouge dure 6 s (particule Nakasar_Peuples_Warning_60) : redessiné à ce rythme. */
@@ -88,6 +97,8 @@ public final class Ouvrages {
         long clearSince;
         long drawn;
         boolean spawned;
+        /** Gardes dont la vie de la Caserne est déjà posée (les stats ne sont pas prêtes à l'apparition). */
+        final java.util.Set<Ref<EntityStore>> boosted = Collections.newSetFromMap(new java.util.IdentityHashMap<>());
     }
 
     private static final Map<String, Fight> FIGHTS = new ConcurrentHashMap<>();
@@ -133,6 +144,15 @@ public final class Ouvrages {
         return n + dev.nakasar.hytale.peuples.workshop.Projects.garrisonBonus(w.owner());
     }
 
+    /**
+     * Multiplicateur de vie des gardes d'un ouvrage tenu par `holder` : +{@value #BARRACKS_HEALTH} % par niveau de sa
+     * Caserne (1 sans Caserne). Vaut pour le propriétaire comme pour l'occupant.
+     */
+    public static float barracks(Village holder) {
+        int level = holder == null ? 0 : dev.nakasar.hytale.peuples.workshop.Projects.level(holder, dev.nakasar.hytale.peuples.workshop.Projects.DEFENSE);
+        return 1f + Math.max(0, level) * BARRACKS_HEALTH / 100f;
+    }
+
     /** Gardes encore debout pour le siège en cours : {@link #defenders} moins ceux tombés dans un assaut réel. */
     static int standing(Infrastructures.Work w) {
         return w.state().occupied() ? defenders(w) : Math.max(0, defenders(w) - FALLEN.getOrDefault(key(w), 0));
@@ -170,8 +190,9 @@ public final class Ouvrages {
         if (Relations.truce(world, attacker, holder, day)) {
             return Message.translation(KEYS + "truce").param("village", holder.name());
         }
-        if (Math.sqrt(attacker.horizontalDistanceSquared(w.state().x(), w.state().z())) > Allegiance.RANGE) {
-            return Message.translation(KEYS + "far").param("range", Allegiance.RANGE);
+        double[] start = Infrastructures.expeditionStart(world, attacker, w.state().x(), w.state().z());
+        if (Math.hypot(start[0] - w.state().x(), start[1] - w.state().z()) > Allegiance.RANGE) {
+            return Message.translation(KEYS + "far").param("range", Allegiance.RANGE); // portée comptée depuis le fortin
         }
         return null;
     }
@@ -226,7 +247,9 @@ public final class Ouvrages {
 
     static void launch(World world, Store<EntityStore> store, Village attacker, Infrastructures.Work w) {
         int soldiers = SOLDIERS + dev.nakasar.hytale.peuples.workshop.Projects.garrisonBonus(attacker);
-        double distance = Math.sqrt(attacker.horizontalDistanceSquared(w.state().x(), w.state().z()));
+        Infrastructures.Work fort = Infrastructures.expeditionFort(world, attacker, w.state().x(), w.state().z());
+        double[] start = Infrastructures.expeditionStart(world, attacker, w.state().x(), w.state().z());
+        double distance = Math.hypot(start[0] - w.state().x(), start[1] - w.state().z()); // départ du fortin le plus avancé
         long arrive = GameClock.seconds(store) + Math.max(MIN_MARCH, (long) (distance * MARCH_PER_BLOCK));
         Village holder = Villages.registry(world).byId(w.holder());
         w.state().startSiege(attacker.id(), arrive, soldiers);
@@ -242,8 +265,9 @@ public final class Ouvrages {
             Chantiers.announce(world, w.owner(), m, null, NotificationStyle.Warning);
         }
         WorldLife.announce(world, store, w.state().x(), w.state().z(), ANNOUNCE_RANGE, m, NotificationStyle.Danger);
-        LOGGER.atInfo().log("Nakasar Peuples : %s envoie %d soldats contre l'ouvrage %s de %s (tenu par %s), arrivée %d",
-                attacker.name(), soldiers, w.workshop().getId(), w.owner().name(), holder == null ? "?" : holder.name(), arrive);
+        LOGGER.atInfo().log("Nakasar Peuples : %s envoie %d soldats contre l'ouvrage %s de %s (tenu par %s), départ %s, arrivée %d",
+                attacker.name(), soldiers, w.workshop().getId(), w.owner().name(), holder == null ? "?" : holder.name(),
+                fort == null ? "du village" : "du fortin " + fort.workshop().getId(), arrive);
     }
 
     // ---- Le matin : occupation qui dure, reprises, expéditions spontanées ----
@@ -335,8 +359,10 @@ public final class Ouvrages {
                 return;
             }
             f.spawned = true;
-            double dx = attacker.x() - a.x();
-            double dz = attacker.z() - a.z();
+            // Les soldats arrivent du côté d'où ils sont partis : le fortin le plus avancé, sinon le village.
+            double[] start = Infrastructures.expeditionStart(world, attacker, a.x(), a.z());
+            double dx = start[0] - a.x();
+            double dz = start[1] - a.z();
             double len = Math.max(1, Math.hypot(dx, dz));
             for (int i = 0; i < soldiers; i++) {
                 Vector3d at = WorldLife.ground(world, (int) Math.floor(a.x() + dx / len * 14 + (i - soldiers / 2.0) * 2),
@@ -364,6 +390,22 @@ public final class Ouvrages {
         }
         f.attackers.removeIf(r -> !r.isValid());
         f.defenders.removeIf(r -> !r.isValid());
+        // Pas de régénération hors combat pendant tout l'assaut (règle n° 1, Kevin 2026-11-17).
+        WorldLife.assault(f.attackers);
+        WorldLife.assault(f.defenders);
+        float sturdy = barracks(holder);
+        if (sturdy > 1f) {
+            for (Ref<EntityStore> d : f.defenders) {
+                EntityStatMap stats = f.boosted.contains(d) ? null : store.getComponent(d, EntityStatMap.getComponentType());
+                if (stats != null) {
+                    int health = DefaultEntityStatTypes.getHealth();
+                    stats.putModifier(health, "Nakasar_Peuples_Barracks", new StaticModifier(Modifier.ModifierTarget.MAX,
+                            StaticModifier.CalculationType.MULTIPLICATIVE, sturdy));
+                    stats.maximizeStatValue(health); // plein de vie à l'arrivée, pas de soin ensuite
+                    f.boosted.add(d);
+                }
+            }
+        }
         long now = System.currentTimeMillis();
         if (now - f.drawn >= DISC_MILLIS) {
             // Disque de capture : rouge, exactement à sa taille (règle n° 3).
@@ -457,7 +499,7 @@ public final class Ouvrages {
         return slash < 0 ? null : find(world, key.substring(0, slash), key.substring(slash + 1));
     }
 
-    /** Assaut sans témoin : soldats × palier contre (gardes × palier + habitants + tours proches), chacun à 20 % près. */
+    /** Assaut sans témoin : soldats × palier contre (gardes × palier × Caserne + habitants + tours proches), chacun à 20 % près. */
     private static void autoResolve(World world, Store<EntityStore> store, Infrastructures.Work w, Village attacker, Village holder) {
         Random random = new Random();
         int soldiers = w.state().siegeSoldiers();
@@ -469,7 +511,7 @@ public final class Ouvrages {
             }
         }
         double attack = soldiers * Math.max(1, attacker.tier()) * (0.8 + 0.4 * random.nextDouble());
-        double defence = (guards * Math.max(1, holder.tier()) + SENTRY + towers) * (0.8 + 0.4 * random.nextDouble());
+        double defence = (guards * Math.max(1, holder.tier()) * barracks(holder) + SENTRY + towers) * (0.8 + 0.4 * random.nextDouble());
         if (attack > defence) {
             win(world, store, w, attacker, holder, Math.max(1, soldiers - guards / 2));
         } else {

@@ -1,6 +1,7 @@
 package dev.nakasar.hytale.peuples.village;
 
 import com.hypixel.hytale.component.ArchetypeChunk;
+import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.dependency.Dependency;
@@ -16,9 +17,12 @@ import com.hypixel.hytale.server.npc.NPCPlugin;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.npc.role.support.WorldSupport;
 import dev.nakasar.hytale.peuples.request.RequestSpawns;
+import dev.nakasar.hytale.peuples.world.WorldLife;
 import org.joml.Vector3d;
 
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +37,9 @@ import java.util.Set;
  *       assaillants des raids, et mobs vanilla hostiles), partout pour un rôle {@code Nakasar_Peuples_*} ou une
  *       demande, à moins de {@value #RADIUS} blocs d'un village pour les autres ;</li>
  *   <li>les PNJ des demandes de genre hostile ({@link #HOSTILE_KINDS} : bandes, embuscades, chefs et renforts), quel
- *       que soit leur rôle.</li>
+ *       que soit leur rôle ;</li>
+ *   <li>les combattants d'un assaut en cours, d'ouvrage ou de lieu-dit, des deux camps, même amicaux
+ *       ({@link WorldLife#inAssault}, Kevin 2026-11-17) : la régénération leur est rendue à la fin de l'assaut.</li>
  * </ul>
  * Le composant n'est pas sauvegardé (pas de codec) et revient activé à chaque création du rôle.
  */
@@ -44,6 +50,9 @@ public final class VillageNoRegenSystem extends EntityTickingSystem<EntityStore>
     /** Genres de PNJ de demande qui combattent les joueurs. */
     public static final Set<RequestSpawns.Kind> HOSTILE_KINDS = EnumSet.of(
             RequestSpawns.Kind.FOE, RequestSpawns.Kind.AMBUSH, RequestSpawns.Kind.BOSS, RequestSpawns.Kind.ADD);
+
+    /** PNJ amicaux dont la régénération a été coupée pour un assaut : rendue à la fin de l'assaut. */
+    private static final Set<Ref<EntityStore>> ASSAULT_BLOCKED = Collections.newSetFromMap(Collections.synchronizedMap(new IdentityHashMap<>()));
 
     private static final Query<EntityStore> QUERY = Query.and(NPCEntity.getComponentType(), HealthRegenState.getComponentType());
 
@@ -70,10 +79,25 @@ public final class VillageNoRegenSystem extends EntityTickingSystem<EntityStore>
     public void tick(float dt, int index, ArchetypeChunk<EntityStore> chunk, Store<EntityStore> store,
                      CommandBuffer<EntityStore> buffer) {
         HealthRegenState regen = chunk.getComponent(index, HealthRegenState.getComponentType());
-        if (regen == null || !regen.isRegenEnabled()) {
+        if (regen == null) {
             return;
         }
-        RequestSpawns.Owner owner = RequestSpawns.owner(chunk.getReferenceTo(index));
+        Ref<EntityStore> self = chunk.getReferenceTo(index);
+        if (WorldLife.inAssault(self)) {
+            // Combattant d'un assaut d'ouvrage ou de lieu-dit, même amical : coupée jusqu'à la fin (Kevin, 2026-11-17).
+            regen.setRegenEnabled(false);
+            if (ASSAULT_BLOCKED.add(self) && ASSAULT_BLOCKED.size() > 256) {
+                ASSAULT_BLOCKED.removeIf(r -> !r.isValid()); // combattants retirés pendant l'assaut
+            }
+            return;
+        }
+        if (ASSAULT_BLOCKED.remove(self)) {
+            regen.setRegenEnabled(true); // assaut fini : le garde amical retrouve la régénération vanilla
+        }
+        if (!regen.isRegenEnabled()) {
+            return;
+        }
+        RequestSpawns.Owner owner = RequestSpawns.owner(self);
         if (owner != null && HOSTILE_KINDS.contains(owner.kind())) {
             regen.setRegenEnabled(false);
             return;

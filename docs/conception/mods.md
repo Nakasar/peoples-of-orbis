@@ -1444,12 +1444,37 @@ Kevin (2026-11-16, doc « Structurer les types de bâtiments », commentaires in
 
 ### Pas encore fait (familles)
 
-- Poste routier : halte de nuit des convois ; Fortin comme point de départ des expéditions ; gardes d'ouvrage plus
-  solides avec la Caserne ; forteresse prise comptée pour le plafond de lieux-dits de l'occupant.
 - Temple : Bénédiction et fête hebdomadaire.
 - Cartographes : les gisements riches proches ne sont pas encore sur la carte (seulement les lieux-dits).
 - Halle marchande : la case d'export de plus au niveau III.
-- Carte : le nom du repère dit occupant, siège ou ruine ; pas de couleur de bannière ni de clignotement.
+
+### Fait le 17 novembre 2026 (restes des ouvrages)
+
+- **Halte de nuit au poste routier** (`Infrastructures.nightHalt` / `nightWalk`) : de nuit, voyageurs, caravanes
+  commerciales et tournées des lieux-dits marchent jusqu'au poste routier actif devant eux (à moins de `HALT_RANGE` 24
+  blocs de la route, `NIGHT_REACH` 300 blocs de route au plus, pas tenu par un rival) et s'y arrêtent `HALT_BEFORE`
+  (3) blocs avant ; sinon ils s'arrêtent là où ils sont, comme avant. Les convois d'avant-postes, qui marchaient de nuit,
+  s'arrêtent au poste qu'ils atteignent et y attendent le jour (`Convoys.step`).
+- **Fortin, départ des expéditions** (`Infrastructures.expeditionFort` / `expeditionStart`) : le fortin actif tenu le
+  plus près de la cible, s'il en est plus près que le cœur. Ouvrages : marche, portée (`Allegiance.RANGE`) et côté
+  d'arrivée des soldats comptés depuis lui. Lieux-dits : départ sauvé dans la tournée (champs 8 et 9 de
+  `HamletTrips.Trip`, `start(v)`), route aller et retour depuis le fortin, portée de `Sieges.blocked` comptée de là.
+- **Caserne et ouvrages** (`Ouvrages.barracks`) : gardes d'un ouvrage +`BARRACKS_HEALTH` (25) % de vie max par niveau
+  de la Caserne du village qui le tient (modificateur `Nakasar_Peuples_Barracks`, posé au premier pas où les stats
+  existent, plein de vie ensuite pas de soin) ; même multiplicateur sur les gardes de la résolution sans témoin.
+- **Forteresse prise** (`Infrastructures.fortressBonus`, `Allegiance.cap(World, Village)`) : +1 lieu-dit pour le village
+  qui tient une forteresse debout, la sienne pas prise ou celle d'un rival qu'il occupe ; un siège en cours ne la retire pas.
+- **Régénération pendant un assaut** (Kevin, réponse à la revue #172) : `WorldLife.assault` marque les combattants à
+  chaque pas (5 s), ceux d'un assaut d'ouvrage (`Ouvrages.fight`) et d'un assaut de lieu-dit (soldats et gardes,
+  `Sieges.step`) ; `VillageNoRegenSystem` leur coupe la régénération vanilla et la rend aux PNJ amicaux quand la marque
+  expire, l'assaut fini.
+- **Carte des ouvrages** (`AnnexMarkers`) : icônes `Nakasar_Peuples_Ouvrage_<Couleur>{,Compass}.png` (fanion à la
+  couleur de bannière du village qui tient l'ouvrage, `Heraldry.of`), `_Ruin` grise, et `_Siege` rouge en alternance
+  toutes les `BLINK_MILLIS` (700 ms) pendant un siège ; icônes de `tools/generate_map_icons.py`.
+
+À vérifier en jeu : la carte se redessine-t-elle à chaque alternance (sinon le clignotement est lent ou absent) ? Les
+porteurs restent-ils groupés au poste la nuit ? Le départ des troupes du fortin (côté d'arrivée) ; la vie des gardes
+d'ouvrage avec une Caserne de niveau III (+75 %).
 
 ### Fait le 17 novembre 2026 (idées laissées de côté des PR #170 et #172)
 

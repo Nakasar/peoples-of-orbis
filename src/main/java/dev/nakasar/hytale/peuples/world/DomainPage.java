@@ -149,7 +149,7 @@ public final class DomainPage extends InteractiveCustomUIPage<DomainPage.Event> 
         long day = GameClock.day(store);
         List<Hamlets.Place> held = Allegiance.holdings(world, v);
         int council = Allegiance.councilLevel(v);
-        cmd.set("#HoldHeader.TextSpans", Message.translation(KEYS + "holdings").param("count", held.size()).param("cap", Allegiance.cap(v))
+        cmd.set("#HoldHeader.TextSpans", Message.translation(KEYS + "holdings").param("count", held.size()).param("cap", Allegiance.cap(world, v))
                 .param("council", council));
         List<Hamlets.Place> list = new ArrayList<>();
         for (Hamlets.Place h : Hamlets.all(world)) {

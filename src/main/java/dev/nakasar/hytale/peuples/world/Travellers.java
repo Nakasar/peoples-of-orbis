@@ -263,7 +263,8 @@ public final class Travellers {
                 arrive(world, store, t, from, to);
                 continue;
             }
-            boolean moving = !night || Inns.nightStopAhead(world, t, path);
+            boolean moving = !night || Inns.nightStopAhead(world, t, path)
+                    || dev.nakasar.hytale.peuples.annex.Infrastructures.nightWalk(world, from, path, t.at); // poste routier devant
             if (t.ambush == 2) {
                 moving = false;
                 if (Ambushes.over(world, store, t.walkKey())) {

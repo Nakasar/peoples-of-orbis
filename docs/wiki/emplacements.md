@@ -23,7 +23,7 @@ Un même projet ne peut être que sur un seul terrain, et le village n'a qu'**un
 
 | Catégorie | Bâtiment | Effet sur le village | Spécialités |
 | --- | --- | --- | --- |
-| **Défense** | Caserne | en raid, 2 gardes de plus autour du cœur au niveau I, +1 par niveau | **Milice** : encore 2 gardes en raid. **Garnison** : +1 garde dans chaque lieu-dit tenu, chaque ouvrage et chaque expédition |
+| **Défense** | Caserne | en raid, 2 gardes de plus autour du cœur au niveau I, +1 par niveau ; gardes des [ouvrages](infrastructures.md) tenus : +25 % de vie par niveau | **Milice** : encore 2 gardes en raid. **Garnison** : +1 garde dans chaque lieu-dit tenu, chaque ouvrage et chaque expédition |
 | **Diplomatie** | Ambassade (l'ancienne Maison du conseil) | +1 lieu-dit tenu par niveau | **Négociants** : ambassades dès 30 d'influence (40 sinon), plus sûres, ralliement plus tôt. **Hérauts** : les relations avec les autres villages remontent deux fois plus vite |
 | **Savoir** | Bibliothèque | savoir-faire +15 % pour tous les bâtiments de métier du village | **Cartographes** : les lieux-dits à moins de 600 blocs du village apparaissent sur votre carte si vous y êtes au moins Toléré. **Maîtres** : les commandes de maître de récolte, de fabrication et de plantation demandent un quart de moins |
 | **Culte** | Temple | essor +10 % | **Protection** : un raid perdu ne brûle un bâtiment qu'une fois sur deux. Bénédiction (boutique d'offrandes) |

@@ -25,7 +25,9 @@ import java.util.WeakHashMap;
  * Marqueurs des avant-postes de métier sur la carte du monde en jeu. Pas de bloc à marqueur sur place (comme la
  * bannière d'un village) : un fournisseur de marqueurs par monde, nourri d'un instantané des avant-postes posés
  * (en travaux ou debout) refait sur le fil du monde. Un joueur voit les avant-postes d'un village dès qu'il a
- * découvert ce village (marqueur de sa bannière révélé), comme le village lui-même.
+ * découvert ce village (marqueur de sa bannière révélé), comme le village lui-même. Les ouvrages ont leur propre icône :
+ * fanion à la couleur de bannière du village qui les tient (propriétaire ou occupant), gris en ruine, et clignotant en
+ * rouge (alternance toutes les {@value #BLINK_MILLIS} ms) pendant un siège.
  */
 public final class AnnexMarkers {
     public static final String PROVIDER = "nakasar_peuples_annexes";
@@ -33,8 +35,16 @@ public final class AnnexMarkers {
     public static final String COMPASS_ICON = "Nakasar_Peuples_AnnexCompass.png";
     private static final String KEYS = Annexes.KEYS;
 
-    /** Un marqueur prêt à envoyer, et l'id du marqueur de bannière du village à avoir découvert (null : visible de tous). */
-    private record Entry(MapMarker marker, String villageMarker) {
+    /** Préfixe des icônes des ouvrages (tools/generate_map_icons.py) : {@code <préfixe><Couleur>.png}, {@code Siege}, {@code Ruin}. */
+    public static final String OUVRAGE_ICON = "Nakasar_Peuples_Ouvrage_";
+    /** Demi-période du clignotement d'un ouvrage assiégé, en ms. */
+    public static final long BLINK_MILLIS = 700L;
+
+    /**
+     * Un marqueur prêt à envoyer, son marqueur alterné (ouvrage assiégé : il clignote, sinon null), et l'id du marqueur de
+     * bannière du village à avoir découvert (null : visible de tous).
+     */
+    private record Entry(MapMarker marker, MapMarker blink, String villageMarker) {
     }
 
     private static final Map<World, List<Entry>> SNAPSHOTS = Collections.synchronizedMap(new WeakHashMap<>());
@@ -67,10 +77,26 @@ public final class AnnexMarkers {
                 Message name = Message.translation(KEYS + key)
                         .param("building", building).param("village", village.name())
                         .param("holder", holder == null ? "?" : holder.name()).param("by", besieger == null ? "?" : besieger.name());
-                MapMarker marker = new MapMarkerBuilder("Nakasar_Peuples_Annex_" + village.id() + "_" + a.id(), ICON,
-                        new Transform(a.x() + 0.5, a.y(), a.z() + 0.5))
-                        .withName(name).withCompassImage(COMPASS_ICON).build();
-                entries.add(new Entry(marker, villageMarker));
+                String id = "Nakasar_Peuples_Annex_" + village.id() + "_" + a.id();
+                Transform at = new Transform(a.x() + 0.5, a.y(), a.z() + 0.5);
+                String icon = ICON;
+                String compass = COMPASS_ICON;
+                MapMarker blink = null;
+                if (w != null && w.isAnnex() && w.annex().infrastructure()) {
+                    // Ouvrage (Kevin, 2026-11-17) : fanion à la couleur de bannière du village qui le tient, gris en ruine,
+                    // et il clignote en rouge pendant un siège.
+                    Village keeper = holder != null ? holder : village;
+                    String colour = a.ruined() ? "Ruin"
+                            : dev.nakasar.hytale.peuples.world.Heraldry.COLOURS[dev.nakasar.hytale.peuples.world.Heraldry.of(world, keeper).colour()];
+                    icon = OUVRAGE_ICON + colour + ".png";
+                    compass = OUVRAGE_ICON + colour + "Compass.png";
+                    if (besieger != null && !a.ruined()) {
+                        blink = new MapMarkerBuilder(id, OUVRAGE_ICON + "Siege.png", at).withName(name)
+                                .withCompassImage(OUVRAGE_ICON + "SiegeCompass.png").build();
+                    }
+                }
+                MapMarker marker = new MapMarkerBuilder(id, icon, at).withName(name).withCompassImage(compass).build();
+                entries.add(new Entry(marker, blink, villageMarker));
             }
         }
         boolean first = SNAPSHOTS.put(world, List.copyOf(entries)) == null;
@@ -86,9 +112,10 @@ public final class AnnexMarkers {
             return;
         }
         PlayerWorldData data = player.getPlayerConfigData().getPerWorldData(world.getName());
+        boolean lit = (System.currentTimeMillis() / BLINK_MILLIS) % 2 == 0;
         for (Entry e : entries) {
             if (e.villageMarker() == null || (data != null && data.isMarkerRevealed(e.villageMarker()))) {
-                collector.add(e.marker());
+                collector.add(e.blink() != null && lit ? e.blink() : e.marker());
             }
         }
     }
