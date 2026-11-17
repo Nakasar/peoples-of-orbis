@@ -615,6 +615,7 @@ def annex_page(theme_id):
     return "\n".join(L).replace("Style: LabelStyle(", "Style: (") + "\n"
 
 
+WORKS_CARD_HEIGHT = 262  # carte d'un type d'ouvrage : en-tête 58, description 88, matériaux 52, bouton 30
 WORKS_TYPES = 4           # ouvrages par peuple (tools/outposts.INFRA) : une carte chacun
 WORKS_ROWS = 16           # lignes de la liste (ouvrages du village, puis ouvrages rivaux à attaquer) : OuvragePage.ROWS
 WORKS_MATERIALS = 3
@@ -659,7 +660,7 @@ def works_page(theme_id):
     w(f'      {label("Intro", "@Body", anchor="Height: 40, Bottom: 8")}')
     w("      Group #WorkTypes {")
     w("        LayoutMode: Left;")
-    w("        Anchor: (Height: 196, Bottom: 10);")
+    w(f"        Anchor: (Height: {WORKS_CARD_HEIGHT}, Bottom: 10);")
     for i in range(WORKS_TYPES):
         w(f"        Group #Type{i} {{")
         w("          LayoutMode: Top;")
@@ -670,7 +671,7 @@ def works_page(theme_id):
         w(f"          Group {{ Anchor: (Height: 3, Bottom: 6); Background: (Color: {acc}(0.6)); }}")
         w("          Group {")
         w("            LayoutMode: Left;")
-        w("            Anchor: (Height: 46);")
+        w("            Anchor: (Height: 58);")
         w("            Group {")
         w("              LayoutMode: Full;")
         w("              Anchor: (Width: 42, Height: 42, Right: 8);")
@@ -681,10 +682,13 @@ def works_page(theme_id):
         w("              LayoutMode: Top;")
         w("              FlexWeight: 1;")
         w(f'              {label(f"TypeName{i}", f"LabelStyle(FontSize: 14, FontName: \"Secondary\", RenderBold: true, RenderUppercase: true, TextColor: {acc})", anchor="Height: 20")}')
-        w(f'              {label(f"TypeCount{i}", "LabelStyle(FontSize: 13, RenderBold: true, TextColor: #e8c46a)", anchor="Height: 18")}')
+        # Le nombre et le palier requis (« 0 sur 6 · dès le palier Village ») passent sur deux lignes plutôt que d'être coupés.
+        w(f'              {label(f"TypeCount{i}", "LabelStyle(FontSize: 13, RenderBold: true, TextColor: #e8c46a, Wrap: true)", anchor="Height: 36")}')
         w("            }")
         w("          }")
-        w(f'          {label(f"TypeRole{i}", "@SmallWrap", anchor="Height: 54, Top: 2")}')
+        # Cinq lignes de description : la plus longue (Tour de garde) en prend cinq à cette largeur ; avec 54 px elle
+        # débordait sous les matériaux.
+        w(f'          {label(f"TypeRole{i}", "@SmallWrap", anchor="Height: 88, Top: 2")}')
         w(f"          Group #TypeMats{i} {{")
         w("            LayoutMode: Left;")
         w("            Anchor: (Height: 50, Top: 2);")

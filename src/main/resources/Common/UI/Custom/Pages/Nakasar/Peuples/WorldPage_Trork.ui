@@ -40,133 +40,201 @@ $C.@PageOverlay {
         Anchor: (Height: 38);
         Group #TabBoard {
           LayoutMode: Full;
-          Anchor: (Width: 106, Height: 38, Right: 6);
+          Anchor: (Width: 52, Height: 38, Right: 6);
           Group #TabBoardOff {
             LayoutMode: Full;
             Anchor: (Full: 0);
             Visible: true;
-            $C.@SecondaryTextButton #TabBoardButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+            Button #TabBoardButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Board.png", Color: #c9d1d9); }
+            }
           }
           Group #TabBoardOn {
+            LayoutMode: CenterMiddle;
             Anchor: (Full: 0);
             Background: (Color: #e0773e);
             Visible: false;
-            Label #TabBoardLabel { Anchor: (Full: 0); Style: (FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Board.png", Color: #10180e); }
           }
         }
         Group #TabPlots {
           LayoutMode: Full;
-          Anchor: (Width: 106, Height: 38, Right: 6);
+          Anchor: (Width: 52, Height: 38, Right: 6);
           Group #TabPlotsOff {
             LayoutMode: Full;
             Anchor: (Full: 0);
             Visible: true;
-            $C.@SecondaryTextButton #TabPlotsButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+            Button #TabPlotsButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Plots.png", Color: #c9d1d9); }
+            }
           }
           Group #TabPlotsOn {
+            LayoutMode: CenterMiddle;
             Anchor: (Full: 0);
             Background: (Color: #e0773e);
             Visible: false;
-            Label #TabPlotsLabel { Anchor: (Full: 0); Style: (FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Plots.png", Color: #10180e); }
           }
         }
         Group #TabAnnexes {
           LayoutMode: Full;
-          Anchor: (Width: 106, Height: 38, Right: 6);
+          Anchor: (Width: 52, Height: 38, Right: 6);
           Group #TabAnnexesOff {
             LayoutMode: Full;
             Anchor: (Full: 0);
             Visible: true;
-            $C.@SecondaryTextButton #TabAnnexesButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+            Button #TabAnnexesButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Annexes.png", Color: #c9d1d9); }
+            }
           }
           Group #TabAnnexesOn {
+            LayoutMode: CenterMiddle;
             Anchor: (Full: 0);
             Background: (Color: #e0773e);
             Visible: false;
-            Label #TabAnnexesLabel { Anchor: (Full: 0); Style: (FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Annexes.png", Color: #10180e); }
           }
         }
         Group #TabWorks {
           LayoutMode: Full;
-          Anchor: (Width: 106, Height: 38, Right: 6);
+          Anchor: (Width: 52, Height: 38, Right: 6);
           Group #TabWorksOff {
             LayoutMode: Full;
             Anchor: (Full: 0);
             Visible: true;
-            $C.@SecondaryTextButton #TabWorksButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+            Button #TabWorksButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Works.png", Color: #c9d1d9); }
+            }
           }
           Group #TabWorksOn {
+            LayoutMode: CenterMiddle;
             Anchor: (Full: 0);
             Background: (Color: #e0773e);
             Visible: false;
-            Label #TabWorksLabel { Anchor: (Full: 0); Style: (FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Works.png", Color: #10180e); }
           }
         }
         Group #TabWorld {
           LayoutMode: Full;
-          Anchor: (Width: 106, Height: 38, Right: 6);
+          Anchor: (Width: 52, Height: 38, Right: 6);
           Group #TabWorldOff {
             LayoutMode: Full;
             Anchor: (Full: 0);
             Visible: false;
-            $C.@SecondaryTextButton #TabWorldButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+            Button #TabWorldButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_World.png", Color: #c9d1d9); }
+            }
           }
           Group #TabWorldOn {
+            LayoutMode: CenterMiddle;
             Anchor: (Full: 0);
             Background: (Color: #e0773e);
             Visible: true;
-            Label #TabWorldLabel { Anchor: (Full: 0); Style: (FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_World.png", Color: #10180e); }
           }
         }
         Group #TabDomain {
           LayoutMode: Full;
-          Anchor: (Width: 106, Height: 38, Right: 6);
+          Anchor: (Width: 52, Height: 38, Right: 6);
           Group #TabDomainOff {
             LayoutMode: Full;
             Anchor: (Full: 0);
             Visible: true;
-            $C.@SecondaryTextButton #TabDomainButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+            Button #TabDomainButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Domain.png", Color: #c9d1d9); }
+            }
           }
           Group #TabDomainOn {
+            LayoutMode: CenterMiddle;
             Anchor: (Full: 0);
             Background: (Color: #e0773e);
             Visible: false;
-            Label #TabDomainLabel { Anchor: (Full: 0); Style: (FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Domain.png", Color: #10180e); }
           }
         }
         Group #TabTrade {
           LayoutMode: Full;
-          Anchor: (Width: 106, Height: 38, Right: 6);
+          Anchor: (Width: 52, Height: 38, Right: 6);
           Group #TabTradeOff {
             LayoutMode: Full;
             Anchor: (Full: 0);
             Visible: true;
-            $C.@SecondaryTextButton #TabTradeButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+            Button #TabTradeButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Trade.png", Color: #c9d1d9); }
+            }
           }
           Group #TabTradeOn {
+            LayoutMode: CenterMiddle;
             Anchor: (Full: 0);
             Background: (Color: #e0773e);
             Visible: false;
-            Label #TabTradeLabel { Anchor: (Full: 0); Style: (FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Trade.png", Color: #10180e); }
           }
         }
         Group #TabPeople {
           LayoutMode: Full;
-          Anchor: (Width: 106, Height: 38, Right: 6);
+          Anchor: (Width: 52, Height: 38, Right: 6);
           Group #TabPeopleOff {
             LayoutMode: Full;
             Anchor: (Full: 0);
             Visible: true;
-            $C.@SecondaryTextButton #TabPeopleButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+            Button #TabPeopleButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_People.png", Color: #c9d1d9); }
+            }
           }
           Group #TabPeopleOn {
+            LayoutMode: CenterMiddle;
             Anchor: (Full: 0);
             Background: (Color: #e0773e);
             Visible: false;
-            Label #TabPeopleLabel { Anchor: (Full: 0); Style: (FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_People.png", Color: #10180e); }
           }
         }
-        Group { FlexWeight: 1; }
+        Group {
+          LayoutMode: Full;
+          FlexWeight: 1;
+          Padding: (Left: 8);
+          Label #TabNameBoard { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #e0773e, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNamePlots { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #e0773e, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNameAnnexes { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #e0773e, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNameWorks { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #e0773e, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNameWorld { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #e0773e, VerticalAlignment: Center); Text: ""; Visible: true; }
+          Label #TabNameDomain { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #e0773e, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNameTrade { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #e0773e, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNamePeople { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #e0773e, VerticalAlignment: Center); Text: ""; Visible: false; }
+        }
         Label #Clock { Anchor: (Width: 110); Style: (FontSize: 14, RenderBold: true, TextColor: #96a9be, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
       }
       Group { Anchor: (Height: 2, Bottom: 12); Background: (Color: #e0773e); }

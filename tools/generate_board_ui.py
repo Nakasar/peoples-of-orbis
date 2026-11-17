@@ -49,9 +49,15 @@ LEFT_WIDTH = 548
 PANEL_WIDTH, PANEL_HEIGHT = WIDTH, HEIGHT
 
 # Onglets du panneau du village (request/BoardTabs.java), dans l'ordre de la barre. Maquette Claude Design
-# « Panneau du village — refonte » (16 novembre 2026) : les onglets en haut, toujours visibles.
+# « Panneau du village — refonte » (16 novembre 2026) : les onglets en haut, toujours visibles. Kevin, 17 novembre 2026 :
+# une icône par onglet (les noms coupés égaraient), le nom en info-bulle et celui de l'onglet ouvert à côté de la barre.
 TABS = ("Board", "Plots", "Annexes", "Works", "World", "Domain", "Trade", "People")
-TAB_WIDTH = 106  # huit onglets et l'heure (CLOCK_WIDTH) tiennent dans les 1060 px du panneau
+# Icônes Board/Tab_<Onglet>.png de tools/generate_tab_icons.py : maison, livre et utilisateur sont les icônes vanilla du
+# client passées en blanc ; le jeu n'a ni globe, ni balance, ni mine, ni tour, ni couronne, qui y sont dessinées.
+TAB_ICONS = {tab: f"Board/Tab_{tab}.png" for tab in TABS}
+TAB_WIDTH = 52
+TAB_ICON = 24
+TAB_ICON_COLOR = "#c9d1d9"   # icône d'un onglet fermé ; l'onglet ouvert la prend sombre sur l'aplat du peuple
 CLOCK_WIDTH = 110
 
 
@@ -82,15 +88,18 @@ def label(id_, style, text='""', anchor=None, extra=""):
 
 
 def tab_strip(w, acc, active, indent="      "):
-    """Barre des onglets en haut du contenu : l'onglet ouvert en aplat à la couleur du peuple (#Tab<X>On), les autres en
-    boutons (#Tab<X>Button), l'heure du jeu à droite (#Clock), un filet de la couleur du peuple dessous. Chaque onglet
-    porte les deux formes (#Tab<X>Off enveloppe le bouton) (seule la visibilité diffère d'une page à l'autre) : BoardTabs remplit les mêmes ids partout."""
+    """Barre des onglets en haut du contenu : une icône par onglet, l'onglet ouvert en aplat à la couleur du peuple
+    (#Tab<X>On), les autres en boutons à icône (#Tab<X>Button, comme Hud/ReturnToHubButton.ui) dont BoardTabs met le nom
+    en info-bulle ; le nom de l'onglet ouvert (#TabName<X>, seul visible) suit la barre, l'heure du jeu à droite (#Clock),
+    un filet de la couleur du peuple dessous. Chaque onglet porte les deux formes (#Tab<X>Off enveloppe le bouton) et
+    chaque page les huit noms : seule la visibilité diffère d'une page à l'autre, BoardTabs remplit les mêmes ids partout."""
     i = indent
     w(f"{i}Group #Tabs {{")
     w(f"{i}  LayoutMode: Left;")
     w(f"{i}  Anchor: (Height: 38);")
     for tab in TABS:
         on = tab == active
+        icon = TAB_ICONS[tab]
         w(f"{i}  Group #Tab{tab} {{")
         w(f"{i}    LayoutMode: Full;")
         w(f"{i}    Anchor: (Width: {TAB_WIDTH}, Height: 38, Right: 6);")
@@ -98,16 +107,29 @@ def tab_strip(w, acc, active, indent="      "):
         w(f"{i}      LayoutMode: Full;")
         w(f"{i}      Anchor: (Full: 0);")
         w(f"{i}      Visible: {'false' if on else 'true'};")
-        w(f'{i}      $C.@SecondaryTextButton #Tab{tab}Button {{ @Text = ""; @Anchor = Anchor(Full: 0); }}')
+        w(f"{i}      Button #Tab{tab}Button {{")
+        w(f"{i}        Anchor: (Full: 0);")
+        w(f"{i}        Style: $C.@SecondaryButtonStyle;")
+        w(f"{i}        LayoutMode: CenterMiddle;")
+        w(f"{i}        TextTooltipStyle: $C.@DefaultTextTooltipStyle;")
+        w(f'{i}        Group {{ Anchor: (Width: {TAB_ICON}, Height: {TAB_ICON}); Background: (TexturePath: "{icon}", Color: {TAB_ICON_COLOR}); }}')
+        w(f"{i}      }}")
         w(f"{i}    }}")
         w(f"{i}    Group #Tab{tab}On {{")
+        w(f"{i}      LayoutMode: CenterMiddle;")
         w(f"{i}      Anchor: (Full: 0);")
         w(f"{i}      Background: (Color: {acc});")
         w(f"{i}      Visible: {'true' if on else 'false'};")
-        w(f'{i}      {label(f"Tab{tab}Label", "LabelStyle(FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center)", anchor="Full: 0")}')
+        w(f'{i}      Group {{ Anchor: (Width: {TAB_ICON}, Height: {TAB_ICON}); Background: (TexturePath: "{icon}", Color: #10180e); }}')
         w(f"{i}    }}")
         w(f"{i}  }}")
-    w(f"{i}  Group {{ FlexWeight: 1; }}")
+    w(f"{i}  Group {{")
+    w(f"{i}    LayoutMode: Full;")
+    w(f"{i}    FlexWeight: 1;")
+    w(f"{i}    Padding: (Left: 8);")
+    for tab in TABS:
+        w(f'{i}    {label(f"TabName{tab}", f"LabelStyle(FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: {acc}, VerticalAlignment: Center)", anchor="Full: 0", extra=f" Visible: {str(tab == active).lower()};")}')
+    w(f"{i}  }}")
     w(f'{i}  {label("Clock", "LabelStyle(FontSize: 14, RenderBold: true, TextColor: #96a9be, HorizontalAlignment: End, VerticalAlignment: Center)", anchor=f"Width: {CLOCK_WIDTH}")}')
     w(f"{i}}}")
     w(f"{i}Group {{ Anchor: (Height: 2, Bottom: 12); Background: (Color: {acc}); }}")
