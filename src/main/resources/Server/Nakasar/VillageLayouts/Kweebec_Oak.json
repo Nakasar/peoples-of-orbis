@@ -338,6 +338,21 @@
       "Plot": "E1"
     },
     {
+      "Id": "E1_Halle",
+      "Tier": 2,
+      "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008",
+      "X": 27,
+      "Z": -37,
+      "Rotation": 0,
+      "MinX": -2,
+      "MaxX": 4,
+      "MinZ": -3,
+      "MaxZ": 3,
+      "MinY": -2,
+      "MaxY": 6,
+      "Plot": "E1"
+    },
+    {
       "Id": "E2_Archerie",
       "Tier": 3,
       "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001",
@@ -473,6 +488,21 @@
       "Plot": "E2"
     },
     {
+      "Id": "E2_Halle",
+      "Tier": 3,
+      "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008",
+      "X": -23,
+      "Z": -42,
+      "Rotation": 0,
+      "MinX": -2,
+      "MaxX": 4,
+      "MinZ": -3,
+      "MaxZ": 3,
+      "MinY": -2,
+      "MaxY": 6,
+      "Plot": "E2"
+    },
+    {
       "Id": "E3_Archerie",
       "Tier": 2,
       "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001",
@@ -604,6 +634,21 @@
       "MinZ": -3,
       "MaxZ": 3,
       "MinY": -3,
+      "MaxY": 6,
+      "Plot": "E3"
+    },
+    {
+      "Id": "E3_Halle",
+      "Tier": 2,
+      "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008",
+      "X": -54,
+      "Z": 19,
+      "Rotation": 0,
+      "MinX": -2,
+      "MaxX": 4,
+      "MinZ": -3,
+      "MaxZ": 3,
+      "MinY": -2,
       "MaxY": 6,
       "Plot": "E3"
     }
@@ -908,6 +953,19 @@
       "Builder": false
     },
     {
+      "Id": "Maitre_Halle_E1",
+      "Tier": 2,
+      "Role": "Nakasar_Peuples_Kweebec_Merchant",
+      "Dialogue": "Kweebec_Marchand",
+      "Building": "E1_Halle",
+      "WorkX": 28,
+      "WorkZ": -32,
+      "Home": "E1_Halle",
+      "HomeX": 28,
+      "HomeZ": -32,
+      "Builder": false
+    },
+    {
       "Id": "Archer_E2",
       "Tier": 3,
       "Role": "Nakasar_Peuples_Kweebec_Guard",
@@ -1025,6 +1083,19 @@
       "Builder": false
     },
     {
+      "Id": "Maitre_Halle_E2",
+      "Tier": 3,
+      "Role": "Nakasar_Peuples_Kweebec_Merchant",
+      "Dialogue": "Kweebec_Marchand",
+      "Building": "E2_Halle",
+      "WorkX": -22,
+      "WorkZ": -37,
+      "Home": "E2_Halle",
+      "HomeX": -22,
+      "HomeZ": -37,
+      "Builder": false
+    },
+    {
       "Id": "Archer_E3",
       "Tier": 2,
       "Role": "Nakasar_Peuples_Kweebec_Guard",
@@ -1137,6 +1208,19 @@
       "WorkX": -48,
       "WorkZ": 19,
       "Home": "E3_Temple",
+      "HomeX": -48,
+      "HomeZ": 19,
+      "Builder": false
+    },
+    {
+      "Id": "Maitre_Halle_E3",
+      "Tier": 2,
+      "Role": "Nakasar_Peuples_Kweebec_Merchant",
+      "Dialogue": "Kweebec_Marchand",
+      "Building": "E3_Halle",
+      "WorkX": -48,
+      "WorkZ": 19,
+      "Home": "E3_Halle",
       "HomeX": -48,
       "HomeZ": 19,
       "Builder": false

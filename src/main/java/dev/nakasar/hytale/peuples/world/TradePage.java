@@ -102,7 +102,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
         candidates(cmd, events, world, village, day);
         stall(cmd, events, world, village, day);
         cmd.set("#Rule.TextSpans", Message.translation(KEYS + "rule").param("offering", TradeRoutes.OFFERING)
-                .param("credit", TradeRoutes.CREDIT_PER_FAVOUR));
+                .param("credit", dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(village)));
     }
 
     // ---- Luxes ----
@@ -201,7 +201,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
                 cmd.set("#RouteRaise" + n + ".Text", Message.translation(KEYS + "button.raise").param("count", TradeRoutes.RAISE_OFFERING));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#RouteRaise" + n, EventData.of("Action", "Raise" + n));
             }
-            cmd.set("#RoutePay" + n + ".Text", Message.translation(KEYS + "button.pay").param("credit", TradeRoutes.CREDIT_PER_FAVOUR));
+            cmd.set("#RoutePay" + n + ".Text", Message.translation(KEYS + "button.pay").param("credit", dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(v)));
             events.addEventBinding(CustomUIEventBindingType.Activating, "#RoutePay" + n, EventData.of("Action", "Pay" + n));
             cmd.set("#RouteClose" + n + ".Text", Message.translation(KEYS + "button.close"));
             events.addEventBinding(CustomUIEventBindingType.Activating, "#RouteClose" + n, EventData.of("Action", "Close" + n));
@@ -378,7 +378,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
             TradeRoutes.Route r = route(world, index(action, "Pay"));
             if (r != null) {
                 why = TradeRoutes.payCredit(world, store, ref, village, r);
-                done = Message.translation(KEYS + "paid").param("credit", TradeRoutes.CREDIT_PER_FAVOUR);
+                done = Message.translation(KEYS + "paid").param("credit", dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(village));
             }
         } else if (action.startsWith("Close")) {
             TradeRoutes.Route r = route(world, index(action, "Close"));

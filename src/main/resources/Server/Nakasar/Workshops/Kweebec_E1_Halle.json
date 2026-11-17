@@ -1,0 +1,87 @@
+{
+  "$Comment": "Bâtiment de métier généré par tools/generate_workshops.py (ne pas modifier à la main) : voir dev.nakasar.hytale.peuples.workshop.Workshop.",
+  "People": "Kweebec",
+  "Layout": "Kweebec_Oak",
+  "Building": "E1_Halle",
+  "Job": "Maitre_Halle_E1",
+  "Icon": "Ingredient_Bolt_Linen",
+  "NameKey": "nakasar_peuples.workshop.Kweebec_E1_Halle.name",
+  "Board": [
+    31,
+    -33,
+    0
+  ],
+  "Upgrades": [
+    {
+      "Level": 2,
+      "Hours": 12,
+      "Materials": [
+        {
+          "ItemId": "Wood_Oak_Trunk",
+          "Quantity": 24
+        },
+        {
+          "ItemId": "Wood_Hardwood_Planks",
+          "Quantity": 16
+        },
+        {
+          "ItemId": "Soil_Clay_Brick",
+          "Quantity": 12
+        }
+      ],
+      "Decor": [
+        "1 0 0 0 Furniture_Kweebec_Lantern"
+      ]
+    },
+    {
+      "Level": 3,
+      "Hours": 12,
+      "Materials": [
+        {
+          "ItemId": "Wood_Oak_Trunk",
+          "Quantity": 32
+        },
+        {
+          "ItemId": "Plant_Leaves_Oak",
+          "Quantity": 16
+        },
+        {
+          "ItemId": "Plant_Sapling_Oak",
+          "Quantity": 2
+        }
+      ],
+      "Decor": [
+        "-1 0 0 0 Furniture_Kweebec_Lantern",
+        "0 1 0 0 Furniture_Kweebec_Candle"
+      ]
+    }
+  ],
+  "Category": "Commerce",
+  "Specialties": [
+    {
+      "Id": "Courtiers",
+      "NameKey": "nakasar_peuples.workshop.specialty.Kweebec_E1_Halle.Courtiers",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Kweebec_E1_Halle.Courtiers",
+      "Icon": "Deco_Scroll",
+      "Shops": [
+        "Nakasar_Peuples_W_Kweebec_E1_Halle_Courtiers_2",
+        "Nakasar_Peuples_W_Kweebec_E1_Halle_Courtiers_3"
+      ],
+      "ShareItem": "Ingredient_Bolt_Linen",
+      "ShareQuantity": 3
+    },
+    {
+      "Id": "Entrepots",
+      "NameKey": "nakasar_peuples.workshop.specialty.Kweebec_E1_Halle.Entrepots",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Kweebec_E1_Halle.Entrepots",
+      "Icon": "Tool_Capture_Crate",
+      "Shops": [
+        "Nakasar_Peuples_W_Kweebec_E1_Halle_Entrepots_2",
+        "Nakasar_Peuples_W_Kweebec_E1_Halle_Entrepots_3"
+      ],
+      "ShareItem": "Tool_Feedbag",
+      "ShareQuantity": 1
+    }
+  ],
+  "Shop": "Nakasar_Peuples_W_Kweebec_E1_Halle_Base_1"
+}

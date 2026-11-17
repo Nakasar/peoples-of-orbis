@@ -117,6 +117,22 @@
       ],
       "ShareItem": "Ingredient_Hide_Heavy",
       "ShareQuantity": 2
+    },
+    {
+      "Id": "Laiterie",
+      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_Bergerie_Du_Givre.Laiterie",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_Bergerie_Du_Givre.Laiterie",
+      "Icon": "Food_Cheese",
+      "Animals": [
+        "Tamed_Goat",
+        "Tamed_Goat_Kid"
+      ],
+      "Shops": [
+        "Nakasar_Peuples_W_Renonce_Bergerie_Du_Givre_Laiterie_2",
+        "Nakasar_Peuples_W_Renonce_Bergerie_Du_Givre_Laiterie_3"
+      ],
+      "ShareItem": "Food_Cheese",
+      "ShareQuantity": 3
     }
   ],
   "Shop": "Nakasar_Peuples_W_Renonce_Bergerie_Du_Givre_Base_1"

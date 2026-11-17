@@ -22,7 +22,9 @@ import java.util.List;
  *   <li>{@value #KNOWLEDGE} (Bibliothèque) : savoir-faire +{@value #KNOWLEDGE_PERCENT} % pour tous les bâtiments de métier ;</li>
  *   <li>{@value #CULT} (Temple) : essor +{@value #ESSOR_PERCENT} % ; spécialité {@value #PROTECTION} : un raid perdu ne
  *   brûle un bâtiment qu'une fois sur deux ;</li>
- *   <li>{@value #CRAFT} (ateliers) : consomment leurs {@code Inputs} chaque matin (workshop/Inputs).</li>
+ *   <li>{@value #CRAFT} (ateliers) : consomment leurs {@code Inputs} chaque matin (workshop/Inputs) ;</li>
+ *   <li>{@value #COMMERCE} (Halle marchande) : une place de route commerciale de plus par niveau ; spécialités
+ *   {@value #BROKERS} (crédit de route) et {@value #WAREHOUSES} (accès plus long).</li>
  * </ul>
  */
 public final class Projects {
@@ -32,6 +34,13 @@ public final class Projects {
     public static final String KNOWLEDGE = "Savoir";
     public static final String CULT = "Culte";
     public static final String CRAFT = "Artisanat";
+    public static final String COMMERCE = "Commerce";
+    /** Halle marchande : une faveur versée au crédit d'une route vaut {@value #BROKER_CREDIT}. */
+    public static final String BROKERS = "Courtiers";
+    public static final int BROKER_CREDIT = 4;
+    /** Halle marchande : une livraison de caravane ouvre l'accès {@value #WAREHOUSE_DAYS} jours. */
+    public static final String WAREHOUSES = "Entrepots";
+    public static final int WAREHOUSE_DAYS = 10;
     public static final int CRAFT_MAX = 3;
     public static final String GARRISON = "Garnison";
     public static final String MILITIA = "Milice";
@@ -155,6 +164,16 @@ public final class Projects {
             out = out == null ? one : Message.translation(Workshops.KEYS + glue).param("a", out).param("b", one);
         }
         return out == null ? Message.empty() : out;
+    }
+
+    /** Crédit d'une faveur versée à une route par ce village (Courtiers de la Halle marchande : 4, sinon 3). */
+    public static int creditPerFavour(Village village) {
+        return village != null && specialty(village, COMMERCE, BROKERS) ? BROKER_CREDIT : TradeRoutes.CREDIT_PER_FAVOUR;
+    }
+
+    /** Jours d'accès d'une livraison de caravane au village (Entrepôts de la Halle marchande : 10, sinon 7). */
+    public static int deliveryDays(Village village) {
+        return village != null && !village.isHamlet() && specialty(village, COMMERCE, WAREHOUSES) ? WAREHOUSE_DAYS : TradeAccess.DELIVERY_DAYS;
     }
 
     /** Vrai si le Temple protège le village de l'incendie de ce raid perdu (une fois sur deux). */

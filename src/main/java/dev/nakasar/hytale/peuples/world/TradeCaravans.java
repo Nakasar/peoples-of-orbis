@@ -328,7 +328,7 @@ public final class TradeCaravans {
         List<ItemStack> goods = new ArrayList<>();
         for (Map.Entry<String, Integer> e : c.cargo.entrySet()) {
             goods.add(new ItemStack(e.getKey(), e.getValue()));
-            TradeAccess.grant(world, to, e.getKey(), day + TradeAccess.DELIVERY_DAYS, day);
+            TradeAccess.grant(world, to, e.getKey(), day + dev.nakasar.hytale.peuples.workshop.Projects.deliveryDays(to), day);
         }
         TradeRoutes.deliver(world, to, goods);
         TradeRoutes.Route r = TradeRoutes.get(world, c.route);

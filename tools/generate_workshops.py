@@ -215,6 +215,9 @@ SPECIALTIES = {
          "Boars: meat and tusks.", ["Tamed_Boar", "Tamed_Boar_Piglet"]),
         ("Loups_Blancs", "Loups blancs des repentis", "Penitents' white wolves", "Ingredient_Hide_Heavy",
          "Loups blancs : fourrures épaisses.", "White wolves: thick furs.", [PEN + "Wolf_White"]),
+        # Kevin (2026-11-17) : la Laiterie, spécialité laitière du fromage du givre (luxe du terroir renoncé).
+        ("Laiterie", "Laiterie du givre", "Frost dairy", "Food_Cheese", "Chèvres laitières : fromage du givre et peaux.",
+         "Dairy goats: frost cheese and hides.", ["Tamed_Goat", "Tamed_Goat_Kid"]),
     ]),
     "Slothian_Bauge_De_Veille": (["Tamed_Pig_Wild", "Tamed_Pig_Wild_Piglet"], [
         ("Archeopteryx", "Archéoptéryx", "Archaeopteryx", "Ingredient_Feathers_Dark", "Archéoptéryx : plumes sombres.",
@@ -360,6 +363,8 @@ SHOPS = {
                       [("Food_Kebab_Meat", 3, 2), ("Armor_Leather_Medium_Legs", 1, 4)]),
         "Loups_Blancs": ([("Ingredient_Hide_Heavy", 2, 2), ("Ingredient_Bone_Fragment", 8, 1)],
                          [("Ingredient_Leather_Heavy", 4, 3), ("Armor_Wool_Chest", 1, 4)]),
+        "Laiterie": ([("Food_Cheese", 3, 2), ("Ingredient_Hide_Medium", 2, 1)],
+                     [("Food_Cheese", 6, 3), ("Ingredient_Leather_Medium", 2, 3)]),
     },
     "Slothian_Bauge_De_Veille": {
         "Base": [("Food_Pork_Raw", 2, 1), ("Ingredient_Leather_Light", 2, 1), ("Plant_Crop_Carrot_Item", 4, 1)],
@@ -661,6 +666,7 @@ PAGE = {
     "plot.category.Culte": ("Culte", "Cult"),
     "plot.category.Artisanat": ("Artisanat", "Crafts"),
     "plot.category.Elevage": ("Élevage", "Breeding"),
+    "plot.category.Commerce": ("Commerce", "Trade"),
     "plot.category.none": ("Hors catégorie", "No category"),
     "plot.chosen": ("{player} choisit {building} pour le terrain {plot}.", "{player} picks {building} for plot {plot}."),
     "plot.noProject": ("Choisissez d'abord un projet pour ce terrain.", "Pick a project for this plot first."),

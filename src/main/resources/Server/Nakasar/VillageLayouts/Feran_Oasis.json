@@ -310,6 +310,21 @@
       "Plot": "E1"
     },
     {
+      "Id": "E1_Halle",
+      "Tier": 2,
+      "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+      "X": -2,
+      "Z": 40,
+      "Rotation": 0,
+      "MinX": -9,
+      "MaxX": 9,
+      "MinZ": -9,
+      "MaxZ": 10,
+      "MinY": -8,
+      "MaxY": 6,
+      "Plot": "E1"
+    },
+    {
       "Id": "E2_Caravanserail",
       "Tier": 3,
       "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002",
@@ -445,6 +460,21 @@
       "Plot": "E2"
     },
     {
+      "Id": "E2_Halle",
+      "Tier": 3,
+      "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+      "X": 55,
+      "Z": 0,
+      "Rotation": 0,
+      "MinX": -9,
+      "MaxX": 9,
+      "MinZ": -9,
+      "MaxZ": 10,
+      "MinY": -8,
+      "MaxY": 6,
+      "Plot": "E2"
+    },
+    {
       "Id": "E3_Caravanserail",
       "Tier": 2,
       "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002",
@@ -577,6 +607,21 @@
       "MaxZ": 9,
       "MinY": -7,
       "MaxY": 19,
+      "Plot": "E3"
+    },
+    {
+      "Id": "E3_Halle",
+      "Tier": 2,
+      "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+      "X": -57,
+      "Z": 0,
+      "Rotation": 0,
+      "MinX": -9,
+      "MaxX": 9,
+      "MinZ": -9,
+      "MaxZ": 10,
+      "MinY": -8,
+      "MaxY": 6,
       "Plot": "E3"
     }
   ],
@@ -841,6 +886,19 @@
       "Builder": false
     },
     {
+      "Id": "Maitre_Halle_E1",
+      "Tier": 2,
+      "Role": "Nakasar_Peuples_Feran_Merchant",
+      "Dialogue": "Feran_Marchand",
+      "Building": "E1_Halle",
+      "WorkX": -2,
+      "WorkZ": 29,
+      "Home": "E1_Halle",
+      "HomeX": -2,
+      "HomeZ": 29,
+      "Builder": false
+    },
+    {
       "Id": "Caravaniere_E2",
       "Tier": 3,
       "Role": "Nakasar_Peuples_Feran_Merchant",
@@ -958,6 +1016,19 @@
       "Builder": false
     },
     {
+      "Id": "Maitre_Halle_E2",
+      "Tier": 3,
+      "Role": "Nakasar_Peuples_Feran_Merchant",
+      "Dialogue": "Feran_Marchand",
+      "Building": "E2_Halle",
+      "WorkX": 44,
+      "WorkZ": 0,
+      "Home": "E2_Halle",
+      "HomeX": 44,
+      "HomeZ": 0,
+      "Builder": false
+    },
+    {
       "Id": "Caravaniere_E3",
       "Tier": 2,
       "Role": "Nakasar_Peuples_Feran_Merchant",
@@ -1070,6 +1141,19 @@
       "WorkX": -46,
       "WorkZ": 0,
       "Home": "E3_Temple",
+      "HomeX": -46,
+      "HomeZ": 0,
+      "Builder": false
+    },
+    {
+      "Id": "Maitre_Halle_E3",
+      "Tier": 2,
+      "Role": "Nakasar_Peuples_Feran_Merchant",
+      "Dialogue": "Feran_Marchand",
+      "Building": "E3_Halle",
+      "WorkX": -46,
+      "WorkZ": 0,
+      "Home": "E3_Halle",
       "HomeX": -46,
       "HomeZ": 0,
       "Builder": false

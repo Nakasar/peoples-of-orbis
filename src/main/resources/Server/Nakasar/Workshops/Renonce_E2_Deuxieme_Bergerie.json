@@ -119,6 +119,22 @@
       ],
       "ShareItem": "Ingredient_Hide_Heavy",
       "ShareQuantity": 2
+    },
+    {
+      "Id": "Laiterie",
+      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_E2_Deuxieme_Bergerie.Laiterie",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_E2_Deuxieme_Bergerie.Laiterie",
+      "Icon": "Food_Cheese",
+      "Animals": [
+        "Tamed_Goat",
+        "Tamed_Goat_Kid"
+      ],
+      "Shops": [
+        "Nakasar_Peuples_W_Renonce_E2_Deuxieme_Bergerie_Laiterie_2",
+        "Nakasar_Peuples_W_Renonce_E2_Deuxieme_Bergerie_Laiterie_3"
+      ],
+      "ShareItem": "Food_Cheese",
+      "ShareQuantity": 3
     }
   ],
   "Shop": "Nakasar_Peuples_W_Renonce_E2_Deuxieme_Bergerie_Base_1"

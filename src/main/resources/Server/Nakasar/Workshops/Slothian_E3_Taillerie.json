@@ -1,0 +1,102 @@
+{
+  "$Comment": "Bâtiment de métier généré par tools/generate_workshops.py (ne pas modifier à la main) : voir dev.nakasar.hytale.peuples.workshop.Workshop.",
+  "People": "Slothian",
+  "Layout": "Slothian_Monastere",
+  "Building": "E3_Taillerie",
+  "Job": "Tailleur_E3",
+  "Icon": "Rock_Basalt_Brick_Ornate",
+  "NameKey": "nakasar_peuples.workshop.Slothian_E3_Taillerie.name",
+  "Board": [
+    -39,
+    -21,
+    1
+  ],
+  "Upgrades": [
+    {
+      "Level": 2,
+      "Hours": 12,
+      "Materials": [
+        {
+          "ItemId": "Rock_Basalt_Brick",
+          "Quantity": 16
+        },
+        {
+          "ItemId": "Wood_Hardwood_Planks",
+          "Quantity": 16
+        },
+        {
+          "ItemId": "Soil_Ash",
+          "Quantity": 8
+        }
+      ],
+      "Decor": [
+        "1 0 0 0 Furniture_Jungle_Torch"
+      ]
+    },
+    {
+      "Level": 3,
+      "Hours": 12,
+      "Materials": [
+        {
+          "ItemId": "Rock_Basalt_Brick",
+          "Quantity": 32
+        },
+        {
+          "ItemId": "Furniture_Jungle_Candle",
+          "Quantity": 4
+        },
+        {
+          "ItemId": "Ingredient_Fire_Essence",
+          "Quantity": 6
+        }
+      ],
+      "Decor": [
+        "-1 0 0 0 Furniture_Jungle_Brazier"
+      ]
+    }
+  ],
+  "Category": "Artisanat",
+  "Inputs": [
+    {
+      "ItemId": "Rock_Basalt_Cobble",
+      "Quantity": 6
+    },
+    {
+      "ItemId": "Ingredient_Charcoal",
+      "Quantity": 2
+    }
+  ],
+  "Requires": [
+    "Ingredient_Bar_Copper"
+  ],
+  "Specialties": [
+    {
+      "Id": "Pierre_Sacree",
+      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E3_Taillerie.Pierre_Sacree",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E3_Taillerie.Pierre_Sacree",
+      "Icon": "Rock_Basalt_Brick_Ornate",
+      "Shops": [
+        "Nakasar_Peuples_W_Slothian_E3_Taillerie_Pierre_Sacree_2",
+        "Nakasar_Peuples_W_Slothian_E3_Taillerie_Pierre_Sacree_3"
+      ],
+      "ShareItem": "Rock_Basalt_Brick_Smooth",
+      "ShareQuantity": 16
+    },
+    {
+      "Id": "Dorures",
+      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E3_Taillerie.Dorures",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E3_Taillerie.Dorures",
+      "Icon": "Rock_Gold_Brick_Ornate",
+      "Requires": [
+        "Ingredient_Bar_Gold"
+      ],
+      "Shops": [
+        "Nakasar_Peuples_W_Slothian_E3_Taillerie_Dorures_2",
+        "Nakasar_Peuples_W_Slothian_E3_Taillerie_Dorures_3"
+      ],
+      "ShareItem": "Rock_Gold_Brick",
+      "ShareQuantity": 4
+    }
+  ],
+  "Shop": "Nakasar_Peuples_W_Slothian_E3_Taillerie_Base_1"
+}

@@ -54,7 +54,7 @@ CATEGORY_NAMES = {"Coeur": "Cœur du village", "Base": "Bâtiment de base", "Art
 TIERED = {"Coeur", "Base", "Artisan", "Projet", "Production", "Ouvrage", "LieuDit"}
 # Catégories des projets de terrain (champ Category des Workshops, tools/plots.py).
 PROJECT_CATEGORIES = {"Artisanat": "Artisanat", "Defense": "Défense", "Diplomatie": "Diplomatie", "Savoir": "Savoir",
-                      "Culte": "Culte", "Elevage": "Élevage"}
+                      "Culte": "Culte", "Elevage": "Élevage", "Commerce": "Commerce"}
 # Bâtiments prévus par le doc « Structurer les types de bâtiments » (Kevin, 2026-11-16) qui n'ont pas encore de prefab :
 # un emplacement réservé à leur nom (rectangle vide de la taille d'un terrain de projet, 24 × 24).
 RESERVE_SIZE = (24, 24)
@@ -62,9 +62,8 @@ RESERVED = {
     people: [("Production", "Production_Regionale", "Production régionale (type régional à définir)",
               "doc Structurer les types de bâtiments : type régional, ressource de luxe du biome")]
     for people in PEOPLES}
-RESERVED["Slothian"].append(("Projet", "Atelier_A_Definir", "Atelier d'artisanat slothian (à définir)",
-                             "doc Structurer les types de bâtiments : les Slothians n'ont pas encore d'atelier"))
-RESERVED_CATEGORY_NAMES = {("Slothian", "Atelier_A_Definir"): "Projet de terrain · Artisanat"}
+# L'atelier slothian (Taillerie du basalte, 2026-11-17) a maintenant son prefab : plus d'emplacement réservé.
+RESERVED_CATEGORY_NAMES = {}
 
 NPC = "Npc/"
 
