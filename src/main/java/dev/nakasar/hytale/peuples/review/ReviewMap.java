@@ -68,6 +68,18 @@ public final class ReviewMap {
     static final String STATE_FILE = "nakasar_revue_batiments.txt";
     static final String PLAN_FILE = "nakasar_revue_batiments_plan.txt";
     static final String SIGNATURE_FILE = "nakasar_revue_batiments_carte.txt";
+    /**
+     * Panneaux de métier tels que la carte les a posés : « clé x y z lacet ox oz x0 x1 z0 z1 haut bloc » (place, origine
+     * et rectangle du palier) ; le relevé s'en sert seul, même quand la carte a changé depuis.
+     */
+    static final String BOARDS_FILE = "nakasar_revue_panneaux.txt";
+    /**
+     * Relevé des panneaux déplacés à la main sur la carte (Kevin, 17 novembre 2026 : « le placement à la main du panneau
+     * va consister à le déplacer physiquement à la main sur la carte de revue »), gardé HORS du monde de revue pour
+     * survivre à son écrasement : à copier dans le dépôt ({@code tools/panneaux-releves.json}), que lit
+     * {@code tools/building_growth.py}.
+     */
+    public static final String CAPTURE_FILE = "panneaux-releves.json";
     public static final String KEYS = "nakasar_peuples.review.";
     /** Haut du sol du monde plat (couches ci-dessous : pierre, terre, herbe). */
     static final int GROUND = 80;
@@ -431,16 +443,46 @@ public final class ReviewMap {
             if (loaded.getPlayerCount() > 0) {
                 return CompletableFuture.failedFuture(new OccupiedException(name));
             }
-            LOGGER.atInfo().log("Nakasar Peuples : monde de revue %s écrasé (carte changée ou --rebatir)", name);
-            universe.removeWorld(name);
+            // Panneaux déplacés à la main relevés avant d'écraser le monde (le relevé est gardé hors du monde).
+            return captureQuietly(loaded).thenCompose(v -> {
+                if (loaded.getPlayerCount() > 0) {
+                    return CompletableFuture.failedFuture(new OccupiedException(name));
+                }
+                LOGGER.atInfo().log("Nakasar Peuples : monde de revue %s écrasé (carte changée ou --rebatir)", name);
+                universe.removeWorld(name);
+                return replace(universe, name, dir);
+            });
         } else if (universe.isWorldLoadable(name)) {
             if (current) {
                 return universe.loadWorld(name);
             }
-            LOGGER.atInfo().log("Nakasar Peuples : monde de revue %s écrasé (carte changée ou --rebatir)", name);
+            return universe.loadWorld(name).thenCompose(old -> captureQuietly(old).thenCompose(v -> {
+                LOGGER.atInfo().log("Nakasar Peuples : monde de revue %s écrasé (carte changée ou --rebatir)", name);
+                universe.removeWorld(name);
+                return replace(universe, name, dir);
+            }));
         }
+        return replace(universe, name, dir);
+    }
+
+    /** Relevé avant écrasement : une erreur de relevé ne bloque pas la nouvelle carte (elle est notée au journal). */
+    private static CompletableFuture<Void> captureQuietly(World world) {
+        if (world == null) {
+            return CompletableFuture.completedFuture(null);
+        }
+        return capture(world).handle((r, e) -> {
+            if (e != null) {
+                LOGGER.atWarning().withCause(e).log("Nakasar Peuples : revue, relevé des panneaux avant écrasement raté");
+            }
+            return null;
+        });
+    }
+
+    /** Le monde de revue remplacé par un monde neuf : l'ancien dossier part dans les mondes supprimés du serveur. */
+    private static CompletableFuture<World> replace(Universe universe, String name, Path dir) {
         synchronized (ReviewMap.class) {
             LAYOUTS.remove(name);
+            PLACED.remove(name);
         }
         if (Files.exists(dir)) {
             try {
@@ -657,7 +699,8 @@ public final class ReviewMap {
         int yaw = Integer.parseInt(p[2]) & 3;
         int[] at;
         if (p.length > 4 && "Fixe".equals(p[4])) {
-            at = new int[] {x, GROUND + 1, z};
+            // Avant-poste (sur sa fondation) ou panneau relevé à la main (hauteur au-dessus du point de collage).
+            at = new int[] {x, p.length > 5 ? GROUND + Integer.parseInt(p[5]) : GROUND + 1, z};
         } else {
             at = Workshops.boardSpot(chunks, new Terrain(world), x, z, yaw);
         }
@@ -667,6 +710,200 @@ public final class ReviewMap {
         }
         Blocks.set(chunks, at[0], at[1], at[2], p[3], yaw);
         Workshops.hangBoard(chunks, s.section.people, at[0], at[1], at[2], yaw);
+        placed(world).put(s.key, new Placed(at[0], at[1], at[2], yaw, s.ox, s.oz, s.x0, s.x1, s.z0, s.z1,
+                GROUND + s.height + CLEAR_ABOVE, p[3]));
+    }
+
+    /** Panneau posé par la carte : place, lacet, origine et rectangle de son palier, bloc. */
+    private record Placed(int x, int y, int z, int yaw, int ox, int oz, int x0, int x1, int z0, int z1, int top, String block) {
+        String line(String key) {
+            return key + " " + x + " " + y + " " + z + " " + yaw + " " + ox + " " + oz + " " + x0 + " " + x1 + " " + z0
+                    + " " + z1 + " " + top + " " + block;
+        }
+    }
+
+    // ---- Relevé des panneaux déplacés à la main ----
+
+    private static final Map<String, Map<String, Placed>> PLACED = new HashMap<>();
+
+    private static synchronized Map<String, Placed> placed(World world) {
+        return PLACED.computeIfAbsent(world.getName(), k -> {
+            Map<String, Placed> out = new java.util.concurrent.ConcurrentHashMap<>();
+            for (String line : readLines(worldFile(world, BOARDS_FILE))) {
+                String[] p = line.trim().split("\\s+");
+                if (p.length == 13) {
+                    try {
+                        int[] n = new int[11];
+                        for (int i = 0; i < 11; i++) {
+                            n[i] = Integer.parseInt(p[i + 1]);
+                        }
+                        out.put(p[0], new Placed(n[0], n[1], n[2], n[3], n[4], n[5], n[6], n[7], n[8], n[9], n[10], p[12]));
+                    } catch (NumberFormatException e) {
+                        LOGGER.atWarning().log("Nakasar Peuples : revue, ligne de panneau illisible « %s »", line);
+                    }
+                }
+            }
+            return out;
+        });
+    }
+
+    private static void savePlaced(World world) {
+        List<String> lines = new ArrayList<>();
+        placed(world).forEach((k, v) -> lines.add(v.line(k)));
+        java.util.Collections.sort(lines);
+        writeLines(worldFile(world, BOARDS_FILE), lines);
+    }
+
+    /** Dossier des relevés de la carte, à côté des mondes du serveur (survit à l'écrasement du monde de revue). */
+    public static Path captureFile() {
+        return Universe.get().getWorldsPath().toAbsolutePath().resolveSibling("nakasar-revue").resolve(CAPTURE_FILE);
+    }
+
+    /** Un panneau relevé : place relative à l'origine du palier (repère du prefab non tourné, comme la carte). */
+    static final class Capture {
+        @SerializedName("Key")
+        String key;
+        @SerializedName("People")
+        String people;
+        @SerializedName("Category")
+        String category;
+        @SerializedName("Id")
+        String id;
+        @SerializedName("Tier")
+        int tier;
+        @SerializedName("DX")
+        int dx;
+        /** Hauteur au-dessus du point de collage du prefab (1 = posé sur le sol de la carte). */
+        @SerializedName("DY")
+        int dy;
+        @SerializedName("DZ")
+        int dz;
+        @SerializedName("Yaw")
+        int yaw;
+    }
+
+    static final class CaptureFile {
+        @SerializedName("$Comment")
+        String comment;
+        @SerializedName("Boards")
+        List<Capture> boards = new ArrayList<>();
+    }
+
+    /** Résultat d'un relevé : panneaux enregistrés (nouveaux ou déplacés à nouveau), introuvables, total du fichier. */
+    public record CaptureResult(int moved, int missing, int total, Path file) {
+    }
+
+    /**
+     * Relève les panneaux de métier de la carte `world` déplacés à la main depuis leur pose (Kevin, 17 novembre 2026)
+     * et les ajoute à {@link #captureFile()}. Un panneau déjà relevé y reste tant qu'on ne le rebouge pas (la carte le
+     * repose alors à cette place). Rectangle après rectangle, chunks chargés puis lecture sur le thread du monde.
+     */
+    public static CompletableFuture<CaptureResult> capture(World world) {
+        Path file = captureFile();
+        CaptureFile doc = readCaptures(file);
+        Map<String, Capture> byKey = new LinkedHashMap<>();
+        for (Capture c : doc.boards) {
+            byKey.put(c.key, c);
+        }
+        // Rectangles d'après la pose (fichier du monde), pas d'après la carte actuelle qui a pu changer depuis.
+        int[] counts = {0, 0};
+        CompletableFuture<Void> chain = CompletableFuture.completedFuture(null);
+        for (Map.Entry<String, Placed> e : new java.util.TreeMap<>(placed(world)).entrySet()) {
+            String key = e.getKey();
+            Placed was = e.getValue();
+            chain = chain.thenCompose(v -> Terrain.load(world, was.x0(), was.x1(), was.z0(), was.z1()))
+                    .thenRunAsync(() -> {
+                        int[] found = findBoard(world.getChunkStore(), was);
+                        if (found == null) {
+                            counts[1]++;
+                            return;
+                        }
+                        if (found[0] == was.x() && found[1] == was.y() && found[2] == was.z() && found[3] == was.yaw()) {
+                            return;
+                        }
+                        // Clé « Peuple/Catégorie/Id#palier ».
+                        int hash = key.lastIndexOf('#');
+                        String[] parts = key.substring(0, hash).split("/", 3);
+                        Capture c = new Capture();
+                        c.key = key;
+                        c.people = parts[0];
+                        c.category = parts.length > 1 ? parts[1] : "";
+                        c.id = parts.length > 2 ? parts[2] : "";
+                        c.tier = Integer.parseInt(key.substring(hash + 1));
+                        c.dx = found[0] - was.ox();
+                        c.dy = found[1] - GROUND;
+                        c.dz = found[2] - was.oz();
+                        c.yaw = found[3];
+                        byKey.put(key, c);
+                        counts[0]++;
+                    }, world::execute);
+        }
+        return chain.thenApply(v -> {
+            doc.boards = new ArrayList<>(byKey.values());
+            doc.boards.sort(java.util.Comparator.comparing(c -> c.key));
+            doc.comment = "Panneaux de métier déplacés à la main sur la carte de revue (/village revue --relever, "
+                    + "relevé aussi avant chaque écrasement du monde). À copier dans tools/panneaux-releves.json du dépôt "
+                    + "(lu par tools/building_growth.py). DX/DY/DZ relatifs au point de collage du prefab non tourné, "
+                    + "Yaw 0 face au sud, 1 à l'est, 2 au nord, 3 à l'ouest.";
+            try {
+                Files.createDirectories(file.getParent());
+                Files.writeString(file, new com.google.gson.GsonBuilder().setPrettyPrinting().disableHtmlEscaping()
+                        .create().toJson(doc) + "\n", StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                throw new java.io.UncheckedIOException(e);
+            }
+            LOGGER.atInfo().log("Nakasar Peuples : revue, %d panneau(x) relevé(s), %d introuvable(s) → %s", counts[0],
+                    counts[1], file);
+            return new CaptureResult(counts[0], counts[1], doc.boards.size(), file);
+        });
+    }
+
+    private static CaptureFile readCaptures(Path file) {
+        try {
+            if (Files.exists(file)) {
+                CaptureFile doc = new Gson().fromJson(Files.readString(file, StandardCharsets.UTF_8), CaptureFile.class);
+                if (doc != null && doc.boards != null) {
+                    return doc;
+                }
+            }
+        } catch (IOException | RuntimeException e) {
+            LOGGER.atWarning().withCause(e).log("Nakasar Peuples : revue, relevé %s illisible", file);
+        }
+        return new CaptureFile();
+    }
+
+    /**
+     * Le panneau dans le rectangle de sa pose (sans le liseré) : x, y, z, lacet ; null s'il n'y est plus. Le plus proche
+     * de sa place d'origine s'il y en a plusieurs.
+     */
+    private static int[] findBoard(ChunkStore chunks, Placed was) {
+        int[] best = null;
+        int bestD = Integer.MAX_VALUE;
+        for (int y = GROUND + 1; y <= was.top(); y++) {
+            for (int x = was.x0() + 1; x < was.x1(); x++) {
+                for (int z = was.z0() + 1; z < was.z1(); z++) {
+                    if (Blocks.is(Blocks.name(chunks, x, y, z), was.block())) {
+                        int d = Math.abs(x - was.x()) + Math.abs(y - was.y()) + Math.abs(z - was.z());
+                        if (d < bestD) {
+                            bestD = d;
+                            best = new int[] {x, y, z, Blocks.rotation(chunks, x, y, z) & 3};
+                        }
+                    }
+                }
+            }
+        }
+        return best;
+    }
+
+    /** Le monde de revue tel qu'il est (chargé au besoin), sans jamais l'écraser ; null s'il n'existe pas. */
+    public static CompletableFuture<World> existingWorld() {
+        String name = worldName();
+        Universe universe = Universe.get();
+        World loaded = universe.getWorld(name);
+        if (loaded != null) {
+            return CompletableFuture.completedFuture(loaded);
+        }
+        return universe.isWorldLoadable(name) ? universe.loadWorld(name) : CompletableFuture.completedFuture(null);
     }
 
     // ---- Panneau ----
@@ -735,6 +972,7 @@ public final class ReviewMap {
 
     private static void saveState(World world, Set<String> keys) {
         writeLines(worldFile(world, STATE_FILE), keys);
+        savePlaced(world);
     }
 
     /** Lignes « R clé largeur profondeur hauteur » (rectangle d'un bâtiment) et « T clé dx dz » (origine d'un palier). */

@@ -490,7 +490,9 @@ def add_board(people, e, tiers, growth, stats):
         if shown != spot[3]:
             stats["mismatch"] += 1
             continue
-        t["Board"] = f"{spot[0]} {spot[1]} {spot[2]} {block}"
+        # Placé à la main (relevé de la carte) : posé tel quel, à sa hauteur ; sinon cherché comme en jeu.
+        t["Board"] = (f"{spot[0]} {spot[1]} {spot[2]} {block} Fixe {spot[4]}" if len(spot) > 4
+                      else f"{spot[0]} {spot[1]} {spot[2]} {block}")
         stats["placed"] += 1
 
 

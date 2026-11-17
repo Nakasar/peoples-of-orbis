@@ -291,7 +291,17 @@ public final class Workshops {
         }
         ChunkStore chunks = world.getChunkStore();
         int yaw = spot.length > 2 ? spot[2] : 0;
-        int[] at = boardSpot(chunks, new Terrain(world), village.x() + spot[0], village.z() + spot[1], yaw);
+        int[] at;
+        int site = spot.length > 3 ? village.siteY(w.building()) : Integer.MIN_VALUE;
+        if (site != Integer.MIN_VALUE) {
+            // Panneau placé à la main sur la carte de revue : sa case exacte, hauteur comptée depuis la pose du bâtiment.
+            at = new int[] {village.x() + spot[0], site + spot[3], village.z() + spot[1]};
+            if (Blocks.id(chunks, at[0], at[1], at[2]) == Blocks.UNLOADED) {
+                return;
+            }
+        } else {
+            at = boardSpot(chunks, new Terrain(world), village.x() + spot[0], village.z() + spot[1], yaw);
+        }
         if (at == null) {
             return;
         }

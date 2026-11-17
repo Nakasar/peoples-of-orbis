@@ -25,6 +25,7 @@ Sortie : src/main/resources/nakasar-peuples/paliers-batiments.json
 """
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -43,12 +44,25 @@ LEVEL_PALIERS = (1, 3, 4)
 MAX_SHIFT = 8
 # Avant-postes : chaque pièce bouge de moins, dans le rectangle de l'avant-poste.
 ANNEX_SHIFT = 4
-# Panneaux placés à la main (Kevin, 17 novembre 2026 : « potentiellement, on va le placer manuellement ») :
-# (plan, bâtiment, palier) -> (dx, dz, lacet) relatifs au point de collage du prefab de ce palier, dans le repère du
-# prefab non tourné, comme sur la carte de revue (origine de la composition) ; lacet 0 face au sud, 1 à l'est, 2 au
-# nord, 3 à l'ouest. Remplace la place calculée, en jeu (tournée avec le bâtiment) et sur la carte de revue. Exemple : ("Feran_Oasis", "E1_Conseil", 3): (0, 12, 0).
-BOARD_MANUAL = {
-}
+# Panneaux placés à la main (Kevin, 17 novembre 2026 : « le placement à la main du panneau va consister à le déplacer
+# physiquement à la main sur la carte de revue ») : relevé de la carte (/village revue --relever, et avant chaque
+# écrasement du monde), fichier écrit par le serveur dans nakasar-revue/panneaux-releves.json à côté de ses mondes et
+# copié ici. Place relative au point de collage du prefab non tourné (repère de la carte), hauteur comprise ; remplace la
+# place calculée, en jeu (tournée avec le bâtiment) et sur la carte.
+MANUAL_FILE = ROOT / "tools/panneaux-releves.json"
+
+
+def manual_boards():
+    """(peuple, Id de la carte, palier) -> (dx, dz, lacet, dy)."""
+    if not MANUAL_FILE.exists():
+        return {}
+    out = {}
+    for c in json.loads(MANUAL_FILE.read_text(encoding="utf-8")).get("Boards", []):
+        out[(c["People"], c["Id"], c["Tier"])] = (c["DX"], c["DZ"], c["Yaw"] & 3, c["DY"])
+    return out
+
+
+MANUAL = manual_boards()
 OFFSETS = sorted(((dx, dz) for dx in range(-MAX_SHIFT, MAX_SHIFT + 1) for dz in range(-MAX_SHIFT, MAX_SHIFT + 1)),
                  key=lambda o: (abs(o[0]) + abs(o[1]), abs(o[0]), o))
 
@@ -254,10 +268,11 @@ def layout_entries(layout, workshops, layout_id, incompatible, review):
             reserved[bid] = union(reserved[bid], r)
             entry = {"Palier": palier, "Prefab": path, "DX": pick[1], "DZ": pick[2], "MinX": r[0] - ax,
                      "MaxX": r[1] - ax, "MinZ": r[2] - az, "MaxZ": r[3] - az, "MinY": bb[2], "MaxY": bb[3]}
-            manual = BOARD_MANUAL.get((layout_id, bid, palier))
+            row_id = "Projet_" + bid[3:] if re.match(r"E\d_", bid) else bid
+            manual = MANUAL.get((people, row_id, palier))
             if own is not None and manual is not None:
                 mx, mz = rotate(manual[0], manual[1], b["Rotation"])
-                spot, inside = [ax + mx, az + mz, (manual[2] + b["Rotation"]) & 3], False
+                spot, inside = [ax + mx, az + mz, (manual[2] + b["Rotation"]) & 3, manual[3]], False
                 entry["Board"] = spot
                 entry["Manual"] = True
                 moved.append((bid, spot[0], spot[1]))
@@ -275,7 +290,7 @@ def layout_entries(layout, workshops, layout_id, incompatible, review):
                 # Carte de revue : le panneau de la version qu'elle montre (voulue), relatif à son point de collage.
                 # La carte montre le prefab sans rotation : on ramène le panneau dans le repère du prefab.
                 if manual is not None:
-                    rel = [manual[0], manual[1], manual[2] & 3]
+                    rel = [manual[0], manual[1], manual[2]]
                 else:
                     if pick[0] == want:
                         at = entry.get("Board") or [own[0], own[1], own_yaw & 3]
@@ -285,8 +300,8 @@ def layout_entries(layout, workshops, layout_id, incompatible, review):
                         wx, wz = at[0] - b["X"], at[1] - b["Z"]
                     lx, lz = rotate(wx, wz, -b["Rotation"])
                     rel = [lx, lz, (at[2] - b["Rotation"]) & 3]
-                review.setdefault(bid, {})[str(palier)] = rel + [steps[want]]
-        if any(c["Prefab"] != b["Prefab"] for c in chosen):
+                review.setdefault(bid, {})[str(palier)] = rel + [steps[want]] + ([manual[3]] if manual else [])
+        if any(c["Prefab"] != b["Prefab"] or c.get("Manual") for c in chosen):
             out[bid] = chosen
     return out, report
 

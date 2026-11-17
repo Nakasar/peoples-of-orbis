@@ -1,0 +1,4 @@
+{
+  "$Comment": "Panneaux de métier déplacés à la main sur la carte de revue. Fichier écrit par le serveur (/village revue --relever, et avant chaque écrasement du monde de revue) dans nakasar-revue/panneaux-releves.json à côté de ses mondes : le copier ici, puis relancer tools/building_growth.py et tools/building_tiers.py. DX/DY/DZ relatifs au point de collage du prefab non tourné, Yaw 0 face au sud, 1 à l'est, 2 au nord, 3 à l'ouest.",
+  "Boards": []
+}

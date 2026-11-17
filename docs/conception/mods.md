@@ -2170,6 +2170,17 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
   posé par `ReviewMap.placeBoard` avec `Workshops.boardSpot`, la même recherche qu'en jeu (plaqué au mur, ou entré dans
   le bâtiment). Bâtiments de métier et projets : place de `tools/building_growth.py` (section `Review`) ; avant-postes :
   sur leur fondation (`Fixe`). Un bâtiment propre n'a pas de panneau.
+- **Placer un panneau à la main** (Kevin, 17 novembre 2026 : « le placement à la main du panneau va consister à le
+  déplacer physiquement à la main sur la carte de revue ») : casser le panneau d'un rectangle et le reposer où il doit
+  être (même bloc vanilla, dans le même rectangle, lacet compris), puis `/village revue --relever`. La carte compare
+  chaque panneau à sa pose (`nakasar_revue_panneaux.txt` du monde : place, origine et rectangle du palier) et ajoute
+  ceux qui ont bougé au relevé `nakasar-revue/panneaux-releves.json`, à côté des mondes du serveur (hors du monde de
+  revue). Le relevé se fait aussi tout seul avant chaque écrasement du monde (carte changée, `--rebatir`) : un
+  déplacement n'est jamais perdu. Copier ce fichier dans `tools/panneaux-releves.json` du dépôt, relancer
+  `tools/building_growth.py` puis `tools/building_tiers.py` : le jeu pose alors le panneau à cette case exacte (tournée
+  avec le bâtiment, hauteur comptée depuis sa pose) et la carte le remet là. Un panneau relevé reste dans le fichier tant
+  qu'on ne le rebouge pas ; pour revenir à la place calculée, retirer sa ligne. Avant-postes non concernés (panneau sur
+  la fondation posée par le joueur).
 - Liseré de **laine bleue** `Cloth_Block_Wool_Blue` (Kevin, 17 novembre 2026) : palier que le bâtiment peut montrer en
   jeu mais dont la version ne tient pas à sa place au village (`Incompatibles` de `paliers-batiments.json`, calculés par
   `tools/building_growth.py`) ; le village garde alors une version plus petite. La raison est dans les notes du panneau.
@@ -2222,8 +2233,8 @@ village, sinon celle du palier d'avant :
   façade. Si cette case est sur la place, chez un voisin, hors du terrain ou contre un autre panneau, il passe au bord
   intérieur de l'emprise (`Inside`). En jeu, `Workshops.placeBoard` le plaque contre le mur derrière lui ; si la façade
   est pleine à cet endroit, il entre dans le bâtiment jusqu'à la première case libre (8 blocs au plus) ;
-  placement à la main : table `BOARD_MANUAL` de `tools/building_growth.py`, (plan, bâtiment, palier) → (dx, dz, lacet)
-  relatifs au point de collage, dans le repère du prefab non tourné (celui de la carte de revue) ;
+  placement à la main : relevé de la carte de revue (`tools/panneaux-releves.json`, voir la carte de revue), place
+  exacte (hauteur comprise depuis la pose du bâtiment) tournée avec le bâtiment ;
 - avant-poste : chaque pièce garde sa rotation, bouge au plus de 4 blocs, reste dans `Annex.Rect`, sans chevaucher une
   autre pièce ni le panneau. Le panneau d'un avant-poste reste sur sa fondation, hors de `Annex.Rect` : un avant-poste
   incompatible l'est parce que la version plus grande sort de son rectangle.

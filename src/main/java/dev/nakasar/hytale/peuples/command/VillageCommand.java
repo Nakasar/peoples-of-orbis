@@ -1292,13 +1292,16 @@ public final class VillageCommand extends AbstractCommandCollection {
      * {@code revue [peuple] [--categorie <c>] [--rebatir]} (opérateurs) : envoie le joueur sur la carte plate de revue
      * des bâtiments (paliers 1 à 4, {@link ReviewMap}), créée au premier appel, et bâtit les rectangles pas encore faits
      * (toute la carte, ou ceux du peuple donné). Le monde est écrasé par un monde neuf quand la carte a changé, ou avec
-     * {@code --rebatir} (retouches non enregistrées en prefab perdues).
+     * {@code --rebatir} (retouches non enregistrées en prefab perdues ; les panneaux déplacés à la main sont relevés
+     * avant). {@code --relever} : relève seulement les panneaux déplacés à la main ({@link ReviewMap#capture}).
      */
     private static final class ReviewCommand extends AbstractPlayerCommand {
         private final OptionalArg<String> people = withOptionalArg("peuple", KEYS + "review.people", ArgTypes.STRING);
         private final OptionalArg<String> category = withOptionalArg("categorie", KEYS + "review.category", ArgTypes.STRING);
         private final com.hypixel.hytale.server.core.command.system.arguments.system.FlagArg rebuild =
                 withFlagArg("rebatir", KEYS + "review.rebuild");
+        private final com.hypixel.hytale.server.core.command.system.arguments.system.FlagArg capture =
+                withFlagArg("relever", KEYS + "review.capture");
 
         ReviewCommand() {
             super("revue", KEYS + "review.desc");
@@ -1315,6 +1318,20 @@ public final class VillageCommand extends AbstractCommandCollection {
                 return;
             }
             String cat = category.get(context);
+            if (Boolean.TRUE.equals(capture.get(context))) {
+                // Relevé des panneaux déplacés à la main, sans bâtir ni écraser la carte.
+                ReviewMap.existingWorld().thenCompose(review -> review == null
+                        ? java.util.concurrent.CompletableFuture.completedFuture((ReviewMap.CaptureResult) null)
+                        : ReviewMap.capture(review)).whenComplete((r, error) -> {
+                    if (error != null || r == null) {
+                        player.sendMessage(Message.translation(ReviewMap.KEYS + (r == null && error == null ? "captureNone" : "noWorld")));
+                        return;
+                    }
+                    player.sendMessage(Message.translation(ReviewMap.KEYS + "captured").param("moved", r.moved())
+                            .param("missing", r.missing()).param("total", r.total()).param("file", r.file().toString()));
+                });
+                return;
+            }
             boolean again = Boolean.TRUE.equals(rebuild.get(context));
             ReviewMap.world(again).whenComplete((review, error) -> {
                 if (review == null) {
