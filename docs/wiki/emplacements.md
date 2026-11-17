@@ -19,21 +19,40 @@ Chaque village garde trois terrains vides, **E1**, **E2** et **E3**, pour des b�
 
 Un même projet ne peut être que sur un seul terrain, et le village n'a qu'**un projet par catégorie**, sauf l'Artisanat : jusqu'à trois ateliers. Le deuxième élevage reste à part (hors catégorie, un seul) ; il doit avoir une autre spécialité que l'enclos du village.
 
-## Les catégories
+## Les catégories {#les-categories}
 
 | Catégorie | Bâtiment | Effet sur le village | Spécialités |
 | --- | --- | --- | --- |
-| **Défense** | Caserne (Chenil chez les Renoncés) | en raid, 2 gardes de plus autour du cœur au niveau I, +1 par niveau | **Milice** : encore 2 gardes en raid. **Garnison** : +1 garde dans chaque lieu-dit tenu, chaque ouvrage et chaque expédition |
-| **Diplomatie** | Ambassade (l'ancienne Maison du conseil) | +1 lieu-dit tenu par niveau | **Négociants** : ambassades plus sûres, ralliement plus tôt. **Hérauts** : les relations avec les autres villages remontent deux fois plus vite |
-| **Savoir** | Bibliothèque | savoir-faire +15 % pour tous les bâtiments de métier du village | Cartographes, Maîtres (boutiques de cartes et de recettes) |
+| **Défense** | Caserne | en raid, 2 gardes de plus autour du cœur au niveau I, +1 par niveau | **Milice** : encore 2 gardes en raid. **Garnison** : +1 garde dans chaque lieu-dit tenu, chaque ouvrage et chaque expédition |
+| **Diplomatie** | Ambassade (l'ancienne Maison du conseil) | +1 lieu-dit tenu par niveau | **Négociants** : ambassades dès 30 d'influence (40 sinon), plus sûres, ralliement plus tôt. **Hérauts** : les relations avec les autres villages remontent deux fois plus vite |
+| **Savoir** | Bibliothèque | savoir-faire +15 % pour tous les bâtiments de métier du village | **Cartographes** : les lieux-dits à moins de 600 blocs du village apparaissent sur votre carte si vous y êtes au moins Toléré. **Maîtres** : les commandes de maître de récolte, de fabrication et de plantation demandent un quart de moins |
 | **Culte** | Temple | essor +10 % | **Protection** : un raid perdu ne brûle un bâtiment qu'une fois sur deux. Bénédiction (boutique d'offrandes) |
 | **Artisanat** | ateliers du peuple | transforment des ressources du dépôt en objets | celles de chaque atelier |
+| **Commerce** | Halle marchande | +1 place de [route commerciale](commerce.md) par niveau | **Courtiers** : une faveur versée au crédit d'une route vaut 4 au lieu de 3. **Entrepôts** : ce que livrent les caravanes reste en accès 10 jours au lieu de 7 |
 
 ### Les ateliers consomment des ressources
 
 Chaque matin, un atelier prend au dépôt du village ses ressources du jour (plus à chaque niveau) : la page des projets les indique. Sans elles, il est **à l'arrêt** pour la journée : boutique fermée, pas de Part de l'Hôte. Ses commandes et sa montée de niveau restent ouvertes : vous pouvez le faire grandir en le nourrissant vous-même.
 
 Les ressources arrivent par le convoi d'un [avant-poste de production](avant-postes-de-metier.md) du village, par une route commerciale, ou par les joueurs. Certaines ne poussent pas chez le peuple (le sel du fumoir des Renoncés, le cuivre de la forge trork) : il faut une route ou des apports.
+
+### Certains projets demandent une ressource d'ailleurs
+
+Quelques projets et spécialités ne se choisissent que si le village a **accès** à une ressource : par une [route commerciale](commerce.md), une demande « Luxe d'ailleurs » remplie, ou parce qu'il la produit lui-même. La page du terrain dit ce qui manque.
+
+| Projet ou spécialité | Il faut |
+| --- | --- |
+| Temple | des cristaux d'améthyste et 2 luxes |
+| Bibliothèque | de la soie |
+| Ambassade | 2 routes commerciales ouvertes |
+| Ateliers d'Artisanat | du cuir (Kweebecs, Renoncés), du fer (Trorks, Feran) ou du cuivre (Slothians) |
+| Mobilier (menuisier kweebec) | du coton ou de la laine en rouleau |
+| Cuirs (tannerie trork) | du sel |
+| Voiles (tissage feran) | de la laine ou de la soie |
+| Flèches (volerie feran), Armes (forge des repentis) | du fer |
+| Dorures (taillerie slothiane) | de l'or |
+
+Si la ressource vient à manquer, le bâtiment reste debout mais sa boutique redescend au niveau I.
 
 | Peuple | Matériaux d'un chantier |
 | --- | --- |
@@ -45,13 +64,13 @@ Les ressources arrivent par le convoi d'un [avant-poste de production](avant-pos
 
 ## Les projets
 
-| Peuple | Défense | Diplomatie | Savoir | Culte | Artisanat | Élevage |
-| --- | --- | --- | --- | --- | --- | --- |
-| [Kweebecs](kweebecs.md) | Quartier des Razorleaf | Ambassade | Maison des contes | Sanctuaire des racines | Atelier d'archerie, Herboristerie, Atelier du menuisier | Deuxième enclos |
-| [Trorks](trorks.md) | Fosse des guerriers | Ambassade | Hutte du chaman | Totem de guerre | Forge de guerre, Tannerie | Deuxième fosse |
-| [Feran](feran.md) | Camp des lanciers | Ambassade | Tente des astrologues | Temple du vent | Caravansérail, Atelier de tissage, Volerie des plumes | Deuxième enclos |
-| [Renoncés](renonces.md) | Chenil | Ambassade | Archives du givre | Chapelle des repentis | Forge des repentis, Fumoir et tannerie | Deuxième bergerie |
-| [Slothians](slothians.md) | Cloître des gardiens | Ambassade | Scriptorium | Sanctuaire | — | Deuxième bauge |
+| Peuple | Défense | Diplomatie | Savoir | Culte | Artisanat | Commerce | Élevage |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| [Kweebecs](kweebecs.md) | Quartier des Razorleaf | Ambassade | Maison des contes | Sanctuaire des racines | Atelier d'archerie, Herboristerie, Atelier du menuisier | Halle marchande | Deuxième enclos |
+| [Trorks](trorks.md) | Fosse des guerriers | Ambassade | Hutte du chaman | Totem de guerre | Forge de guerre, Tannerie | Halle marchande | Deuxième fosse |
+| [Feran](feran.md) | Camp des lanciers | Ambassade | Tente des astrologues | Temple du vent | Caravansérail, Atelier de tissage, Volerie des plumes | Halle marchande | Deuxième enclos |
+| [Renoncés](renonces.md) | Garnison du givre | Ambassade | Archives du givre | Chapelle des repentis | Forge des repentis, Fumoir et tannerie | Halle marchande | Deuxième bergerie |
+| [Slothians](slothians.md) | Cloître des gardiens | Ambassade | Scriptorium | Sanctuaire | Taillerie du basalte | Halle marchande | Deuxième bauge |
 
 Les projets qui récoltaient (Grand bassin, Camp de bûcherons, Carrière, Citerne, Cabanes de pêche, Puits de basalte) doublaient un avant-poste de production : ils ne sont plus proposés. Ceux déjà bâtis restent debout et continuent de travailler.
 

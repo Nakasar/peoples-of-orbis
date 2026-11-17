@@ -13,7 +13,7 @@ Un village ne produit pas tout ce dont il a besoin. Une **route commerciale** le
 
 Dans l'onglet **Commerce** du panneau, la liste des partenaires possibles montre les villages de ses liaisons (jusqu'à 2400 blocs, pas rivaux) et les lieux-dits posés (sans embargo contre lui). Il faut être **Ami** du village, **Toléré** du partenaire, et verser **5 faveurs** du village.
 
-Un village a autant de routes que son palier (1, 2 puis 3) ; un lieu-dit en accepte 2, ou 3 s'il est animé. Les villages en ouvrent aussi d'eux-mêmes, au conseil du matin, quand il leur reste une place.
+Un village a autant de routes que son palier (1, 2 puis 3), plus une par niveau de sa [Halle marchande](emplacements.md#les-categories) ; un lieu-dit en accepte 2, ou 3 s'il est animé. Les villages en ouvrent aussi d'eux-mêmes, au conseil du matin, quand il leur reste une place.
 
 ## Les niveaux
 
@@ -37,13 +37,13 @@ Toute ressource s'échange, pas seulement les luxes. Cliquez sur une case **Expo
 
 Les Kweebecs n'échangent aucun métal.
 
-Chaque marchandise a une classe : **commune** (16, 24 puis 32 par chargement), **fine** (planches, lingots, outils, mets cuisinés... : 6, 9 puis 12) ou **luxe** (2, 3 puis 4). Les exportations d'un village doivent peser autant que ses importations (commune 1, fine 2, luxe 3) ; sinon, versez des faveurs au crédit de la route (une faveur vaut 3), faute de quoi la case la plus lourde reste à quai.
+Chaque marchandise a une classe : **commune** (16, 24 puis 32 par chargement), **fine** (planches, lingots, outils, mets cuisinés... : 6, 9 puis 12) ou **luxe** (2, 3 puis 4). Les exportations d'un village doivent peser autant que ses importations (commune 1, fine 2, luxe 3) ; sinon, versez des faveurs au crédit de la route (une faveur vaut 3, ou 4 avec les Courtiers de la Halle marchande), faute de quoi la case la plus lourde reste à quai.
 
 La caravane prend ses marchandises au dépôt ; si le dépôt est trop loin de tout joueur pour être chargé, elle part avec un chargement plein de sa production. À l'arrivée, tout va au **dépôt** : pour les chantiers, les ateliers et la réexportation.
 
 ## Accès et luxes
 
-Une marchandise livrée donne au village **l'accès** à cette ressource pour 7 jours. L'**étal des importations** de l'onglet Commerce en vend un petit lot contre une faveur (rang Toléré).
+Une marchandise livrée donne au village **l'accès** à cette ressource pour 7 jours (10 avec les Entrepôts de la Halle marchande). L'**étal des importations** de l'onglet Commerce en vend un petit lot contre une faveur (rang Toléré).
 
 Neuf ressources sont des **luxes** :
 
@@ -63,3 +63,11 @@ Deux luxes posés au dépôt prolongent l'accès de 3 jours quand il touche à s
 ## Sur la route
 
 Les caravaniers voyagent de jour. Parlez-leur : ils troquent comme les voyageurs de leur peuple et disent ce qu'ils portent. À mi-chemin, une caravane sur six tombe dans une embuscade (une sur douze sur une route balisée, et moitié moins sur le territoire d'un village). Si vous êtes là, défendez-la ; sinon, elle perd un tiers de sa cargaison. Une caravane détruite laisse sa cargaison sur la route.
+
+### Escorter une caravane
+
+Demandez au caravanier ce qu'il porte, puis proposez-lui votre escorte. Un seul joueur escorte une caravane. Restez près des bêtes jusqu'au bout : à plus de 96 blocs pendant une minute, l'escorte est perdue.
+
+- Au départ : **+25** de réputation au village d'où part la caravane.
+- À l'arrivée, si vous êtes là : **+12** au village qui la reçoit.
+- Si vous repoussez l'embuscade de mi-chemin : une **faveur** du peuple de départ.

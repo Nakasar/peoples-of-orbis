@@ -55,6 +55,8 @@ Au **niveau III**, le bâtiment met de côté chaque matin un petit lot de sa pr
 
 Les bâtiments d'**emplacement libre** se choisissent et se bâtissent au panneau du village (voir [Emplacements libres](emplacements.md)).
 
+Chaque peuple peut aussi bâtir une **Halle marchande** (catégorie Commerce) sur un emplacement libre : voir [Emplacements](emplacements.md#les-categories).
+
 ### Kweebecs
 
 | Bâtiment | Ouvre | Spécialités (niveau II) |
@@ -101,11 +103,12 @@ Les bâtiments d'**emplacement libre** se choisissent et se bâtissent au pannea
 
 | Bâtiment | Ouvre | Spécialités (niveau II) |
 |---|---|---|
-| Bergerie du givre | palier 1 (hameau) | **Bisons** : Bisons : bœuf et peaux lourdes.<br/>**Sangliers des neiges** : Sangliers : viande et défenses.<br/>**Loups blancs des repentis** : Loups blancs : fourrures épaisses. |
+| Bergerie du givre | palier 1 (hameau) | **Bisons** : Bisons : bœuf et peaux lourdes.<br/>**Sangliers des neiges** : Sangliers : viande et défenses.<br/>**Loups blancs des repentis** : Loups blancs : fourrures épaisses.<br/>**Laiterie du givre** : Chèvres laitières : fromage du givre et peaux. |
 | Maison du chasseur | palier 1 (hameau) | **Trappeur des neiges** : Peaux lourdes et fourrures.<br/>**Pêcheur des glaces** : Poissons des eaux froides. |
 | Tour du fort | palier 2 (village) | **Arbalétriers** : Arbalètes ; en raid, 2 gardes de plus postés à la tour.<br/>**Gardes du givre** : Manteaux ; en raid, +1 garde et des gardes plus solides. |
 | Cabane de pêche | emplacement libre | **Poissons froids** : Poissons des eaux froides.<br/>**Filets et nasses** : Nasses, appâts et belles prises. |
 | Chenil | emplacement libre | **Loups de garde** : Peaux et harnais ; en raid, +1 garde.<br/>**Traîneaux** : Sangles, bois et cartes du givre. |
+| Garnison du givre | emplacement libre (Défense) | **Milice** : encore 2 gardes en raid.<br/>**Garnison** : +1 garde dans chaque lieu-dit tenu, chaque ouvrage et chaque expédition. |
 | Deuxième bergerie | emplacement libre | celles du bâtiment « Bergerie du givre », jamais la même que lui |
 | Forge des repentis | emplacement libre | **Armes** : Masses, lances et arbalètes de fer.<br/>**Armures lourdes** : Armures de cuir lourd. |
 | Fumoir et tannerie | emplacement libre | **Viandes fumées** : Viandes fumées, brochettes, tourtes.<br/>**Fourrures** : Peaux lourdes et manteaux. |
@@ -123,3 +126,4 @@ Les bâtiments d'**emplacement libre** se choisissent et se bâtissent au pannea
 | Puits de basalte | emplacement libre | **Eau** : Eau et potions de régénération.<br/>**Essence de feu** : Essence de feu, charbon, arc de flamme. |
 | Sanctuaire | emplacement libre | **Protection contre le Vide** : Potions qui purifient et soignent.<br/>**Offrandes** : Braseros, pots et essences rares. |
 | Scriptorium | emplacement libre | **Recettes** : Recettes de cuisine et de graines.<br/>**Souvenirs de la veille** : Livres, tableaux et grimoires. |
+| Taillerie du basalte | emplacement libre (Artisanat) | **Pierre sacrée** : Basalte poli, ornements et piliers.<br/>**Dorures** : Pierre dorée et cristaux d'or ; demande de l'or. |
