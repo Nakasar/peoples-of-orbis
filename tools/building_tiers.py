@@ -451,6 +451,30 @@ def tiers_of(e):
 
 
 GROWTH = Path(__file__).resolve().parent.parent / "src/main/resources/nakasar-peuples/paliers-batiments.json"
+# Paliers retouchés à la main sur la carte de revue (Kevin, 17 novembre 2026 : « modifier complètement les prefab pour
+# pouvoir faciliter leur mise à jour dans le mod, comme un éditeur ») : /village revue --sauver écrit le prefab et cette
+# liste dans nakasar-revue/ à côté des mondes du serveur ; prefabs copiés dans src/main/resources/Server/Prefabs/.
+RETOUCHES_FILE = Path(__file__).resolve().parent / "retouches-prefabs.json"
+
+
+def retouches():
+    """(peuple, Id de la carte, palier) -> prefab du mod qui remplace la composition de ce palier."""
+    if not RETOUCHES_FILE.exists():
+        return {}
+    out = {}
+    for r in json.loads(RETOUCHES_FILE.read_text(encoding="utf-8")).get("Prefabs", []):
+        if r["Prefab"] not in BOUNDS:
+            raise SystemExit(f"Prefab retouché absent de src/main/resources/Server/Prefabs/ : {r['Prefab']}")
+        out[(r["People"], r["Id"], r["Tier"])] = r["Prefab"]
+    return out
+
+
+def apply_retouches(people, e, tiers, table):
+    for t in tiers:
+        prefab = table.get((people, e["Id"], t["Tier"]))
+        if prefab:
+            t["Pieces"] = [f"{prefab} 0 0 0 0"]
+            t["Notes"] = [n for n in t["Notes"] if "à retoucher" not in n] + ["retouché à la main sur la carte"]
 
 
 def growth_data():
@@ -535,6 +559,7 @@ def main():
     total_cells = 0
     incompatible = incompatibles()
     growth = growth_data()
+    retouched = retouches()
     stats = {"placed": 0, "mismatch": 0}
     missing = set()
     for people, entries in sections:
@@ -544,6 +569,7 @@ def main():
                 if e["Category"] != c:
                     continue
                 tiers = tiers_of(e)
+                apply_retouches(people, e, tiers, retouched)
                 add_board(people, e, tiers, growth, stats)
                 for t in tiers:
                     reasons = incompatible.get((people, e["Id"], t["Tier"]))

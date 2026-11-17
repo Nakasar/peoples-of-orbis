@@ -1294,6 +1294,8 @@ public final class VillageCommand extends AbstractCommandCollection {
      * (toute la carte, ou ceux du peuple donné). Le monde est écrasé par un monde neuf quand la carte a changé, ou avec
      * {@code --rebatir} (retouches non enregistrées en prefab perdues ; les panneaux déplacés à la main sont relevés
      * avant). {@code --relever} : relève seulement les panneaux déplacés à la main ({@link ReviewMap#capture}).
+     * {@code --sauver} : enregistre comme prefab du mod le palier du rectangle où se tient le joueur
+     * ({@link dev.nakasar.hytale.peuples.review.ReviewPrefabs}).
      */
     private static final class ReviewCommand extends AbstractPlayerCommand {
         private final OptionalArg<String> people = withOptionalArg("peuple", KEYS + "review.people", ArgTypes.STRING);
@@ -1302,6 +1304,8 @@ public final class VillageCommand extends AbstractCommandCollection {
                 withFlagArg("rebatir", KEYS + "review.rebuild");
         private final com.hypixel.hytale.server.core.command.system.arguments.system.FlagArg capture =
                 withFlagArg("relever", KEYS + "review.capture");
+        private final com.hypixel.hytale.server.core.command.system.arguments.system.FlagArg save =
+                withFlagArg("sauver", KEYS + "review.save");
 
         ReviewCommand() {
             super("revue", KEYS + "review.desc");
@@ -1318,6 +1322,31 @@ public final class VillageCommand extends AbstractCommandCollection {
                 return;
             }
             String cat = category.get(context);
+            if (Boolean.TRUE.equals(save.get(context))) {
+                // Le rectangle où se tient le joueur, retouché à la main, devient un prefab du mod.
+                if (!world.getName().equals(ReviewMap.worldName())) {
+                    player.sendMessage(Message.translation(ReviewMap.KEYS + "saveOutside"));
+                    return;
+                }
+                com.hypixel.hytale.server.core.modules.entity.component.TransformComponent t = store.getComponent(ref,
+                        com.hypixel.hytale.server.core.modules.entity.component.TransformComponent.getComponentType());
+                if (t == null) {
+                    return;
+                }
+                int px = (int) Math.floor(t.getPosition().x);
+                int pz = (int) Math.floor(t.getPosition().z);
+                dev.nakasar.hytale.peuples.review.ReviewPrefabs.save(player, world, px, pz).whenComplete((r, error) -> {
+                    if (r == null) {
+                        player.sendMessage(Message.translation(ReviewMap.KEYS + (error instanceof IllegalStateException
+                                || error != null && error.getCause() instanceof IllegalStateException ? "saveOutside" : "saveFailed")));
+                        return;
+                    }
+                    player.sendMessage(Message.translation(ReviewMap.KEYS + "saved").param("building", r.building())
+                            .param("tier", r.tier()).param("prefab", r.prefab()).param("dir",
+                                    dev.nakasar.hytale.peuples.review.ReviewPrefabs.dir().toString()));
+                });
+                return;
+            }
             if (Boolean.TRUE.equals(capture.get(context))) {
                 // Relevé des panneaux déplacés à la main, sans bâtir ni écraser la carte.
                 ReviewMap.existingWorld().thenCompose(review -> review == null

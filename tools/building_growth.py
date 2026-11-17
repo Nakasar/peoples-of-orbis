@@ -63,6 +63,7 @@ def manual_boards():
 
 
 MANUAL = manual_boards()
+RETOUCHES = bt.retouches()  # paliers retouchés à la main sur la carte de revue (tools/retouches-prefabs.json)
 OFFSETS = sorted(((dx, dz) for dx in range(-MAX_SHIFT, MAX_SHIFT + 1) for dz in range(-MAX_SHIFT, MAX_SHIFT + 1)),
                  key=lambda o: (abs(o[0]) + abs(o[1]), abs(o[0]), o))
 
@@ -138,6 +139,10 @@ def layout_entries(layout, workshops, layout_id, incompatible, review):
     for b in layout["Buildings"]:
         bid = b["Id"]
         steps = steps_of(b["Prefab"])
+        row_id = "Projet_" + bid[3:] if re.match(r"E\d_", bid) else bid
+        if any((people, row_id, p) in RETOUCHES for p in PALIERS):
+            # Un cran par palier, le prefab retouché à la place de la version vanilla là où il y en a un.
+            steps = [RETOUCHES.get((people, row_id, p)) or steps[wanted(steps, p)] for p in PALIERS]
         chosen = []
         cx = (base[bid][0] + base[bid][1]) / 2
         cz = (base[bid][2] + base[bid][3]) / 2
@@ -268,7 +273,6 @@ def layout_entries(layout, workshops, layout_id, incompatible, review):
             reserved[bid] = union(reserved[bid], r)
             entry = {"Palier": palier, "Prefab": path, "DX": pick[1], "DZ": pick[2], "MinX": r[0] - ax,
                      "MaxX": r[1] - ax, "MinZ": r[2] - az, "MaxZ": r[3] - az, "MinY": bb[2], "MaxY": bb[3]}
-            row_id = "Projet_" + bid[3:] if re.match(r"E\d_", bid) else bid
             manual = MANUAL.get((people, row_id, palier))
             if own is not None and manual is not None:
                 mx, mz = rotate(manual[0], manual[1], b["Rotation"])
@@ -375,6 +379,9 @@ def annex_entries(workshops, incompatible):
                 current[i] = pick
             lines = [f"{ladders[i][c[0]]} {pieces[i][1] + c[1]} {pieces[i][2] + c[2]} {pieces[i][3]}"
                      for i, c in enumerate(current)]
+            retouched = RETOUCHES.get((w.get("People"), "AP_" + a["Type"], palier))
+            if retouched:
+                lines = [f"{retouched} 0 0 0"]  # palier retouché à la main : toute la composition en un prefab
             report["grown"] += sum(1 for c in current if c[0] > 0)
             tiers.append({"Palier": palier, "Prefabs": lines})
         if any(t["Prefabs"] != tiers[0]["Prefabs"] for t in tiers):

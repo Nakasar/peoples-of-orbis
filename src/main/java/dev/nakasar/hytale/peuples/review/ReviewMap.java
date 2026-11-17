@@ -100,7 +100,7 @@ public final class ReviewMap {
     static final int CATEGORY_GAP = 10;
     static final int SECTION_GAP = 16;
     /** Hauteur dégagée au-dessus du plus haut bloc mesuré quand on bâtit un rectangle. */
-    private static final int CLEAR_ABOVE = 12;
+    static final int CLEAR_ABOVE = 12;
     private static final int REPORT_EVERY = 25;
 
     private static Data data;
@@ -385,7 +385,7 @@ public final class ReviewMap {
 
     // ---- Monde ----
 
-    static String worldName() {
+    public static String worldName() {
         return data().world == null ? WORLD_DEFAULT : data().world;
     }
 
@@ -821,41 +821,89 @@ public final class ReviewMap {
                         if (found[0] == was.x() && found[1] == was.y() && found[2] == was.z() && found[3] == was.yaw()) {
                             return;
                         }
-                        // Clé « Peuple/Catégorie/Id#palier ».
-                        int hash = key.lastIndexOf('#');
-                        String[] parts = key.substring(0, hash).split("/", 3);
-                        Capture c = new Capture();
-                        c.key = key;
-                        c.people = parts[0];
-                        c.category = parts.length > 1 ? parts[1] : "";
-                        c.id = parts.length > 2 ? parts[2] : "";
-                        c.tier = Integer.parseInt(key.substring(hash + 1));
-                        c.dx = found[0] - was.ox();
-                        c.dy = found[1] - GROUND;
-                        c.dz = found[2] - was.oz();
-                        c.yaw = found[3];
-                        byKey.put(key, c);
+                        byKey.put(key, toCapture(key, was, found));
                         counts[0]++;
                     }, world::execute);
         }
         return chain.thenApply(v -> {
             doc.boards = new ArrayList<>(byKey.values());
             doc.boards.sort(java.util.Comparator.comparing(c -> c.key));
-            doc.comment = "Panneaux de métier déplacés à la main sur la carte de revue (/village revue --relever, "
-                    + "relevé aussi avant chaque écrasement du monde). À copier dans tools/panneaux-releves.json du dépôt "
-                    + "(lu par tools/building_growth.py). DX/DY/DZ relatifs au point de collage du prefab non tourné, "
-                    + "Yaw 0 face au sud, 1 à l'est, 2 au nord, 3 à l'ouest.";
-            try {
-                Files.createDirectories(file.getParent());
-                Files.writeString(file, new com.google.gson.GsonBuilder().setPrettyPrinting().disableHtmlEscaping()
-                        .create().toJson(doc) + "\n", StandardCharsets.UTF_8);
-            } catch (IOException e) {
-                throw new java.io.UncheckedIOException(e);
-            }
+            writeCaptures(file, doc);
             LOGGER.atInfo().log("Nakasar Peuples : revue, %d panneau(x) relevé(s), %d introuvable(s) → %s", counts[0],
                     counts[1], file);
             return new CaptureResult(counts[0], counts[1], doc.boards.size(), file);
         });
+    }
+
+    /** Relevé du panneau `key` trouvé en `found` (x, y, z, lacet). Clé « Peuple/Catégorie/Id#palier ». */
+    private static Capture toCapture(String key, Placed was, int[] found) {
+        int hash = key.lastIndexOf('#');
+        String[] parts = key.substring(0, hash).split("/", 3);
+        Capture c = new Capture();
+        c.key = key;
+        c.people = parts[0];
+        c.category = parts.length > 1 ? parts[1] : "";
+        c.id = parts.length > 2 ? parts[2] : "";
+        c.tier = Integer.parseInt(key.substring(hash + 1));
+        c.dx = found[0] - was.ox();
+        c.dy = found[1] - GROUND;
+        c.dz = found[2] - was.oz();
+        c.yaw = found[3];
+        return c;
+    }
+
+    /**
+     * Panneau du rectangle `key` (sur le thread du monde, chunks chargés) : relevé s'il a bougé depuis sa pose, puis
+     * rendu (x, y, z, lacet, bloc via {@link #boardBlock}) ; null si le palier n'a pas de panneau ou s'il n'y est plus.
+     */
+    static int[] captureOne(World world, String key) {
+        Placed was = placed(world).get(key);
+        if (was == null) {
+            return null;
+        }
+        int[] found = findBoard(world.getChunkStore(), was);
+        if (found == null) {
+            return null;
+        }
+        if (found[0] != was.x() || found[1] != was.y() || found[2] != was.z() || found[3] != was.yaw()) {
+            Path file = captureFile();
+            CaptureFile doc = readCaptures(file);
+            doc.boards.removeIf(c -> key.equals(c.key));
+            doc.boards.add(toCapture(key, was, found));
+            doc.boards.sort(java.util.Comparator.comparing(c -> c.key));
+            writeCaptures(file, doc);
+        }
+        return found;
+    }
+
+    /** Bloc du panneau de métier posé dans le rectangle `key`, ou null. */
+    static String boardBlock(World world, String key) {
+        Placed was = placed(world).get(key);
+        return was == null ? null : was.block();
+    }
+
+    private static void writeCaptures(Path file, CaptureFile doc) {
+        doc.comment = "Panneaux de métier déplacés à la main sur la carte de revue (/village revue --relever, "
+                + "relevé aussi avant chaque écrasement du monde et à chaque --sauver). À copier dans "
+                + "tools/panneaux-releves.json du dépôt (lu par tools/building_growth.py). DX/DY/DZ relatifs au point de "
+                + "collage du prefab non tourné, Yaw 0 face au sud, 1 à l'est, 2 au nord, 3 à l'ouest.";
+        try {
+            Files.createDirectories(file.getParent());
+            Files.writeString(file, new com.google.gson.GsonBuilder().setPrettyPrinting().disableHtmlEscaping()
+                    .create().toJson(doc) + "\n", StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
+    }
+
+    /** Le rectangle (liseré compris) qui contient la colonne (x, z) du monde de revue, ou null. */
+    static Spot spotAt(World world, int x, int z) {
+        for (Spot s : layout(world).spots) {
+            if (x >= s.x0 && x <= s.x1 && z >= s.z0 && z <= s.z1) {
+                return s;
+            }
+        }
+        return null;
     }
 
     private static CaptureFile readCaptures(Path file) {

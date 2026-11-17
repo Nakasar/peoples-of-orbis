@@ -1646,7 +1646,9 @@ public class ValidateAssets {
                     if (!knownPrefab.test(prefab)) {
                         problems.add(layoutId + "/" + id + " : prefab inconnu " + prefab);
                     }
-                    if (tier.getInt32("Palier").getValue() == 1 && (!prefab.equals(b.getString("Prefab").getValue())
+                    // Palier 1 retouché à la main sur la carte de revue (tools/retouches-prefabs.json) : permis.
+                    if (tier.getInt32("Palier").getValue() == 1 && !prefab.startsWith("Nakasar/Peuples/Retouches/")
+                            && (!prefab.equals(b.getString("Prefab").getValue())
                             || tier.getInt32("DX").getValue() != 0 || tier.getInt32("DZ").getValue() != 0)) {
                         problems.add(layoutId + "/" + id + " : le palier 1 n'est plus le bâtiment du plan (relancer tools/building_growth.py)");
                     }

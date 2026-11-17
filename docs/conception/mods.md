@@ -2170,6 +2170,22 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
   posé par `ReviewMap.placeBoard` avec `Workshops.boardSpot`, la même recherche qu'en jeu (plaqué au mur, ou entré dans
   le bâtiment). Bâtiments de métier et projets : place de `tools/building_growth.py` (section `Review`) ; avant-postes :
   sur leur fondation (`Fixe`). Un bâtiment propre n'a pas de panneau.
+- **Retoucher un prefab à la main** (Kevin, 17 novembre 2026 : « le but c'est de pouvoir modifier complètement les
+  prefab pour pouvoir faciliter leur mise à jour dans le mod, comme un éditeur ») : retoucher le bâtiment dans son
+  rectangle (créatif, outils de construction), puis, debout dans le rectangle, `/village revue --sauver`
+  (`review/ReviewPrefabs`). Le palier est enregistré par l'outil d'enregistrement de prefabs du serveur
+  (`PrefabSaver` : états de blocs, coffres, remplissages) : intérieur du rectangle sans le liseré, de 16 blocs sous le
+  sol jusqu'au haut du rectangle, origine = point de collage du palier (mêmes coordonnées que le prefab d'origine).
+  Les couches du monde plat (herbe au sol, terre, pierre) et le panneau muet en sont retirés ; le panneau de métier
+  aussi (sa place est relevée à part, puis il est remis). Sortie à côté des mondes du serveur :
+  `nakasar-revue/prefabs/Nakasar/Peuples/Retouches/<Peuple>/<Catégorie>_<Id>_P<palier>.prefab.json` et la liste
+  `nakasar-revue/retouches-prefabs.json`. Copier `prefabs/` dans `src/main/resources/Server/Prefabs/` et la liste dans
+  `tools/retouches-prefabs.json`, relancer `tools/building_growth.py` puis `tools/building_tiers.py` : le prefab
+  retouché remplace toute la composition de ce palier, sur la carte (note « retouché à la main ») et en jeu
+  (bâtiment du plan : version de ce palier, avec les mêmes règles de place, liseré bleu s'il ne tient pas ;
+  avant-poste : pièce unique à la fondation). Un palier 1 retouché est permis par `validateAssets`. Retouches pas
+  encore enregistrées : perdues quand le monde de revue est écrasé (l'ancien dossier reste dans les mondes supprimés
+  du serveur). Cœur, hameaux et lieux-dits : la carte montre le prefab retouché, le jeu ne le prend pas encore.
 - **Placer un panneau à la main** (Kevin, 17 novembre 2026 : « le placement à la main du panneau va consister à le
   déplacer physiquement à la main sur la carte de revue ») : casser le panneau d'un rectangle et le reposer où il doit
   être (même bloc vanilla, dans le même rectangle, lacet compris), puis `/village revue --relever`. La carte compare
