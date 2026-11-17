@@ -34,7 +34,8 @@ import java.util.concurrent.CompletableFuture;
  * <ul>
  *   <li>Zone enregistrée : l'intérieur du rectangle (sans le liseré), de {@value #DEPTH} blocs sous le sol au haut du
  *   rectangle, origine = point de collage du palier (les mêmes coordonnées que le prefab d'origine) ; les couches du
- *   monde plat (herbe, terre, pierre) et le panneau muet de la carte n'en font pas partie ;</li>
+ *   monde plat (herbe, terre, pierre), le tracé jaune de la place libre et le panneau muet de la carte n'en font pas
+ *   partie ;</li>
  *   <li>le panneau de métier n'est pas dans le prefab : il est relevé à part (place gardée dans le relevé des
  *   panneaux) puis remis ;</li>
  *   <li>sortie dans {@code nakasar-revue/} à côté des mondes du serveur : {@code prefabs/Nakasar/Peuples/Retouches/...}
@@ -166,7 +167,7 @@ public final class ReviewPrefabs {
      */
     static boolean natural(String name, int y) {
         if (y == 0) {
-            return Blocks.is(name, ReviewMap.GRASS);
+            return Blocks.is(name, ReviewMap.GRASS) || Blocks.is(name, ReviewMap.ZONE); // sol et tracé de la place libre
         }
         if (y < 0 && y >= -3) {
             return Blocks.is(name, Terrain.DIRT);

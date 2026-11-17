@@ -2170,6 +2170,16 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
   posé par `ReviewMap.placeBoard` avec `Workshops.boardSpot`, la même recherche qu'en jeu (plaqué au mur, ou entré dans
   le bâtiment). Bâtiments de métier et projets : place de `tools/building_growth.py` (section `Review`) ; avant-postes :
   sur leur fondation (`Fixe`). Un bâtiment propre n'a pas de panneau.
+- **Place libre** (Kevin, 17 novembre 2026 : « du moment qu'un prefab entre dans le rectangle tracé, il est
+  valide ? » — non, d'où ce tracé) : contour en laine jaune `Cloth_Block_Wool_Yellow` au sol, sur l'herbe seulement,
+  champ `Zone` du palier. Bâtiment du plan : l'emprise retenue à ce palier, agrandie côté par côté (24 blocs au plus)
+  tant qu'elle ne touche ni la place, ni un terrain (un projet reste dans le sien à 1 bloc du bord), ni l'emprise
+  réservée d'un voisin, ni le panneau d'un voisin, et reste dans le rayon du village (`tools/building_growth.py`,
+  section `Zones`, repère du prefab non tourné ; projet : la place commune à ses trois terrains). Avant-poste : son
+  `Annex.Rect`. Un côté non tracé = la place continue au-delà du rectangle de la carte. Une retouche qui tient dans le
+  contour est valide en jeu ; deux voisins peuvent voir le même espace libre entre eux, une retouche des deux qui s'y
+  rejoint est refusée au calcul suivant (liseré bleu). Une retouche d'avant-poste qui sort de `Annex.Rect` est refusée
+  (liste des incompatibles) et le palier garde ses pièces vanilla. Le tracé n'est jamais enregistré dans un prefab.
 - **Retoucher un prefab à la main** (Kevin, 17 novembre 2026 : « le but c'est de pouvoir modifier complètement les
   prefab pour pouvoir faciliter leur mise à jour dans le mod, comme un éditeur ») : retoucher le bâtiment dans son
   rectangle (créatif, outils de construction), puis, debout dans le rectangle, `/village revue --sauver`

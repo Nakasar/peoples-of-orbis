@@ -118,7 +118,11 @@ def reachable(layout, b, workshops, palier):
     return palier >= b["Tier"] + 1
 
 
-def layout_entries(layout, workshops, layout_id, incompatible, review):
+# Agrandissement maximal de la place libre tracée sur la carte de revue, par côté.
+ZONE_GROWTH = 24
+
+
+def layout_entries(layout, workshops, layout_id, incompatible, review, zones):
     people = layout["People"]
     plaza = layout["PlazaRadius"] + 1
     plaza_rect = [-plaza, plaza, -plaza, plaza]
@@ -136,6 +140,7 @@ def layout_entries(layout, workshops, layout_id, incompatible, review):
     radius = layout["Radius"]
     out = {}
     report = {"grown": 0, "blocked": 0, "front": 0, "inside": 0}
+    rects = {}  # emprise retenue par bâtiment et par palier (monde, relative au cœur)
     for b in layout["Buildings"]:
         bid = b["Id"]
         steps = steps_of(b["Prefab"])
@@ -270,6 +275,7 @@ def layout_entries(layout, workshops, layout_id, incompatible, review):
             bb = bounds(path)
             ax, az = b["X"] + pick[1], b["Z"] + pick[2]
             r = rect_of(path, ax, az, b["Rotation"])
+            rects.setdefault(bid, {})[palier] = r
             reserved[bid] = union(reserved[bid], r)
             entry = {"Palier": palier, "Prefab": path, "DX": pick[1], "DZ": pick[2], "MinX": r[0] - ax,
                      "MaxX": r[1] - ax, "MinZ": r[2] - az, "MaxZ": r[3] - az, "MinY": bb[2], "MaxY": bb[3]}
@@ -307,6 +313,48 @@ def layout_entries(layout, workshops, layout_id, incompatible, review):
                 review.setdefault(bid, {})[str(palier)] = rel + [steps[want]] + ([manual[3]] if manual else [])
         if any(c["Prefab"] != b["Prefab"] or c.get("Manual") for c in chosen):
             out[bid] = chosen
+
+    # Place libre de chaque bâtiment à chaque palier (Kevin, 17 novembre 2026 : tracée sur la carte de revue, une
+    # retouche qui y tient est valide en jeu) : son emprise retenue, agrandie côté par côté tant qu'elle ne touche ni la
+    # place, ni un terrain (ou reste dans le sien), ni l'emprise réservée d'un voisin, ni le panneau d'un voisin, et
+    # reste dans le rayon. Deux voisins peuvent voir le même espace libre entre eux : une retouche des deux qui s'y
+    # rejoint est refusée au calcul suivant (liseré bleu).
+    for b in layout["Buildings"]:
+        bid = b["Id"]
+        same_plot = (lambda k, b=b, bid=bid: bool(b.get("Plot")) and k != bid and k.startswith(b["Plot"] + "_"))
+
+        def ok(r, b=b, bid=bid, same_plot=same_plot):
+            if overlaps(r, plaza_rect, 0):
+                return False
+            if b.get("Plot"):
+                if not contains(plots[b["Plot"]], r, 1):
+                    return False
+            elif any(overlaps(r, pr) for pr in plots.values()):
+                return False
+            if any(overlaps(r, o) for k, o in reserved.items() if k != bid and not same_plot(k)):
+                return False
+            if any(r[0] <= x <= r[1] and r[2] <= z <= r[3] for k, x, z in boards + moved
+                   if k != bid and not same_plot(k)):
+                return False
+            return max(math.hypot(a, c) for a in r[:2] for c in r[2:]) <= radius
+
+        for palier, r in rects.get(bid, {}).items():
+            z = list(r)
+            for _ in range(ZONE_GROWTH):
+                grew = False
+                for side, step in ((0, -1), (1, 1), (2, -1), (3, 1)):
+                    t = list(z)
+                    t[side] += step
+                    if ok(t):
+                        z = t
+                        grew = True
+                if not grew:
+                    break
+            # Repère de la carte : relatif au point de collage du plan, prefab non tourné.
+            corners = [rotate(x - b["X"], c - b["Z"], -b["Rotation"]) for x in z[:2] for c in z[2:]]
+            local = [min(c[0] for c in corners), max(c[0] for c in corners), min(c[1] for c in corners),
+                     max(c[1] for c in corners)]
+            zones.setdefault(bid, {})[str(palier)] = local
     return out, report
 
 
@@ -381,7 +429,14 @@ def annex_entries(workshops, incompatible):
                      for i, c in enumerate(current)]
             retouched = RETOUCHES.get((w.get("People"), "AP_" + a["Type"], palier))
             if retouched:
-                lines = [f"{retouched} 0 0 0"]  # palier retouché à la main : toute la composition en un prefab
+                r = rect_of(retouched, 0, 0, 0)
+                if r and contains(frame, r):
+                    lines = [f"{retouched} 0 0 0"]  # palier retouché à la main : toute la composition en un prefab
+                elif a.get("Slot", 1) <= 1:
+                    incompatible.append({"People": w.get("People"), "Layout": None, "Id": "AP_" + a["Type"],
+                                         "Workshop": wid, "Palier": palier, "Voulu": retouched.rsplit("/", 1)[-1],
+                                         "Montre": lines[0].split()[0].rsplit("/", 1)[-1],
+                                         "Raison": "retouche qui déborde du rectangle de l'avant-poste"})
             report["grown"] += sum(1 for c in current if c[0] > 0)
             tiers.append({"Palier": palier, "Prefabs": lines})
         if any(t["Prefabs"] != tiers[0]["Prefabs"] for t in tiers):
@@ -403,12 +458,14 @@ def main():
         "Annexes": {},
         "Incompatibles": [],
         "Review": {},
+        "Zones": {},
     }
     incompatible = doc["Incompatibles"]
     total = {"grown": 0, "blocked": 0}
     for f in sorted((NAK / "VillageLayouts").glob("*.json")):
         layout = json.loads(f.read_text(encoding="utf-8"))
-        entries, rep = layout_entries(layout, workshops, f.stem, incompatible, doc["Review"].setdefault(f.stem, {}))
+        entries, rep = layout_entries(layout, workshops, f.stem, incompatible, doc["Review"].setdefault(f.stem, {}),
+                                      doc["Zones"].setdefault(f.stem, {}))
         doc["Layouts"][f.stem] = entries
         print(f"{f.stem}: {len(entries)}/{len(layout['Buildings'])} bâtiments changent d'apparence "
               f"({rep['blocked']} paliers retenus faute de place ; panneaux déplacés : {rep['front']} devant la "

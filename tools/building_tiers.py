@@ -313,7 +313,8 @@ def annex_entries(people):
                     "Id": "AP_" + d["Annex"]["Type"],
                     "Name": LANG_FR.get(f"workshop.{f.stem}.name") or nice(d["Annex"]["Type"]),
                     "Source": "bâtiment de production, un par village" if production
-                    else f"ouvrage, {limit} par village au plus", "Pieces": pieces, "Optional": []})
+                    else f"ouvrage, {limit} par village au plus", "Pieces": pieces, "Optional": [],
+                    "Rect": d["Annex"]["Rect"]})
     return out
 
 
@@ -520,6 +521,37 @@ def add_board(people, e, tiers, growth, stats):
         stats["placed"] += 1
 
 
+def add_zone(people, e, tiers, growth):
+    """
+    Place libre du palier au village (Kevin, 17 novembre 2026) : « Zone » « x0 x1 z0 z1 » relative à l'origine, tracée
+    sur la carte ; une retouche qui y tient est valide en jeu. Bâtiment du plan : tools/building_growth.py (section
+    Zones ; projet : la place commune à ses trois terrains) ; avant-poste : son rectangle (Annex.Rect).
+    """
+    if e.get("Reserved"):
+        return
+    if e["Category"] in ("Production", "Ouvrage"):
+        x0, x1, z0, z1 = e["Rect"]
+        for t in tiers:
+            t["Zone"] = f"{x0} {x1} {z0} {z1}"
+        return
+    if e["Category"] not in ("Base", "Artisan", "Projet"):
+        return
+    layout = layout_file(people)
+    zones = growth.get("Zones", {}).get(layout.stem if layout else "", {})
+    if e["Category"] == "Projet":
+        name = e["Id"][len("Projet_"):]
+        found = [z for bid, z in zones.items() if re.fullmatch(r"E\d_" + re.escape(name), bid)]
+    else:
+        found = [zones[e["LayoutId"]]] if e.get("LayoutId") in zones else []
+    for t in tiers:
+        boxes = [z[str(t["Tier"])] for z in found if str(t["Tier"]) in z]
+        if not boxes:
+            continue
+        box = [max(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), min(b[3] for b in boxes)]
+        if box[0] <= box[1] and box[2] <= box[3]:
+            t["Zone"] = " ".join(str(v) for v in box)
+
+
 def incompatibles():
     """(peuple, Id de la carte, palier) -> raisons : paliers dont la version ne tient pas au village."""
     f = Path(__file__).resolve().parent.parent / "src/main/resources/nakasar-peuples/paliers-batiments.json"
@@ -571,6 +603,7 @@ def main():
                 tiers = tiers_of(e)
                 apply_retouches(people, e, tiers, retouched)
                 add_board(people, e, tiers, growth, stats)
+                add_zone(people, e, tiers, growth)
                 for t in tiers:
                     reasons = incompatible.get((people, e["Id"], t["Tier"]))
                     if reasons:

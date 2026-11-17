@@ -91,6 +91,11 @@ public final class ReviewMap {
      * garde une version plus petite ({@code tools/building_growth.py}).
      */
     static final String BORDER_INCOMPATIBLE = "Cloth_Block_Wool_Blue";
+    /**
+     * Tracé au sol de la place libre du palier au village (Kevin, 17 novembre 2026) : une retouche qui tient dedans est
+     * valide en jeu. Côté non tracé : la place continue au-delà du rectangle. Jamais enregistré dans un prefab.
+     */
+    public static final String ZONE = "Cloth_Block_Wool_Yellow";
     public static final String SIGN = "Nakasar_Peuples_Review_Sign";
     /** Herbe libre entre le liseré et le bâtiment (le panneau y tient). */
     static final int MARGIN = 3;
@@ -172,6 +177,9 @@ public final class ReviewMap {
          */
         @SerializedName("Board")
         String board;
+        /** Place libre au village « x0 x1 z0 z1 » relative à l'origine (tracée en {@link #ZONE}). */
+        @SerializedName("Zone")
+        String zone;
         /** Vrai si cette version ne tient pas au village (liseré bleu, raison dans les notes). */
         @SerializedName("Incompatible")
         boolean incompatible;
@@ -680,9 +688,31 @@ public final class ReviewMap {
                 Blocks.set(chunks, x, y, z, null, 0);
             }
         }
+        drawZone(chunks, s);
         placeBoard(world, chunks, s);
         // Panneau muet dans le coin sud-ouest : l'utiliser dit le bâtiment et le palier.
         Blocks.set(chunks, s.signX, GROUND + 1, s.signZ, SIGN, 0);
+    }
+
+    /** Contour de la place libre du palier, sur l'herbe seulement, dans le rectangle (sans le liseré). */
+    private static void drawZone(ChunkStore chunks, Spot s) {
+        if (s.tier.zone == null) {
+            return;
+        }
+        String[] p = s.tier.zone.trim().split("\\s+");
+        if (p.length < 4) {
+            return;
+        }
+        int zx0 = s.ox + Integer.parseInt(p[0]), zx1 = s.ox + Integer.parseInt(p[1]);
+        int zz0 = s.oz + Integer.parseInt(p[2]), zz1 = s.oz + Integer.parseInt(p[3]);
+        for (int x = Math.max(zx0, s.x0 + 1); x <= Math.min(zx1, s.x1 - 1); x++) {
+            for (int z = Math.max(zz0, s.z0 + 1); z <= Math.min(zz1, s.z1 - 1); z++) {
+                boolean edge = x == zx0 || x == zx1 || z == zz0 || z == zz1;
+                if (edge && Blocks.is(Blocks.name(chunks, x, GROUND, z), GRASS)) {
+                    Blocks.set(chunks, x, GROUND, z, ZONE, 0);
+                }
+            }
+        }
     }
 
     /** Panneau de métier du palier (bloc vanilla du peuple, sans tableau), où {@code Workshops.placeBoard} le pose. */
