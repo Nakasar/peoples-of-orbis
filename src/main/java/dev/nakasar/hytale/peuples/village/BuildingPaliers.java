@@ -40,7 +40,9 @@ public final class BuildingPaliers {
      */
     public static final int[] LEVEL_PALIER = {1, 1, 3, 4};
 
-    private record Variant(String prefab, int dx, int dz, int minX, int maxX, int minZ, int maxZ, int minY, int maxY) {
+    /** {@code board} : place du panneau de métier {@code [x, z, lacet]} relative au cœur à ce palier, ou null. */
+    private record Variant(String prefab, int dx, int dz, int minX, int maxX, int minZ, int maxZ, int minY, int maxY,
+                           int[] board) {
     }
 
     private static final class Data {
@@ -75,7 +77,8 @@ public final class BuildingPaliers {
                                 int p = num(t, "Palier");
                                 if (p >= 1 && p <= MAX) {
                                     v[p] = new Variant((String) t.get("Prefab"), num(t, "DX"), num(t, "DZ"), num(t, "MinX"),
-                                            num(t, "MaxX"), num(t, "MinZ"), num(t, "MaxZ"), num(t, "MinY"), num(t, "MaxY"));
+                                            num(t, "MaxX"), num(t, "MinZ"), num(t, "MaxZ"), num(t, "MinY"), num(t, "MaxY"),
+                                            ints(t.get("Board")));
                                 }
                             }
                             out.put(id, v);
@@ -102,6 +105,17 @@ public final class BuildingPaliers {
         }
         annexes = byAnnex;
         layouts = byLayout;
+    }
+
+    private static int[] ints(Object v) {
+        if (!(v instanceof List<?> list) || list.isEmpty()) {
+            return null;
+        }
+        int[] out = new int[list.size()];
+        for (int i = 0; i < out.length; i++) {
+            out[i] = list.get(i) instanceof Number n ? n.intValue() : 0;
+        }
+        return out;
     }
 
     private static int num(Map<String, Object> t, String key) {
@@ -198,6 +212,26 @@ public final class BuildingPaliers {
     /** Le bâtiment `b` tel qu'il est debout dans le village (palier gardé avec le village). */
     public static VillageLayout.Building current(Village village, VillageLayout layout, VillageLayout.Building b) {
         return at(layout, b, village.palier(b.id()));
+    }
+
+    /**
+     * Place du panneau du bâtiment de métier `w` ({@code [x, z, lacet]} relative au cœur) pour le bâtiment tel qu'il
+     * est debout (Kevin, 17 novembre 2026 : le panneau suit le bâtiment qui grandit, devant sa façade ou à
+     * l'intérieur) ; celle du plan au palier 1 ou sans version plus grande.
+     */
+    public static int[] board(Village village, Workshop w) {
+        int[] plan = w.board();
+        if (w.isAnnex() || w.isHamlet() || w.building() == null) {
+            return plan;
+        }
+        VillageLayout layout = Chantiers.layout(village);
+        VillageLayout.Building b = layout == null ? null : layout.building(w.building());
+        Variant[] v = b == null ? null : variants(layout, b);
+        if (v == null) {
+            return plan;
+        }
+        Variant at = v[Math.max(1, Math.min(MAX, village.palier(b.id())))];
+        return at != null && at.board() != null && at.board().length >= 2 ? at.board() : plan;
     }
 
     /** Pièces de l'avant-poste `w` au palier `palier` (« prefab dx dz rotation »). */

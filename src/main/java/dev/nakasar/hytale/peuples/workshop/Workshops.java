@@ -284,7 +284,8 @@ public final class Workshops {
             dev.nakasar.hytale.peuples.world.Hamlets.placeBoard(world, village, w, state);
             return;
         }
-        int[] spot = w.board();
+        // Le panneau suit le bâtiment quand il grandit (dev.nakasar.hytale.peuples.village.BuildingPaliers#board).
+        int[] spot = dev.nakasar.hytale.peuples.village.BuildingPaliers.board(village, w);
         if (spot == null) {
             return;
         }
@@ -318,7 +319,35 @@ public final class Workshops {
                 return;
             }
         }
+        // Façade pleine à cette place (mur, version plus grande du bâtiment) : le panneau entre dans le bâtiment, sur la
+        // première case libre derrière la façade, contre le mur suivant (Kevin, 17 novembre 2026).
+        int[] b = back(yaw);
+        for (int step = 1; step <= INSIDE_REACH; step++) {
+            int x = village.x() + spot[0] + b[0] * step;
+            int z = village.z() + spot[1] + b[1] * step;
+            int y = standY(chunks, terrain, x, z);
+            if (y == UNLOADED_SPOT) {
+                return;
+            }
+            if (y == Terrain.NONE || Blocks.solid(chunks, x, y + 1, z)) {
+                continue;
+            }
+            int[] flush = flushSpot(chunks, terrain, x, y, z, yaw);
+            if (flush == null) {
+                return;
+            }
+            if (Blocks.set(chunks, flush[0], flush[1], flush[2], village.people().boardBlock(), yaw)) {
+                state.setBoard(flush[0], flush[1], flush[2]);
+                hangBoard(chunks, village, flush[0], flush[1], flush[2], yaw);
+                PeuplesPlugin.get().getLogger().atInfo().log("Peuples : panneau du bâtiment %s posé dedans en %d %d %d (%s)",
+                        w.getId(), flush[0], flush[1], flush[2], village.name());
+                return;
+            }
+        }
     }
+
+    /** Profondeur où chercher, derrière une façade pleine, une case libre pour le panneau. */
+    static final int INSIDE_REACH = 8;
 
     public static final int UNLOADED_SPOT = Integer.MIN_VALUE + 1;
 

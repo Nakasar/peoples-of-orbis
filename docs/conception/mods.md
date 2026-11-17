@@ -2208,10 +2208,18 @@ village, sinon celle du palier d'avant :
 
 - bâtiment du plan : même rotation (entrée tournée du même côté), point de collage décalé au plus de 8 blocs si cela le
   fait tenir, la nouvelle emprise couvre le centre de l'ancienne, ne touche ni l'emprise (tous paliers) d'un autre
-  bâtiment, ni un terrain E1-E3, ni la place, ni le panneau d'un bâtiment de métier, et reste dans le rayon du plan ; un
-  projet reste dans son terrain (1 bloc de marge) ;
+  bâtiment, ni un terrain E1-E3, ni la place, ni le panneau d'un AUTRE bâtiment de métier (les autres projets du même
+  terrain ne comptent pas : un seul y est bâti), et reste dans le rayon du plan ; un projet reste dans son terrain
+  (1 bloc de marge) ;
+- panneau du bâtiment de métier (Kevin, 17 novembre 2026 : « déplace le panneau de manière logique sur le bâtiment ou à
+  l'intérieur du bâtiment ») : il suit le bâtiment, `Board` du palier. Même façade (lacet), même distance au bord de
+  l'emprise et même décalage depuis le milieu de la façade que sur le plan, ramené dans la largeur de la nouvelle
+  façade. Si cette case est sur la place, chez un voisin, hors du terrain ou contre un autre panneau, il passe au bord
+  intérieur de l'emprise (`Inside`). En jeu, `Workshops.placeBoard` le plaque contre le mur derrière lui ; si la façade
+  est pleine à cet endroit, il entre dans le bâtiment jusqu'à la première case libre (8 blocs au plus) ;
 - avant-poste : chaque pièce garde sa rotation, bouge au plus de 4 blocs, reste dans `Annex.Rect`, sans chevaucher une
-  autre pièce ni le panneau.
+  autre pièce ni le panneau. Le panneau d'un avant-poste reste sur sa fondation, hors de `Annex.Rect` : un avant-poste
+  incompatible l'est parce que la version plus grande sort de son rectangle.
 
 Sortie `src/main/resources/nakasar-peuples/paliers-batiments.json` (plan → bâtiment → paliers 1-4 avec prefab, décalage
 `DX`/`DZ` et emprise ; avant-poste → pièces par palier). Le 17 novembre 2026 : 127 bâtiments de village sur 214 et 92
@@ -2233,7 +2241,7 @@ d'un voisin et sentiers ne s'y posent pas.
    des joueurs), les coffres vides du prefab partent avec lui. Fondations sous le sol gardées.
 4. Nouvelle emprise aplanie à la même hauteur de pose (`Chantiers.prepare`), nouveau prefab collé, relief rendu autour
    (`Chantiers.settle`), corps restés coincés remontés (`Rebuilds.unstick`).
-5. Panneau reposé contre le nouveau mur (`Workshops.placeBoard`) et décor de chaque niveau atteint remis ; avant-poste :
+5. Panneau reposé à sa place du nouveau palier, contre le nouveau mur ou dedans (`Workshops.placeBoard`) et décor de chaque niveau atteint remis ; avant-poste :
    décor, décor des niveaux et coffre reposés.
 6. Palier gardé : `Site.Palier` (bâtiment du plan), `AnnexState.Palier` (avant-poste) ; 0 = bâti avant ce changement,
    donc palier 1.

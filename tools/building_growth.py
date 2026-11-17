@@ -104,9 +104,10 @@ def layout_entries(layout, workshops, layout_id, incompatible):
     base = {b["Id"]: [b["X"] + b["MinX"], b["X"] + b["MaxX"], b["Z"] + b["MinZ"], b["Z"] + b["MaxZ"]]
             for b in layout["Buildings"]}
     reserved = dict(base)  # emprise réservée par bâtiment (union de ses paliers choisis)
+    moved = []  # places des panneaux déplacés avec leur bâtiment (id, x, z)
     radius = layout["Radius"]
     out = {}
-    report = {"grown": 0, "blocked": 0}
+    report = {"grown": 0, "blocked": 0, "front": 0, "inside": 0}
     for b in layout["Buildings"]:
         bid = b["Id"]
         steps = steps_of(b["Prefab"])
@@ -114,6 +115,10 @@ def layout_entries(layout, workshops, layout_id, incompatible):
         cx = (base[bid][0] + base[bid][1]) / 2
         cz = (base[bid][2] + base[bid][3]) / 2
         last = (0, 0, 0)
+        own = next(((x, z) for k, x, z in boards if k == bid), None)
+        own_yaw = next((w["Board"][2] if len(w["Board"]) > 2 else 0 for w in workshops.values()
+                        if w.get("People") == people and w.get("Building") == bid and w.get("Board")
+                        and not w.get("Annex") and not w.get("Hamlet")), 0)
 
         def rival(k):
             """Autre projet du même terrain : jamais bâti en même temps que celui-ci (son panneau n'y est pas)."""
@@ -132,11 +137,11 @@ def layout_entries(layout, workshops, layout_id, incompatible):
             out += [f"touche {k}" for k, o in reserved.items() if k != bid and overlaps(r, o) and not (
                 b.get("Plot") and k.startswith(b["Plot"] + "_"))]
             covered = {}
-            for k, x, z in boards:
-                if r[0] <= x <= r[1] and r[2] <= z <= r[3] and not rival(k):
+            for k, x, z in boards + moved:
+                if r[0] <= x <= r[1] and r[2] <= z <= r[3] and k != bid and not rival(k):
                     covered.setdefault((x, z), []).append(k)
             for keys in covered.values():
-                out.append("couvre son propre panneau" if keys == [bid] else "couvre le panneau de " + ", ".join(keys))
+                out.append("couvre le panneau de " + ", ".join(dict.fromkeys(keys)))
             far = max(math.hypot(a, c) for a in r[:2] for c in r[2:])
             if far > radius:
                 out.append(f"sort du rayon du village ({far:.0f} > {radius})")
@@ -154,12 +159,55 @@ def layout_entries(layout, workshops, layout_id, incompatible):
             if any(overlaps(r, o) for k, o in reserved.items() if k != bid and not (
                     b.get("Plot") and k.startswith(b["Plot"] + "_"))):
                 return False
-            if any(r[0] <= x <= r[1] and r[2] <= z <= r[3] for k, x, z in boards if not rival(k)):
+            # Son propre panneau suit le bâtiment (board_for) ; ceux des voisins restent où ils sont.
+            if any(r[0] <= x <= r[1] and r[2] <= z <= r[3] for k, x, z in boards + moved if k != bid and not rival(k)):
                 return False
             # Le bâtiment reste à sa place : sa nouvelle emprise couvre le centre de l'ancienne.
             if not (r[0] <= cx <= r[1] and r[2] <= cz <= r[3]):
                 return False
             return max(math.hypot(a, c) for a in r[:2] for c in r[2:]) <= radius
+
+        def free(x, z):
+            """Case où poser le panneau devant la façade : ni sur la place, ni chez un voisin, ni sur son panneau."""
+            if -plaza <= x <= plaza and -plaza <= z <= plaza:
+                return False
+            if b.get("Plot") and not contains(plots[b["Plot"]], [x, x, z, z]):
+                return False
+            if not b.get("Plot") and any(contains(pr, [x, x, z, z]) for pr in plots.values()):
+                return False
+            if any(o[0] <= x <= o[1] and o[2] <= z <= o[3] for k, o in reserved.items() if k != bid and not rival(k)):
+                return False
+            if any(abs(x - bx) + abs(z - bz) <= 1 for k, bx, bz in boards + moved if k != bid and not rival(k)):
+                return False
+            return math.hypot(x, z) <= radius
+
+        def board_for(r):
+            """
+            Panneau du bâtiment de métier au palier d'emprise `r` (Kevin, 17 novembre 2026 : « déplace le panneau de
+            manière logique sur le bâtiment ou à l'intérieur ») : même façade, même distance au mur et même décalage
+            depuis le milieu de la façade que sur le plan ; si cette case est prise, juste à l'intérieur de l'emprise
+            (en jeu, Workshops.placeBoard entre alors dans le bâtiment jusqu'à une case libre).
+            """
+            ox, oz = own
+            r0 = base[bid]
+            yaw = own_yaw & 3
+            if yaw in (0, 2):
+                lateral = ox - (r0[0] + r0[1]) / 2
+                x = max(r[0], min(r[1], round((r[0] + r[1]) / 2 + lateral)))
+                d = oz - r0[3] if yaw == 0 else r0[2] - oz
+                z = r[3] + d if yaw == 0 else r[2] - d
+                inside = (x, r[3] if yaw == 0 else r[2])
+                spot = (x, z)
+            else:
+                lateral = oz - (r0[2] + r0[3]) / 2
+                z = max(r[2], min(r[3], round((r[2] + r[3]) / 2 + lateral)))
+                d = ox - r0[1] if yaw == 1 else r0[0] - ox
+                x = r[1] + d if yaw == 1 else r[0] - d
+                inside = (r[1] if yaw == 1 else r[0], z)
+                spot = (x, z)
+            if free(*spot):
+                return [spot[0], spot[1], yaw], False
+            return [inside[0], inside[1], yaw], True
 
         for palier in PALIERS:
             want = wanted(steps, palier)
@@ -191,8 +239,18 @@ def layout_entries(layout, workshops, layout_id, incompatible):
             ax, az = b["X"] + pick[1], b["Z"] + pick[2]
             r = rect_of(path, ax, az, b["Rotation"])
             reserved[bid] = union(reserved[bid], r)
-            chosen.append({"Palier": palier, "Prefab": path, "DX": pick[1], "DZ": pick[2], "MinX": r[0] - ax,
-                           "MaxX": r[1] - ax, "MinZ": r[2] - az, "MaxZ": r[3] - az, "MinY": bb[2], "MaxY": bb[3]})
+            entry = {"Palier": palier, "Prefab": path, "DX": pick[1], "DZ": pick[2], "MinX": r[0] - ax,
+                     "MaxX": r[1] - ax, "MinZ": r[2] - az, "MaxZ": r[3] - az, "MinY": bb[2], "MaxY": bb[3]}
+            if own is not None and pick != (0, 0, 0):
+                spot, inside = board_for(r)
+                entry["Board"] = spot
+                if inside:
+                    entry["Inside"] = True
+                    report["inside"] += 1
+                else:
+                    report["front"] += 1
+                moved.append((bid, spot[0], spot[1]))
+            chosen.append(entry)
         if any(c["Prefab"] != b["Prefab"] for c in chosen):
             out[bid] = chosen
     return out, report
@@ -295,7 +353,8 @@ def main():
         entries, rep = layout_entries(layout, workshops, f.stem, incompatible)
         doc["Layouts"][f.stem] = entries
         print(f"{f.stem}: {len(entries)}/{len(layout['Buildings'])} bâtiments changent d'apparence "
-              f"({rep['blocked']} paliers retenus faute de place)")
+              f"({rep['blocked']} paliers retenus faute de place ; panneaux déplacés : {rep['front']} devant la "
+              f"façade, {rep['inside']} à l'intérieur)")
         for k in total:
             total[k] += rep[k]
     annexes, rep = annex_entries(workshops, incompatible)

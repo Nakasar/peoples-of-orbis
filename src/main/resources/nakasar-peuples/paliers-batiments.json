@@ -219,37 +219,53 @@
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T2",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -10,
+      -12,
+      0
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T3",
      "DX": 0,
-     "DZ": -2,
+     "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -10,
+      -11,
+      0
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T4",
      "DX": 0,
-     "DZ": -3,
+     "DZ": 0,
      "MinX": -9,
      "MaxX": 9,
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -10,
+      -11,
+      0
+     ],
+     "Inside": true
     }
    ],
    "Hutte_Nord_Ouest": [
@@ -369,37 +385,52 @@
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T2",
      "DX": 0,
-     "DZ": 1,
+     "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      1,
+      32,
+      2
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T3",
      "DX": 0,
-     "DZ": 2,
+     "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      1,
+      31,
+      2
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T3",
+     "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T4",
      "DX": 0,
-     "DZ": 2,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "DZ": 0,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      1,
+      30,
+      2
+     ]
     }
    ],
    "E1_Caserne": [
@@ -425,31 +456,46 @@
      "MinZ": -5,
      "MaxZ": 5,
      "MinY": -12,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      1,
+      34,
+      2
+     ]
     },
     {
      "Palier": 3,
-     "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+     "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
      "DX": 0,
      "DZ": 0,
-     "MinX": -5,
-     "MaxX": 5,
-     "MinZ": -5,
-     "MaxZ": 5,
-     "MinY": -12,
-     "MaxY": 5
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 10,
+     "MinY": -8,
+     "MaxY": 6,
+     "Board": [
+      1,
+      30,
+      2
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+     "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
      "DX": 0,
      "DZ": 0,
-     "MinX": -5,
-     "MaxX": 5,
-     "MinZ": -5,
-     "MaxZ": 5,
-     "MinY": -12,
-     "MaxY": 5
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 10,
+     "MinY": -8,
+     "MaxY": 9,
+     "Board": [
+      1,
+      30,
+      2
+     ]
     }
    ],
    "E2_Deuxieme_Enclos": [
@@ -468,38 +514,53 @@
     {
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T2",
-     "DX": 1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      47,
+      3,
+      3
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T3",
-     "DX": 2,
+     "DX": 0,
      "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      46,
+      3,
+      3
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T3",
-     "DX": 2,
+     "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T4",
+     "DX": 0,
      "DZ": 0,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      45,
+      3,
+      3
+     ]
     }
    ],
    "E2_Caserne": [
@@ -525,31 +586,46 @@
      "MinZ": -5,
      "MaxZ": 5,
      "MinY": -12,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      49,
+      3,
+      3
+     ]
     },
     {
      "Palier": 3,
-     "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+     "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
      "DX": 0,
      "DZ": 0,
-     "MinX": -5,
-     "MaxX": 5,
-     "MinZ": -5,
-     "MaxZ": 5,
-     "MinY": -12,
-     "MaxY": 5
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 10,
+     "MinY": -8,
+     "MaxY": 6,
+     "Board": [
+      45,
+      4,
+      3
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+     "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
      "DX": 0,
      "DZ": 0,
-     "MinX": -5,
-     "MaxX": 5,
-     "MinZ": -5,
-     "MaxZ": 5,
-     "MinY": -12,
-     "MaxY": 5
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 10,
+     "MinY": -8,
+     "MaxY": 9,
+     "Board": [
+      45,
+      4,
+      3
+     ]
     }
    ],
    "E3_Deuxieme_Enclos": [
@@ -568,38 +644,53 @@
     {
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T2",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -49,
+      3,
+      1
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T3",
-     "DX": -2,
+     "DX": 0,
      "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -48,
+      3,
+      1
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T3",
-     "DX": -2,
+     "Prefab": "Nakasar/Peuples/Pens/Feran_Pen_T4",
+     "DX": 0,
      "DZ": 0,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -47,
+      3,
+      1
+     ]
     }
    ],
    "E3_Caserne": [
@@ -625,31 +716,46 @@
      "MinZ": -5,
      "MaxZ": 5,
      "MinY": -12,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      -51,
+      3,
+      1
+     ]
     },
     {
      "Palier": 3,
-     "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+     "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
      "DX": 0,
      "DZ": 0,
-     "MinX": -5,
-     "MaxX": 5,
-     "MinZ": -5,
-     "MaxZ": 5,
-     "MinY": -12,
-     "MaxY": 5
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 10,
+     "MinY": -8,
+     "MaxY": 6,
+     "Board": [
+      -47,
+      4,
+      1
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+     "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
      "DX": 0,
      "DZ": 0,
-     "MinX": -5,
-     "MaxX": 5,
-     "MinZ": -5,
-     "MaxZ": 5,
-     "MinY": -12,
-     "MaxY": 5
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 10,
+     "MinY": -8,
+     "MaxY": 9,
+     "Board": [
+      -47,
+      4,
+      1
+     ]
     }
    ]
   },
@@ -777,7 +883,12 @@
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -10,
+      -12,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -789,7 +900,12 @@
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 8
+     "MaxY": 8,
+     "Board": [
+      -10,
+      -12,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -801,7 +917,12 @@
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 8
+     "MaxY": 8,
+     "Board": [
+      -10,
+      -12,
+      0
+     ]
     }
    ],
    "Echoppe": [
@@ -927,7 +1048,12 @@
      "MinZ": -6,
      "MaxZ": 6,
      "MinY": -5,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      30,
+      -13,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -939,7 +1065,12 @@
      "MinZ": -7,
      "MaxZ": 6,
      "MinY": -5,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      30,
+      -14,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -951,7 +1082,12 @@
      "MinZ": -7,
      "MaxZ": 6,
      "MinY": -5,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      30,
+      -14,
+      3
+     ]
     }
    ],
    "Grande_Maison": [
@@ -971,37 +1107,52 @@
      "Palier": 2,
      "Prefab": "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002",
      "DX": 0,
-     "DZ": 2,
+     "DZ": 0,
      "MinX": -11,
      "MaxX": 14,
      "MinZ": -13,
      "MaxZ": 12,
      "MinY": -6,
-     "MaxY": 23
+     "MaxY": 23,
+     "Board": [
+      30,
+      22,
+      2
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002",
      "DX": 0,
-     "DZ": 2,
+     "DZ": 0,
      "MinX": -11,
      "MaxX": 14,
      "MinZ": -13,
      "MaxZ": 12,
      "MinY": -6,
-     "MaxY": 23
+     "MaxY": 23,
+     "Board": [
+      30,
+      22,
+      2
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002",
      "DX": 0,
-     "DZ": 2,
+     "DZ": 0,
      "MinX": -11,
      "MaxX": 14,
      "MinZ": -13,
      "MaxZ": 12,
      "MinY": -6,
-     "MaxY": 23
+     "MaxY": 23,
+     "Board": [
+      30,
+      22,
+      2
+     ]
     }
    ],
    "Maison_Des_Gardes": [
@@ -1121,37 +1272,52 @@
      "Palier": 2,
      "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -4,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -32,
+      0
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -4,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -32,
+      0
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -4,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -32,
+      0
+     ]
     }
    ],
    "E1_Herboristerie": [
@@ -1177,7 +1343,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1189,7 +1360,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -1201,7 +1377,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -33,
+      0
+     ]
     }
    ],
    "E1_Deuxieme_Enclos": [
@@ -1227,7 +1408,12 @@
      "MinZ": -7,
      "MaxZ": 6,
      "MinY": -5,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      31,
+      -30,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1239,19 +1425,29 @@
      "MinZ": -7,
      "MaxZ": 6,
      "MinY": -5,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      31,
+      -30,
+      0
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_001",
      "DX": 0,
-     "DZ": -2,
+     "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 8,
      "MinY": -6,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      31,
+      -28,
+      0
+     ]
     }
    ],
    "E1_Caserne": [
@@ -1271,37 +1467,52 @@
      "Palier": 2,
      "Prefab": "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      30,
+      -31,
+      0
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      30,
+      -31,
+      0
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      30,
+      -31,
+      0
+     ]
     }
    ],
    "E1_Bibliotheque": [
@@ -1327,7 +1538,12 @@
      "MinZ": -4,
      "MaxZ": 2,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      31,
+      -34,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1339,7 +1555,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      31,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -1351,7 +1572,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      31,
+      -33,
+      0
+     ]
     }
    ],
    "E1_Temple": [
@@ -1377,7 +1603,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1389,7 +1620,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -1401,7 +1637,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -33,
+      0
+     ]
     }
    ],
    "E1_Halle": [
@@ -1427,7 +1668,12 @@
      "MinZ": -4,
      "MaxZ": 2,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -34,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1439,7 +1685,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -1451,7 +1702,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      30,
+      -33,
+      0
+     ]
     }
    ],
    "E2_Archerie": [
@@ -1471,37 +1727,52 @@
      "Palier": 2,
      "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -4,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -37,
+      0
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -4,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -37,
+      0
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -4,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -37,
+      0
+     ]
     }
    ],
    "E2_Herboristerie": [
@@ -1527,7 +1798,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -38,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1539,7 +1815,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -38,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -1551,7 +1832,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -38,
+      0
+     ]
     }
    ],
    "E2_Deuxieme_Enclos": [
@@ -1577,7 +1863,12 @@
      "MinZ": -7,
      "MaxZ": 6,
      "MinY": -5,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      -19,
+      -35,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1589,19 +1880,29 @@
      "MinZ": -7,
      "MaxZ": 6,
      "MinY": -5,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      -19,
+      -35,
+      0
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_001",
      "DX": 0,
-     "DZ": -2,
+     "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 8,
      "MinY": -6,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      -19,
+      -33,
+      0
+     ]
     }
    ],
    "E2_Caserne": [
@@ -1621,37 +1922,52 @@
      "Palier": 2,
      "Prefab": "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -20,
+      -36,
+      0
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -20,
+      -36,
+      0
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -20,
+      -36,
+      0
+     ]
     }
    ],
    "E2_Bibliotheque": [
@@ -1677,7 +1993,12 @@
      "MinZ": -4,
      "MaxZ": 2,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -19,
+      -39,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1689,7 +2010,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -19,
+      -38,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -1701,7 +2027,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -19,
+      -38,
+      0
+     ]
     }
    ],
    "E2_Temple": [
@@ -1727,7 +2058,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -38,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1739,7 +2075,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -38,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -1751,7 +2092,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -38,
+      0
+     ]
     }
    ],
    "E2_Halle": [
@@ -1777,7 +2123,12 @@
      "MinZ": -4,
      "MaxZ": 2,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -39,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -1789,7 +2140,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -38,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -1801,7 +2157,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -20,
+      -38,
+      0
+     ]
     }
    ],
    "E3_Archerie": [
@@ -1827,7 +2188,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      23,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -1839,7 +2205,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      23,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -1851,7 +2222,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      23,
+      1
+     ]
     }
    ],
    "E3_Herboristerie": [
@@ -1877,7 +2253,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      22,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -1889,7 +2270,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      22,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -1901,7 +2287,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      22,
+      1
+     ]
     }
    ],
    "E3_Deuxieme_Enclos": [
@@ -1927,7 +2318,12 @@
      "MinZ": -7,
      "MaxZ": 6,
      "MinY": -5,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      -46,
+      22,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -1939,19 +2335,29 @@
      "MinZ": -7,
      "MaxZ": 6,
      "MinY": -5,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      -46,
+      22,
+      1
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_001",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 8,
      "MinY": -6,
-     "MaxY": 2
+     "MaxY": 2,
+     "Board": [
+      -45,
+      22,
+      1
+     ]
     }
    ],
    "E3_Caserne": [
@@ -1977,7 +2383,12 @@
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -48,
+      23,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -1989,7 +2400,12 @@
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -48,
+      23,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -2001,7 +2417,12 @@
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -48,
+      23,
+      1
+     ]
     }
    ],
    "E3_Bibliotheque": [
@@ -2027,7 +2448,12 @@
      "MinZ": -4,
      "MaxZ": 2,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      21,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -2039,7 +2465,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      22,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -2051,7 +2482,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      22,
+      1
+     ]
     }
    ],
    "E3_Temple": [
@@ -2077,7 +2513,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      22,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -2089,7 +2530,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      22,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -2101,7 +2547,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -49,
+      22,
+      1
+     ]
     }
    ],
    "E3_Halle": [
@@ -2127,7 +2578,12 @@
      "MinZ": -4,
      "MaxZ": 2,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -50,
+      21,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -2139,7 +2595,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -50,
+      22,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -2151,7 +2612,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -3,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -50,
+      22,
+      1
+     ]
     }
    ]
   },
@@ -2372,38 +2838,53 @@
     {
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T2",
-     "DX": -1,
+     "DX": 0,
      "DZ": -1,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -11,
+      -13,
+      1
+     ]
     },
     {
      "Palier": 3,
-     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T2",
-     "DX": -1,
-     "DZ": -1,
-     "MinX": -7,
-     "MaxX": 7,
-     "MinZ": -7,
-     "MaxZ": 7,
+     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
+     "DX": 0,
+     "DZ": -2,
+     "MinX": -8,
+     "MaxX": 8,
+     "MinZ": -8,
+     "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -10,
+      -14,
+      1
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T2",
-     "DX": -1,
-     "DZ": -1,
-     "MinX": -7,
-     "MaxX": 7,
-     "MinZ": -7,
-     "MaxZ": 7,
+     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
+     "DX": 0,
+     "DZ": -2,
+     "MinX": -8,
+     "MaxX": 8,
+     "MinZ": -8,
+     "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -10,
+      -14,
+      1
+     ]
     }
    ],
    "Grande_Maison_Givre": [
@@ -2472,38 +2953,53 @@
     {
      "Palier": 2,
      "Prefab": "Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001",
-     "DX": 1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -4,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -4,
-     "MaxY": 28
+     "MaxY": 28,
+     "Board": [
+      25,
+      -9,
+      3
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001",
-     "DX": 1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -4,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -4,
-     "MaxY": 28
+     "MaxY": 28,
+     "Board": [
+      25,
+      -9,
+      3
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001",
-     "DX": 1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -4,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -4,
-     "MaxY": 28
+     "MaxY": 28,
+     "Board": [
+      25,
+      -9,
+      3
+     ]
     }
    ],
    "Totem_Brise": [
@@ -2579,7 +3075,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -2591,7 +3092,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -7,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -2603,7 +3109,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     }
    ],
    "E1_Cabane_De_Peche": [
@@ -2629,7 +3140,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -2641,7 +3157,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -2653,7 +3174,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     }
    ],
    "E1_Chenil": [
@@ -2679,7 +3205,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -2691,7 +3222,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -2703,7 +3239,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -7,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     }
    ],
    "E1_Deuxieme_Bergerie": [
@@ -2723,37 +3264,52 @@
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T2",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
      "DX": 0,
-     "DZ": -2,
+     "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      31,
+      -21,
+      0
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
+     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T4",
      "DX": 0,
-     "DZ": -2,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "DZ": 0,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      31,
+      -20,
+      0
+     ]
     }
    ],
    "E1_Caserne": [
@@ -2779,7 +3335,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -2791,7 +3352,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -2803,7 +3369,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     }
    ],
    "E1_Bibliotheque": [
@@ -2829,7 +3400,12 @@
      "MinZ": -9,
      "MaxZ": 11,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      30,
+      -19,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -2841,7 +3417,12 @@
      "MinZ": -9,
      "MaxZ": 11,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      30,
+      -19,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -2853,7 +3434,12 @@
      "MinZ": -9,
      "MaxZ": 11,
      "MinY": -3,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      30,
+      -19,
+      0
+     ]
     }
    ],
    "E1_Halle": [
@@ -2879,7 +3465,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -2891,7 +3482,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -2903,7 +3499,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      31,
+      -22,
+      0
+     ]
     }
    ],
    "E2_Fumoir": [
@@ -2929,7 +3530,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -2941,7 +3547,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -7,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -2953,7 +3564,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     }
    ],
    "E2_Cabane_De_Peche": [
@@ -2972,38 +3588,53 @@
     {
      "Palier": 2,
      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_002",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_001",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_004",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     }
    ],
    "E2_Chenil": [
@@ -3029,7 +3660,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -3041,7 +3677,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -3053,7 +3694,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -7,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     }
    ],
    "E2_Deuxieme_Bergerie": [
@@ -3072,38 +3718,53 @@
     {
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T2",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
-     "DX": -2,
+     "DX": 0,
      "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -30,
+      16,
+      1
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
-     "DX": -2,
+     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T4",
+     "DX": 0,
      "DZ": 0,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -29,
+      16,
+      1
+     ]
     }
    ],
    "E2_Caserne": [
@@ -3129,7 +3790,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -3141,7 +3807,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -3153,7 +3824,77 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
+    }
+   ],
+   "E2_Bibliotheque": [
+    {
+     "Palier": 1,
+     "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+     "DX": 0,
+     "DZ": 0,
+     "MinX": -7,
+     "MaxX": 7,
+     "MinZ": -10,
+     "MaxZ": 9,
+     "MinY": -3,
+     "MaxY": 8
+    },
+    {
+     "Palier": 2,
+     "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+     "DX": 2,
+     "DZ": -2,
+     "MinX": -13,
+     "MaxX": 7,
+     "MinZ": -9,
+     "MaxZ": 11,
+     "MinY": -3,
+     "MaxY": 11,
+     "Board": [
+      -29,
+      16,
+      1
+     ]
+    },
+    {
+     "Palier": 3,
+     "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+     "DX": 2,
+     "DZ": -2,
+     "MinX": -13,
+     "MaxX": 7,
+     "MinZ": -9,
+     "MaxZ": 11,
+     "MinY": -3,
+     "MaxY": 11,
+     "Board": [
+      -29,
+      16,
+      1
+     ]
+    },
+    {
+     "Palier": 4,
+     "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+     "DX": 2,
+     "DZ": -2,
+     "MinX": -13,
+     "MaxX": 7,
+     "MinZ": -9,
+     "MaxZ": 11,
+     "MinY": -3,
+     "MaxY": 11,
+     "Board": [
+      -29,
+      16,
+      1
+     ]
     }
    ],
    "E2_Halle": [
@@ -3179,7 +3920,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -3191,7 +3937,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -3203,7 +3954,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      -31,
+      16,
+      1
+     ]
     }
    ],
    "E3_Fumoir": [
@@ -3229,7 +3985,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -3241,7 +4002,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -7,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -3253,7 +4019,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     }
    ],
    "E3_Cabane_De_Peche": [
@@ -3279,7 +4050,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -3291,7 +4067,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -3303,7 +4084,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     }
    ],
    "E3_Chenil": [
@@ -3329,7 +4115,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -3341,7 +4132,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -3353,7 +4149,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -7,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     }
    ],
    "E3_Deuxieme_Bergerie": [
@@ -3373,37 +4174,52 @@
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T2",
      "DX": 0,
-     "DZ": 1,
+     "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
      "DX": 0,
-     "DZ": 2,
+     "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      3,
+      39,
+      2
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
+     "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen_T4",
      "DX": 0,
-     "DZ": 2,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "DZ": 0,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      3,
+      38,
+      2
+     ]
     }
    ],
    "E3_Caserne": [
@@ -3429,7 +4245,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -3441,7 +4262,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -3453,7 +4279,77 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      3,
+      40,
+      2
+     ]
+    }
+   ],
+   "E3_Bibliotheque": [
+    {
+     "Palier": 1,
+     "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+     "DX": 0,
+     "DZ": 0,
+     "MinX": -7,
+     "MaxX": 7,
+     "MinZ": -10,
+     "MaxZ": 9,
+     "MinY": -3,
+     "MaxY": 8
+    },
+    {
+     "Palier": 2,
+     "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+     "DX": 2,
+     "DZ": -2,
+     "MinX": -13,
+     "MaxX": 7,
+     "MinZ": -9,
+     "MaxZ": 11,
+     "MinY": -3,
+     "MaxY": 11,
+     "Board": [
+      2,
+      37,
+      2
+     ]
+    },
+    {
+     "Palier": 3,
+     "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+     "DX": 2,
+     "DZ": -2,
+     "MinX": -13,
+     "MaxX": 7,
+     "MinZ": -9,
+     "MaxZ": 11,
+     "MinY": -3,
+     "MaxY": 11,
+     "Board": [
+      2,
+      37,
+      2
+     ]
+    },
+    {
+     "Palier": 4,
+     "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+     "DX": 2,
+     "DZ": -2,
+     "MinX": -13,
+     "MaxX": 7,
+     "MinZ": -9,
+     "MaxZ": 11,
+     "MinY": -3,
+     "MaxY": 11,
+     "Board": [
+      2,
+      37,
+      2
+     ]
     }
    ],
    "E3_Halle": [
@@ -3479,7 +4375,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -3491,7 +4392,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -3503,7 +4409,12 @@
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      3,
+      40,
+      2
+     ]
     }
    ]
   },
@@ -3731,7 +4642,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -4,
-     "MaxY": 15
+     "MaxY": 15,
+     "Board": [
+      3,
+      28,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -3743,7 +4659,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      3,
+      28,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -3755,7 +4676,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -4,
-     "MaxY": 14
+     "MaxY": 14,
+     "Board": [
+      3,
+      28,
+      2
+     ]
     }
    ],
    "Bauge_De_Veille": [
@@ -3774,38 +4700,54 @@
     {
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T2",
-     "DX": 1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      32,
+      -10,
+      3
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T3",
-     "DX": 2,
+     "DX": 0,
      "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      31,
+      -10,
+      3
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T4",
-     "DX": 3,
+     "DX": 0,
      "DZ": 0,
      "MinX": -9,
      "MaxX": 9,
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      31,
+      -10,
+      3
+     ],
+     "Inside": true
     }
    ],
    "Hutte_Nord": [
@@ -3881,7 +4823,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      4,
+      43,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -3893,7 +4840,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      4,
+      43,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -3905,7 +4857,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      4,
+      43,
+      2
+     ]
     }
    ],
    "E1_Cabane_De_Peche": [
@@ -3931,7 +4888,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -7,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      3,
+      41,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -3943,7 +4905,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -5,
-     "MaxY": 17
+     "MaxY": 17,
+     "Board": [
+      4,
+      41,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -3955,7 +4922,77 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -5,
-     "MaxY": 17
+     "MaxY": 17,
+     "Board": [
+      4,
+      41,
+      2
+     ]
+    }
+   ],
+   "E1_Puits_De_Basalte": [
+    {
+     "Palier": 1,
+     "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
+     "DX": 0,
+     "DZ": 0,
+     "MinX": -8,
+     "MaxX": 9,
+     "MinZ": -7,
+     "MaxZ": 4,
+     "MinY": -7,
+     "MaxY": 10
+    },
+    {
+     "Palier": 2,
+     "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+     "DX": 0,
+     "DZ": -1,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
+     "MinY": -7,
+     "MaxY": 13,
+     "Board": [
+      2,
+      42,
+      2
+     ]
+    },
+    {
+     "Palier": 3,
+     "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+     "DX": 0,
+     "DZ": -1,
+     "MinX": -9,
+     "MaxX": 8,
+     "MinZ": -8,
+     "MaxZ": 9,
+     "MinY": -8,
+     "MaxY": 18,
+     "Board": [
+      2,
+      43,
+      2
+     ]
+    },
+    {
+     "Palier": 4,
+     "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+     "DX": 0,
+     "DZ": -1,
+     "MinX": -9,
+     "MaxX": 8,
+     "MinZ": -8,
+     "MaxZ": 9,
+     "MinY": -8,
+     "MaxY": 18,
+     "Board": [
+      2,
+      43,
+      2
+     ]
     }
    ],
    "E1_Deuxieme_Bauge": [
@@ -3975,37 +5012,52 @@
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T2",
      "DX": 0,
-     "DZ": 1,
+     "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      3,
+      43,
+      2
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T3",
      "DX": 0,
-     "DZ": 2,
+     "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      3,
+      42,
+      2
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T3",
+     "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T4",
      "DX": 0,
-     "DZ": 2,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "DZ": 0,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      3,
+      41,
+      2
+     ]
     }
    ],
    "E1_Conseil": [
@@ -4031,7 +5083,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      2,
+      42,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -4043,7 +5100,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      2,
+      42,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -4055,7 +5117,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      2,
+      42,
+      2
+     ]
     }
    ],
    "E1_Caserne": [
@@ -4081,7 +5148,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      2,
+      42,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -4093,7 +5165,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      2,
+      42,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -4105,7 +5182,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      2,
+      42,
+      2
+     ]
     }
    ],
    "E1_Halle": [
@@ -4131,7 +5213,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      3,
+      41,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -4143,7 +5230,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      3,
+      41,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -4155,7 +5247,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      3,
+      41,
+      2
+     ]
     }
    ],
    "E1_Taillerie": [
@@ -4181,7 +5278,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      3,
+      41,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -4193,7 +5295,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      3,
+      41,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -4205,7 +5312,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      3,
+      41,
+      2
+     ]
     }
    ],
    "E2_Scriptorium": [
@@ -4231,7 +5343,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      39,
+      23,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -4243,7 +5360,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      39,
+      23,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -4255,7 +5377,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      39,
+      23,
+      3
+     ]
     }
    ],
    "E2_Cabane_De_Peche": [
@@ -4281,7 +5408,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -7,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      39,
+      22,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -4293,7 +5425,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -5,
-     "MaxY": 17
+     "MaxY": 17,
+     "Board": [
+      39,
+      22,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -4305,7 +5442,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -5,
-     "MaxY": 17
+     "MaxY": 17,
+     "Board": [
+      39,
+      22,
+      3
+     ]
     }
    ],
    "E2_Puits_De_Basalte": [
@@ -4324,38 +5466,53 @@
     {
      "Palier": 2,
      "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
-     "DX": 1,
+     "DX": 0,
      "DZ": -1,
      "MinX": -9,
      "MaxX": 9,
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -7,
-     "MaxY": 13
+     "MaxY": 13,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
-     "DX": 1,
+     "DX": 0,
      "DZ": -1,
      "MinX": -9,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      38,
+      23,
+      3
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
-     "DX": 1,
+     "DX": 0,
      "DZ": -1,
      "MinX": -9,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      38,
+      23,
+      3
+     ]
     }
    ],
    "E2_Deuxieme_Bauge": [
@@ -4374,38 +5531,53 @@
     {
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T2",
-     "DX": 1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      40,
+      22,
+      3
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T3",
-     "DX": 2,
+     "DX": 0,
      "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      39,
+      22,
+      3
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T3",
-     "DX": 2,
+     "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T4",
+     "DX": 0,
      "DZ": 0,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     }
    ],
    "E2_Conseil": [
@@ -4431,7 +5603,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -4443,7 +5620,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -4455,7 +5637,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     }
    ],
    "E2_Caserne": [
@@ -4481,7 +5668,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -4493,7 +5685,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -4505,7 +5702,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     }
    ],
    "E2_Halle": [
@@ -4531,7 +5733,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -4543,7 +5750,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -4555,7 +5767,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     }
    ],
    "E2_Taillerie": [
@@ -4581,7 +5798,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -4593,7 +5815,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -4605,7 +5832,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      38,
+      22,
+      3
+     ]
     }
    ],
    "E3_Scriptorium": [
@@ -4624,38 +5856,53 @@
     {
      "Palier": 2,
      "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -9,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -39,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -9,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -39,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -9,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -39,
+      -20,
+      1
+     ]
     }
    ],
    "E3_Cabane_De_Peche": [
@@ -4681,7 +5928,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -7,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -39,
+      -21,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -4693,7 +5945,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -5,
-     "MaxY": 17
+     "MaxY": 17,
+     "Board": [
+      -38,
+      -21,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -4705,7 +5962,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -5,
-     "MaxY": 17
+     "MaxY": 17,
+     "Board": [
+      -38,
+      -21,
+      1
+     ]
     }
    ],
    "E3_Puits_De_Basalte": [
@@ -4731,7 +5993,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -7,
-     "MaxY": 13
+     "MaxY": 13,
+     "Board": [
+      -39,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -4743,7 +6010,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -40,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -4755,7 +6027,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -40,
+      -20,
+      1
+     ]
     }
    ],
    "E3_Deuxieme_Bauge": [
@@ -4774,38 +6051,53 @@
     {
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T2",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -41,
+      -21,
+      1
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T3",
-     "DX": -2,
+     "DX": 0,
      "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -40,
+      -21,
+      1
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T3",
-     "DX": -2,
+     "Prefab": "Nakasar/Peuples/Pens/Slothian_Pen_T4",
+     "DX": 0,
      "DZ": 0,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -39,
+      -21,
+      1
+     ]
     }
    ],
    "E3_Conseil": [
@@ -4831,7 +6123,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -40,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -4843,7 +6140,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -40,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -4855,7 +6157,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -40,
+      -20,
+      1
+     ]
     }
    ],
    "E3_Caserne": [
@@ -4881,7 +6188,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -40,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -4893,7 +6205,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -40,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -4905,7 +6222,12 @@
      "MinZ": -8,
      "MaxZ": 9,
      "MinY": -8,
-     "MaxY": 18
+     "MaxY": 18,
+     "Board": [
+      -40,
+      -20,
+      1
+     ]
     }
    ],
    "E3_Halle": [
@@ -4931,7 +6253,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -39,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -4943,7 +6270,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -39,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -4955,7 +6287,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -39,
+      -20,
+      1
+     ]
     }
    ],
    "E3_Taillerie": [
@@ -4981,7 +6318,12 @@
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -39,
+      -21,
+      1
+     ]
     },
     {
      "Palier": 3,
@@ -4993,7 +6335,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -39,
+      -20,
+      1
+     ]
     },
     {
      "Palier": 4,
@@ -5005,7 +6352,12 @@
      "MinZ": -9,
      "MaxZ": 10,
      "MinY": -35,
-     "MaxY": 11
+     "MaxY": 11,
+     "Board": [
+      -39,
+      -20,
+      1
+     ]
     }
    ]
   },
@@ -5027,37 +6379,55 @@
      "Palier": 2,
      "Prefab": "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002",
      "DX": 0,
-     "DZ": 1,
+     "DZ": 0,
      "MinX": -3,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 4
+     "MaxY": 4,
+     "Board": [
+      2,
+      10,
+      2
+     ],
+     "Inside": true
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002",
      "DX": 0,
-     "DZ": 1,
+     "DZ": 0,
      "MinX": -3,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 4
+     "MaxY": 4,
+     "Board": [
+      2,
+      10,
+      2
+     ],
+     "Inside": true
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002",
      "DX": 0,
-     "DZ": 1,
+     "DZ": 0,
      "MinX": -3,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 4
+     "MaxY": 4,
+     "Board": [
+      2,
+      10,
+      2
+     ],
+     "Inside": true
     }
    ],
    "Tente_Ouest": [
@@ -5326,38 +6696,55 @@
     {
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T2",
-     "DX": -1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -24,
+      17,
+      1
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T3",
-     "DX": -2,
+     "DX": 0,
      "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -24,
+      17,
+      1
+     ],
+     "Inside": true
     },
     {
      "Palier": 4,
      "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T4",
-     "DX": -3,
+     "DX": -1,
      "DZ": 0,
      "MinX": -9,
      "MaxX": 9,
      "MinZ": -9,
      "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      -24,
+      17,
+      1
+     ],
+     "Inside": true
     }
    ],
    "Tour_Est": [
@@ -5483,7 +6870,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      22,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -5495,7 +6887,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      22,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -5507,7 +6904,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      22,
+      -33,
+      0
+     ]
     }
    ],
    "E1_Tannerie": [
@@ -5533,7 +6935,12 @@
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      23,
+      -32,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -5545,19 +6952,29 @@
      "MinZ": -4,
      "MaxZ": 5,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      22,
+      -31,
+      0
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -5,
      "MaxZ": 6,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      22,
+      -30,
+      0
+     ]
     }
    ],
    "E1_Deuxieme_Fosse": [
@@ -5577,37 +6994,52 @@
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T2",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      23,
+      -29,
+      0
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T3",
      "DX": 0,
-     "DZ": -2,
+     "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      23,
+      -28,
+      0
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T3",
+     "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T4",
      "DX": 0,
-     "DZ": -2,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "DZ": 0,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      23,
+      -27,
+      0
+     ]
     }
    ],
    "E1_Caserne": [
@@ -5633,7 +7065,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      23,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -5645,7 +7082,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      23,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -5657,7 +7099,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      23,
+      -33,
+      0
+     ]
     }
    ],
    "E1_Bibliotheque": [
@@ -5683,7 +7130,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 3
+     "MaxY": 3,
+     "Board": [
+      23,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -5695,7 +7147,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      23,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -5707,7 +7164,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      23,
+      -33,
+      0
+     ]
     }
    ],
    "E1_Halle": [
@@ -5733,7 +7195,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      23,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 3,
@@ -5745,7 +7212,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      23,
+      -33,
+      0
+     ]
     },
     {
      "Palier": 4,
@@ -5757,7 +7229,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      23,
+      -33,
+      0
+     ]
     }
    ],
    "E2_Forge_De_Guerre": [
@@ -5783,7 +7260,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -5795,7 +7277,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -5807,7 +7294,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     }
    ],
    "E2_Tannerie": [
@@ -5833,7 +7325,12 @@
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      10,
+      40,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -5845,19 +7342,29 @@
      "MinZ": -4,
      "MaxZ": 5,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      10,
+      40,
+      2
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
      "DX": 0,
-     "DZ": 1,
+     "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -5,
      "MaxZ": 6,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      10,
+      39,
+      2
+     ]
     }
    ],
    "E2_Deuxieme_Fosse": [
@@ -5877,37 +7384,52 @@
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T2",
      "DX": 0,
-     "DZ": 1,
+     "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      10,
+      37,
+      2
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T3",
      "DX": 0,
-     "DZ": 2,
+     "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      10,
+      36,
+      2
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T3",
+     "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T4",
      "DX": 0,
-     "DZ": 2,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "DZ": 0,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      10,
+      35,
+      2
+     ]
     }
    ],
    "E2_Caserne": [
@@ -5933,7 +7455,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -5945,7 +7472,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -5957,7 +7489,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     }
    ],
    "E2_Bibliotheque": [
@@ -5983,7 +7520,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 3
+     "MaxY": 3,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -5995,7 +7537,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -6007,7 +7554,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     }
    ],
    "E2_Halle": [
@@ -6033,7 +7585,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     },
     {
      "Palier": 3,
@@ -6045,7 +7602,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     },
     {
      "Palier": 4,
@@ -6057,7 +7619,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      10,
+      41,
+      2
+     ]
     }
    ],
    "E3_Forge_De_Guerre": [
@@ -6077,37 +7644,52 @@
      "Palier": 2,
      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_004",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -3,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_006",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -3,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_003",
      "DX": 0,
-     "DZ": -1,
+     "DZ": 0,
      "MinX": -3,
      "MaxX": 3,
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     }
    ],
    "E3_Tannerie": [
@@ -6133,31 +7715,46 @@
      "MinZ": -4,
      "MaxZ": 4,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      37,
+      24,
+      3
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
-     "DX": 1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -4,
      "MaxZ": 5,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      36,
+      25,
+      3
+     ]
     },
     {
      "Palier": 4,
      "Prefab": "Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
-     "DX": 1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -5,
      "MaxX": 4,
      "MinZ": -5,
      "MaxZ": 6,
      "MinY": -6,
-     "MaxY": 7
+     "MaxY": 7,
+     "Board": [
+      36,
+      25,
+      3
+     ]
     }
    ],
    "E3_Deuxieme_Fosse": [
@@ -6176,38 +7773,53 @@
     {
      "Palier": 2,
      "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T2",
-     "DX": 1,
+     "DX": 0,
      "DZ": 0,
      "MinX": -7,
      "MaxX": 7,
      "MinZ": -7,
      "MaxZ": 7,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      34,
+      25,
+      3
+     ]
     },
     {
      "Palier": 3,
      "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T3",
-     "DX": 2,
+     "DX": 0,
      "DZ": 0,
      "MinX": -8,
      "MaxX": 8,
      "MinZ": -8,
      "MaxZ": 8,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      33,
+      25,
+      3
+     ]
     },
     {
      "Palier": 4,
-     "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T3",
-     "DX": 2,
+     "Prefab": "Nakasar/Peuples/Pens/Trork_Pen_T4",
+     "DX": 0,
      "DZ": 0,
-     "MinX": -8,
-     "MaxX": 8,
-     "MinZ": -8,
-     "MaxZ": 8,
+     "MinX": -9,
+     "MaxX": 9,
+     "MinZ": -9,
+     "MaxZ": 9,
      "MinY": 0,
-     "MaxY": 1
+     "MaxY": 1,
+     "Board": [
+      32,
+      25,
+      3
+     ]
     }
    ],
    "E3_Caserne": [
@@ -6233,7 +7845,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -6245,7 +7862,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -6257,7 +7879,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     }
    ],
    "E3_Bibliotheque": [
@@ -6283,7 +7910,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 3
+     "MaxY": 3,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -6295,7 +7927,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 6
+     "MaxY": 6,
+     "Board": [
+      39,
+      25,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -6307,7 +7944,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 5
+     "MaxY": 5,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     }
    ],
    "E3_Halle": [
@@ -6333,7 +7975,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     },
     {
      "Palier": 3,
@@ -6345,7 +7992,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     },
     {
      "Palier": 4,
@@ -6357,7 +8009,12 @@
      "MinZ": -3,
      "MaxZ": 3,
      "MinY": -6,
-     "MaxY": 10
+     "MaxY": 10,
+     "Board": [
+      38,
+      25,
+      3
+     ]
     }
    ]
   }
@@ -9128,7 +10785,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E1 ; touche Hutte_Sud ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Hutte_Sud"
   },
   {
    "People": "Feran",
@@ -9137,7 +10794,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E1 ; touche Hutte_Sud ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Hutte_Sud"
   },
   {
    "People": "Feran",
@@ -9146,7 +10803,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_001",
-   "Raison": "déborde du terrain E1 ; touche Hutte_Sud ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Hutte_Sud"
   },
   {
    "People": "Feran",
@@ -9155,16 +10812,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_001",
-   "Raison": "déborde du terrain E1 ; touche Hutte_Sud ; couvre son propre panneau"
-  },
-  {
-   "People": "Feran",
-   "Layout": "Feran_Oasis",
-   "Id": "E1_Deuxieme_Enclos",
-   "Palier": 4,
-   "Voulu": "Feran_Pen_T4",
-   "Montre": "Feran_Pen_T3",
-   "Raison": "couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Hutte_Sud"
   },
   {
    "People": "Feran",
@@ -9173,7 +10821,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_003",
-   "Raison": "déborde du terrain E1 ; touche Hutte_Sud ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Hutte_Sud"
   },
   {
    "People": "Feran",
@@ -9182,25 +10830,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_003",
-   "Raison": "déborde du terrain E1 ; touche Hutte_Sud ; couvre son propre panneau"
-  },
-  {
-   "People": "Feran",
-   "Layout": "Feran_Oasis",
-   "Id": "E1_Caserne",
-   "Palier": 3,
-   "Voulu": "Feran_Tier2_Hut_002",
-   "Montre": "Feran_Tier3_Hut_001",
-   "Raison": "couvre son propre panneau"
-  },
-  {
-   "People": "Feran",
-   "Layout": "Feran_Oasis",
-   "Id": "E1_Caserne",
-   "Palier": 4,
-   "Voulu": "Feran_Tier2_Hut_001",
-   "Montre": "Feran_Tier3_Hut_001",
-   "Raison": "couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Hutte_Sud"
   },
   {
    "People": "Feran",
@@ -9209,7 +10839,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E1 ; touche Hutte_Sud ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Hutte_Sud"
   },
   {
    "People": "Feran",
@@ -9218,7 +10848,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E1 ; touche Hutte_Sud ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Hutte_Sud"
   },
   {
    "People": "Feran",
@@ -9227,7 +10857,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Feran",
@@ -9236,7 +10866,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Feran",
@@ -9245,7 +10875,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_001",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Feran",
@@ -9254,16 +10884,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_001",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
-  },
-  {
-   "People": "Feran",
-   "Layout": "Feran_Oasis",
-   "Id": "E2_Deuxieme_Enclos",
-   "Palier": 4,
-   "Voulu": "Feran_Pen_T4",
-   "Montre": "Feran_Pen_T3",
-   "Raison": "couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Feran",
@@ -9272,7 +10893,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_003",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Feran",
@@ -9281,25 +10902,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_003",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
-  },
-  {
-   "People": "Feran",
-   "Layout": "Feran_Oasis",
-   "Id": "E2_Caserne",
-   "Palier": 3,
-   "Voulu": "Feran_Tier2_Hut_002",
-   "Montre": "Feran_Tier3_Hut_001",
-   "Raison": "couvre son propre panneau"
-  },
-  {
-   "People": "Feran",
-   "Layout": "Feran_Oasis",
-   "Id": "E2_Caserne",
-   "Palier": 4,
-   "Voulu": "Feran_Tier2_Hut_001",
-   "Montre": "Feran_Tier3_Hut_001",
-   "Raison": "couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Feran",
@@ -9308,7 +10911,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Feran",
@@ -9317,7 +10920,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Feran",
@@ -9326,7 +10929,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; couvre son propre panneau ; sort du rayon du village (71 > 71)"
+   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; sort du rayon du village (71 > 71)"
   },
   {
    "People": "Feran",
@@ -9335,7 +10938,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; couvre son propre panneau ; sort du rayon du village (71 > 71)"
+   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; sort du rayon du village (71 > 71)"
   },
   {
    "People": "Feran",
@@ -9344,7 +10947,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_001",
-   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; couvre son propre panneau ; sort du rayon du village (71 > 71)"
+   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; sort du rayon du village (71 > 71)"
   },
   {
    "People": "Feran",
@@ -9353,16 +10956,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_001",
-   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; couvre son propre panneau ; sort du rayon du village (71 > 71)"
-  },
-  {
-   "People": "Feran",
-   "Layout": "Feran_Oasis",
-   "Id": "E3_Deuxieme_Enclos",
-   "Palier": 4,
-   "Voulu": "Feran_Pen_T4",
-   "Montre": "Feran_Pen_T3",
-   "Raison": "couvre son propre panneau"
+   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; sort du rayon du village (71 > 71)"
   },
   {
    "People": "Feran",
@@ -9371,7 +10965,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_003",
-   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; couvre son propre panneau"
+   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest"
   },
   {
    "People": "Feran",
@@ -9380,25 +10974,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_003",
-   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; couvre son propre panneau"
-  },
-  {
-   "People": "Feran",
-   "Layout": "Feran_Oasis",
-   "Id": "E3_Caserne",
-   "Palier": 3,
-   "Voulu": "Feran_Tier2_Hut_002",
-   "Montre": "Feran_Tier3_Hut_001",
-   "Raison": "couvre son propre panneau"
-  },
-  {
-   "People": "Feran",
-   "Layout": "Feran_Oasis",
-   "Id": "E3_Caserne",
-   "Palier": 4,
-   "Voulu": "Feran_Tier2_Hut_001",
-   "Montre": "Feran_Tier3_Hut_001",
-   "Raison": "couvre son propre panneau"
+   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest"
   },
   {
    "People": "Feran",
@@ -9407,7 +10983,7 @@
    "Palier": 3,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; couvre son propre panneau ; sort du rayon du village (71 > 71)"
+   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; sort du rayon du village (71 > 71)"
   },
   {
    "People": "Feran",
@@ -9416,7 +10992,7 @@
    "Palier": 4,
    "Voulu": "Feran_Tier2_Hut_005",
    "Montre": "Feran_Tier2_Hut_002",
-   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; couvre son propre panneau ; sort du rayon du village (71 > 71)"
+   "Raison": "déborde du terrain E3 ; touche Grande_Hutte ; touche Hutte_Nord_Ouest ; sort du rayon du village (71 > 71)"
   },
   {
    "People": "Kweebec",
@@ -9452,7 +11028,7 @@
    "Palier": 3,
    "Voulu": "Kweebec_Oak_Houses_Large_001",
    "Montre": "Kweebec_Oak_Houses_Small_001",
-   "Raison": "déborde du terrain E1 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1"
   },
   {
    "People": "Kweebec",
@@ -9461,7 +11037,7 @@
    "Palier": 4,
    "Voulu": "Kweebec_Oak_Houses_Large_002",
    "Montre": "Kweebec_Oak_Houses_Small_001",
-   "Raison": "déborde du terrain E1 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1"
   },
   {
    "People": "Kweebec",
@@ -9470,7 +11046,7 @@
    "Palier": 3,
    "Voulu": "Kweebec_Oak_Houses_Large_001",
    "Montre": "Kweebec_Oak_Houses_Small_001",
-   "Raison": "déborde du terrain E2 ; touche Maison_Des_Gardes ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2 ; touche Maison_Des_Gardes"
   },
   {
    "People": "Kweebec",
@@ -9479,7 +11055,7 @@
    "Palier": 4,
    "Voulu": "Kweebec_Oak_Houses_Large_002",
    "Montre": "Kweebec_Oak_Houses_Small_001",
-   "Raison": "déborde du terrain E2 ; touche Maison_Des_Gardes ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2 ; touche Maison_Des_Gardes"
   },
   {
    "People": "Kweebec",
@@ -9488,7 +11064,7 @@
    "Palier": 3,
    "Voulu": "Kweebec_Oak_Houses_Large_001",
    "Montre": "Kweebec_Oak_Houses_Small_001",
-   "Raison": "déborde du terrain E3 ; couvre son propre panneau ; sort du rayon du village (75 > 72)"
+   "Raison": "déborde du terrain E3 ; sort du rayon du village (75 > 72)"
   },
   {
    "People": "Kweebec",
@@ -9497,7 +11073,7 @@
    "Palier": 4,
    "Voulu": "Kweebec_Oak_Houses_Large_002",
    "Montre": "Kweebec_Oak_Houses_Small_001",
-   "Raison": "déborde du terrain E3 ; touche Maison_Sud_Ouest ; touche Maison_Des_Gardes ; couvre son propre panneau"
+   "Raison": "déborde du terrain E3 ; touche Maison_Sud_Ouest ; touche Maison_Des_Gardes"
   },
   {
    "People": "Renonce",
@@ -9551,7 +11127,7 @@
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_005",
    "Montre": "Outlander_Houses_Tier1_005",
-   "Raison": "empiète sur le terrain E3 ; touche Grand_Bateau ; couvre son propre panneau"
+   "Raison": "empiète sur le terrain E3 ; touche Grand_Bateau"
   },
   {
    "People": "Renonce",
@@ -9560,16 +11136,7 @@
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_005",
    "Montre": "Outlander_Houses_Tier1_005",
-   "Raison": "empiète sur le terrain E3 ; touche Grand_Bateau ; couvre son propre panneau"
-  },
-  {
-   "People": "Renonce",
-   "Layout": "Renonce_Givre",
-   "Id": "Bergerie_Du_Givre",
-   "Palier": 3,
-   "Voulu": "Renonce_Pen_T3",
-   "Montre": "Renonce_Pen_T2",
-   "Raison": "touche Abri_Des_Fuyards ; couvre son propre panneau"
+   "Raison": "empiète sur le terrain E3 ; touche Grand_Bateau"
   },
   {
    "People": "Renonce",
@@ -9577,8 +11144,8 @@
    "Id": "Bergerie_Du_Givre",
    "Palier": 4,
    "Voulu": "Renonce_Pen_T4",
-   "Montre": "Renonce_Pen_T2",
-   "Raison": "touche Abri_Des_Fuyards ; couvre son propre panneau"
+   "Montre": "Renonce_Pen_T3",
+   "Raison": "touche Abri_Des_Fuyards"
   },
   {
    "People": "Renonce",
@@ -9587,7 +11154,7 @@
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_001",
    "Montre": "Outlander_Houses_Tier2_001",
-   "Raison": "déborde du terrain E1 ; touche Tour_Du_Fort ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Tour_Du_Fort"
   },
   {
    "People": "Renonce",
@@ -9596,16 +11163,7 @@
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_001",
    "Montre": "Outlander_Houses_Tier2_001",
-   "Raison": "déborde du terrain E1 ; touche Tour_Du_Fort ; couvre son propre panneau"
-  },
-  {
-   "People": "Renonce",
-   "Layout": "Renonce_Givre",
-   "Id": "E1_Deuxieme_Bergerie",
-   "Palier": 4,
-   "Voulu": "Renonce_Pen_T4",
-   "Montre": "Renonce_Pen_T3",
-   "Raison": "couvre son propre panneau"
+   "Raison": "déborde du terrain E1 ; touche Tour_Du_Fort"
   },
   {
    "People": "Renonce",
@@ -9614,7 +11172,7 @@
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_003",
    "Montre": "Outlander_Houses_Tier2_003",
-   "Raison": "déborde du terrain E1 ; couvre son propre panneau ; sort du rayon du village (62 > 61)"
+   "Raison": "déborde du terrain E1 ; sort du rayon du village (62 > 61)"
   },
   {
    "People": "Renonce",
@@ -9623,7 +11181,7 @@
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_003",
    "Montre": "Outlander_Houses_Tier2_003",
-   "Raison": "déborde du terrain E1 ; couvre son propre panneau ; sort du rayon du village (62 > 61)"
+   "Raison": "déborde du terrain E1 ; sort du rayon du village (62 > 61)"
   },
   {
    "People": "Renonce",
@@ -9632,7 +11190,7 @@
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_003",
    "Montre": "Outlander_Houses_Tier2_003",
-   "Raison": "déborde du terrain E1 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1"
   },
   {
    "People": "Renonce",
@@ -9641,7 +11199,7 @@
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_003",
    "Montre": "Outlander_Houses_Tier2_003",
-   "Raison": "déborde du terrain E1 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E1"
   },
   {
    "People": "Renonce",
@@ -9650,7 +11208,7 @@
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_001",
    "Montre": "Outlander_Houses_Tier2_001",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Renonce",
@@ -9659,16 +11217,7 @@
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_001",
    "Montre": "Outlander_Houses_Tier2_001",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
-  },
-  {
-   "People": "Renonce",
-   "Layout": "Renonce_Givre",
-   "Id": "E2_Deuxieme_Bergerie",
-   "Palier": 4,
-   "Voulu": "Renonce_Pen_T4",
-   "Montre": "Renonce_Pen_T3",
-   "Raison": "couvre son propre panneau"
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Renonce",
@@ -9677,7 +11226,7 @@
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_003",
    "Montre": "Outlander_Houses_Tier2_003",
-   "Raison": "déborde du terrain E2 ; touche Abri_Des_Fuyards ; touche Maison_Des_Repentis ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2 ; touche Abri_Des_Fuyards ; touche Maison_Des_Repentis"
   },
   {
    "People": "Renonce",
@@ -9686,7 +11235,7 @@
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_003",
    "Montre": "Outlander_Houses_Tier2_003",
-   "Raison": "déborde du terrain E2 ; touche Abri_Des_Fuyards ; touche Maison_Des_Repentis ; couvre son propre panneau"
+   "Raison": "déborde du terrain E2 ; touche Abri_Des_Fuyards ; touche Maison_Des_Repentis"
   },
   {
    "People": "Renonce",
@@ -9694,8 +11243,8 @@
    "Id": "E2_Bibliotheque",
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_003",
-   "Montre": "Outlander_Houses_Tier1_003",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
+   "Montre": "Outlander_Houses_Tier2_003",
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Renonce",
@@ -9703,8 +11252,8 @@
    "Id": "E2_Bibliotheque",
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_003",
-   "Montre": "Outlander_Houses_Tier1_003",
-   "Raison": "déborde du terrain E2 ; couvre son propre panneau"
+   "Montre": "Outlander_Houses_Tier2_003",
+   "Raison": "déborde du terrain E2"
   },
   {
    "People": "Renonce",
@@ -9713,7 +11262,7 @@
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_001",
    "Montre": "Outlander_Houses_Tier2_001",
-   "Raison": "déborde du terrain E3 ; couvre son propre panneau ; sort du rayon du village (64 > 61)"
+   "Raison": "déborde du terrain E3 ; sort du rayon du village (64 > 61)"
   },
   {
    "People": "Renonce",
@@ -9722,16 +11271,7 @@
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_001",
    "Montre": "Outlander_Houses_Tier2_001",
-   "Raison": "déborde du terrain E3 ; couvre son propre panneau ; sort du rayon du village (64 > 61)"
-  },
-  {
-   "People": "Renonce",
-   "Layout": "Renonce_Givre",
-   "Id": "E3_Deuxieme_Bergerie",
-   "Palier": 4,
-   "Voulu": "Renonce_Pen_T4",
-   "Montre": "Renonce_Pen_T3",
-   "Raison": "couvre son propre panneau"
+   "Raison": "déborde du terrain E3 ; sort du rayon du village (64 > 61)"
   },
   {
    "People": "Renonce",
@@ -9740,7 +11280,7 @@
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_003",
    "Montre": "Outlander_Houses_Tier2_003",
-   "Raison": "déborde du terrain E3 ; couvre son propre panneau ; sort du rayon du village (61 > 61)"
+   "Raison": "déborde du terrain E3 ; sort du rayon du village (61 > 61)"
   },
   {
    "People": "Renonce",
@@ -9749,7 +11289,7 @@
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_003",
    "Montre": "Outlander_Houses_Tier2_003",
-   "Raison": "déborde du terrain E3 ; couvre son propre panneau ; sort du rayon du village (61 > 61)"
+   "Raison": "déborde du terrain E3 ; sort du rayon du village (61 > 61)"
   },
   {
    "People": "Renonce",
@@ -9757,8 +11297,8 @@
    "Id": "E3_Bibliotheque",
    "Palier": 3,
    "Voulu": "Outlander_Houses_Tier3_003",
-   "Montre": "Outlander_Houses_Tier1_003",
-   "Raison": "déborde du terrain E3 ; couvre son propre panneau ; sort du rayon du village (62 > 61)"
+   "Montre": "Outlander_Houses_Tier2_003",
+   "Raison": "déborde du terrain E3 ; sort du rayon du village (62 > 61)"
   },
   {
    "People": "Renonce",
@@ -9766,62 +11306,8 @@
    "Id": "E3_Bibliotheque",
    "Palier": 4,
    "Voulu": "Outlander_Houses_Tier3_003",
-   "Montre": "Outlander_Houses_Tier1_003",
-   "Raison": "déborde du terrain E3 ; couvre son propre panneau ; sort du rayon du village (62 > 61)"
-  },
-  {
-   "People": "Slothian",
-   "Layout": "Slothian_Monastere",
-   "Id": "E1_Deuxieme_Bauge",
-   "Palier": 4,
-   "Voulu": "Slothian_Pen_T4",
-   "Montre": "Slothian_Pen_T3",
-   "Raison": "couvre son propre panneau"
-  },
-  {
-   "People": "Slothian",
-   "Layout": "Slothian_Monastere",
-   "Id": "E2_Deuxieme_Bauge",
-   "Palier": 4,
-   "Voulu": "Slothian_Pen_T4",
-   "Montre": "Slothian_Pen_T3",
-   "Raison": "couvre son propre panneau"
-  },
-  {
-   "People": "Slothian",
-   "Layout": "Slothian_Monastere",
-   "Id": "E3_Deuxieme_Bauge",
-   "Palier": 4,
-   "Voulu": "Slothian_Pen_T4",
-   "Montre": "Slothian_Pen_T3",
-   "Raison": "couvre son propre panneau"
-  },
-  {
-   "People": "Trork",
-   "Layout": "Trork_Camp",
-   "Id": "E1_Deuxieme_Fosse",
-   "Palier": 4,
-   "Voulu": "Trork_Pen_T4",
-   "Montre": "Trork_Pen_T3",
-   "Raison": "couvre son propre panneau"
-  },
-  {
-   "People": "Trork",
-   "Layout": "Trork_Camp",
-   "Id": "E2_Deuxieme_Fosse",
-   "Palier": 4,
-   "Voulu": "Trork_Pen_T4",
-   "Montre": "Trork_Pen_T3",
-   "Raison": "couvre son propre panneau"
-  },
-  {
-   "People": "Trork",
-   "Layout": "Trork_Camp",
-   "Id": "E3_Deuxieme_Fosse",
-   "Palier": 4,
-   "Voulu": "Trork_Pen_T4",
-   "Montre": "Trork_Pen_T3",
-   "Raison": "couvre son propre panneau"
+   "Montre": "Outlander_Houses_Tier2_003",
+   "Raison": "déborde du terrain E3 ; sort du rayon du village (62 > 61)"
   },
   {
    "People": "Feran",
