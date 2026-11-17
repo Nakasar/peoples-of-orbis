@@ -13,6 +13,11 @@ import com.hypixel.hytale.server.core.universe.world.worldmap.WorldMapManager;
 import com.hypixel.hytale.server.core.universe.world.worldmap.markers.MapMarkerBuilder;
 import com.hypixel.hytale.server.core.universe.world.worldmap.markers.MarkersCollector;
 import dev.nakasar.hytale.peuples.player.PeuplesPlayer;
+import dev.nakasar.hytale.peuples.reputation.Rank;
+import dev.nakasar.hytale.peuples.reputation.Reputations;
+import dev.nakasar.hytale.peuples.village.Village;
+import dev.nakasar.hytale.peuples.village.Villages;
+import dev.nakasar.hytale.peuples.workshop.Projects;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +31,9 @@ import java.util.WeakHashMap;
 /**
  * Marqueurs des lieux-dits sur la carte du monde et la boussole, comme les avant-postes ({@code annex/AnnexMarkers}) :
  * un fournisseur de marqueurs par monde, nourri d'un instantané refait sur le fil du monde. Un joueur voit un lieu-dit
- * posé dès qu'il l'a découvert (arrivé sur sa place : drapeau {@code Hamlet:<id>} de {@link Hamlets}).
+ * posé dès qu'il l'a découvert (arrivé sur sa place : drapeau {@code Hamlet:<id>} de {@link Hamlets}), ou s'il est à
+ * moins de {@value Projects#CARTOGRAPHERS_RANGE} blocs d'un village dont la Bibliothèque a les Cartographes et où le
+ * joueur est au moins Toléré.
  */
 public final class HamletMarkers {
     public static final String PROVIDER = "nakasar_peuples_hamlets";
@@ -34,7 +41,7 @@ public final class HamletMarkers {
     public static final String COMPASS_ICON = "Nakasar_Peuples_HamletCompass.png";
 
     /** Un marqueur prêt à envoyer et les joueurs (en ligne au dernier instantané) qui ont découvert le lieu-dit. */
-    private record Entry(MapMarker marker, String flag) {
+    private record Entry(MapMarker marker, String flag, int x, int z) {
     }
 
     private record Snapshot(List<Entry> entries, Map<UUID, Set<String>> discovered) {
@@ -59,8 +66,16 @@ public final class HamletMarkers {
                     new Transform(m[0] + 0.5, h.y, m[1] + 0.5))
                     .withName(Message.translation(Hamlets.KEYS + "marker").param("name", h.name()).param("people", people))
                     .withCompassImage(COMPASS_ICON).build();
-            entries.add(new Entry(marker, Hamlets.FLAG + h.id()));
+            entries.add(new Entry(marker, Hamlets.FLAG + h.id(), m[0], m[1]));
         }
+        // Cartographes de la Bibliothèque : les lieux-dits proches du village sont sur la carte de ses amis (Toléré et plus).
+        List<Village> mapping = new ArrayList<>();
+        for (Village v : Villages.registry(world).all()) {
+            if (!v.isHamlet() && Projects.specialty(v, Projects.KNOWLEDGE, Projects.CARTOGRAPHERS)) {
+                mapping.add(v);
+            }
+        }
+        long range2 = (long) Projects.CARTOGRAPHERS_RANGE * Projects.CARTOGRAPHERS_RANGE;
         Map<UUID, Set<String>> discovered = new java.util.HashMap<>();
         for (PlayerRef p : world.getPlayerRefs()) {
             Ref<EntityStore> ref = p.getReference();
@@ -69,9 +84,22 @@ public final class HamletMarkers {
                 continue;
             }
             Set<String> flags = new HashSet<>();
+            List<Village> maps = new ArrayList<>();
+            for (Village v : mapping) {
+                if (Reputations.rank(store, ref, v).atLeast(Rank.TOLERE)) {
+                    maps.add(v);
+                }
+            }
             for (Entry e : entries) {
                 if (data.hasFlag(e.flag())) {
                     flags.add(e.flag());
+                    continue;
+                }
+                for (Village v : maps) {
+                    if (v.horizontalDistanceSquared(e.x(), e.z()) <= range2) {
+                        flags.add(e.flag());
+                        break;
+                    }
                 }
             }
             discovered.put(p.getUuid(), flags);

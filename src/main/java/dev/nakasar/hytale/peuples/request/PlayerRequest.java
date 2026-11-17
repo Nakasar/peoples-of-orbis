@@ -59,6 +59,9 @@ public final class PlayerRequest {
             .append(new KeyedCodec<>("PosX", Codec.INTEGER), (r, v) -> r.posX = v == null ? 0 : v, r -> r.posX).add()
             .append(new KeyedCodec<>("PosY", Codec.INTEGER), (r, v) -> r.posY = v == null ? NO_Y : v, r -> r.posY).add()
             .append(new KeyedCodec<>("PosZ", Codec.INTEGER), (r, v) -> r.posZ = v == null ? 0 : v, r -> r.posZ).add()
+            .append(new KeyedCodec<>("Needed", Codec.INTEGER), (r, v) -> r.neededOverride = v == null ? 0 : v, r -> r.neededOverride)
+            .documentation("Quantité à atteindre si elle diffère du modèle (commande de maître réduite par les Maîtres), 0 sinon.")
+            .add()
             .append(new KeyedCodec<>("Hud", Codec.STRING), (r, v) -> r.hud = v, r -> r.hud)
             .documentation("Id du suivi à l'écran (paquets d'objectif vanilla).")
             .add()
@@ -83,6 +86,7 @@ public final class PlayerRequest {
     int posX;
     int posY = NO_Y;
     int posZ;
+    int neededOverride;
 
     PlayerRequest() {
     }
@@ -151,6 +155,9 @@ public final class PlayerRequest {
     }
 
     public int needed() {
+        if (neededOverride > 0) {
+            return neededOverride;
+        }
         RequestTemplate t = template();
         return t == null ? 1 : t.needed();
     }
@@ -243,6 +250,11 @@ public final class PlayerRequest {
         posZ = z;
     }
 
+    /** Fixe la quantité à atteindre (au lieu de celle du modèle). */
+    void setNeeded(int value) {
+        neededOverride = Math.max(0, value);
+    }
+
     public PlayerRequest copy() {
         PlayerRequest c = new PlayerRequest();
         c.id = id;
@@ -264,6 +276,7 @@ public final class PlayerRequest {
         c.posX = posX;
         c.posY = posY;
         c.posZ = posZ;
+        c.neededOverride = neededOverride;
         return c;
     }
 }

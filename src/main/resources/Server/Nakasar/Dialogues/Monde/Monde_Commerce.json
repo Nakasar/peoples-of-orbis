@@ -29,8 +29,27 @@
               "Action": "TradeWhere"
             }
           ],
-          "Next": "Accueil"
+          "Next": "Route"
         },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Monde.rumeur",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "Rumour"
+            }
+          ],
+          "Next": "Rumeur"
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Monde.aurevoir"
+        }
+      ]
+    },
+    {
+      "Id": "Route",
+      "TextKey": "nakasar_peuples.dialogue.Monde_Commerce.routeTexte",
+      "Responses": [
         {
           "TextKey": "nakasar_peuples.dialogue.Monde_Commerce.escorte",
           "Effects": [
@@ -42,14 +61,8 @@
           "Next": "Escorte"
         },
         {
-          "TextKey": "nakasar_peuples.dialogue.Monde.rumeur",
-          "Effects": [
-            {
-              "Type": "WorldAction",
-              "Action": "Rumour"
-            }
-          ],
-          "Next": "Rumeur"
+          "TextKey": "nakasar_peuples.dialogue.Monde.retour",
+          "Next": "Accueil"
         },
         {
           "TextKey": "nakasar_peuples.dialogue.Monde.aurevoir"

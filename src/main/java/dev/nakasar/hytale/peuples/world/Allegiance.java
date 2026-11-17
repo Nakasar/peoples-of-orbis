@@ -77,6 +77,8 @@ public final class Allegiance {
     public static final int FAVOURITE = 30;
     public static final int FAVOURITE_LEAD = 10;
     public static final int EMBASSY_MIN = 40;
+    /** Influence suffisante pour une ambassade avec les Négociants de l'Ambassade ({@value #DIPLOMACY}). */
+    public static final int EMBASSY_MIN_NEGOTIATORS = 30;
     public static final int EMBASSY_LEAD = 20;
     public static final int RALLY = 80;
     public static final int RALLY_DIPLOMACY = 70;
@@ -291,6 +293,11 @@ public final class Allegiance {
     public static int councilLevel(Village v) {
         WorkshopState s = v == null ? null : council(v);
         return s == null ? 0 : s.level();
+    }
+
+    /** Influence qu'il faut au village pour envoyer une ambassade (30 avec les Négociants, 40 sinon). */
+    public static int embassyMin(Village v) {
+        return councilSpecialty(v, DIPLOMACY) ? EMBASSY_MIN_NEGOTIATORS : EMBASSY_MIN;
     }
 
     /** Vrai si la Maison du conseil du village a cette spécialité ({@value #DIPLOMACY} ou {@value #GARRISON}). */

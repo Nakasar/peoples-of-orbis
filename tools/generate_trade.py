@@ -259,9 +259,14 @@ def dialogue():
         "Nodes": [
             {"Id": "Accueil", "TextKey": k + "accueil", "Responses": [
                 {"TextKey": k + "troc", "Effects": [{"Type": "WorldAction", "Action": "TradeShop"}]},
-                {"TextKey": k + "cargaison", "Effects": [{"Type": "WorldAction", "Action": "TradeWhere"}], "Next": "Accueil"},
-                {"TextKey": k + "escorte", "Effects": [{"Type": "WorldAction", "Action": "TradeEscort"}], "Next": "Escorte"},
+                # Quatre réponses au plus par nœud : l'escorte se propose après « Que portes-tu ? ».
+                {"TextKey": k + "cargaison", "Effects": [{"Type": "WorldAction", "Action": "TradeWhere"}], "Next": "Route"},
                 {"TextKey": "nakasar_peuples.dialogue.Monde.rumeur", "Effects": [{"Type": "WorldAction", "Action": "Rumour"}], "Next": "Rumeur"},
+                {"TextKey": "nakasar_peuples.dialogue.Monde.aurevoir"},
+            ]},
+            {"Id": "Route", "TextKey": k + "routeTexte", "Responses": [
+                {"TextKey": k + "escorte", "Effects": [{"Type": "WorldAction", "Action": "TradeEscort"}], "Next": "Escorte"},
+                {"TextKey": "nakasar_peuples.dialogue.Monde.retour", "Next": "Accueil"},
                 {"TextKey": "nakasar_peuples.dialogue.Monde.aurevoir"},
             ]},
             {"Id": "Escorte", "TextKey": k + "escorteTexte", "Responses": [
@@ -283,6 +288,8 @@ def dialogue():
       "The road is long and the pack beasts are loaded. Want to see what I keep for barter?")
     t(d + "troc", "Montre-moi ton troc.", "Show me your wares.")
     t(d + "cargaison", "Que portes-tu, et pour qui ?", "What are you carrying, and for whom?")
+    t(d + "routeTexte", "La route n'est pas sûre partout. Une lame de plus près des bêtes ne serait pas de refus.",
+      "The road isn't safe everywhere. One more blade by the beasts would be welcome.")
     t(d + "escorte", "Je vous escorte jusqu'au bout de la route.", "I'll escort you to the end of the road.")
     t(d + "escorteTexte", "Bonne nouvelle ! Reste près des bêtes, surtout à mi-chemin : c'est là qu'ils frappent.",
       "Good news! Stay close to the beasts, above all halfway: that's where they strike.")

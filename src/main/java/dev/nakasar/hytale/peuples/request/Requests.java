@@ -1,5 +1,6 @@
 package dev.nakasar.hytale.peuples.request;
 
+import dev.nakasar.hytale.peuples.workshop.Projects;
 import com.hypixel.hytale.component.AddReason;
 import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
@@ -201,10 +202,15 @@ public final class Requests {
 
     /** Titre d'une demande au tableau et dans les listes : le titre court, suivi de la quantité pour récolte et fabrication. */
     public static Message boardTitle(RequestTemplate t) {
-        if (t.itemId() == null || t.needed() <= 1) {
+        return boardTitle(t, t.needed());
+    }
+
+    /** Titre au tableau avec une quantité donnée (commande de maître réduite par les Maîtres de la Bibliothèque). */
+    public static Message boardTitle(RequestTemplate t, int needed) {
+        if (t.itemId() == null || needed <= 1) {
             return title(t);
         }
-        return Message.translation(KEYS + "titleAmount").param("title", title(t)).param("needed", t.needed())
+        return Message.translation(KEYS + "titleAmount").param("title", title(t)).param("needed", needed)
                 .param("item", VillageBoard.itemName(t.itemId()));
     }
 
@@ -345,6 +351,10 @@ public final class Requests {
             inventory.addItemStack(missive);
         }
         PlayerRequest taken = new PlayerRequest(id, village.id(), t.getId(), expires);
+        int needed = Projects.masterNeeded(village, t);
+        if (needed != t.needed()) {
+            taken.setNeeded(needed);
+        }
         if (t.type().hasSite()) {
             double angle = ThreadLocalRandom.current().nextDouble(0, Math.PI * 2);
             double distance = ThreadLocalRandom.current().nextDouble(t.minDistance(), t.maxDistance() + 1e-3);

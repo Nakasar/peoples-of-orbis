@@ -46,6 +46,12 @@ public final class Projects {
     public static final String MILITIA = "Milice";
     public static final String PROTECTION = "Protection";
     public static final int KNOWLEDGE_PERCENT = 15;
+    /** Bibliothèque : les commandes de maître demandent un quart de moins ({@value #MASTERS_PERCENT} %). */
+    public static final String MASTERS = "Maitres";
+    public static final int MASTERS_PERCENT = 75;
+    /** Bibliothèque : lieux-dits à moins de {@value #CARTOGRAPHERS_RANGE} blocs marqués sur la carte. */
+    public static final String CARTOGRAPHERS = "Cartographes";
+    public static final int CARTOGRAPHERS_RANGE = 600;
     public static final int ESSOR_PERCENT = 10;
 
     private Projects() {
@@ -96,6 +102,21 @@ public final class Projects {
     /** Savoir-faire gagné avec la Bibliothèque (+15 %, arrondi au-dessus). */
     public static int knowledge(Village village, int gained) {
         return gained > 0 && opened(village, KNOWLEDGE) != null ? (gained * (100 + KNOWLEDGE_PERCENT) + 99) / 100 : gained;
+    }
+
+    /**
+     * Quantité d'une commande de maître pour ce village : un quart de moins (arrondi au-dessus) avec les Maîtres de la
+     * Bibliothèque, pour la récolte, la fabrication et les plantations. Les autres demandes gardent leur quantité.
+     */
+    public static int masterNeeded(Village village, dev.nakasar.hytale.peuples.request.RequestTemplate t) {
+        int needed = t.needed();
+        if (!t.master() || needed <= 1 || village == null || !specialty(village, KNOWLEDGE, MASTERS)) {
+            return needed;
+        }
+        return switch (t.type()) {
+            case GATHER, CRAFT, PLANT -> Math.max(1, (needed * MASTERS_PERCENT + 99) / 100);
+            default -> needed;
+        };
     }
 
     /** Essor gagné avec le Temple (+10 %, arrondi au-dessus). */

@@ -30,7 +30,7 @@ import java.util.Random;
  * {@value #FAILURE}, et {@value #COOLDOWN_DAYS} jours avant de retenter.
  *
  * <p>Départs : chaque matin, un village du palier 2 ou plus qui a une place libre envoie une ambassade (une chance sur
- * cinq) vers un lieu-dit où son influence atteint {@value Allegiance#EMBASSY_MIN} et dépasse de
+ * cinq) vers un lieu-dit où son influence atteint {@value Allegiance#EMBASSY_MIN} ({@value Allegiance#EMBASSY_MIN_NEGOTIATORS} avec les Négociants) et dépasse de
  * {@value Allegiance#EMBASSY_LEAD} celle du propriétaire ; {@value #MAX_WORLD} ambassades au plus dans le monde. Un
  * joueur Ami peut en demander une au tableau du village (onglet Domaine) contre {@value #OFFERING} faveurs du peuple.
  */
@@ -120,6 +120,7 @@ public final class Embassies {
             if (v.tier() < 2 || random.nextDouble() >= COUNCIL_CHANCE) {
                 continue;
             }
+            int min = Allegiance.embassyMin(v);
             Hamlets.Place best = null;
             int bestLead = Integer.MIN_VALUE;
             for (Hamlets.Place h : Hamlets.all(world)) {
@@ -129,7 +130,7 @@ public final class Embassies {
                 int inf = Allegiance.influence(world, h, v);
                 Village owner = Allegiance.owner(world, h);
                 int lead = inf - (owner == null ? 0 : Allegiance.influence(world, h, owner));
-                if (inf >= Allegiance.EMBASSY_MIN && lead >= Allegiance.EMBASSY_LEAD && lead > bestLead) {
+                if (inf >= min && lead >= Allegiance.EMBASSY_LEAD && lead > bestLead) {
                     best = h;
                     bestLead = lead;
                 }

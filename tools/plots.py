@@ -327,8 +327,8 @@ PROJECTS = {
 # +15 %, ralliement dès +70) et Garnison (un garde de plus par lieu-dit, relève le jour même, un soldat de plus par
 # expédition ; Garnison est maintenant à la Caserne). Au niveau III, le tribut prend un tiers de la production au lieu d'un quart.
 COUNCIL_SPECS = [
-    ("Diplomatie", "Négociants", "Negotiators", "Recipe_Page", "Ambassades plus sûres, ralliement plus tôt ; rouleaux et parchemins.",
-     "Surer embassies, earlier rallies; bolts and scrolls.", [("Ingredient_Bolt_Cotton", 4, 1), ("Recipe_Page", 2, 1)],
+    ("Diplomatie", "Négociants", "Negotiators", "Recipe_Page", "Ambassades dès 30 d'influence et plus sûres, ralliement plus tôt ; rouleaux et parchemins.",
+     "Embassies from 30 influence and surer, earlier rallies; bolts and scrolls.", [("Ingredient_Bolt_Cotton", 4, 1), ("Recipe_Page", 2, 1)],
      [("Ingredient_Bolt_Linen", 4, 2), ("Ingredient_Bolt_Wool", 4, 2)], None),
     # Garnison passe à la Caserne (doc « Structurer les types de bâtiments », Kevin 2026-11-16) ; l'Ambassade prend les Hérauts.
     ("Herauts", "Hérauts", "Heralds", "Deco_Scroll", "Les relations avec les autres villages remontent deux fois plus vite ; cartes et bannières.",
@@ -410,9 +410,11 @@ def temple(prefab, kind, fr, en, job_fr, job_en, offering, candle, specs, dialog
 
 
 KNOWLEDGE_SPECS = [
-    ("Cartographes", "Cartographes", "Cartographers", "Deco_Map", "Cartes et relevés des environs.", "Maps and surveys of the land.",
+    ("Cartographes", "Cartographes", "Cartographers", "Deco_Map", "Les lieux-dits à moins de 600 blocs apparaissent sur la carte ; cartes et relevés.",
+     "Hamlets within 600 blocks show on the map; maps and surveys.",
      [("Deco_Map", 1, 2), ("Tool_Map", 1, 3)], [("Objective_Treasure_Map", 1, 5), ("Deco_Book_Pile_Large", 1, 3)], None),
-    ("Maitres", "Maîtres", "Masters", "Recipe_Page", "Recettes et livres de savoir.", "Recipes and books of lore.",
+    ("Maitres", "Maîtres", "Masters", "Recipe_Page", "Commandes de maître réduites d'un quart ; recettes et livres de savoir.",
+     "Master orders a quarter smaller; recipes and books of lore.",
      [("Recipe_Page", 2, 2), ("Deco_Inkwell", 1, 2)], [("Recipe_Food_Pie_Meat", 1, 4), ("Recipe_Food_Pie_Pumpkin", 1, 4)], None),
 ]
 
