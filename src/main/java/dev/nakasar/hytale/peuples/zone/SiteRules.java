@@ -5,6 +5,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import dev.nakasar.hytale.peuples.outpost.Outpost;
 import dev.nakasar.hytale.peuples.outpost.Outposts;
 import dev.nakasar.hytale.peuples.village.Blocks;
+import dev.nakasar.hytale.peuples.village.Footprints;
 import dev.nakasar.hytale.peuples.village.People;
 import dev.nakasar.hytale.peuples.village.Terrain;
 import dev.nakasar.hytale.peuples.village.Village;
@@ -105,6 +106,11 @@ public final class SiteRules {
 
     /** Vrai si le sol du campement convient (règles du premier lieu du peuple). */
     public static boolean terrainOk(World world, VillageLayout layout, People people, int cx, int cz) {
+        return groundOk(world, layout, people, cx, cz) && Footprints.dry(world, layout, cx, cz);
+    }
+
+    /** Comme {@link #terrainOk}, sans sonder l'eau sous les bâtiments à venir (seconde passe des seeders). */
+    public static boolean groundOk(World world, VillageLayout layout, People people, int cx, int cz) {
         Ground g = ground(world, layout, people, cx, cz);
         return g.samples() > 0 && g.ground() >= minGround(people) * g.samples() && g.relief() <= maxRelief(people);
     }
@@ -157,6 +163,11 @@ public final class SiteRules {
         }
         if (g.relief() > maxRelief(people)) {
             return new Check(Reason.RELIEF, Message.translation(KEYS + "relief").param("relief", g.relief()).param("max", maxRelief(people)));
+        }
+        // Kevin 2026-11-18 : aucun bâtiment des paliers à venir ne doit tomber dans une rivière ou un lac.
+        String wet = Footprints.wetBuilding(world, layout, cx, cz);
+        if (wet != null) {
+            return new Check(Reason.WATER, Message.translation(KEYS + "waterBuildings").param("building", wet));
         }
         return new Check(Reason.OK, Message.translation(KEYS + "ok"));
     }

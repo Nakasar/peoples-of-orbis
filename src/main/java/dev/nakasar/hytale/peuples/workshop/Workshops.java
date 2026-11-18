@@ -275,7 +275,7 @@ public final class Workshops {
      * la terre, le panneau s'enfonçait sous les racines et la mousse des villages kweebecs ; il se pose maintenant sur
      * le premier bloc plein du dessus ({@link #standY}). Sans effet tant que la zone n'est pas chargée.
      */
-    static void placeBoard(World world, Village village, Workshop w, WorkshopState state) {
+    public static void placeBoard(World world, Village village, Workshop w, WorkshopState state) {
         if (w.isAnnex()) {
             dev.nakasar.hytale.peuples.annex.Annexes.placeBoard(world, village, w, state);
             return;
@@ -284,41 +284,75 @@ public final class Workshops {
             dev.nakasar.hytale.peuples.world.Hamlets.placeBoard(world, village, w, state);
             return;
         }
-        int[] spot = w.board();
+        // Le panneau suit le bâtiment quand il grandit (dev.nakasar.hytale.peuples.village.BuildingPaliers#board).
+        int[] spot = dev.nakasar.hytale.peuples.village.BuildingPaliers.board(village, w);
         if (spot == null) {
             return;
         }
         ChunkStore chunks = world.getChunkStore();
         int yaw = spot.length > 2 ? spot[2] : 0;
+        int[] at;
+        int site = spot.length > 3 ? village.siteY(w.building()) : Integer.MIN_VALUE;
+        if (site != Integer.MIN_VALUE) {
+            // Panneau placé à la main sur la carte de revue : sa case exacte, hauteur comptée depuis la pose du bâtiment.
+            at = new int[] {village.x() + spot[0], site + spot[3], village.z() + spot[1]};
+            if (Blocks.id(chunks, at[0], at[1], at[2]) == Blocks.UNLOADED) {
+                return;
+            }
+        } else {
+            at = boardSpot(chunks, new Terrain(world), village.x() + spot[0], village.z() + spot[1], yaw);
+        }
+        if (at == null) {
+            return;
+        }
+        if (Blocks.set(chunks, at[0], at[1], at[2], village.people().boardBlock(), yaw)) {
+            state.setBoard(at[0], at[1], at[2]);
+            hangBoard(chunks, village, at[0], at[1], at[2], yaw);
+            PeuplesPlugin.get().getLogger().atInfo().log("Peuples : panneau du bâtiment %s posé en %d %d %d (%s)",
+                    w.getId(), at[0], at[1], at[2], village.name());
+        }
+    }
+
+    /**
+     * Case du panneau d'un bâtiment de métier prévu en (x, z) du monde, face `yaw` : la case (ou une voisine le long de
+     * la face) libre ou de végétation non pleine, plaquée contre le mur derrière elle ({@link #flushSpot}). Si la façade
+     * est pleine à cet endroit (mur, version plus grande du bâtiment), le panneau entre dans le bâtiment : première case
+     * libre derrière la façade, contre le mur suivant (Kevin, 17 novembre 2026). Null si la zone n'est pas chargée ou
+     * s'il n'y a pas de place. Sert aussi à la carte de revue ({@code ReviewMap}), pour le montrer où il apparaît.
+     */
+    public static int[] boardSpot(ChunkStore chunks, Terrain terrain, int sx, int sz, int yaw) {
         // Décalages le long de la face : est-ouest pour une face nord ou sud (lacets 0, 2), nord-sud sinon.
         boolean alongX = yaw == 0 || yaw == 2;
-        Terrain terrain = new Terrain(world);
         for (int d : new int[] {0, 1, -1}) {
-            int x = village.x() + spot[0] + (alongX ? d : 0);
-            int z = village.z() + spot[1] + (alongX ? 0 : d);
+            int x = sx + (alongX ? d : 0);
+            int z = sz + (alongX ? 0 : d);
             int y = standY(chunks, terrain, x, z);
             if (y == UNLOADED_SPOT) {
-                return;
+                return null;
             }
             if (y == Terrain.NONE) {
                 continue;
             }
-            int[] flush = flushSpot(chunks, terrain, x, y, z, yaw);
-            if (flush == null) {
-                return;
-            }
-            x = flush[0];
-            y = flush[1];
-            z = flush[2];
-            if (Blocks.set(chunks, x, y, z, village.people().boardBlock(), yaw)) {
-                state.setBoard(x, y, z);
-                hangBoard(chunks, village, x, y, z, yaw);
-                PeuplesPlugin.get().getLogger().atInfo().log("Peuples : panneau du bâtiment %s posé en %d %d %d (%s)",
-                        w.getId(), x, y, z, village.name());
-                return;
-            }
+            return flushSpot(chunks, terrain, x, y, z, yaw);
         }
+        int[] b = back(yaw);
+        for (int step = 1; step <= INSIDE_REACH; step++) {
+            int x = sx + b[0] * step;
+            int z = sz + b[1] * step;
+            int y = standY(chunks, terrain, x, z);
+            if (y == UNLOADED_SPOT) {
+                return null;
+            }
+            if (y == Terrain.NONE || Blocks.solid(chunks, x, y + 1, z)) {
+                continue;
+            }
+            return flushSpot(chunks, terrain, x, y, z, yaw);
+        }
+        return null;
     }
+
+    /** Profondeur où chercher, derrière une façade pleine, une case libre pour le panneau. */
+    static final int INSIDE_REACH = 8;
 
     public static final int UNLOADED_SPOT = Integer.MIN_VALUE + 1;
 
@@ -453,7 +487,12 @@ public final class Workshops {
      * panneau.
      */
     public static void hangBoard(ChunkStore chunks, Village village, int x, int y, int z, int yaw) {
-        if (!"Kweebec".equals(village.people().id()) || Blocks.solid(chunks, x, y + 1, z)) {
+        hangBoard(chunks, village.people().id(), x, y, z, yaw);
+    }
+
+    /** {@link #hangBoard(ChunkStore, Village, int, int, int, int)} pour le peuple d'id `people`. */
+    public static void hangBoard(ChunkStore chunks, String people, int x, int y, int z, int yaw) {
+        if (!"Kweebec".equals(people) || Blocks.solid(chunks, x, y + 1, z)) {
             return;
         }
         int[] b = back(yaw);
@@ -826,6 +865,13 @@ public final class Workshops {
                 placeDecor(world, ws.board(), up.decor());
             }
         }
+        // Nouvelle apparence du bâtiment pour son niveau (Kevin, 2026-11-17 : un bâtiment à niveaux ne change d'apparence
+        // qu'à sa propre montée de niveau) : prefab plus grand recollé sur place, panneau et décor reposés.
+        if (w.isAnnex()) {
+            dev.nakasar.hytale.peuples.annex.Annexes.afterLevel(world, village, w);
+        } else if (!w.isHamlet()) {
+            dev.nakasar.hytale.peuples.village.Rebuilds.afterLevel(world, village, w);
+        }
         Message name = Message.translation(w.nameKey());
         Message levelName = Message.translation(KEYS + "level." + level);
         Chantiers.announce(world, village, Message.translation(KEYS + "levelUp").param("building", name).param("level", levelName),
@@ -834,7 +880,7 @@ public final class Workshops {
     }
 
     /** Pose le décor vanilla d'un niveau ({@code "dx dy dz lacet Bloc"} relatifs au panneau), seulement dans l'air. */
-    static void placeDecor(World world, int[] origin, String[] decor) {
+    public static void placeDecor(World world, int[] origin, String[] decor) {
         ChunkStore chunks = world.getChunkStore();
         for (String line : decor) {
             String[] p = line.trim().split("\\s+");
@@ -1105,7 +1151,7 @@ public final class Workshops {
             if (raid.posted() > 0 && layout != null) {
                 for (VillageLayout.Building b : layout.buildings()) {
                     if (b.id().equals(w.building())) {
-                        int[] r = b.rect();
+                        int[] r = dev.nakasar.hytale.peuples.village.BuildingPaliers.current(village, layout, b).rect();
                         int cx = village.x() + Math.floorDiv(r[0] + r[1], 2);
                         int cz = village.z() + Math.floorDiv(r[2] + r[3], 2);
                         for (int i = 0; i < raid.posted() + extra; i++) {

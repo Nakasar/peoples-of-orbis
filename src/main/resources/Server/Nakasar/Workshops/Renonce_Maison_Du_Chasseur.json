@@ -7,9 +7,9 @@
   "Icon": "Ingredient_Hide_Heavy",
   "NameKey": "nakasar_peuples.workshop.Renonce_Maison_Du_Chasseur.name",
   "Board": [
-    22,
-    15,
-    2
+    -33,
+    2,
+    1
   ],
   "Upgrades": [
     {

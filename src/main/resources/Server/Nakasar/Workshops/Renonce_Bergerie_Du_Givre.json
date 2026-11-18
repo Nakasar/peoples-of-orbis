@@ -7,9 +7,9 @@
   "Icon": "Ingredient_Fabric_Scrap_Wool",
   "NameKey": "nakasar_peuples.workshop.Renonce_Bergerie_Du_Givre.name",
   "Board": [
-    -12,
-    -12,
-    1
+    47,
+    3,
+    3
   ],
   "Upgrades": [
     {
@@ -65,10 +65,10 @@
     7
   ],
   "Pen": [
-    -23,
-    -15,
-    -19,
-    -11
+    50,
+    58,
+    -4,
+    4
   ],
   "Specialties": [
     {

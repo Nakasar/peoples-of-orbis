@@ -27,6 +27,8 @@ Le savoir-faire remplit la jauge du bâtiment : **200** au niveau I, **400** au 
 2. **Lancer le chantier** (rang Toléré) : les matériaux sont pris au dépôt du village, et 12 heures de jeu de travaux commencent.
 3. Le bâtiment passe au niveau suivant, avec un nouveau décor à côté du panneau. La jauge repart de zéro.
 
+Le bâtiment change aussi d'allure à son nouveau niveau, et seulement là (le palier du village n'y touche pas) : au niveau II, il prend la taille des bâtiments d'un village, au niveau III celle d'un bourg, si une version plus grande tient à sa place. Il est rebâti sur place : les joueurs et les villageois qui sont dedans sont sortis, le panneau suit le bâtiment et se repose sur sa nouvelle façade (ou juste à l'intérieur si la façade n'a pas de place) avec son décor. Il en va de même des projets d'emplacement, des bâtiments de production et des ouvrages d'un avant-poste.
+
 ## Spécialités
 
 Au niveau II, le bouton **Choisir la spécialité** ouvre le choix, au rang **Ami**. La spécialité vaut pour tout le village. Elle change les commandes, la boutique et, dans un enclos, les bêtes. En changer est une **reconversion** : une fois tous les 7 jours de jeu, et le savoir-faire du niveau repart de zéro.

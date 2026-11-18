@@ -326,6 +326,17 @@ public final class Grading {
      * demi-bloc (`slabs`). Rien n'est touché sous un bloc construit, ni dans les colonnes que `keep` réserve.
      */
     public void settle(int x0, int x1, int z0, int z1, int h, String ground, BiPredicate<Integer, Integer> keep) {
+        settle(x0, x1, z0, z1, h, ground, keep, null);
+    }
+
+    /**
+     * Comme {@link #settle(int, int, int, int, int, String, BiPredicate)}, mais seule l'emprise au sol réelle du prefab
+     * (`footprint`, voir {@link Footprints#of}) reste à `h` dans le rectangle : les coins et bords libres du rectangle
+     * reprennent eux aussi le relief (Kevin 2026-11-18 : « épouser la forme réelle du préfab au sol » plutôt que de gros
+     * talus carrés). Null : tout le rectangle reste à `h`.
+     */
+    public void settle(int x0, int x1, int z0, int z1, int h, String ground, BiPredicate<Integer, Integer> keep,
+            BiPredicate<Integer, Integer> footprint) {
         int r = SETTLE_REACH;
         int rx0 = x0 - r, rz0 = z0 - r;
         int w = x1 - x0 + 1 + 2 * r, d = z1 - z0 + 1 + 2 * r;
@@ -342,6 +353,10 @@ public final class Grading {
                 boolean border = i == 0 || k == 0 || i == w - 1 || k == d - 1;
                 if (s == Terrain.NONE) {
                     kind[c] = ANCHOR;
+                } else if (inside && footprint != null && !footprint.test(x, z) && untouched(x, s, z)
+                        && !occupied(x, s, z)) {
+                    // Hors de la forme au sol du prefab : reprend le relief comme le pourtour.
+                    kind[c] = FREE;
                 } else if (inside) {
                     // Toute l'emprise reste à la hauteur du bâtiment (enclos, potagers, cours du prefab : Kevin
                     // 2026-11-16, enclos encaissés) ; une colonne libre qu'un passage précédent avait creusée y revient.

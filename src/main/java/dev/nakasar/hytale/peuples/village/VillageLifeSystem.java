@@ -67,6 +67,10 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
             if (VillageStreets.due(village) && watched(village, players)) {
                 VillageStreets.lay(world, village);
             }
+            // Bâtiments bâtis avant les paliers d'apparence (ou recollage interrompu) : apparence de leur palier.
+            if (Rebuilds.due(village) && village.chantier() == null && watched(village, players)) {
+                Rebuilds.catchUp(world, village);
+            }
             if (Chantiers.layout(village) == null || !watched(village, players)) {
                 continue;
             }

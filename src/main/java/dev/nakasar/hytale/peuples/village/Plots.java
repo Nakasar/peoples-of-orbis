@@ -397,7 +397,10 @@ public final class Plots {
     }
 
     private static void finish(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot, PlotState s,
-                               VillageLayout.Building b) {
+                               VillageLayout.Building plan) {
+        VillageLayout layoutOf = Chantiers.layout(village);
+        int palier = layoutOf == null ? 1 : Chantiers.plannedPalier(village, layoutOf, plan, village.tier());
+        VillageLayout.Building b = layoutOf == null ? plan : BuildingPaliers.at(layoutOf, plan, palier);
         int h = Chantiers.siteHeight(world, village, b);
         Chantiers.site(world, village, b, h, 0);
         PHASE.remove(key(village, plot));
@@ -409,6 +412,7 @@ public final class Plots {
             }
             village.markBuilt(b.id());
             village.setSiteY(b.id(), h);
+            village.setPalier(b.id(), palier);
             Villagers.forgetGround();
             Message name = Message.translation(Chantiers.buildingKey(b.id()));
             Chantiers.announce(world, village, Message.translation(KEYS + "done").param("building", name).param("village", village.name()),

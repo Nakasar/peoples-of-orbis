@@ -159,7 +159,7 @@ public final class VillageStreets {
     private static boolean insideStanding(Village village, VillageLayout layout, int x, int z) {
         int lx = x - village.x(), lz = z - village.z();
         for (VillageLayout.Building b : layout.buildings()) {
-            int[] r = b.rect();
+            int[] r = BuildingPaliers.current(village, layout, b).rect();
             if (village.isStanding(b.id()) && lx >= r[0] && lx <= r[1] && lz >= r[2] && lz <= r[3]) {
                 return true;
             }
@@ -283,7 +283,7 @@ public final class VillageStreets {
         int lx = x - village.x();
         int lz = z - village.z();
         for (VillageLayout.Building b : layout.buildings()) {
-            int[] r = b.rect();
+            int[] r = BuildingPaliers.reserved(layout, b);
             if (lx >= r[0] && lx <= r[1] && lz >= r[2] && lz <= r[3]) {
                 return true;
             }

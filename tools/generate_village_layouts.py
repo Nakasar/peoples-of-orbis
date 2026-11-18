@@ -213,6 +213,12 @@ def build(layout_id, spec, bounds):
     plaza_rect = (-plaza, plaza, -plaza, plaza)
     buildings = []
     radius = plaza
+    # Zones maximales (Kevin, 18 novembre 2026, plan des Renoncés) : rectangle relatif au cœur que chaque palier du
+    # bâtiment, retouché à la main compris, ne quitte jamais ; deux zones ne se touchent pas (rue de MARGIN - 1 blocs).
+    zones = spec.get("Zones", {})
+    for bid in zones:
+        if not any(b[0] == bid for b in spec["Buildings"]):
+            errors.append(f"{layout_id} : zone d'un bâtiment inconnu {bid}")
     for bid, tier, prefab, x, z, rotation in spec["Buildings"]:
         if prefab not in bounds:
             errors.append(f"{layout_id}/{bid} : prefab vanilla inconnu {prefab}")
@@ -222,14 +228,23 @@ def build(layout_id, spec, bounds):
             errors.append(f"{layout_id}/{bid} : prefab {prefab} non mesuré (trop gros)")
             continue
         rect = footprint(b, x, z, rotation)
-        if overlaps(rect, plaza_rect, 1):
-            errors.append(f"{layout_id}/{bid} : empiète sur la place {rect}")
+        zone = zones.get(bid)
+        if zone is not None:
+            zone = tuple(zone)
+            if not (zone[0] <= rect[0] and rect[1] <= zone[1] and zone[2] <= rect[2] and rect[3] <= zone[3]):
+                errors.append(f"{layout_id}/{bid} : le prefab {rect} sort de sa zone {zone}")
+            rect_or_zone = zone
+        else:
+            rect_or_zone = rect
+        if overlaps(rect_or_zone, plaza_rect, 1):
+            errors.append(f"{layout_id}/{bid} : empiète sur la place {rect_or_zone}")
         decor = any(k in prefab for k in DECOR)
         for other_id, other, other_decor in rects:
-            if overlaps(rect, other, DECOR_MARGIN if decor or other_decor else MARGIN):
-                errors.append(f"{layout_id}/{bid} chevauche {other_id} : {rect} / {other}")
-        rects.append((bid, rect, decor))
-        far = max(math.hypot(px, pz) for px in rect[:2] for pz in rect[2:])
+            if overlaps(rect_or_zone, other, DECOR_MARGIN if decor or other_decor else MARGIN):
+                errors.append(f"{layout_id}/{bid} chevauche {other_id} : {rect_or_zone} / {other}")
+        rects.append((bid, rect_or_zone, decor))
+        far_rect = rect_or_zone
+        far = max(math.hypot(px, pz) for px in far_rect[:2] for pz in far_rect[2:])
         radius = max(radius, math.ceil(far))
         buildings.append({
             "Id": bid,
@@ -244,6 +259,7 @@ def build(layout_id, spec, bounds):
             "MaxZ": rect[3] - z,
             "MinY": b[2],
             "MaxY": b[3],
+            **({"Zone": list(zone)} if zone is not None else {}),
         })
     # Étape 6 des bâtiments de métier : terrains E1/E2 (tools/plots.py) et leurs projets, deux bâtiments par projet
     # (un par terrain), collés seulement par le chantier d'emplacement (Java village/Plots).
@@ -251,18 +267,18 @@ def build(layout_id, spec, bounds):
     plot_jobs = []
     plot_dialogues = {}
     for pid, (px_, pz_, ptier) in sorted(plots.PLOTS.get(layout_id, {}).items()):
-        prect = plots.plot_rect(px_, pz_)
+        prect = plots.plot_rect(px_, pz_, plots.plot_size(layout_id))
         if overlaps(prect, plaza_rect, 1):
             errors.append(f"{layout_id}/{pid} : le terrain empiète sur la place {prect}")
         for other_id, other, _ in rects:
             if overlaps(prect, other, MARGIN):
                 errors.append(f"{layout_id}/{pid} : le terrain chevauche {other_id} : {prect} / {other}")
         for other in plot_docs:
-            if overlaps(prect, plots.plot_rect(other["X"], other["Z"]), MARGIN):
+            if overlaps(prect, plots.plot_rect(other["X"], other["Z"], other["Size"]), MARGIN):
                 errors.append(f"{layout_id}/{pid} : le terrain chevauche {other['Id']}")
         far = max(math.hypot(a, c) for a in prect[:2] for c in prect[2:])
         radius = max(radius, math.ceil(far))
-        plot_docs.append({"Id": pid, "X": px_, "Z": pz_, "Size": plots.PLOT_SIZE, "Tier": ptier,
+        plot_docs.append({"Id": pid, "X": px_, "Z": pz_, "Size": plots.plot_size(layout_id), "Tier": ptier,
                           "Materials": [{"ItemId": i, "Quantity": q} for i, q in plots.MATERIALS[spec["People"]]],
                           "Hours": plots.PLOT_HOURS})
         for project in plots.PROJECTS.get(layout_id, []):
@@ -313,9 +329,11 @@ def build(layout_id, spec, bounds):
                      "Dialogue": "" if vanilla else plot_dialogues.get(jid, f"{spec['People']}_{kind}"), "Building": work or "", "WorkX": px, "WorkZ": pz,
                      "Home": home, "HomeX": hx, "HomeZ": hz, "Builder": kind == "Builder"})
     # Sentiers et décor entre les bâtiments (tools/village_streets.py, Kevin 2026-11-16).
-    st_buildings = [(b["Id"], b["Tier"], (b["X"] + b["MinX"], b["X"] + b["MaxX"], b["Z"] + b["MinZ"], b["Z"] + b["MaxZ"]),
+    # Une zone maximale compte entière : les sentiers en partent et n'y entrent pas.
+    st_buildings = [(b["Id"], b["Tier"], tuple(b["Zone"]) if "Zone" in b else
+                     (b["X"] + b["MinX"], b["X"] + b["MaxX"], b["Z"] + b["MinZ"], b["Z"] + b["MaxZ"]),
                      any(k in b["Prefab"] for k in DECOR)) for b in buildings if "Plot" not in b]
-    st_plots = [(p["Id"], p["Tier"], plots.plot_rect(p["X"], p["Z"])) for p in plot_docs]
+    st_plots = [(p["Id"], p["Tier"], plots.plot_rect(p["X"], p["Z"], p["Size"])) for p in plot_docs]
     streets, street_errors, street_preview = village_streets.build(
         layout_id, spec["People"], plaza, st_buildings, st_plots, radius, village_streets.load_block_ids(), bounds)
     errors.extend(street_errors)
@@ -382,7 +400,7 @@ def preview(layout_id, doc, rects, out_dir):
                 c = (120, 200, 230)
             d.ellipse([px(x, z)[0] - 1, px(x, z)[1] - 1, px(x + 1, z + 1)[0] + 1, px(x + 1, z + 1)[1] + 1], fill=c)
     for plot in doc.get("Plots", []):
-        pr = plots.plot_rect(plot["X"], plot["Z"])
+        pr = plots.plot_rect(plot["X"], plot["Z"], plot["Size"])
         d.rectangle([*px(pr[0], pr[2]), *px(pr[1] + 1, pr[3] + 1)], outline=(200, 200, 200), width=1)
         d.text(px(pr[0] + 1, pr[2] + 1), plot["Id"], fill=(200, 200, 200))
     for job in doc.get("Jobs", []):

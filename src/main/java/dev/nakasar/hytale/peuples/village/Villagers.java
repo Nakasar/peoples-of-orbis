@@ -231,7 +231,7 @@ public final class Villagers {
             home = refuge != null && dev.nakasar.hytale.peuples.population.Population.refugeOpen(village, village.population()) ? refuge : null;
         }
         VillageLayout.Building b = home == null ? null : layout.building(home);
-        return b == null ? want.target() : ground(world, village, front(b));
+        return b == null ? want.target() : ground(world, village, front(village, b));
     }
 
     private static Map<String, Want> wantedOutside(World world, Village village, VillageLayout layout, boolean night, long day) {
@@ -265,7 +265,7 @@ public final class Villagers {
             }
             int[] spot = night ? job.homeSpot() : job.work();
             if (job.builder() && !night && !works.isEmpty()) {
-                spot = front(works.get(0));
+                spot = front(village, works.get(0));
             }
             if (!night || village.isStanding(job.home()) || job.home().isEmpty()) {
                 out.put(job.id(), new Want(job.role(), job.dialogue(), ground(world, village, spot)));
@@ -277,7 +277,7 @@ public final class Villagers {
         if (builder != null && !night) {
             for (int i = 1; i < works.size() && i <= MAX_HELPERS; i++) {
                 VillageLayout.Building b = works.get(i);
-                out.put(HELPER + b.id(), new Want(builder.role(), builder.dialogue(), ground(world, village, front(b))));
+                out.put(HELPER + b.id(), new Want(builder.role(), builder.dialogue(), ground(world, village, front(village, b))));
             }
         }
         if (pop != null) {
@@ -310,14 +310,14 @@ public final class Villagers {
                 kind = "Apprentice";
                 VillageLayout.Job master = layout.job(h.vocation());
                 spot = master != null && !night && pop.holder(master.id()) != null ? master.work()
-                        : home != null ? front(home) : new int[] {0, 0};
+                        : home != null ? front(village, home) : new int[] {0, 0};
                 spot = new int[] {spot[0] + 1, spot[1] + (offset == 0 ? 1 : offset)};
             } else if (stage == dev.nakasar.hytale.peuples.population.Ages.Stage.ELDER) {
                 kind = "Retired";
-                spot = night && home != null ? front(home) : new int[] {offset * 2, 4 + Math.abs(offset)};
+                spot = night && home != null ? front(village, home) : new int[] {offset * 2, 4 + Math.abs(offset)};
             } else {
                 kind = "Resident";
-                spot = home != null ? front(home) : new int[] {offset * 3, -5};
+                spot = home != null ? front(village, home) : new int[] {offset * 3, -5};
                 spot = new int[] {spot[0] + offset, spot[1]};
             }
             String role = "Nakasar_Peuples_" + village.people().id() + "_" + kind;
@@ -368,8 +368,10 @@ public final class Villagers {
     }
 
     /** Poste devant un bâtiment (2 blocs hors de l'emprise, côté place), comme tools/generate_village_layouts.py. */
-    static int[] front(VillageLayout.Building b) {
-        int[] r = b.rect();
+    static int[] front(Village village, VillageLayout.Building b) {
+        // Devant l'apparence debout du bâtiment (BuildingPaliers : une version plus grande déborde de l'emprise du plan).
+        VillageLayout layout = Chantiers.layout(village);
+        int[] r = layout == null ? b.rect() : BuildingPaliers.current(village, layout, b).rect();
         int cx = Math.floorDiv(r[0] + r[1], 2);
         int cz = Math.floorDiv(r[2] + r[3], 2);
         if (Math.abs(cx) >= Math.abs(cz)) {

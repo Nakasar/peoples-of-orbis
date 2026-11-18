@@ -33,8 +33,11 @@ public final class VillageBuilder {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final String MESSAGES = Villages.MESSAGES;
 
-    /** Écart de hauteur maximal entre un bâtiment et la place (le village reste d'un seul tenant). */
-    private static final int MAX_STEP = 4;
+    /**
+     * Écart de hauteur maximal entre un bâtiment et la place. Kevin 2026-11-18 : 4 blocs faisaient de grands déblais et
+     * remblais sur les pentes (villages en terrasses) ; chaque bâtiment suit désormais bien plus le relief.
+     */
+    public static final int MAX_STEP = 10;
     /** Marge plate et fondu autour d'une emprise. */
     private static final int MARGIN = 2;
     private static final int BLEND = 4;
@@ -52,7 +55,7 @@ public final class VillageBuilder {
         int p = layout.plazaRadius() + 1;
         List<int[]> rects = new ArrayList<>();
         for (VillageLayout.Building b : layout.buildings()) {
-            rects.add(b.rect());
+            rects.add(BuildingPaliers.reserved(layout, b));
         }
         for (VillageLayout.Plot plot : layout.plots()) {
             rects.add(plot.rect());
@@ -105,7 +108,8 @@ public final class VillageBuilder {
                     .param("distance", (int) Math.sqrt(near.distanceSquared(cx, near.y(), cz))).param("min", spacing(layout))));
             return;
         }
-        int r = layout.radiusUpTo(0) + MARGIN + 2 * BLEND + 18; // talus et couronnes des arbres retirés
+        // Tout le plan (restes de la génération du monde retirés des emprises à venir), talus et couronnes des arbres retirés.
+        int r = Math.max(layout.radiusUpTo(0) + MARGIN + 2 * BLEND + 18, Footprints.siteRadius(layout) + 2);
         Terrain.load(world, cx - r, cx + r, cz - r, cz + r).whenComplete((ignored, error) -> world.execute(() -> {
             if (error != null) {
                 LOGGER.atWarning().withCause(error).log("Nakasar Peuples : chunks du village %s non chargés", name);
@@ -143,6 +147,11 @@ public final class VillageBuilder {
         int h0 = terrain.medianSurface(cx - p, cx + p, cz - p, cz + p, 1);
         if (h0 == Terrain.NONE) {
             return Result.fail("terrainUnloaded");
+        }
+
+        int wild = Footprints.clearWild(world, layout, cx, cz);
+        if (wild > 0) {
+            LOGGER.atInfo().log("Nakasar Peuples : %d blocs laissés par la génération du monde retirés des emprises de %s", wild, name);
         }
 
         // Emprises du palier 0 et hauteurs prises sur le relief naturel, avant toute retouche.
@@ -194,7 +203,8 @@ public final class VillageBuilder {
             int[] rect = rects.get(i);
             BiPredicate<Integer, Integer> keep = keepOthers(rects, i, plaza);
             new Grading(world).slabs(layout.people().slabs(), slabOk)
-                    .settle(rect[0], rect[1], rect[2], rect[3], heights.get(i), layout.people().ground(), keep);
+                    .settle(rect[0], rect[1], rect[2], rect[3], heights.get(i), layout.people().ground(), keep,
+                            Footprints.at(b.prefab(), b.rotation(), cx + b.x(), cz + b.z()));
         }
 
         // Cœur du peuple (palier 0) : pièces vanilla et blocs de la place, puis dépôt, tableau et bannière à leurs places.
@@ -247,7 +257,7 @@ public final class VillageBuilder {
                 z + buffer.getMinZ(rot) - reach - 1, z + buffer.getMaxZ(rot) + reach + 1};
     }
 
-    private static IPrefabBuffer buffer(String prefab) {
+    static IPrefabBuffer buffer(String prefab) {
         Path path = PrefabStore.get().findAssetPrefabPath(prefab + ".prefab.json");
         if (path == null) {
             path = PrefabStore.get().findAssetPrefabPath(prefab);

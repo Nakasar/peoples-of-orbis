@@ -47,7 +47,7 @@ public final class Chantiers {
     /** Les annonces vont aux joueurs à moins de cette distance du cœur. */
     public static final int ANNOUNCE_RADIUS = 160;
     /** Écart de hauteur maximal entre un bâtiment et la place (comme VillageBuilder). */
-    private static final int MAX_STEP = 4;
+    private static final int MAX_STEP = VillageBuilder.MAX_STEP;
     private static final int MARGIN = 2;
     private static final int BLEND = 4;
 
@@ -85,6 +85,20 @@ public final class Chantiers {
             }
         }
         return out;
+    }
+
+    /**
+     * Le bâtiment `b` tel que le chantier du palier `villageTier` le bâtit : apparence du palier du village (bâtiment
+     * propre) ou de son niveau (bâtiment de métier, projet) ; jamais en dessous de l'apparence qu'il avait avant de
+     * brûler ({@link BuildingPaliers}).
+     */
+    public static VillageLayout.Building planned(Village village, VillageLayout layout, VillageLayout.Building b, int villageTier) {
+        return BuildingPaliers.at(layout, b, plannedPalier(village, layout, b, villageTier));
+    }
+
+    static int plannedPalier(Village village, VillageLayout layout, VillageLayout.Building b, int villageTier) {
+        int p = BuildingPaliers.target(village, layout, b, villageTier);
+        return village.isBuilt(b.id()) ? Math.max(p, village.palier(b.id())) : p;
     }
 
     /** Matériaux qui manquent au dépôt pour le chantier `spec` (objet -> quantité manquante), ou null si le dépôt manque. */
@@ -184,7 +198,8 @@ public final class Chantiers {
         // Toutes les parcelles sont examinées avant de poser le moindre chantier : le chantier d'un bâtiment (1 bloc
         // autour de lui) ne doit pas faire sauter son voisin.
         List<VillageLayout.Building> free = new ArrayList<>();
-        for (VillageLayout.Building b : buildings) {
+        for (VillageLayout.Building plan : buildings) {
+            VillageLayout.Building b = planned(village, layout, plan, target);
             if (!village.isBuilt(b.id())) {
                 Obstacles o = obstacles(world, village, b, siteHeight(world, village, b));
                 if (o.any()) {
@@ -199,7 +214,11 @@ public final class Chantiers {
             boolean ruins = village.isBuilt(b.id());
             int h = siteHeight(world, village, b);
             if (ruins) {
-                clearRuins(world, village, b, h);
+                VillageLayout.Building was = BuildingPaliers.current(village, layout, b);
+                clearRuins(world, village, was, h);
+                if (was != b) {
+                    prepare(world, terrain, village, layout, b, h); // ruines d'une apparence plus petite : emprise élargie
+                }
             } else {
                 prepare(world, terrain, village, layout, b, h);
             }
@@ -268,10 +287,12 @@ public final class Chantiers {
         Store<EntityStore> store = world.getEntityStore().getStore();
         int pasted = 0;
         for (String id : c.buildings()) {
-            VillageLayout.Building b = layout.building(id);
-            if (b == null) {
+            VillageLayout.Building plan = layout.building(id);
+            if (plan == null) {
                 continue;
             }
+            int palier = plannedPalier(village, layout, plan, c.tier());
+            VillageLayout.Building b = BuildingPaliers.at(layout, plan, palier);
             int h = siteHeight(world, village, b);
             site(world, village, b, h, 0);
             if (village.isBuilt(b.id())) {
@@ -281,15 +302,18 @@ public final class Chantiers {
                 settle(world, village, layout, b, h);
                 village.markBuilt(b.id());
                 village.setSiteY(b.id(), h);
+                village.setPalier(b.id(), palier);
                 pasted++;
             }
         }
         Terrain terrain = new Terrain(world);
         for (String id : c.skipped()) {
-            VillageLayout.Building b = layout.building(id);
-            if (b == null || village.isStanding(id)) {
+            VillageLayout.Building plan = layout.building(id);
+            if (plan == null || village.isStanding(id)) {
                 continue;
             }
+            int palier = plannedPalier(village, layout, plan, c.tier());
+            VillageLayout.Building b = BuildingPaliers.at(layout, plan, palier);
             int h = siteHeight(world, village, b);
             if (occupied(world, village, b, h)) {
                 continue;
@@ -299,6 +323,7 @@ public final class Chantiers {
                 settle(world, village, layout, b, h);
                 village.markBuilt(b.id());
                 village.setSiteY(b.id(), h);
+                village.setPalier(b.id(), palier);
                 pasted++;
             }
         }
@@ -307,11 +332,18 @@ public final class Chantiers {
         PHASE.remove(village.id());
         village.setTier(c.tier());
         village.setEssor(0);
+        // Les bâtiments propres déjà debout prennent l'apparence du nouveau palier (Kevin, 2026-11-17).
+        int grown = Rebuilds.raiseNow(world, village);
         Message title = Message.translation(KEYS + "doneTitle").param("village", village.name())
                 .param("tier", Message.translation(Tiers.nameKey(c.tier())));
         announce(world, village, Message.translation(KEYS + "done").param("village", village.name())
                 .param("tier", Message.translation(Tiers.nameKey(c.tier()))).param("count", pasted), title, NotificationStyle.Success);
-        LOGGER.atInfo().log("Nakasar Peuples : %s passe au palier %d (%d bâtiments collés)", village.name(), c.tier(), pasted);
+        if (grown > 0) {
+            announce(world, village, Message.translation(KEYS + "grown").param("village", village.name()).param("count", grown), null,
+                    NotificationStyle.Success);
+        }
+        LOGGER.atInfo().log("Nakasar Peuples : %s passe au palier %d (%d bâtiments collés, %d agrandis)", village.name(), c.tier(), pasted,
+                grown);
     }
 
     /** Abandonne le chantier en cours sans le finir (chantier retiré ; matériaux perdus). */
@@ -325,6 +357,7 @@ public final class Chantiers {
             for (String id : c.buildings()) {
                 VillageLayout.Building b = layout.building(id);
                 if (b != null) {
+                    b = planned(village, layout, b, c.tier());
                     site(world, village, b, siteHeight(world, village, b), 0);
                 }
             }
@@ -355,14 +388,20 @@ public final class Chantiers {
                 Store<EntityStore> store = world.getEntityStore().getStore();
                 Terrain terrain = new Terrain(world);
                 int pasted = 0;
-                for (VillageLayout.Building b : pending(layout, village, target)) {
+                for (VillageLayout.Building plan : pending(layout, village, target)) {
+                    int palier = plannedPalier(village, layout, plan, target);
+                    VillageLayout.Building b = BuildingPaliers.at(layout, plan, palier);
                     boolean ruins = village.isBuilt(b.id());
                     int h = siteHeight(world, village, b);
                     if (!ruins && occupied(world, village, b, h)) {
                         continue;
                     }
                     if (ruins) {
-                        clearRuins(world, village, b, h);
+                        VillageLayout.Building was = BuildingPaliers.current(village, layout, plan);
+                        clearRuins(world, village, was, h);
+                        if (was != b) {
+                            prepare(world, terrain, village, layout, b, h);
+                        }
                     } else {
                         prepare(world, terrain, village, layout, b, h);
                     }
@@ -370,12 +409,14 @@ public final class Chantiers {
                         settle(world, village, layout, b, h);
                         village.markBuilt(b.id());
                         village.setSiteY(b.id(), h);
+                        village.setPalier(b.id(), palier);
                         pasted++;
                     }
                 }
                 VillageHeart.upgrade(world, village, layout, target);
                 Villages.setTier(village, target);
                 village.setEssor(0);
+                Rebuilds.raiseNow(world, village);
                 done.accept(pasted);
             } finally {
                 BUSY.remove(village.id());
@@ -422,6 +463,7 @@ public final class Chantiers {
             return null;
         }
         cancel(world, village);
+        target = BuildingPaliers.current(village, layout, target);
         int h = siteHeight(world, village, target);
         int[] r = target.rect();
         Burning.burn(world, village.x() + r[0], village.x() + r[1], village.z() + r[2], village.z() + r[3], h, target.height(),
@@ -524,13 +566,13 @@ public final class Chantiers {
             for (String id : c.skipped()) {
                 VillageLayout.Building b = layout.building(id);
                 if (b != null) {
-                    candidates.add(b);
+                    candidates.add(planned(village, layout, b, c.tier()));
                 }
             }
         } else if (village.tier() < Tiers.MAX) {
             for (VillageLayout.Building b : pending(layout, village, village.tier() + 1)) {
                 if (!village.isBuilt(b.id())) {
-                    candidates.add(b);
+                    candidates.add(planned(village, layout, b, village.tier() + 1));
                 }
             }
         }
@@ -562,9 +604,14 @@ public final class Chantiers {
                     || base.startsWith("Deco_SpiderWeb") || base.startsWith("Deco_Bone");
         }
         if (base.startsWith("Wood_")) {
-            return base.contains("_Trunk") || base.contains("_Branch") || base.contains("_Roots");
+            // Tas de brindilles semés par la génération du monde (Kevin 2026-11-18 : le vanilla ne gêne pas).
+            return base.contains("_Trunk") || base.contains("_Branch") || base.contains("_Roots") || base.startsWith("Wood_Sticks");
         }
-        if (base.startsWith("Soil_") || base.startsWith("Rock_")) {
+        if (base.startsWith("Soil_")) {
+            // Tout le sol, chemins de la génération du monde compris (Soil_Pathway), sauf les briques d'argile.
+            return !base.contains("Brick");
+        }
+        if (base.startsWith("Rock_")) {
             return !base.contains("Brick") && !base.contains("Cobble") && !base.contains("Polished") && !base.contains("Smooth")
                     && !base.contains("Half") && !base.contains("Stairs") && !base.contains("Pathway");
         }
@@ -589,7 +636,7 @@ public final class Chantiers {
         int p = layout.plazaRadius() + 1;
         List<int[]> rects = new ArrayList<>();
         for (VillageLayout.Building b : layout.buildings()) {
-            rects.add(b.rect());
+            rects.add(BuildingPaliers.reserved(layout, b)); // emprise de tous ses paliers (Kevin, 2026-11-17)
         }
         for (VillageLayout.Plot plot : layout.plots()) {
             rects.add(plot.rect());
@@ -616,8 +663,8 @@ public final class Chantiers {
         for (VillageLayout.Building other : layout.buildings()) {
             // Les autres projets du même terrain partagent son emprise : ils ne la réservent pas.
             boolean samePlot = b.plot() != null && b.plot().equals(other.plot());
-            if (other != b && !samePlot) {
-                int[] r = other.rect();
+            if (!other.id().equals(b.id()) && !samePlot) {
+                int[] r = BuildingPaliers.reserved(layout, other);
                 reserved.add(new int[] {village.x() + r[0], village.x() + r[1], village.z() + r[2], village.z() + r[3]});
             }
         }
@@ -638,7 +685,8 @@ public final class Chantiers {
     static void settle(World world, Village village, VillageLayout layout, VillageLayout.Building b, int h) {
         int[] r = b.rect();
         new Grading(world).slabs(village.people().slabs(), slabAllowed(village, layout)).settle(village.x() + r[0], village.x() + r[1],
-                village.z() + r[2], village.z() + r[3], h, village.people().ground(), keep(village, layout, b));
+                village.z() + r[2], village.z() + r[3], h, village.people().ground(), keep(village, layout, b),
+                Footprints.at(b.prefab(), b.rotation(), village.x() + b.x(), village.z() + b.z()));
     }
 
     /**
@@ -693,6 +741,7 @@ public final class Chantiers {
                 }
                 for (String id : c.buildings()) {
                     VillageLayout.Building b = layout.building(id);
+                    b = b == null ? null : planned(village, layout, b, c.tier());
                     if (b != null && !b.small()) {
                         site(world, village, b, siteHeight(world, village, b), phase);
                     }

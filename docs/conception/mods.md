@@ -180,7 +180,7 @@ Razorleaf et de Sproutlings, lapins) apparaissent dans le campement.
 ### Génération
 
 `VillageBuilder` charge les chunks, aplanit la place (chemin de terre) et l'emprise de chaque bâtiment (herbe, 2 blocs
-de marge plate), à au plus 4 blocs de la hauteur de la place, puis colle
+de marge plate), à au plus 10 blocs de la hauteur de la place, puis colle
 les prefabs comme l'action vanilla `PrefabPasteAction`, puis pose le cœur du peuple, le dépôt, le tableau (étape 1) et la
 bannière aux places que donne le plan.
 
@@ -191,6 +191,15 @@ Le terrassement (`Grading`, aussi utilisé par les chantiers) traite toutes les 
   feuille appartient au bois le plus proche) dès qu'un de leurs blocs ou une de leurs feuilles surplombe une colonne
   retouchée, jusqu'à 14 blocs autour du site ;
 - toute grappe de bois et de feuilles qui ne touche plus aucun bloc solide est retirée, ainsi que les plantes sans sol.
+
+Après chaque collage, `Grading.settle` rend son relief au terrain : seule l'emprise réelle du prefab au sol
+(`Footprints.of` : murs, poteaux, clôtures, meubles, planchers, cultures et ce qu'ils enferment, plus une case de seuil)
+reste à la hauteur du bâtiment ; le reste du rectangle, sa marge et ses talus reprennent le relief alentour.
+
+Avant d'être retenu, un site est sondé sur tout son plan, paliers à venir compris (`Footprints.dry`) : aucun bâtiment
+ni terrain ne doit tomber dans une rivière ou un lac. À la fondation, `Footprints.clearWild` retire des emprises à venir
+les blocs laissés par la génération du monde (ruines, camps, brindilles) ; les chemins `Soil_Pathway` et les tas de
+brindilles comptent comme du relief pour les chantiers, qui ne les prennent plus pour des blocs de joueur.
 
 ### Cœur du village (place propre à chaque peuple)
 
@@ -1110,8 +1119,8 @@ pose l'état, le panneau, les commandes et la jauge ; la montée de niveau (comm
   3 premiers matériaux du chantier du palier correspondant du plan) et lance 12 h de travaux (heures de jeu).
 - À la fin : niveau suivant, jauge à zéro, commandes retirées (3 au niveau III), décor vanilla du peuple posé à côté du
   panneau (`Decor`, seulement dans l'air au-dessus d'un bloc), annonce et titre à l'écran aux joueurs proches.
-- Pas encore de variante de prefab plus grande : le décor suffit tant que les emprises de niveau III ne sont pas
-  réservées dans les plans (à voir avec les emplacements de l'étape 6).
+- Depuis le 17 novembre 2026, le bâtiment est aussi recollé dans une version plus grande à son nouveau niveau : voir
+  « Apparence des bâtiments selon le palier » plus bas.
 
 ## Bâtiments de métier, étape 3 : spécialités et élevage
 
@@ -2120,8 +2129,9 @@ Un palier = le même bâtiment en plus grand, pris dans les prefabs vanilla de s
 - un lieu-dit gagne ses bâtiments annexes facultatifs aux paliers 2 et 3.
 
 Un palier sans version plus grande en vanilla reste identique au précédent avec la note « pas de version vanilla plus
-grande : à retoucher à la main » (environ 40 à 50 par peuple) : c'est là que la retouche sur la carte sert. Ces paliers ne
-sont **pas encore branchés au jeu** (chantiers, niveaux I-III des bâtiments de métier) : la carte sert à les valider.
+grande : à retoucher à la main » (environ 40 à 50 par peuple) : c'est là que la retouche sur la carte sert. Les paliers
+sont branchés au jeu depuis le 17 novembre 2026, avec en plus la contrainte de tenir dans le village : voir « Apparence
+des bâtiments selon le palier ».
 
 Mise à jour du 17 novembre 2026 (Kevin, après les familles de bâtiments #172) :
 
@@ -2164,6 +2174,58 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
 - Les rectangles d'un même bâtiment ont la même taille : la plus grande boîte de ses paliers (mesurée sur les prefabs
   chargés) plus 3 blocs d'herbe de marge, liseré de laine rouge `Cloth_Block_Wool_Red` au sol. Chaque palier est
   centré dans son rectangle.
+- Panneau de métier (Kevin, 17 novembre 2026 : « rajoute le panneau sur les prefabs à l'emplacement où il apparaît ») :
+  champ `Board` du palier (« dx dz lacet Bloc », bloc vanilla dont hérite le tableau du peuple, sans tableau à ouvrir),
+  posé par `ReviewMap.placeBoard` avec `Workshops.boardSpot`, la même recherche qu'en jeu (plaqué au mur, ou entré dans
+  le bâtiment). Bâtiments de métier et projets : place de `tools/building_growth.py` (section `Review`) ; avant-postes :
+  sur leur fondation (`Fixe`). Un bâtiment propre n'a pas de panneau.
+- **Place libre** (Kevin, 17 novembre 2026 : « du moment qu'un prefab entre dans le rectangle tracé, il est
+  valide ? » — non, d'où ce tracé) : contour en laine jaune `Cloth_Block_Wool_Yellow` au sol, sur l'herbe seulement,
+  champ `Zone` du palier. Bâtiment du plan : l'emprise retenue à ce palier, agrandie côté par côté (24 blocs au plus)
+  tant qu'elle ne touche ni la place, ni un terrain (un projet reste dans le sien à 1 bloc du bord), ni l'emprise
+  réservée d'un voisin, ni le panneau d'un voisin, et reste dans le rayon du village (`tools/building_growth.py`,
+  section `Zones`, repère du prefab non tourné ; projet : la place commune à ses trois terrains). Avant-poste : son
+  `Annex.Rect`. Un côté non tracé = la place continue au-delà du rectangle de la carte. Une retouche qui tient dans le
+  contour est valide en jeu ; deux voisins peuvent voir le même espace libre entre eux, une retouche des deux qui s'y
+  rejoint est refusée au calcul suivant (liseré bleu). Une retouche d'avant-poste qui sort de `Annex.Rect` est refusée
+  (liste des incompatibles) et le palier garde ses pièces vanilla. Le tracé n'est jamais enregistré dans un prefab.
+- **Zones maximales** (Kevin, 18 novembre 2026, plan des Renoncés écarté) : un plan peut fixer pour chaque bâtiment une
+  zone `Zones` (x0, x1, z0, z1 relatifs au cœur, écrite `Zone` sur le bâtiment du plan). Les zones sont disjointes, avec
+  une rue de 3 blocs entre deux, hors de la place et des terrains. Chaque palier, retouche à la main comprise, doit y
+  tenir (seule règle de place) ; la zone est réservée en entier en jeu (`BuildingPaliers.reserved` : terrassement,
+  sentiers, eau, ménage de la fondation). Sur la carte, `ZoneMax` agrandit le rectangle pour contenir toute la zone,
+  tracée en laine jaune : on y construit le prefab à la main. Renoncés : terrains de 30 x 30 (`plots.PLOT_SIZES`, zone
+  28 x 28 pour les projets), rayon 72.
+- **Retoucher un prefab à la main** (Kevin, 17 novembre 2026 : « le but c'est de pouvoir modifier complètement les
+  prefab pour pouvoir faciliter leur mise à jour dans le mod, comme un éditeur ») : retoucher le bâtiment dans son
+  rectangle (créatif, outils de construction), puis, debout dans le rectangle, `/village revue --sauver`
+  (`review/ReviewPrefabs`). Le palier est enregistré par l'outil d'enregistrement de prefabs du serveur
+  (`PrefabSaver` : états de blocs, coffres, remplissages) : intérieur du rectangle sans le liseré, de 16 blocs sous le
+  sol jusqu'au haut du rectangle, origine = point de collage du palier (mêmes coordonnées que le prefab d'origine).
+  Les couches du monde plat (herbe au sol, terre, pierre) et le panneau muet en sont retirés ; le panneau de métier
+  aussi (sa place est relevée à part, puis il est remis). Sortie à côté des mondes du serveur :
+  `nakasar-revue/prefabs/Nakasar/Peuples/Retouches/<Peuple>/<Catégorie>_<Id>_P<palier>.prefab.json` et la liste
+  `nakasar-revue/retouches-prefabs.json`. Copier `prefabs/` dans `src/main/resources/Server/Prefabs/` et la liste dans
+  `tools/retouches-prefabs.json`, relancer `tools/building_growth.py` puis `tools/building_tiers.py` : le prefab
+  retouché remplace toute la composition de ce palier, sur la carte (note « retouché à la main ») et en jeu
+  (bâtiment du plan : version de ce palier, avec les mêmes règles de place, liseré bleu s'il ne tient pas ;
+  avant-poste : pièce unique à la fondation). Un palier 1 retouché est permis par `validateAssets`. Retouches pas
+  encore enregistrées : perdues quand le monde de revue est écrasé (l'ancien dossier reste dans les mondes supprimés
+  du serveur). Cœur, hameaux et lieux-dits : la carte montre le prefab retouché, le jeu ne le prend pas encore.
+- **Placer un panneau à la main** (Kevin, 17 novembre 2026 : « le placement à la main du panneau va consister à le
+  déplacer physiquement à la main sur la carte de revue ») : casser le panneau d'un rectangle et le reposer où il doit
+  être (même bloc vanilla, dans le même rectangle, lacet compris), puis `/village revue --relever`. La carte compare
+  chaque panneau à sa pose (`nakasar_revue_panneaux.txt` du monde : place, origine et rectangle du palier) et ajoute
+  ceux qui ont bougé au relevé `nakasar-revue/panneaux-releves.json`, à côté des mondes du serveur (hors du monde de
+  revue). Le relevé se fait aussi tout seul avant chaque écrasement du monde (carte changée, `--rebatir`) : un
+  déplacement n'est jamais perdu. Copier ce fichier dans `tools/panneaux-releves.json` du dépôt, relancer
+  `tools/building_growth.py` puis `tools/building_tiers.py` : le jeu pose alors le panneau à cette case exacte (tournée
+  avec le bâtiment, hauteur comptée depuis sa pose) et la carte le remet là. Un panneau relevé reste dans le fichier tant
+  qu'on ne le rebouge pas ; pour revenir à la place calculée, retirer sa ligne. Avant-postes non concernés (panneau sur
+  la fondation posée par le joueur).
+- Liseré de **laine bleue** `Cloth_Block_Wool_Blue` (Kevin, 17 novembre 2026) : palier que le bâtiment peut montrer en
+  jeu mais dont la version ne tient pas à sa place au village (`Incompatibles` de `paliers-batiments.json`, calculés par
+  `tools/building_growth.py`) ; le village garde alors une version plus petite. La raison est dans les notes du panneau.
 - Un panneau muet `Nakasar_Peuples_Review_Sign` (panneau de village vanilla) dans le coin sud-ouest de chaque
   rectangle : l'utiliser affiche à l'écran le bâtiment et « Peuple · palier N/4 · Catégorie », et dans le chat les
   prefabs collés et les notes (`review/ReviewSignInteraction`).
@@ -2177,6 +2239,91 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
 - Création du monde plat et téléportation d'un monde à l'autre.
 - Le panneau affiche bien le titre et le message au clic, aussi après redémarrage du serveur.
 - Les prefabs agrandis restent dans leur rectangle (mesure `VillageBuilder.bounds`), sens d'entrée des bâtiments.
+
+## Apparence des bâtiments selon le palier (`village/BuildingPaliers`, `village/Rebuilds`, `tools/building_growth.py`)
+
+Kevin, 17 novembre 2026 : « Quand un village change de palier, ses bâtiments propres changent d'apparence pour le palier
+correspondant. Les bâtiments qui ont leurs propres niveaux ne changent d'apparence que lors de leur changement de niveau
+propre. »
+
+### Quel palier montrer
+
+- **Bâtiment propre** (bâtiment du plan sans bâtiment de métier : maisons, tours, échoppes, décor) : palier du village
+  + 1 (campement 1, hameau 2, village 3, bourg 4). Un bâtiment qui n'arrive qu'au palier 2 du village est bâti tout de
+  suite à son palier 3.
+- **Bâtiment à niveaux** (bâtiment de métier, projet de terrain E1-E3, bâtiment de production, ouvrage) : d'après son
+  niveau, `BuildingPaliers.LEVEL_PALIER` : I → 1, II → 3, III → 4 (le niveau II demande un village et le III un bourg :
+  le bâtiment a alors la taille des bâtiments propres autour). Le palier du village n'y touche pas.
+- L'apparence ne redescend jamais : un village qui perd un palier après un raid, une reconversion ou un ouvrage rasé
+  puis relevé gardent l'apparence atteinte (un bâtiment brûlé est rebâti à la plus haute des deux).
+- Le cœur du village a déjà ses étapes (`VillageHeart`) ; les lieux-dits ne sont pas concernés.
+
+### Les paliers qui tiennent (`tools/building_growth.py`)
+
+Les échelles sont celles de la carte de revue (`tools/building_tiers.py` : `CHAINS`, puis le même dossier vanilla par
+volume, enclos du mod `Pens/*_T2-T4`). Le générateur garde, pour chaque palier, la plus grande version qui TIENT dans le
+village, sinon celle du palier d'avant :
+
+- bâtiment du plan : même rotation (entrée tournée du même côté), point de collage décalé au plus de 8 blocs si cela le
+  fait tenir, la nouvelle emprise couvre le centre de l'ancienne, ne touche ni l'emprise (tous paliers) d'un autre
+  bâtiment, ni un terrain E1-E3, ni la place, ni le panneau d'un AUTRE bâtiment de métier (les autres projets du même
+  terrain ne comptent pas : un seul y est bâti), et reste dans le rayon du plan ; un projet reste dans son terrain
+  (1 bloc de marge) ;
+- panneau du bâtiment de métier (Kevin, 17 novembre 2026 : « déplace le panneau de manière logique sur le bâtiment ou à
+  l'intérieur du bâtiment ») : il suit le bâtiment, `Board` du palier. Même façade (lacet), même distance au bord de
+  l'emprise et même décalage depuis le milieu de la façade que sur le plan, ramené dans la largeur de la nouvelle
+  façade. Si cette case est sur la place, chez un voisin, hors du terrain ou contre un autre panneau, il passe au bord
+  intérieur de l'emprise (`Inside`). En jeu, `Workshops.placeBoard` le plaque contre le mur derrière lui ; si la façade
+  est pleine à cet endroit, il entre dans le bâtiment jusqu'à la première case libre (8 blocs au plus) ;
+  placement à la main : relevé de la carte de revue (`tools/panneaux-releves.json`, voir la carte de revue), place
+  exacte (hauteur comprise depuis la pose du bâtiment) tournée avec le bâtiment ;
+- avant-poste : chaque pièce garde sa rotation, bouge au plus de 4 blocs, reste dans `Annex.Rect`, sans chevaucher une
+  autre pièce ni le panneau. Le panneau d'un avant-poste reste sur sa fondation, hors de `Annex.Rect` : un avant-poste
+  incompatible l'est parce que la version plus grande sort de son rectangle.
+
+Sortie `src/main/resources/nakasar-peuples/paliers-batiments.json` (plan → bâtiment → paliers 1-4 avec prefab, décalage
+`DX`/`DZ` et emprise ; avant-poste → pièces par palier). Le 17 novembre 2026 : 130 bâtiments de village sur 214 et 92
+bâtiments d'avant-poste changent d'apparence ; les autres n'ont pas de version vanilla plus grande ou pas la place
+(Feran et Renoncés surtout : plans serrés ; liste dans `Incompatibles`, liseré bleu sur la carte de revue). `validateAssets` vérifie les prefabs et que le palier 1 est encore le
+bâtiment du plan (sinon relancer le générateur après un changement des plans ou des avant-postes) :
+
+    python3 tools/building_growth.py
+
+Les emprises de tous les paliers sont réservées (`BuildingPaliers.reserved`) : demi-blocs d'adoucissement, terrassement
+d'un voisin et sentiers ne s'y posent pas.
+
+### Remplacement sur place (`Rebuilds.replace`, `Annexes.regrow`)
+
+1. Joueurs et PNJ dans l'emprise (ancienne et nouvelle, +1 bloc) : téléportés au point sûr le plus proche, 2 blocs hors
+   de l'emprise du côté de la place (vers le panneau pour un avant-poste).
+2. Panneau du bâtiment de métier décroché (poutre et corde kweebecs comprises).
+3. Ancien bâtiment retiré au-dessus du sol de son emprise ; les conteneurs qui contiennent quelque chose restent (objets
+   des joueurs), les coffres vides du prefab partent avec lui. Fondations sous le sol gardées.
+4. Nouvelle emprise aplanie à la même hauteur de pose (`Chantiers.prepare`), nouveau prefab collé, relief rendu autour
+   (`Chantiers.settle`), corps restés coincés remontés (`Rebuilds.unstick`).
+5. Panneau reposé à sa place du nouveau palier, contre le nouveau mur ou dedans (`Workshops.placeBoard`) et décor de chaque niveau atteint remis ; avant-poste :
+   décor, décor des niveaux et coffre reposés.
+6. Palier gardé : `Site.Palier` (bâtiment du plan), `AnnexState.Palier` (avant-poste) ; 0 = bâti avant ce changement,
+   donc palier 1.
+
+Quand : à la fin d'un chantier de palier (`Chantiers.complete`, et `/village palier` via `buildNow`) pour tous les
+bâtiments debout en retard, annonce « {village} s'agrandit » ; à la fin d'une montée de niveau
+(`Workshops.finishUpgrade` → `Rebuilds.afterLevel` / `Annexes.afterLevel`).
+
+### Rattrapage des villages existants
+
+`VillageLifeSystem` : quand un joueur est près d'un village sans chantier en cours, les bâtiments debout en retard sur
+leur palier (`Rebuilds.due`) sont recollés, 6 par passage (`CATCH_UP_BATCH`) pour étaler la charge. Un avant-poste en
+retard l'est quand un joueur le regarde (`Annexes.step`). Rien à lancer à la main.
+
+### À vérifier en jeu
+
+- Le recollage d'une maison kweebec (petite → grande maison-arbre) et d'une tente trork (→ terrier → réserve) : rien ne
+  flotte ni ne reste de l'ancien bâtiment, entrée du bon côté.
+- Joueur et villageois dans le bâtiment au moment du recollage : sortis du côté de la place, pas coincés.
+- Panneau de métier reposé contre le nouveau mur (et suspendu chez les Kweebecs), décor des niveaux remis.
+- Village bâti avant ce changement : les bâtiments prennent leur apparence en quelques passages.
+- Avant-poste de niveau II-III : pièces plus grandes dans leur rectangle, coffre et panneau gardés.
 
 ## Le gestionnaire qui parle (`steward/`, LLM, désactivé par défaut)
 

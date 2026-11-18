@@ -28,6 +28,7 @@ import dev.nakasar.hytale.peuples.village.Terrain;
 import dev.nakasar.hytale.peuples.village.Tiers;
 import dev.nakasar.hytale.peuples.village.Village;
 import dev.nakasar.hytale.peuples.village.VillageBoard;
+import dev.nakasar.hytale.peuples.village.BuildingPaliers;
 import dev.nakasar.hytale.peuples.village.VillageBuilder;
 import dev.nakasar.hytale.peuples.village.VillageLayout;
 import dev.nakasar.hytale.peuples.village.Villagers;
@@ -832,6 +833,9 @@ public final class Annexes {
                 continue; // pris par un rival : plus de production ni de convoi pour le propriétaire
             }
             if (a.built()) {
+                if (watched(a, players) && behind(village, w, a)) {
+                    afterLevel(world, village, w); // bâti avant les paliers d'apparence, ou recollage interrompu
+                }
                 if (!SWEPT.contains(key) && watched(a, players)) {
                     // Avant-postes bâtis avant le correctif : le panneau de chantier était resté sur place.
                     ChunkStore chunks = world.getChunkStore();
@@ -897,7 +901,10 @@ public final class Annexes {
             site(world, village, w, a, 0);
             PHASE.remove(key);
             int pasted = 0;
-            String[] prefabs = w.annex().prefabs();
+            // Apparence du niveau de l'avant-poste (Kevin, 2026-11-17) : un ouvrage rasé puis relevé garde la sienne.
+            WorkshopState level = village.workshopIfPresent(w.getId());
+            int palier = Math.max(a.palier(), BuildingPaliers.forLevel(level == null ? 1 : level.level()));
+            String[] prefabs = BuildingPaliers.annexPrefabs(w, palier);
             for (String line : prefabs) {
                 String[] p = line.trim().split("\\s+");
                 if (p.length < 4) {
@@ -919,6 +926,7 @@ public final class Annexes {
                 return;
             }
             a.markBuilt();
+            a.setPalier(palier);
             WorkshopState ws = village.workshop(w.getId());
             placeBoard(world, village, w, ws);
             placeDecor(world, village, w, new int[] {a.x(), a.ground() + 1, a.z()}, w.annex().decor());
@@ -932,6 +940,166 @@ public final class Annexes {
         } finally {
             BUSY.remove(key);
         }
+    }
+
+    // ---- Apparence selon le niveau (BuildingPaliers) ----
+
+    /** Vrai si l'avant-poste bâti `a` n'a pas encore l'apparence de son niveau. */
+    static boolean behind(Village village, Workshop w, AnnexState a) {
+        WorkshopState ws = village.workshopIfPresent(w.getId());
+        int to = BuildingPaliers.forLevel(ws == null ? 1 : ws.level());
+        return a.built() && !a.occupied() && to > a.palier() && !BUSY.contains(key(village, w) + "/palier");
+    }
+
+    /**
+     * Après la montée de niveau de l'avant-poste `w` (et en rattrapage pour un avant-poste bâti avant les paliers) :
+     * ses bâtiments prennent l'apparence du palier de son niveau, recollés sur place. Charge la zone d'abord.
+     */
+    public static void afterLevel(World world, Village village, Workshop w) {
+        AnnexState a = village.annex(w.getId());
+        if (a == null || !behind(village, w, a)) {
+            return;
+        }
+        WorkshopState ws = village.workshopIfPresent(w.getId());
+        int to = BuildingPaliers.forLevel(ws == null ? 1 : ws.level());
+        if (!BuildingPaliers.annexDiffer(w, a.palier(), to)) {
+            a.setPalier(to);
+            return;
+        }
+        String key = key(village, w) + "/palier";
+        if (!BUSY.add(key)) {
+            return;
+        }
+        int[] r = worldRect(w, a);
+        try {
+            Terrain.load(world, r[0] - 12, r[1] + 12, r[2] - 12, r[3] + 12).whenComplete((ignored, error) -> world.execute(() -> {
+                try {
+                    if (error == null && regrow(world, village, w, a, to)) {
+                        Message name = Message.translation(w.nameKey());
+                        announceNear(world, world.getEntityStore().getStore(), a,
+                                Message.translation(KEYS + "grown").param("building", name).param("village", village.name()));
+                    }
+                } finally {
+                    BUSY.remove(key);
+                }
+            }));
+        } catch (RuntimeException e) {
+            BUSY.remove(key);
+            throw e;
+        }
+    }
+
+    /** Boîtes {x0, x1, y0, y1, z0, z1} des pièces `lines` de l'avant-poste, ou null si un prefab est introuvable. */
+    private static List<int[]> boxes(AnnexState a, String[] lines) {
+        List<int[]> out = new ArrayList<>();
+        for (String line : lines) {
+            String[] p = line.trim().split("\\s+");
+            if (p.length < 4) {
+                continue;
+            }
+            try {
+                int[] at = toWorld(a, Integer.parseInt(p[1]), Integer.parseInt(p[2]));
+                int rot = (Integer.parseInt(p[3]) + a.rotation()) & 3;
+                int[] b = VillageBuilder.bounds(p[0], at[0], a.ground(), at[1], rot);
+                if (b == null) {
+                    return null;
+                }
+                out.add(b);
+            } catch (NumberFormatException ignored) {
+                // Ligne mal formée : ValidateAssets la signale.
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Remplace les bâtiments de l'avant-poste par ceux du palier `to` : joueurs et PNJ sortis vers le panneau, anciens
+     * bâtiments retirés au-dessus du sol (panneau, coffre de l'avant-poste et conteneurs pleins gardés), nouvelles pièces
+     * collées, corps coincés remontés, décor reposé. Faux si la zone n'est pas chargée.
+     */
+    static boolean regrow(World world, Village village, Workshop w, AnnexState a, int to) {
+        if (!a.built() || to <= a.palier()) {
+            return false;
+        }
+        ChunkStore chunks = world.getChunkStore();
+        int h = a.ground();
+        int[] r = worldRect(w, a);
+        if (Blocks.id(chunks, r[0], h, r[2]) == Blocks.UNLOADED || Blocks.id(chunks, r[1], h, r[3]) == Blocks.UNLOADED) {
+            return false;
+        }
+        String[] oldLines = BuildingPaliers.annexPrefabs(w, a.palier());
+        String[] newLines = BuildingPaliers.annexPrefabs(w, to);
+        List<int[]> oldBoxes = boxes(a, oldLines);
+        List<int[]> newBoxes = boxes(a, newLines);
+        if (oldBoxes == null || newBoxes == null) {
+            LOGGER.atWarning().log("Nakasar Peuples : avant-poste %s (%s) : prefab introuvable, apparence inchangée", w.getId(), village.name());
+            a.setPalier(to);
+            return false;
+        }
+        int x0 = r[0], x1 = r[1], z0 = r[2], z1 = r[3], top = h + w.annex().height() + 2;
+        for (int[] b : newBoxes) {
+            x0 = Math.min(x0, b[0]);
+            x1 = Math.max(x1, b[1]);
+            z0 = Math.min(z0, b[4]);
+            z1 = Math.max(z1, b[5]);
+            top = Math.max(top, b[3]);
+        }
+        Store<EntityStore> store = world.getEntityStore().getStore();
+        dev.nakasar.hytale.peuples.village.Rebuilds.evacuate(world, store, x0, x1, z0, z1, h - 2, top + 2, new int[] {a.x(), a.z()});
+        String board = village.people().boardBlock();
+        int[] chest = a.chest();
+        for (int[] b : oldBoxes) {
+            // Boîte du prefab bornée au rectangle de l'avant-poste (VillageBuilder.bounds l'élargit un peu) : on ne
+            // rabote pas le relief alentour.
+            for (int x = Math.max(b[0], r[0]); x <= Math.min(b[1], r[1]); x++) {
+                for (int z = Math.max(b[4], r[2]); z <= Math.min(b[5], r[3]); z++) {
+                    if (x == a.x() && z == a.z() || chest != null && x == chest[0] && z == chest[2]) {
+                        continue; // panneau (et sa corde) et coffre de l'avant-poste
+                    }
+                    for (int y = h + 1; y <= b[3]; y++) {
+                        String name = Blocks.name(chunks, x, y, z);
+                        if (name != null && !Blocks.is(name, board) && !dev.nakasar.hytale.peuples.village.Rebuilds.keptContainer(world, x, y, z)) {
+                            Blocks.set(chunks, x, y, z, null, 0);
+                        }
+                        clearFluid(chunks, x, y, z);
+                    }
+                }
+            }
+        }
+        int pasted = 0;
+        for (String line : newLines) {
+            String[] p = line.trim().split("\\s+");
+            if (p.length < 4) {
+                continue;
+            }
+            try {
+                int[] at = toWorld(a, Integer.parseInt(p[1]), Integer.parseInt(p[2]));
+                int rot = (Integer.parseInt(p[3]) + a.rotation()) & 3;
+                if (VillageBuilder.paste(world, store, p[0], at[0], h, at[1], rot)) {
+                    pasted++;
+                }
+            } catch (NumberFormatException ignored) {
+                // Ligne mal formée : ValidateAssets la signale.
+            }
+        }
+        int from = a.palier();
+        a.setPalier(to);
+        dev.nakasar.hytale.peuples.village.Rebuilds.unstick(world, store, x0 - 8, x1 + 8, z0 - 8, z1 + 8);
+        placeDecor(world, village, w, new int[] {a.x(), h + 1, a.z()}, w.annex().decor());
+        WorkshopState ws = village.workshopIfPresent(w.getId());
+        if (ws != null && ws.hasBoard()) {
+            for (int level = 2; level <= ws.level(); level++) {
+                Workshop.Upgrade up = w.upgrade(level);
+                if (up != null) {
+                    placeDecor(world, village, w, ws.board(), up.decor());
+                }
+            }
+        }
+        AnnexChests.place(world, village, w, a);
+        Villagers.forgetGround();
+        LOGGER.atInfo().log("Nakasar Peuples : avant-poste %s (%s) passe du palier %d au palier %d (%d/%d prefabs)", w.getId(),
+                village.name(), from, to, pasted, newLines.length);
+        return pasted > 0;
     }
 
     /** Message aux joueurs près de l'avant-poste (ceux qui sont loin du village ne lisent pas les annonces du village). */

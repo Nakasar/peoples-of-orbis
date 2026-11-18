@@ -291,7 +291,7 @@ def village_entries(people):
             cat = "Artisan" if (NAK / "Workshops" / f"{wid}.json").exists() else "Base"
             source = f"village, palier de village {b['Tier']}"
         name = LANG_FR.get(f"workshop.{wid}.name") if cat != "Base" else None
-        out.append({"People": people, "Category": cat, "Id": bid, "Name": name or nice(name_id),
+        out.append({"People": people, "Category": cat, "Id": bid, "LayoutId": b["Id"], "Name": name or nice(name_id),
                     "CategoryName": category_name, "Source": source, "Pieces": [(b["Prefab"], 0, 0, 0, 0)],
                     "Optional": []})
     return out
@@ -313,7 +313,8 @@ def annex_entries(people):
                     "Id": "AP_" + d["Annex"]["Type"],
                     "Name": LANG_FR.get(f"workshop.{f.stem}.name") or nice(d["Annex"]["Type"]),
                     "Source": "bâtiment de production, un par village" if production
-                    else f"ouvrage, {limit} par village au plus", "Pieces": pieces, "Optional": []})
+                    else f"ouvrage, {limit} par village au plus", "Pieces": pieces, "Optional": [],
+                    "Rect": d["Annex"]["Rect"]})
     return out
 
 
@@ -450,6 +451,133 @@ def tiers_of(e):
     return tiers
 
 
+GROWTH = Path(__file__).resolve().parent.parent / "src/main/resources/nakasar-peuples/paliers-batiments.json"
+# Paliers retouchés à la main sur la carte de revue (Kevin, 17 novembre 2026 : « modifier complètement les prefab pour
+# pouvoir faciliter leur mise à jour dans le mod, comme un éditeur ») : /village revue --sauver écrit le prefab et cette
+# liste dans nakasar-revue/ à côté des mondes du serveur ; prefabs copiés dans src/main/resources/Server/Prefabs/.
+RETOUCHES_FILE = Path(__file__).resolve().parent / "retouches-prefabs.json"
+
+
+def retouches():
+    """(peuple, Id de la carte, palier) -> prefab du mod qui remplace la composition de ce palier."""
+    if not RETOUCHES_FILE.exists():
+        return {}
+    out = {}
+    for r in json.loads(RETOUCHES_FILE.read_text(encoding="utf-8")).get("Prefabs", []):
+        if r["Prefab"] not in BOUNDS:
+            raise SystemExit(f"Prefab retouché absent de src/main/resources/Server/Prefabs/ : {r['Prefab']}")
+        out[(r["People"], r["Id"], r["Tier"])] = r["Prefab"]
+    return out
+
+
+def apply_retouches(people, e, tiers, table):
+    for t in tiers:
+        prefab = table.get((people, e["Id"], t["Tier"]))
+        if prefab:
+            t["Pieces"] = [f"{prefab} 0 0 0 0"]
+            t["Notes"] = [n for n in t["Notes"] if "à retoucher" not in n] + ["retouché à la main sur la carte"]
+
+
+def growth_data():
+    return json.loads(GROWTH.read_text(encoding="utf-8")) if GROWTH.exists() else {}
+
+
+def board_block(people):
+    """Panneau vanilla dont hérite le tableau du peuple : même allure sur la carte, sans ouvrir de tableau."""
+    f = RES / "Item/Items/Nakasar/Peuples" / f"Nakasar_Peuples_Board_{people}.json"
+    return json.loads(f.read_text(encoding="utf-8"))["Parent"]
+
+
+def add_board(people, e, tiers, growth, stats):
+    """
+    Panneau du bâtiment de métier là où il apparaît en jeu (Kevin, 17 novembre 2026) : « Board » du palier, « dx dz
+    lacet Bloc [Fixe] » relatif à l'origine de la composition. Bâtiment du plan : place de tools/building_growth.py
+    (plaquée au mur, ou dedans, par ReviewMap comme Workshops.placeBoard) ; avant-poste : sur sa fondation (Fixe).
+    """
+    if e.get("Reserved") or e["Category"] not in ("Base", "Artisan", "Projet", "Production", "Ouvrage"):
+        return
+    block = board_block(people)
+    if e["Category"] in ("Production", "Ouvrage"):
+        for t in tiers:
+            t["Board"] = f"0 0 0 {block} Fixe"
+        return
+    layout = layout_file(people)
+    review = growth.get("Review", {}).get(layout.stem if layout else "", {})
+    bid = e.get("LayoutId", e["Id"])
+    spots = review.get(bid)
+    if not spots:
+        return
+    for t in tiers:
+        spot = spots.get(str(t["Tier"]))
+        if not spot:
+            continue
+        shown = t["Pieces"][0].split()[0] if t["Pieces"] else None
+        if shown != spot[3]:
+            stats["mismatch"] += 1
+            continue
+        # Placé à la main (relevé de la carte) : posé tel quel, à sa hauteur ; sinon cherché comme en jeu.
+        t["Board"] = (f"{spot[0]} {spot[1]} {spot[2]} {block} Fixe {spot[4]}" if len(spot) > 4
+                      else f"{spot[0]} {spot[1]} {spot[2]} {block}")
+        stats["placed"] += 1
+
+
+def add_zone(people, e, tiers, growth):
+    """
+    Place libre du palier au village (Kevin, 17 novembre 2026) : « Zone » « x0 x1 z0 z1 » relative à l'origine, tracée
+    sur la carte ; une retouche qui y tient est valide en jeu. Bâtiment du plan : tools/building_growth.py (section
+    Zones ; projet : la place commune à ses trois terrains) ; avant-poste : son rectangle (Annex.Rect).
+    """
+    if e.get("Reserved"):
+        return
+    if e["Category"] in ("Production", "Ouvrage"):
+        x0, x1, z0, z1 = e["Rect"]
+        for t in tiers:
+            t["Zone"] = f"{x0} {x1} {z0} {z1}"
+        return
+    if e["Category"] not in ("Base", "Artisan", "Projet"):
+        return
+    layout = layout_file(people)
+    zones = growth.get("Zones", {}).get(layout.stem if layout else "", {})
+    # Zones maximales fixées par le plan (Kevin, 18 novembre 2026) : bâtiments à « Zone » et terrains de ce plan.
+    plan = json.loads(layout.read_text(encoding="utf-8")) if layout else {}
+    fixed = {b["Id"] for b in plan.get("Buildings", []) if b.get("Zone")}
+    if fixed:
+        fixed |= {b["Id"] for b in plan.get("Buildings", []) if b.get("Plot")}
+    if e["Category"] == "Projet":
+        name = e["Id"][len("Projet_"):]
+        found = [z for bid, z in zones.items() if re.fullmatch(r"E\d_" + re.escape(name), bid)]
+        maximal = any(bid in fixed for bid in zones if re.fullmatch(r"E\d_" + re.escape(name), bid))
+    else:
+        found = [zones[e["LayoutId"]]] if e.get("LayoutId") in zones else []
+        maximal = e.get("LayoutId") in fixed
+    for t in tiers:
+        boxes = [z[str(t["Tier"])] for z in found if str(t["Tier"]) in z]
+        if not boxes:
+            continue
+        box = [max(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), min(b[3] for b in boxes)]
+        if box[0] <= box[1] and box[2] <= box[3]:
+            t["Zone"] = " ".join(str(v) for v in box)
+            if maximal:
+                t["ZoneMax"] = True
+
+
+def incompatibles():
+    """(peuple, Id de la carte, palier) -> raisons : paliers dont la version ne tient pas au village."""
+    f = Path(__file__).resolve().parent.parent / "src/main/resources/nakasar-peuples/paliers-batiments.json"
+    if not f.exists():
+        return {}
+    out = {}
+    for i in json.loads(f.read_text(encoding="utf-8")).get("Incompatibles", []):
+        ident = i["Id"]
+        m = re.match(r"(E\d)_(.+)", ident)
+        reason = i["Raison"]
+        if m:
+            ident = "Projet_" + m.group(2)
+            reason = f"terrain {m.group(1)} : {reason}"
+        out.setdefault((i["People"], ident, i["Palier"]), []).append(reason)
+    return out
+
+
 def fmt(p):
     return f"{p[0]} {p[1]} {p[2]} {p[3]} {p[4]}"
 
@@ -470,6 +598,10 @@ def main():
         "Sections": [],
     }
     total_cells = 0
+    incompatible = incompatibles()
+    growth = growth_data()
+    retouched = retouches()
+    stats = {"placed": 0, "mismatch": 0}
     missing = set()
     for people, entries in sections:
         rows = []
@@ -478,6 +610,15 @@ def main():
                 if e["Category"] != c:
                     continue
                 tiers = tiers_of(e)
+                apply_retouches(people, e, tiers, retouched)
+                add_board(people, e, tiers, growth, stats)
+                add_zone(people, e, tiers, growth)
+                for t in tiers:
+                    reasons = incompatible.get((people, e["Id"], t["Tier"]))
+                    if reasons:
+                        # Version de ce palier qui ne tient pas au village (tools/building_growth.py) : liseré bleu.
+                        t["Incompatible"] = True
+                        t["Notes"] = t["Notes"] + ["ne tient pas au village : " + " ; ".join(reasons)]
                 for t in tiers:
                     for line in t["Pieces"]:
                         path = line.split()[0]
@@ -508,6 +649,7 @@ def main():
             counts[r["Category"]] = counts.get(r["Category"], 0) + 1
             flat += sum(1 for t in r["Tiers"] if any("à retoucher" in n for n in t["Notes"]))
         print(f"  {s['Name']}: {counts} ; paliers sans version plus grande : {flat}")
+    print(f"  panneaux de métier posés : {stats['placed']} ; version différente de tools/building_growth.py (sans panneau) : {stats['mismatch']}")
 
 
 if __name__ == "__main__":

@@ -157,24 +157,43 @@ PEOPLES = {
             "PlazaRadius": 5,
             "Banner": (0, -4),
             "Buildings": [
-                # Palier 0 : l'abri des fuyards (maisons Tier 0), une tour de guet, le brasero.
-                ("Abri_Des_Fuyards", 0, OUT + "Houses/Tier0/Outlander_Houses_Tier0_001", -15, 0, 0),
-                ("Abri_Du_Guet", 0, OUT + "Houses/Tier0/Outlander_Houses_Tier0_003", 15, 0, 0),
-                ("Tour_De_Guet_Givre", 0, OUT + "Towers/Tier1/Outlander_Towers_Tier1_001", 0, -14, 0),
+                # Plan écarté (Kevin, 18 novembre 2026) : les versions voulues des paliers se chevauchaient. Chaque
+                # bâtiment a sa zone maximale (« Zones ») ; le point de collage centre l'union de ses paliers voulus.
+                # Palier 0, autour de la place : l'abri des fuyards (maisons Tier 0), une tour de guet, le brasero.
+                ("Abri_Des_Fuyards", 0, OUT + "Houses/Tier0/Outlander_Houses_Tier0_001", 27, 4, 0),
+                ("Abri_Du_Guet", 0, OUT + "Houses/Tier0/Outlander_Houses_Tier0_003", 0, -27, 0),
+                ("Tour_De_Guet_Givre", 0, OUT + "Towers/Tier1/Outlander_Towers_Tier1_001", -19, -1, 0),
                 # Palier 1 : deux maisons Tier 1, le petit bateau ramené.
-                ("Maison_Des_Repentis", 1, OUT + "Houses/Tier1/Outlander_Houses_Tier1_002", -18, 22, 0),
-                ("Maison_Du_Chasseur", 1, OUT + "Houses/Tier1/Outlander_Houses_Tier1_005", 18, 22, 0),
-                ("Petit_Bateau", 1, OUT + "Boats/Small/Outlander_Boats_Small_001", 0, 26, 0),
+                ("Maison_Des_Repentis", 1, OUT + "Houses/Tier1/Outlander_Houses_Tier1_002", 32, -29, 0),
+                ("Maison_Du_Chasseur", 1, OUT + "Houses/Tier1/Outlander_Houses_Tier1_005", -41, -2, 0),
+                ("Petit_Bateau", 1, OUT + "Boats/Small/Outlander_Boats_Small_001", 53, -20, 0),
                 # Bâtiments de métier, étape 3 : la bergerie du givre (enclos du mod en blocs vanilla, barrière à l'est).
-                ("Bergerie_Du_Givre", 1, gl.PEN + "Renonce_Pen", -19, -15, 1),
+                ("Bergerie_Du_Givre", 1, gl.PEN + "Renonce_Pen", 54, 0, 1),
                 # Palier 2 : la grande maison, la tour du fort, le grand bateau.
-                ("Grande_Maison_Givre", 2, OUT + "Houses/Tier2/Outlander_Houses_Tier2_003", -36, -14, 0),
-                ("Tour_Du_Fort", 2, OUT + "Towers/Tier2/Outlander_Towers_Tier2_001", 30, -12, 0),
-                ("Grand_Bateau", 2, OUT + "Boats/Large/Outlander_Boats_Large_001", 36, 22, 0),
+                ("Grande_Maison_Givre", 2, OUT + "Houses/Tier2/Outlander_Houses_Tier2_003", 0, -57, 0),
+                ("Tour_Du_Fort", 2, OUT + "Towers/Tier2/Outlander_Towers_Tier2_001", 23, -51, 0),
+                ("Grand_Bateau", 2, OUT + "Boats/Large/Outlander_Boats_Large_001", -1, 59, 0),
                 # Palier 3 : la maison du Sorcier et le totem brisé (lieu central du GDD).
-                ("Maison_Du_Sorcier", 3, OUT + "Houses/Tier3/Outlander_Houses_Tier3_002", 0, -40, 0),
-                ("Totem_Brise", 3, OUT + "Totems/Outlander_Totems_001", -30, 44, 0),
+                ("Maison_Du_Sorcier", 3, OUT + "Houses/Tier3/Outlander_Houses_Tier3_002", -36, 31, 0),
+                ("Totem_Brise", 3, OUT + "Totems/Outlander_Totems_001", 55, 21, 0),
             ],
+            # Zones maximales (Kevin, 18 novembre 2026) : x0, x1, z0, z1 relatifs au cœur. Chaque palier du bâtiment,
+            # retouché à la main compris, y tient ; deux zones gardent une rue de 3 blocs entre elles. Tracées en laine
+            # jaune sur la carte de revue (/village revue).
+            "Zones": {
+                "Abri_Du_Guet": (-14, 14, -40, -14),
+                "Tour_De_Guet_Givre": (-24, -14, -6, 4),
+                "Abri_Des_Fuyards": (14, 40, -10, 19),
+                "Maison_Du_Chasseur": (-54, -28, -15, 14),
+                "Maison_Des_Repentis": (18, 45, -42, -14),
+                "Maison_Du_Sorcier": (-50, -23, 18, 46),
+                "Grande_Maison_Givre": (-14, 14, -70, -44),
+                "Bergerie_Du_Givre": (44, 64, -10, 10),
+                "Grand_Bateau": (-8, 6, 48, 70),
+                "Totem_Brise": (47, 62, 14, 28),
+                "Tour_Du_Fort": (18, 28, -56, -46),
+                "Petit_Bateau": (50, 56, -26, -14),
+            },
             "Chantiers": [
                 (1, 24, [("Wood_Fir_Trunk", 24), ("Rock_Stone_Cobble", 16), ("Ingredient_Fabric_Scrap_Wool", 12)]),
                 (2, 24, [("Wood_Fir_Trunk", 48), ("Wood_Hardwood_Planks", 32), ("Rock_Stone_Cobble", 24),

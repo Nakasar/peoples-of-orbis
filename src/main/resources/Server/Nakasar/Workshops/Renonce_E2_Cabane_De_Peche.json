@@ -7,9 +7,9 @@
   "Icon": "Food_Fish_Raw",
   "NameKey": "nakasar_peuples.workshop.Renonce_E2_Cabane_De_Peche.name",
   "Board": [
-    -32,
-    16,
-    1
+    -1,
+    21,
+    2
   ],
   "Upgrades": [
     {

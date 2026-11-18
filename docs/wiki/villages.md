@@ -56,6 +56,7 @@ Quand la jauge d'essor est pleine et que le dépôt contient les matériaux du p
 - Un bâtiment dont la parcelle contient un bloc que vous avez posé est sauté : le tableau donne le bloc gênant et ses coordonnées.
 - Chaque palier amène de nouveaux villageois à métier : le jour ils travaillent à leur poste, la nuit ils rentrent chez eux. Leurs bâtiments ont leur propre panneau de commandes : voir [Bâtiments de métier](batiments-de-metier.md).
 - Aux paliers 2 et 3, les terrains E1 et E2 accueillent un bâtiment choisi par les joueurs : voir [Emplacements libres](emplacements.md).
+- **Les bâtiments grandissent avec le village.** À chaque palier, les bâtiments déjà debout du village (maisons, tours, échoppes...) sont rebâtis sur place dans une version plus grande de la même famille, s'il y a la place : tente, puis terrier, puis réserve chez les Trorks ; petite maison-arbre puis grande maison-arbre chez les Kweebecs. Les joueurs et les villageois qui sont dedans sont sortis du côté de la place, et les coffres qui contiennent quelque chose restent. Les bâtiments de métier, les projets, les bâtiments de production et les ouvrages, eux, ne grandissent qu'avec leur propre niveau (voir [Bâtiments de métier](batiments-de-metier.md)).
 
 ## Les raids
 

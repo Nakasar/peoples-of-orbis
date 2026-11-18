@@ -1,0 +1,4 @@
+{
+  "$Comment": "Paliers retouchés à la main sur la carte de revue (/village revue --sauver, debout dans le rectangle). Le serveur écrit ce fichier et les prefabs dans nakasar-revue/ à côté de ses mondes : copier prefabs/ dans src/main/resources/Server/Prefabs/ et ce fichier ici, puis relancer tools/building_growth.py et tools/building_tiers.py. Le prefab remplace la composition de ce palier, en jeu et sur la carte.",
+  "Prefabs": []
+}

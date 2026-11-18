@@ -591,6 +591,30 @@ public final class Village {
         sites = grown;
     }
 
+    /** Palier d'apparence (1 à 4) du prefab collé pour le bâtiment (1 s'il a été bâti avant les paliers). */
+    public int palier(String buildingId) {
+        for (Site s : sites) {
+            if (s.id.equals(buildingId)) {
+                return Math.max(1, s.palier);
+            }
+        }
+        return 1;
+    }
+
+    void setPalier(String buildingId, int value) {
+        for (Site s : sites) {
+            if (s.id.equals(buildingId)) {
+                s.palier = value;
+                return;
+            }
+        }
+        Site[] grown = java.util.Arrays.copyOf(sites, sites.length + 1);
+        Site site = new Site(buildingId, Integer.MIN_VALUE);
+        site.palier = value;
+        grown[sites.length] = site;
+        sites = grown;
+    }
+
     /** Le bâtiment est debout (collé, pas brûlé). */
     void markBuilt(String buildingId) {
         if (!contains(built, buildingId)) {
