@@ -47,7 +47,7 @@ public final class Chantiers {
     /** Les annonces vont aux joueurs à moins de cette distance du cœur. */
     public static final int ANNOUNCE_RADIUS = 160;
     /** Écart de hauteur maximal entre un bâtiment et la place (comme VillageBuilder). */
-    private static final int MAX_STEP = 4;
+    private static final int MAX_STEP = VillageBuilder.MAX_STEP;
     private static final int MARGIN = 2;
     private static final int BLEND = 4;
 
@@ -604,9 +604,14 @@ public final class Chantiers {
                     || base.startsWith("Deco_SpiderWeb") || base.startsWith("Deco_Bone");
         }
         if (base.startsWith("Wood_")) {
-            return base.contains("_Trunk") || base.contains("_Branch") || base.contains("_Roots");
+            // Tas de brindilles semés par la génération du monde (Kevin 2026-11-18 : le vanilla ne gêne pas).
+            return base.contains("_Trunk") || base.contains("_Branch") || base.contains("_Roots") || base.startsWith("Wood_Sticks");
         }
-        if (base.startsWith("Soil_") || base.startsWith("Rock_")) {
+        if (base.startsWith("Soil_")) {
+            // Tout le sol, chemins de la génération du monde compris (Soil_Pathway), sauf les briques d'argile.
+            return !base.contains("Brick");
+        }
+        if (base.startsWith("Rock_")) {
             return !base.contains("Brick") && !base.contains("Cobble") && !base.contains("Polished") && !base.contains("Smooth")
                     && !base.contains("Half") && !base.contains("Stairs") && !base.contains("Pathway");
         }
@@ -680,7 +685,8 @@ public final class Chantiers {
     static void settle(World world, Village village, VillageLayout layout, VillageLayout.Building b, int h) {
         int[] r = b.rect();
         new Grading(world).slabs(village.people().slabs(), slabAllowed(village, layout)).settle(village.x() + r[0], village.x() + r[1],
-                village.z() + r[2], village.z() + r[3], h, village.people().ground(), keep(village, layout, b));
+                village.z() + r[2], village.z() + r[3], h, village.people().ground(), keep(village, layout, b),
+                Footprints.at(b.prefab(), b.rotation(), village.x() + b.x(), village.z() + b.z()));
     }
 
     /**

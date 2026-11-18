@@ -7666,6 +7666,7 @@ settler.site.planned = une fondation est déjà prévue à {distance} blocs (il 
 settler.site.shore = trop près de la mer : il faut la terre ferme.
 settler.site.outOfZone = hors des terres du peuple (zone {zone} ; ici, zone {here}).
 settler.site.water = trop d'eau sur le campement ({percent} % de bon sol, il en faut {need} %).
+settler.site.waterBuildings = une rivière ou un lac traverse la place d'un bâtiment à venir ({building}).
 settler.site.ground = il faut du sol du peuple ({ground}) : {percent} % ici, il en faut {need} %.
 settler.site.relief = terrain trop accidenté ({relief} blocs d'écart, {max} au plus).
 settler.site.unloaded = le terrain autour n'est pas encore chargé.

@@ -180,7 +180,7 @@ Razorleaf et de Sproutlings, lapins) apparaissent dans le campement.
 ### Génération
 
 `VillageBuilder` charge les chunks, aplanit la place (chemin de terre) et l'emprise de chaque bâtiment (herbe, 2 blocs
-de marge plate), à au plus 4 blocs de la hauteur de la place, puis colle
+de marge plate), à au plus 10 blocs de la hauteur de la place, puis colle
 les prefabs comme l'action vanilla `PrefabPasteAction`, puis pose le cœur du peuple, le dépôt, le tableau (étape 1) et la
 bannière aux places que donne le plan.
 
@@ -191,6 +191,15 @@ Le terrassement (`Grading`, aussi utilisé par les chantiers) traite toutes les 
   feuille appartient au bois le plus proche) dès qu'un de leurs blocs ou une de leurs feuilles surplombe une colonne
   retouchée, jusqu'à 14 blocs autour du site ;
 - toute grappe de bois et de feuilles qui ne touche plus aucun bloc solide est retirée, ainsi que les plantes sans sol.
+
+Après chaque collage, `Grading.settle` rend son relief au terrain : seule l'emprise réelle du prefab au sol
+(`Footprints.of` : murs, poteaux, clôtures, meubles, planchers, cultures et ce qu'ils enferment, plus une case de seuil)
+reste à la hauteur du bâtiment ; le reste du rectangle, sa marge et ses talus reprennent le relief alentour.
+
+Avant d'être retenu, un site est sondé sur tout son plan, paliers à venir compris (`Footprints.dry`) : aucun bâtiment
+ni terrain ne doit tomber dans une rivière ou un lac. À la fondation, `Footprints.clearWild` retire des emprises à venir
+les blocs laissés par la génération du monde (ruines, camps, brindilles) ; les chemins `Soil_Pathway` et les tas de
+brindilles comptent comme du relief pour les chantiers, qui ne les prennent plus pour des blocs de joueur.
 
 ### Cœur du village (place propre à chaque peuple)
 
@@ -2180,6 +2189,13 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
   contour est valide en jeu ; deux voisins peuvent voir le même espace libre entre eux, une retouche des deux qui s'y
   rejoint est refusée au calcul suivant (liseré bleu). Une retouche d'avant-poste qui sort de `Annex.Rect` est refusée
   (liste des incompatibles) et le palier garde ses pièces vanilla. Le tracé n'est jamais enregistré dans un prefab.
+- **Zones maximales** (Kevin, 18 novembre 2026, plan des Renoncés écarté) : un plan peut fixer pour chaque bâtiment une
+  zone `Zones` (x0, x1, z0, z1 relatifs au cœur, écrite `Zone` sur le bâtiment du plan). Les zones sont disjointes, avec
+  une rue de 3 blocs entre deux, hors de la place et des terrains. Chaque palier, retouche à la main comprise, doit y
+  tenir (seule règle de place) ; la zone est réservée en entier en jeu (`BuildingPaliers.reserved` : terrassement,
+  sentiers, eau, ménage de la fondation). Sur la carte, `ZoneMax` agrandit le rectangle pour contenir toute la zone,
+  tracée en laine jaune : on y construit le prefab à la main. Renoncés : terrains de 30 x 30 (`plots.PLOT_SIZES`, zone
+  28 x 28 pour les projets), rayon 72.
 - **Retoucher un prefab à la main** (Kevin, 17 novembre 2026 : « le but c'est de pouvoir modifier complètement les
   prefab pour pouvoir faciliter leur mise à jour dans le mod, comme un éditeur ») : retoucher le bâtiment dans son
   rectangle (créatif, outils de construction), puis, debout dans le rectangle, `/village revue --sauver`

@@ -7,9 +7,9 @@
   "Icon": "Food_Wildmeat_Cooked",
   "NameKey": "nakasar_peuples.workshop.Renonce_E2_Fumoir.name",
   "Board": [
-    -31,
-    16,
-    1
+    -1,
+    21,
+    2
   ],
   "Upgrades": [
     {

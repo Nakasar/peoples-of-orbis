@@ -114,19 +114,22 @@ public final class VillageSeeder extends TickingSystem<EntityStore> {
         if (Villages.registry(world).isSeeded()) {
             return;
         }
-        if (index >= sites.size()) {
+        // Deux passes : sites au sec d'abord, puis, faute de mieux, ceux où un bâtiment à venir touche l'eau.
+        if (index >= 2 * sites.size()) {
             LOGGER.atWarning().log("Nakasar Peuples : aucun site de village kweebec ne convient, nouvel essai au prochain démarrage"
                     + " (ou /village generer)");
             return;
         }
-        int[] site = sites.get(index);
+        int[] site = sites.get(index % sites.size());
+        boolean wetOk = index >= sites.size();
         if (VillageBuilder.tooClose(world, layout, site[0], site[1]) != null) {
             tryNext(world, layout, sites, index + 1);
             return;
         }
-        int r = layout.radiusUpTo(0);
+        // Tout le plan, paliers à venir compris : ses emprises sont sondées pour l'eau (Footprints.dry).
+        int r = Footprints.siteRadius(layout);
         Terrain.load(world, site[0] - r, site[0] + r, site[1] - r, site[1] + r).whenComplete((ignored, error) -> world.execute(() -> {
-            if (error != null || !suitable(world, layout, site[0], site[1])) {
+            if (error != null || !suitable(world, layout, site[0], site[1], MIN_GRASS, wetOk)) {
                 tryNext(world, layout, sites, index + 1);
                 return;
             }
@@ -148,6 +151,11 @@ public final class VillageSeeder extends TickingSystem<EntityStore> {
 
     /** Comme {@link #suitable(World, VillageLayout, int, int)}, avec la part d'herbe minimale `minGrass` (camp trork). */
     static boolean suitable(World world, VillageLayout layout, int cx, int cz, double minGrass) {
+        return suitable(world, layout, cx, cz, minGrass, false);
+    }
+
+    /** Comme ci-dessus ; `wetOk` : un bâtiment à venir peut toucher l'eau (seconde passe, faute de site au sec). */
+    static boolean suitable(World world, VillageLayout layout, int cx, int cz, double minGrass, boolean wetOk) {
         Terrain terrain = new Terrain(world);
         int r = layout.radiusUpTo(0);
         int samples = 0;
@@ -174,6 +182,7 @@ public final class VillageSeeder extends TickingSystem<EntityStore> {
                 max = Math.max(max, h);
             }
         }
-        return samples > 0 && grass >= minGrass * samples && max - min <= MAX_RELIEF;
+        return samples > 0 && grass >= minGrass * samples && max - min <= MAX_RELIEF
+                && (wetOk || Footprints.dry(world, layout, cx, cz));
     }
 }

@@ -7,9 +7,9 @@
   "Icon": "Ingredient_Bolt_Linen",
   "NameKey": "nakasar_peuples.workshop.Renonce_E2_Halle.name",
   "Board": [
-    -31,
-    16,
-    1
+    -1,
+    21,
+    2
   ],
   "Upgrades": [
     {

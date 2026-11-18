@@ -6,6 +6,7 @@ import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import dev.nakasar.hytale.peuples.village.Footprints;
 import dev.nakasar.hytale.peuples.village.People;
 import dev.nakasar.hytale.peuples.village.Terrain;
 import dev.nakasar.hytale.peuples.village.Village;
@@ -161,22 +162,25 @@ public final class MoreVillagesSeeder extends TickingSystem<EntityStore> {
     }
 
     private static void tryNext(World world, VillageLayout layout, People people, List<int[]> sites, int index, Consumer<Village> done) {
-        if (index >= sites.size()) {
+        // Deux passes : sites au sec d'abord, puis, faute de mieux, ceux où un bâtiment à venir touche l'eau.
+        if (index >= 2 * sites.size()) {
             LOGGER.atWarning().log("Nakasar Peuples : aucun site pour un village %s suivant (nouvel essai au prochain démarrage)",
                     people.id());
             done.accept(null);
             return;
         }
-        int[] site = sites.get(index);
+        int[] site = sites.get(index % sites.size());
+        boolean wetOk = index >= sites.size();
         // Un village a pu être posé entretemps (commande) : on revérifie les écarts.
         if (!spaced(Villages.registry(world).all(), people, site[0], site[1])
                 || VillageBuilder.tooClose(world, layout, site[0], site[1]) != null) {
             tryNext(world, layout, people, sites, index + 1, done);
             return;
         }
-        int r = layout.radiusUpTo(0);
+        // Tout le plan, paliers à venir compris : ses emprises sont sondées pour l'eau (Footprints.dry).
+        int r = Footprints.siteRadius(layout);
         Terrain.load(world, site[0] - r, site[0] + r, site[1] - r, site[1] + r).whenComplete((ignored, error) -> world.execute(() -> {
-            if (error != null || !suitable(world, layout, people, site[0], site[1])) {
+            if (error != null || !suitable(world, layout, people, site[0], site[1], wetOk)) {
                 tryNext(world, layout, people, sites, index + 1, done);
                 return;
             }
@@ -192,7 +196,7 @@ public final class MoreVillagesSeeder extends TickingSystem<EntityStore> {
     }
 
     /** Mêmes exigences de site que le premier lieu du peuple (herbe à 80 % et 9 de relief pour les Kweebecs). */
-    private static boolean suitable(World world, VillageLayout layout, People people, int cx, int cz) {
-        return SiteRules.terrainOk(world, layout, people, cx, cz);
+    private static boolean suitable(World world, VillageLayout layout, People people, int cx, int cz, boolean wetOk) {
+        return wetOk ? SiteRules.groundOk(world, layout, people, cx, cz) : SiteRules.terrainOk(world, layout, people, cx, cz);
     }
 }

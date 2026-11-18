@@ -7,9 +7,9 @@
   "Icon": "Furniture_Tavern_Candle",
   "NameKey": "nakasar_peuples.workshop.Renonce_E2_Temple.name",
   "Board": [
-    -31,
-    16,
-    1
+    -1,
+    21,
+    2
   ],
   "Upgrades": [
     {

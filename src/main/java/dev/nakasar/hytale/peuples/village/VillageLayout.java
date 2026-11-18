@@ -63,10 +63,14 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
                 .append(new KeyedCodec<>("Plot", Codec.STRING), (b, v) -> b.plot = v == null || v.isBlank() ? null : v, b -> b.plot)
                 .documentation("Terrain libre (E1, E2) du projet : collé seulement par son chantier d'emplacement.")
                 .add()
+                .append(new KeyedCodec<>("Zone", Codec.INT_ARRAY), (b, v) -> b.zone = v == null || v.length < 4 ? null : v, b -> b.zone)
+                .documentation("Zone maximale x0, x1, z0, z1 relative au cœur : tous les paliers du bâtiment y tiennent.")
+                .add()
                 .build();
 
         String id;
         String plot;
+        int[] zone;
         int tier;
         String prefab;
         int x;
@@ -128,6 +132,11 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             return new int[] {x + minX, x + maxX, z + minZ, z + maxZ};
         }
 
+        /** Zone maximale relative au cœur {x0, x1, z0, z1} (tous paliers, retouches comprises), ou null. */
+        public int[] zone() {
+            return zone == null ? null : zone.clone();
+        }
+
         /**
          * Le même bâtiment (id, palier du plan, terrain, rotation) sous une autre apparence : prefab, point de collage
          * décalé de (dx, dz) et emprise relative au nouveau point de collage ({@link BuildingPaliers}).
@@ -136,6 +145,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             Building b = new Building();
             b.id = id;
             b.plot = plot;
+            b.zone = zone;
             b.tier = tier;
             b.rotation = rotation;
             b.prefab = variantPrefab;

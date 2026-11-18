@@ -157,6 +157,10 @@ public final class BuildingPaliers {
 
     /** Emprise relative au cœur que le bâtiment peut prendre à n'importe quel palier (réservée dans le plan). */
     public static int[] reserved(VillageLayout layout, VillageLayout.Building b) {
+        if (b.zone() != null) {
+            // Zone maximale du plan (Kevin, 18 novembre 2026) : réservée en entier, retouches à la main comprises.
+            return b.zone();
+        }
         int[] r = b.rect();
         Variant[] v = variants(layout, b);
         if (v == null) {

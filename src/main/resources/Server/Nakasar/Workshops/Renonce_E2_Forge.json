@@ -7,9 +7,9 @@
   "Icon": "Ingredient_Bar_Iron",
   "NameKey": "nakasar_peuples.workshop.Renonce_E2_Forge.name",
   "Board": [
-    -30,
-    16,
-    1
+    -1,
+    21,
+    2
   ],
   "Upgrades": [
     {

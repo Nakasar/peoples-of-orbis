@@ -11,6 +11,8 @@ Lu par tools/generate_village_layouts.py (bâtiments, métiers, terrains du plan
 """
 
 PLOT_SIZE = 24
+# Terrains plus grands pour un plan (Kevin, 18 novembre 2026 : plan des Renoncés écarté, zones de 28 x 28 dans le terrain).
+PLOT_SIZES = {"Renonce_Givre": 30}
 PLOT_HOURS = 24
 # Un quart des matériaux revient au dépôt quand on démolit (GDD) ; une démolition tous les 7 jours par terrain.
 DEMOLISH_DAYS = 7
@@ -21,7 +23,7 @@ PLOTS = {
     "Kweebec_Oak": {"E1": (28, -37, 2), "E2": (-22, -42, 3), "E3": (-53, 19, 2)},
     "Trork_Camp": {"E1": (20, -37, 2), "E2": (7, 45, 3), "E3": (42, 22, 2)},
     "Feran_Oasis": {"E1": (-2, 40, 2), "E2": (55, 0, 3), "E3": (-57, 0, 2)},
-    "Renonce_Givre": {"E1": (28, -30, 2), "E2": (-39, 13, 3), "E3": (0, 48, 2)},
+    "Renonce_Givre": {"E1": (-32, -33, 2), "E2": (-4, 29, 3), "E3": (29, 38, 2)},
     "Slothian_Monastere": {"E1": (0, 51, 2), "E2": (48, 19, 3), "E3": (-49, -24, 2)},
 }
 
@@ -596,7 +598,11 @@ def job_id(plot, job):
     return f"{job}_{plot}"
 
 
-def plot_rect(x, z):
-    """Terrain de PLOT_SIZE blocs centré sur (x, z) : (x0, x1, z0, z1)."""
-    half = PLOT_SIZE // 2
+def plot_size(layout_id):
+    return PLOT_SIZES.get(layout_id, PLOT_SIZE)
+
+
+def plot_rect(x, z, size=PLOT_SIZE):
+    """Terrain de `size` blocs (PLOT_SIZE par défaut) centré sur (x, z) : (x0, x1, z0, z1)."""
+    half = size // 2
     return (x - half, x + half - 1, z - half, z + half - 1)
