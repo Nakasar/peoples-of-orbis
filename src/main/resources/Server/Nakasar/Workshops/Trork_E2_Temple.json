@@ -7,8 +7,8 @@
   "Icon": "Furniture_Crude_Candle",
   "NameKey": "nakasar_peuples.workshop.Trork_E2_Temple.name",
   "Board": [
-    10,
-    40,
+    4,
+    35,
     2
   ],
   "Upgrades": [

@@ -7,9 +7,9 @@
   "Icon": "Weapon_Spear_Crude",
   "NameKey": "nakasar_peuples.workshop.Feran_Hutte_Pilier.name",
   "Board": [
-    28,
-    3,
-    3
+    4,
+    19,
+    2
   ],
   "Upgrades": [
     {

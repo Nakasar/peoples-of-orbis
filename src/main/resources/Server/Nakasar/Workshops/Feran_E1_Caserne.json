@@ -7,8 +7,8 @@
   "Icon": "Weapon_Shield_Wood",
   "NameKey": "nakasar_peuples.workshop.Feran_E1_Caserne.name",
   "Board": [
-    1,
-    34,
+    10,
+    44,
     2
   ],
   "Upgrades": [

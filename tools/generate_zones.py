@@ -89,23 +89,39 @@ PEOPLES = {
             "Banner": (0, -4),
             "Buildings": [
                 # Palier 0 : deux huttes, le muret du vent.
-                ("Hutte_Ouest", 0, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", -16, 0, 0),
-                ("Hutte_Est", 0, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", 16, 0, 2),
-                ("Muret_Du_Vent", 0, FERAN_T3 + "Walls/Feran_Tier3_Walls_001", 0, -16, 0),
+                ("Hutte_Ouest", 0, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", -21, -1, 0),
+                ("Hutte_Est", 0, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", 21, 0, 2),
+                ("Muret_Du_Vent", 0, FERAN_T3 + "Walls/Feran_Tier3_Walls_001", -1, -14, 0),
                 # Palier 1 : la grande hutte, l'entrée de l'oasis, une hutte au sud.
-                ("Grande_Hutte", 1, FERAN_T2 + "Hut/Feran_Tier2_Hut_001", -32, 22, 0),
-                ("Entree_Oasis", 1, FERAN_T2 + "Entrance/Feran_Tier2_Entrance_001", 0, 22, 0),
-                ("Hutte_Sud", 1, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", 18, 22, 0),
+                ("Grande_Hutte", 1, FERAN_T2 + "Hut/Feran_Tier2_Hut_001", -23, 26, 0),
+                ("Entree_Oasis", 1, FERAN_T2 + "Entrance/Feran_Tier2_Entrance_001", -1, 14, 0),
+                ("Hutte_Sud", 1, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", 19, 22, 0),
                 # Bâtiments de métier, étape 3 : l'enclos de l'oasis (enclos du mod en blocs vanilla, barrière au sud).
-                ("Enclos_Oasis", 1, gl.PEN + "Feran_Pen", -13, -20, 0),
+                ("Enclos_Oasis", 1, gl.PEN + "Feran_Pen", -17, -23, 0),
                 # Palier 2 : hutte du nord-ouest, hutte sur pilier, hutte du sud-est.
-                ("Hutte_Nord_Ouest", 2, FERAN_T2 + "Hut/Feran_Tier2_Hut_002", -32, -24, 0),
-                ("Hutte_Pilier", 2, OASIS + "Pillar_Hut/Feran_Tier3_Hut_001", 34, 0, 0),
-                ("Hutte_Sud_Est", 2, FERAN_T2 + "Hut/Feran_Tier2_Hut_003", 40, 32, 0),
+                ("Hutte_Nord_Ouest", 2, FERAN_T2 + "Hut/Feran_Tier2_Hut_002", -6, -48, 0),
+                ("Hutte_Pilier", 2, OASIS + "Pillar_Hut/Feran_Tier3_Hut_001", 1, 25, 0),
+                ("Hutte_Sud_Est", 2, FERAN_T2 + "Hut/Feran_Tier2_Hut_003", 23, -26, 0),
                 # Palier 3 : la hutte du chef (lieu central du GDD) et celle du Windwalker.
-                ("Hutte_Du_Chef", 3, FERAN_T2 + "Chieftain/Feran_Tier2_Chieftain_001", 0, -42, 0),
-                ("Hutte_Du_Windwalker", 3, FERAN_T3 + "Chieftain/Feran_Tier3_Chieftain_001", 32, -32, 0),
+                ("Hutte_Du_Chef", 3, FERAN_T2 + "Chieftain/Feran_Tier2_Chieftain_001", -39, -31, 0),
+                ("Hutte_Du_Windwalker", 3, FERAN_T3 + "Chieftain/Feran_Tier3_Chieftain_001", 47, -22, 0),
             ],
+            # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
+            # main) : x0, x1, z0, z1 relatifs au cœur, rue de 3 blocs entre deux zones. Chaque palier voulu y tient.
+            "Zones": {
+                "Hutte_Ouest": (-30, -11, -10, 9),
+                "Muret_Du_Vent": (-4, 6, -26, -11),
+                "Hutte_Est": (11, 30, -10, 9),
+                "Entree_Oasis": (-7, 6, 11, 16),
+                "Enclos_Oasis": (-26, -8, -32, -14),
+                "Hutte_Sud": (10, 30, 13, 32),
+                "Grande_Hutte": (-40, -11, 13, 42),
+                "Hutte_Sud_Est": (10, 35, -43, -14),
+                "Hutte_Pilier": (-7, 6, 20, 32),
+                "Hutte_Nord_Ouest": (-22, 6, -62, -36),
+                "Hutte_Du_Windwalker": (39, 56, -35, -14),
+                "Hutte_Du_Chef": (-50, -30, -43, -22),
+            },
             "Chantiers": [
                 (1, 24, [("Rock_Sandstone", 24), ("Wood_Palm_Trunk", 16), ("Ingredient_Fabric_Scrap_Linen", 12)]),
                 (2, 24, [("Rock_Sandstone", 48), ("Wood_Palm_Trunk", 32), ("Ingredient_Fabric_Scrap_Linen", 24),

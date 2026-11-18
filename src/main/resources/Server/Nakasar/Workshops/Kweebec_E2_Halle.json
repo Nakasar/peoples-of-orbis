@@ -7,9 +7,9 @@
   "Icon": "Ingredient_Bolt_Linen",
   "NameKey": "nakasar_peuples.workshop.Kweebec_E2_Halle.name",
   "Board": [
-    -19,
-    -38,
-    0
+    -55,
+    4,
+    1
   ],
   "Upgrades": [
     {

@@ -7,8 +7,8 @@
   "Icon": "Ingredient_Bar_Copper",
   "NameKey": "nakasar_peuples.workshop.Trork_Entrepot.name",
   "Board": [
-    -29,
-    2,
+    -21,
+    -13,
     1
   ],
   "Upgrades": [

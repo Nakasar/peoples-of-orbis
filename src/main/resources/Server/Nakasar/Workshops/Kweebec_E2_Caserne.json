@@ -7,9 +7,9 @@
   "Icon": "Weapon_Shield_Wood",
   "NameKey": "nakasar_peuples.workshop.Kweebec_E2_Caserne.name",
   "Board": [
-    -19,
-    -37,
-    0
+    -54,
+    4,
+    1
   ],
   "Upgrades": [
     {

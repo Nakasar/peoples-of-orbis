@@ -7,9 +7,9 @@
   "Icon": "Furniture_Kweebec_Stool",
   "NameKey": "nakasar_peuples.workshop.Kweebec_E2_Menuiserie.name",
   "Board": [
-    -19,
-    -38,
-    0
+    -54,
+    4,
+    1
   ],
   "Upgrades": [
     {

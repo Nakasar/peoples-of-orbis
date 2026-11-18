@@ -7,8 +7,8 @@
   "Icon": "Food_Fish_Raw",
   "NameKey": "nakasar_peuples.workshop.Slothian_E1_Cabane_De_Peche.name",
   "Board": [
-    3,
-    41,
+    -4,
+    34,
     2
   ],
   "Upgrades": [

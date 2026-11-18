@@ -12,7 +12,7 @@ Lu par tools/generate_village_layouts.py (bâtiments, métiers, terrains du plan
 
 PLOT_SIZE = 24
 # Terrains plus grands pour un plan (Kevin, 18 novembre 2026 : plan des Renoncés écarté, zones de 28 x 28 dans le terrain).
-PLOT_SIZES = {"Renonce_Givre": 30}
+PLOT_SIZES = {"Renonce_Givre": 30, "Kweebec_Oak": 30, "Feran_Oasis": 28}
 PLOT_HOURS = 24
 # Un quart des matériaux revient au dépôt quand on démolit (GDD) ; une démolition tous les 7 jours par terrain.
 DEMOLISH_DAYS = 7
@@ -20,11 +20,11 @@ DEMOLISH_DAYS = 7
 # Terrains : centre (x, z) relatif au cœur et palier d'ouverture (GDD, « Plans de village », décalés d'un bloc pour
 # garder 3 blocs entre le terrain et les bâtiments).
 PLOTS = {
-    "Kweebec_Oak": {"E1": (28, -37, 2), "E2": (-22, -42, 3), "E3": (-53, 19, 2)},
-    "Trork_Camp": {"E1": (20, -37, 2), "E2": (7, 45, 3), "E3": (42, 22, 2)},
-    "Feran_Oasis": {"E1": (-2, 40, 2), "E2": (55, 0, 3), "E3": (-57, 0, 2)},
+    "Kweebec_Oak": {"E1": (0, -52, 2), "E2": (-59, 1, 3), "E3": (36, 31, 2)},
+    "Trork_Camp": {"E1": (6, -36, 2), "E2": (1, 40, 3), "E3": (30, 21, 2)},
+    "Feran_Oasis": {"E1": (7, 50, 2), "E2": (48, 4, 3), "E3": (-47, -4, 2)},
     "Renonce_Givre": {"E1": (-32, -33, 2), "E2": (-4, 29, 3), "E3": (29, 38, 2)},
-    "Slothian_Monastere": {"E1": (0, 51, 2), "E2": (48, 19, 3), "E3": (-49, -24, 2)},
+    "Slothian_Monastere": {"E1": (-7, 44, 2), "E2": (46, 4, 3), "E3": (-45, -3, 2)},
 }
 
 # Matériaux du chantier d'un emplacement (pris au dépôt du village), par peuple.
