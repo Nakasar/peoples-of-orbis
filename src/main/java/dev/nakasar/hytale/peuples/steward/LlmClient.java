@@ -109,7 +109,9 @@ abstract class LlmClient {
             block.addProperty("text", system);
             sys.add(block);
             body.add("system", sys);
-            body.add("tools", tools);
+            if (!tools.isEmpty()) {
+                body.add("tools", tools);
+            }
             body.add("messages", messages);
             HttpRequest.Builder request = HttpRequest.newBuilder(URI.create(config.endpointOrDefault()))
                     .header("x-api-key", key)
@@ -168,7 +170,9 @@ abstract class LlmClient {
                 wrapped.add("function", f);
                 functions.add(wrapped);
             }
-            body.add("tools", functions);
+            if (!functions.isEmpty()) {
+                body.add("tools", functions);
+            }
             HttpRequest.Builder request = HttpRequest.newBuilder(URI.create(config.endpointOrDefault()));
             String key = config.apiKey();
             if (key != null) {

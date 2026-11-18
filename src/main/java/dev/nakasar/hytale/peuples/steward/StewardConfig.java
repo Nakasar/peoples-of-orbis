@@ -57,6 +57,19 @@ public final class StewardConfig {
     public int maxToolCalls = 8;
     /** Longueur maximale d'un message du joueur, en caractères. */
     public int maxInputChars = 300;
+    /**
+     * Dialogue libre avec le Klops errant, les voyageurs des routes et les colporteurs de nouvelles (aubergistes,
+     * campeurs, caravaniers) : bouton « Parler librement » dans leur fenêtre (Kevin, 18 novembre 2026). Rien sans
+     * {@link #enabled}.
+     */
+    public boolean freeTalk = true;
+    /**
+     * Les paroles d'information de ces mêmes PNJ (rumeur, tournée du Klops, colis, lettre, cargaison...) redites par le
+     * modèle avec la voix du PNJ, à partir du texte exact du jeu ; secours : le texte du jeu tel quel. Rien sans {@link #enabled}.
+     */
+    public boolean retellLines = true;
+    /** Délai d'une réplique reformulée, en millisecondes : au-delà, le texte du jeu s'affiche. */
+    public int retellTimeoutMs = 6_000;
     /** Journal des échanges (questions et réponses) dans le log du serveur, en plus des actions toujours journalisées. */
     public boolean logConversations = false;
 
@@ -123,6 +136,7 @@ public final class StewardConfig {
         memoryTurns = Math.max(0, Math.min(30, memoryTurns));
         maxToolCalls = Math.max(1, Math.min(16, maxToolCalls));
         maxInputChars = Math.max(40, Math.min(1_000, maxInputChars));
+        retellTimeoutMs = Math.max(1_000, Math.min(timeoutMs, retellTimeoutMs));
         return this;
     }
 

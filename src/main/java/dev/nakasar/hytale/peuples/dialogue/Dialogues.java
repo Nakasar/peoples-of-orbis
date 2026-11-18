@@ -110,6 +110,9 @@ public final class Dialogues {
         page.said(said);
         page.identity(dev.nakasar.hytale.peuples.population.Population.identity(world, store, npc));
         page.steward(dev.nakasar.hytale.peuples.steward.Steward.villageFor(world, npc));
+        if (dev.nakasar.hytale.peuples.world.Wayfarers.is(world, npc)) {
+            page.wayfarer(npc);
+        }
         player.getPageManager().openCustomPage(ref, store, page);
         // Après l'ouverture : remplacer une fenêtre de dialogue déjà ouverte rend d'abord sa caméra (onDismiss).
         if (player.getPageManager().getCustomPage() != page) {

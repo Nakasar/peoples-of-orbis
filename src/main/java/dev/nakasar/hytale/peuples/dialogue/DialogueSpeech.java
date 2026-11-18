@@ -38,13 +38,13 @@ public final class DialogueSpeech {
     }
 
     /** Commence à garder les paroles adressées à `player` ; rend la liste qui les recevra. */
-    static List<Message> begin(PlayerRef player) {
+    public static List<Message> begin(PlayerRef player) {
         List<Message> lines = new ArrayList<>();
         CAPTURE.set(new Capture(player.getUuid(), lines));
         return lines;
     }
 
-    static void end() {
+    public static void end() {
         CAPTURE.remove();
     }
 

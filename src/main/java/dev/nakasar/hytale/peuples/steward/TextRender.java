@@ -34,6 +34,50 @@ public final class TextRender {
         return out.toString();
     }
 
+    /**
+     * Les faits exacts d'un message : les valeurs de ses paramètres (noms de villages, nombres) et le texte de ses
+     * messages imbriqués courts (direction, peuple) ; un message imbriqué long (une cargaison) donne ses propres faits.
+     * Une réplique reformulée doit les garder tous ({@link Retell}).
+     */
+    public static java.util.Set<String> facts(Message message, String language) {
+        java.util.Set<String> out = new java.util.LinkedHashSet<>();
+        if (message != null) {
+            facts(out, message.getFormattedMessage(), language, 0);
+        }
+        return out;
+    }
+
+    private static void facts(java.util.Set<String> out, FormattedMessage m, String language, int depth) {
+        if (m == null || depth > MAX_DEPTH) {
+            return;
+        }
+        if (m.params != null) {
+            for (ParamValue v : m.params.values()) {
+                String text = value(v).strip();
+                if (!text.isEmpty() && !(v instanceof BoolParamValue)) {
+                    out.add(text);
+                }
+            }
+        }
+        if (m.messageParams != null) {
+            for (FormattedMessage nested : m.messageParams.values()) {
+                StringBuilder b = new StringBuilder();
+                append(b, nested, language, depth + 1);
+                String text = b.toString().strip();
+                if (text.length() <= 24 && !text.isEmpty() && text.indexOf('{') < 0) {
+                    out.add(text);
+                } else {
+                    facts(out, nested, language, depth + 1);
+                }
+            }
+        }
+        if (m.children != null) {
+            for (FormattedMessage child : m.children) {
+                facts(out, child, language, depth + 1);
+            }
+        }
+    }
+
     private static void append(StringBuilder out, FormattedMessage m, String language, int depth) {
         if (m == null || depth > MAX_DEPTH) {
             return;
