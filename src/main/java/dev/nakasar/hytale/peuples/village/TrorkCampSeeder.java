@@ -92,12 +92,14 @@ public final class TrorkCampSeeder extends TickingSystem<EntityStore> {
             searching = false;
             return;
         }
-        if (index >= sites.size()) {
+        // Deux passes : sites au sec d'abord, puis, faute de mieux, ceux où un bâtiment à venir touche l'eau.
+        if (index >= 2 * sites.size()) {
             searching = false;
             LOGGER.atWarning().log("Nakasar Peuples : aucun site de camp trork ne convient (ou /village generer trork)");
             return;
         }
-        int[] site = sites.get(index);
+        int[] site = sites.get(index % sites.size());
+        boolean wetOk = index >= sites.size();
         if (VillageBuilder.tooClose(world, layout, site[0], site[1]) != null) {
             tryNext(world, layout, sites, index + 1);
             return;
@@ -105,7 +107,7 @@ public final class TrorkCampSeeder extends TickingSystem<EntityStore> {
         // Tout le plan, paliers à venir compris : ses emprises sont sondées pour l'eau (Footprints.dry).
         int r = Footprints.siteRadius(layout);
         Terrain.load(world, site[0] - r, site[0] + r, site[1] - r, site[1] + r).whenComplete((ignored, error) -> world.execute(() -> {
-            if (error != null || !VillageSeeder.suitable(world, layout, site[0], site[1], MIN_GRASS)) {
+            if (error != null || !VillageSeeder.suitable(world, layout, site[0], site[1], MIN_GRASS, wetOk)) {
                 tryNext(world, layout, sites, index + 1);
                 return;
             }

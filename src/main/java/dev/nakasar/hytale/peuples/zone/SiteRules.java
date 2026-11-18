@@ -106,9 +106,13 @@ public final class SiteRules {
 
     /** Vrai si le sol du campement convient (règles du premier lieu du peuple). */
     public static boolean terrainOk(World world, VillageLayout layout, People people, int cx, int cz) {
+        return groundOk(world, layout, people, cx, cz) && Footprints.dry(world, layout, cx, cz);
+    }
+
+    /** Comme {@link #terrainOk}, sans sonder l'eau sous les bâtiments à venir (seconde passe des seeders). */
+    public static boolean groundOk(World world, VillageLayout layout, People people, int cx, int cz) {
         Ground g = ground(world, layout, people, cx, cz);
-        return g.samples() > 0 && g.ground() >= minGround(people) * g.samples() && g.relief() <= maxRelief(people)
-                && Footprints.dry(world, layout, cx, cz);
+        return g.samples() > 0 && g.ground() >= minGround(people) * g.samples() && g.relief() <= maxRelief(people);
     }
 
     /** Examine le site (cx, cz) pour un village de `people` (thread du monde, terrain déjà chargé). */

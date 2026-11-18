@@ -151,13 +151,15 @@ public final class ZoneSeeder extends TickingSystem<EntityStore> {
     }
 
     private static void tryNext(World world, VillageLayout layout, People people, List<int[]> sites, int index, Consumer<Village> done) {
-        if (index >= sites.size()) {
+        // Deux passes : sites au sec d'abord, puis, faute de mieux, ceux où un bâtiment à venir touche l'eau.
+        if (index >= 2 * sites.size()) {
             LOGGER.atWarning().log("Nakasar Peuples : aucun site de village %s ne convient, nouvel essai au prochain démarrage"
                     + " (ou /village semer %s)", people.id(), people.id().toLowerCase());
             done.accept(null);
             return;
         }
-        int[] site = sites.get(index);
+        int[] site = sites.get(index % sites.size());
+        boolean wetOk = index >= sites.size();
         if (VillageBuilder.tooClose(world, layout, site[0], site[1]) != null) {
             tryNext(world, layout, people, sites, index + 1, done);
             return;
@@ -165,7 +167,7 @@ public final class ZoneSeeder extends TickingSystem<EntityStore> {
         // Tout le plan, paliers à venir compris : ses emprises sont sondées pour l'eau (Footprints.dry).
         int r = Footprints.siteRadius(layout);
         Terrain.load(world, site[0] - r, site[0] + r, site[1] - r, site[1] + r).whenComplete((ignored, error) -> world.execute(() -> {
-            if (error != null || !suitable(world, layout, people, site[0], site[1])) {
+            if (error != null || !suitable(world, layout, people, site[0], site[1], wetOk)) {
                 tryNext(world, layout, people, sites, index + 1, done);
                 return;
             }
@@ -182,7 +184,7 @@ public final class ZoneSeeder extends TickingSystem<EntityStore> {
     }
 
     /** Vrai si le site convient au campement : sol du peuple, pas d'eau, relief modéré. */
-    static boolean suitable(World world, VillageLayout layout, People people, int cx, int cz) {
+    static boolean suitable(World world, VillageLayout layout, People people, int cx, int cz, boolean wetOk) {
         Terrain terrain = new Terrain(world);
         int r = layout.radiusUpTo(0);
         int samples = 0;
@@ -209,6 +211,6 @@ public final class ZoneSeeder extends TickingSystem<EntityStore> {
             }
         }
         return samples > 0 && ground >= MIN_GROUND * samples && max - min <= MAX_RELIEF
-                && Footprints.dry(world, layout, cx, cz);
+                && (wetOk || Footprints.dry(world, layout, cx, cz));
     }
 }
