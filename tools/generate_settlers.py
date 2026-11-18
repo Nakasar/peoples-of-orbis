@@ -185,6 +185,8 @@ def texts():
     t(p + "outOfZone", "hors des terres du peuple (zone {zone} ; ici, zone {here}).", "outside the people's lands (zone {zone}; here, zone {here}).")
     t(p + "water", "trop d'eau sur le campement ({percent} % de bon sol, il en faut {need} %).",
       "too much water on the camp ({percent}% good soil, {need}% needed).")
+    t(p + "waterBuildings", "une rivière ou un lac traverse la place d'un bâtiment à venir ({building}).",
+      "a river or lake crosses the spot of a future building ({building}).")
     t(p + "ground", "il faut du sol du peuple ({ground}) : {percent} % ici, il en faut {need} %.",
       "the people's soil is needed ({ground}): {percent}% here, {need}% needed.")
     t(p + "relief", "terrain trop accidenté ({relief} blocs d'écart, {max} au plus).", "ground too rough ({relief} blocks of difference, {max} at most).")

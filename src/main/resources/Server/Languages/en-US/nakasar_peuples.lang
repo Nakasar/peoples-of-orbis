@@ -7666,6 +7666,7 @@ settler.site.planned = a foundation is already planned {distance} blocks away ({
 settler.site.shore = too close to the sea: solid ground is needed.
 settler.site.outOfZone = outside the people's lands (zone {zone}; here, zone {here}).
 settler.site.water = too much water on the camp ({percent}% good soil, {need}% needed).
+settler.site.waterBuildings = a river or lake crosses the spot of a future building ({building}).
 settler.site.ground = the people's soil is needed ({ground}): {percent}% here, {need}% needed.
 settler.site.relief = ground too rough ({relief} blocks of difference, {max} at most).
 settler.site.unloaded = the surrounding land isn't loaded yet.

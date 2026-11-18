@@ -102,7 +102,8 @@ public final class TrorkCampSeeder extends TickingSystem<EntityStore> {
             tryNext(world, layout, sites, index + 1);
             return;
         }
-        int r = layout.radiusUpTo(0);
+        // Tout le plan, paliers à venir compris : ses emprises sont sondées pour l'eau (Footprints.dry).
+        int r = Footprints.siteRadius(layout);
         Terrain.load(world, site[0] - r, site[0] + r, site[1] - r, site[1] + r).whenComplete((ignored, error) -> world.execute(() -> {
             if (error != null || !VillageSeeder.suitable(world, layout, site[0], site[1], MIN_GRASS)) {
                 tryNext(world, layout, sites, index + 1);

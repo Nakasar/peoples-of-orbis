@@ -124,7 +124,8 @@ public final class VillageSeeder extends TickingSystem<EntityStore> {
             tryNext(world, layout, sites, index + 1);
             return;
         }
-        int r = layout.radiusUpTo(0);
+        // Tout le plan, paliers à venir compris : ses emprises sont sondées pour l'eau (Footprints.dry).
+        int r = Footprints.siteRadius(layout);
         Terrain.load(world, site[0] - r, site[0] + r, site[1] - r, site[1] + r).whenComplete((ignored, error) -> world.execute(() -> {
             if (error != null || !suitable(world, layout, site[0], site[1])) {
                 tryNext(world, layout, sites, index + 1);
@@ -174,6 +175,6 @@ public final class VillageSeeder extends TickingSystem<EntityStore> {
                 max = Math.max(max, h);
             }
         }
-        return samples > 0 && grass >= minGrass * samples && max - min <= MAX_RELIEF;
+        return samples > 0 && grass >= minGrass * samples && max - min <= MAX_RELIEF && Footprints.dry(world, layout, cx, cz);
     }
 }

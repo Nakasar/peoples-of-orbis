@@ -6,6 +6,7 @@ import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import dev.nakasar.hytale.peuples.village.Footprints;
 import dev.nakasar.hytale.peuples.village.People;
 import dev.nakasar.hytale.peuples.village.Terrain;
 import dev.nakasar.hytale.peuples.village.Village;
@@ -174,7 +175,8 @@ public final class MoreVillagesSeeder extends TickingSystem<EntityStore> {
             tryNext(world, layout, people, sites, index + 1, done);
             return;
         }
-        int r = layout.radiusUpTo(0);
+        // Tout le plan, paliers à venir compris : ses emprises sont sondées pour l'eau (Footprints.dry).
+        int r = Footprints.siteRadius(layout);
         Terrain.load(world, site[0] - r, site[0] + r, site[1] - r, site[1] + r).whenComplete((ignored, error) -> world.execute(() -> {
             if (error != null || !suitable(world, layout, people, site[0], site[1])) {
                 tryNext(world, layout, people, sites, index + 1, done);
