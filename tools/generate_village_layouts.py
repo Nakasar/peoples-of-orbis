@@ -51,24 +51,42 @@ LAYOUTS = {
         "Banner": (0, -4),
         "Buildings": [
             # Palier 0, campement : deux abris, une tour de guet, un potager (lanternes et bancs : cœur du village).
-            ("Abri_Ouest", 0, OAK + "Houses_Small/Kweebec_Oak_Houses_Small_001", -20, 2, 0),
-            ("Abri_Est", 0, OAK + "Houses_Small/Kweebec_Oak_Houses_Small_001", 20, 2, 2),
-            ("Tour_De_Guet", 0, OAK + "Guard_Towers/Kweebec_Oak_Guard_Towers_001", 0, -18, 0),
-            ("Potager", 0, OAK + "Garden/Medium/Kweebec_Oak_Garden_Medium_001", -12, -17, 0),
+            ("Abri_Ouest", 0, OAK + "Houses_Small/Kweebec_Oak_Houses_Small_001", -26, 0, 0),
+            ("Abri_Est", 0, OAK + "Houses_Small/Kweebec_Oak_Houses_Small_001", 26, -1, 2),
+            ("Tour_De_Guet", 0, OAK + "Guard_Towers/Kweebec_Oak_Guard_Towers_001", 13, 21, 0),
+            ("Potager", 0, OAK + "Garden/Medium/Kweebec_Oak_Garden_Medium_001", 0, -16, 0),
             # Palier 1, hameau : puits, échoppe, une maison de plus, l'enclos des lapins.
-            ("Puits", 1, OAK + "Well/Kweebec_Oak_Well_001", 0, 17, 0),
-            ("Echoppe", 1, OAK + "Shops/Kweebec_Oak_Shops_002", 12, -18, 0),
-            ("Maison_Sud_Ouest", 1, OAK + "Houses_Small/Kweebec_Oak_Houses_Small_002", -26, 30, 0),
-            ("Enclos", 1, OAK + "Bunny_Area/Kweebec_Oak_Bunny_Area_003", 37, -16, 0),
+            ("Puits", 1, OAK + "Well/Kweebec_Oak_Well_001", 0, 16, 0),
+            ("Echoppe", 1, OAK + "Shops/Kweebec_Oak_Shops_002", -13, -20, 0),
+            ("Maison_Sud_Ouest", 1, OAK + "Houses_Small/Kweebec_Oak_Houses_Small_002", -21, 29, 0),
+            ("Enclos", 1, OAK + "Bunny_Area/Kweebec_Oak_Bunny_Area_003", 16, -23, 0),
             # Palier 2, village : grande maison, maison des gardes, deuxième tour, deuxième échoppe.
-            ("Grande_Maison", 2, OAK + "Houses_Large/Kweebec_Oak_Houses_Large_001", 26, 36, 0),
-            ("Maison_Des_Gardes", 2, OAK + "Houses_Guard/Kweebec_Oak_Houses_Guard_001", -46, -12, 0),
-            ("Tour_Est", 2, OAK + "Guard_Towers/Kweebec_Oak_Guard_Towers_002", 44, 8, 0),
-            ("Echoppe_Ouest", 2, OAK + "Shops/Kweebec_Oak_Shops_005", -24, -24, 0),
+            ("Grande_Maison", 2, OAK + "Houses_Large/Kweebec_Oak_Houses_Large_001", 60, 0, 0),
+            ("Maison_Des_Gardes", 2, OAK + "Houses_Guard/Kweebec_Oak_Houses_Guard_001", -36, -35, 0),
+            ("Tour_Est", 2, OAK + "Guard_Towers/Kweebec_Oak_Guard_Towers_002", 2, -28, 0),
+            ("Echoppe_Ouest", 2, OAK + "Shops/Kweebec_Oak_Shops_005", -10, -31, 0),
             # Palier 3, bourg : le Grand-Père, cœur sacré du bosquet, et le grand potager.
-            ("Grand_Pere", 3, OAK + "Grandfather/Kweebec_Oak_Grandfather_001", -2, -40, 0),
-            ("Grand_Potager", 3, OAK + "Garden/Large/Kweebec_Oak_Garden_Large_001", 0, 32, 0),
+            ("Grand_Pere", 3, OAK + "Grandfather/Kweebec_Oak_Grandfather_001", 31, -23, 0),
+            ("Grand_Potager", 3, OAK + "Garden/Large/Kweebec_Oak_Garden_Large_001", 4, 34, 0),
         ],
+        # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
+        # main) : x0, x1, z0, z1 relatifs au cœur, rue de 3 blocs entre deux zones. Chaque palier voulu y tient.
+        "Zones": {
+            "Abri_Est": (12, 41, -13, 12),
+            "Puits": (-3, 4, 12, 23),
+            "Potager": (-6, 6, -20, -12),
+            "Abri_Ouest": (-41, -12, -13, 12),
+            "Maison_Sud_Ouest": (-40, -7, 16, 45),
+            "Enclos": (10, 22, -34, -17),
+            "Tour_De_Guet": (8, 17, 16, 26),
+            "Echoppe": (-16, -10, -24, -17),
+            "Tour_Est": (-3, 6, -34, -24),
+            "Echoppe_Ouest": (-16, -7, -34, -28),
+            "Grand_Potager": (-3, 14, 30, 42),
+            "Maison_Des_Gardes": (-54, -20, -54, -18),
+            "Grande_Maison": (45, 75, -13, 12),
+            "Grand_Pere": (26, 49, -36, -17),
+        },
         # Chantiers (étape 5) : palier atteint -> matériaux à réunir au dépôt (objets vanilla) et durée en heures de jeu
         # (GDD : « les villageois y travaillent 1 jour de jeu »).
         "Chantiers": [
@@ -106,27 +124,47 @@ LAYOUTS["Trork_Camp"] = {
     "Banner": (0, -5),
     "Buildings": [
         # Palier 0, campement : le feu, deux tentes, la tour de guet, le panneau d'avertissement (foyer : cœur du camp).
-        ("Feu_De_Camp", 0, TRORK + "Bonfire/Trork_Bonfire_Trork_Bonfire_001", 0, 13, 0),
-        ("Tente_Ouest", 0, TRORK + "Tent/Trork_Tent_001", -17, 0, 0),
-        ("Tente_Est", 0, TRORK + "Tent/Trork_Tent_001", 17, 0, 2),
-        ("Tour_De_Guet", 0, TRORK + "Tier_1/Watchtower/Trork_Tier_1_Watchtower_001", 0, -16, 0),
-        ("Avertissement", 0, TRORK + "Warning/Trork_Warning_Trork_Warning_001", 0, 28, 0),
+        ("Feu_De_Camp", 0, TRORK + "Bonfire/Trork_Bonfire_Trork_Bonfire_001", -13, 1, 0),
+        ("Tente_Ouest", 0, TRORK + "Tent/Trork_Tent_001", 0, -16, 0),
+        ("Tente_Est", 0, TRORK + "Tent/Trork_Tent_001", 14, 0, 2),
+        ("Tour_De_Guet", 0, TRORK + "Tier_1/Watchtower/Trork_Tier_1_Watchtower_001", -14, -11, 0),
+        ("Avertissement", 0, TRORK + "Warning/Trork_Warning_Trork_Warning_001", -1, 13, 0),
         # Palier 1 : le terrier, le piège, la réserve, une troisième tente.
-        ("Terrier", 1, TRORK + "Burrow/Trork_Burrow_Trork_Burrow_001", -18, -18, 0),
-        ("Piege", 1, TRORK + "Trap/Trork_Trap_Trork_Trap_001", 22, 22, 0),
-        ("Reserve", 1, TRORK + "Tier_2/Store/Trork_Tier_2_Store_001", 18, -18, 0),
-        ("Tente_Sud", 1, TRORK + "Tent/Trork_Tent_001", -18, 18, 0),
+        ("Terrier", 1, TRORK + "Burrow/Trork_Burrow_Trork_Burrow_001", -14, -24, 0),
+        ("Piege", 1, TRORK + "Trap/Trork_Trap_Trork_Trap_001", 11, 12, 0),
+        ("Reserve", 1, TRORK + "Tier_2/Store/Trork_Tier_2_Store_001", 13, -16, 0),
+        ("Tente_Sud", 1, TRORK + "Tent/Trork_Tent_001", -14, 13, 0),
         # Bâtiments de métier, étape 3 : la fosse aux bêtes du dresseur (enclos du mod en blocs vanilla, barrière à l'est).
-        ("Fosse_Aux_Betes", 1, PEN + "Trork_Pen", -32, 14, 1),
+        ("Fosse_Aux_Betes", 1, PEN + "Trork_Pen", -33, 1, 1),
         # Palier 2 : la grande tour, l'entrepôt, le bric-à-brac.
-        ("Tour_Est", 2, TRORK + "Tier_2/Watchtower/Trork_Tier_2_Watchtower_001", 34, 0, 0),
-        ("Entrepot", 2, TRORK + "Warehouse/Trork_Warehouse_Trork_Warehouse_001", -34, 0, 0),
-        ("Bric_A_Brac", 2, TRORK + "Misc/Large/Trork_Misc_Large_001", 12, 18, 0),
+        ("Tour_Est", 2, TRORK + "Tier_2/Watchtower/Trork_Tier_2_Watchtower_001", 28, -1, 0),
+        ("Entrepot", 2, TRORK + "Warehouse/Trork_Warehouse_Trork_Warehouse_001", -26, -15, 0),
+        ("Bric_A_Brac", 2, TRORK + "Misc/Large/Trork_Misc_Large_001", 1, 21, 0),
         # Palier 3 : la réserve du chef, la tour de l'ouest, le grand feu.
-        ("Reserve_Du_Chef", 3, TRORK + "Tier_3/Store/Trork_Tier_3_Store_001", 0, -34, 0),
-        ("Tour_Ouest", 3, TRORK + "Tier_3/Watchtower/Trork_Tier_3_Watchtower_002", -34, -22, 0),
-        ("Grand_Feu", 3, TRORK + "Bonfire/Trork_Bonfire_Trork_Bonfire_002", -12, 32, 0),
+        ("Reserve_Du_Chef", 3, TRORK + "Tier_3/Store/Trork_Tier_3_Store_001", 26, -16, 0),
+        ("Tour_Ouest", 3, TRORK + "Tier_3/Watchtower/Trork_Tier_3_Watchtower_002", -26, -28, 0),
+        ("Grand_Feu", 3, TRORK + "Bonfire/Trork_Bonfire_Trork_Bonfire_002", -19, 27, 0),
     ],
+    # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
+    # main) : x0, x1, z0, z1 relatifs au cœur, rue de 3 blocs entre deux zones. Chaque palier voulu y tient.
+    "Zones": {
+        "Avertissement": (-6, 4, 10, 14),
+        "Feu_De_Camp": (-20, -10, -2, 4),
+        "Tente_Est": (10, 20, -6, 5),
+        "Tente_Ouest": (-6, 4, -21, -10),
+        "Tour_De_Guet": (-18, -10, -16, -6),
+        "Reserve": (8, 17, -21, -10),
+        "Tente_Sud": (-20, -10, 8, 20),
+        "Terrier": (-18, -10, -32, -20),
+        "Piege": (8, 14, 10, 20),
+        "Fosse_Aux_Betes": (-46, -24, -8, 14),
+        "Tour_Est": (24, 36, -6, 5),
+        "Bric_A_Brac": (-6, 4, 18, 24),
+        "Entrepot": (-34, -22, -20, -12),
+        "Reserve_Du_Chef": (21, 34, -25, -10),
+        "Grand_Feu": (-26, -15, 24, 34),
+        "Tour_Ouest": (-34, -22, -36, -24),
+    },
     # Chantiers : viande, peaux et bois (objets vanilla), un jour de jeu.
     "Chantiers": [
         (1, 24, [("Food_Wildmeat_Raw", 16), ("Ingredient_Hide_Light", 12), ("Wood_Oak_Trunk", 24)]),

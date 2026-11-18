@@ -7,8 +7,8 @@
   "Icon": "Potion_Purify",
   "NameKey": "nakasar_peuples.workshop.Slothian_E1_Sanctuaire.name",
   "Board": [
-    3,
-    40,
+    -4,
+    33,
     2
   ],
   "Upgrades": [

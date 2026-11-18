@@ -7,8 +7,8 @@
   "Icon": "Weapon_Shield_Wood",
   "NameKey": "nakasar_peuples.workshop.Slothian_E3_Caserne.name",
   "Board": [
-    -39,
-    -21,
+    -35,
+    0,
     1
   ],
   "Upgrades": [

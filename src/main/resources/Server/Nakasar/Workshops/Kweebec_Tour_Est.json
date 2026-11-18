@@ -7,9 +7,9 @@
   "Icon": "Weapon_Arrow_Crude",
   "NameKey": "nakasar_peuples.workshop.Kweebec_Tour_Est.name",
   "Board": [
-    38,
-    11,
-    3
+    4,
+    -23,
+    0
   ],
   "Upgrades": [
     {

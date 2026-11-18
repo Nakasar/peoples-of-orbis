@@ -7,8 +7,8 @@
   "Icon": "Ingredient_Feathers_Light",
   "NameKey": "nakasar_peuples.workshop.Feran_E1_Volerie.name",
   "Board": [
-    1,
-    34,
+    10,
+    44,
     2
   ],
   "Upgrades": [

@@ -7,9 +7,9 @@
   "Icon": "Weapon_Shortbow_Crude",
   "NameKey": "nakasar_peuples.workshop.Kweebec_E2_Archerie.name",
   "Board": [
-    -19,
-    -38,
-    0
+    -55,
+    4,
+    1
   ],
   "Upgrades": [
     {

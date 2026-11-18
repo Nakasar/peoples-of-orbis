@@ -74,24 +74,41 @@ SPEC = {
         "Banner": (0, -4),
         "Buildings": [
             # Palier 0 : deux huttes, l'étal des cendres, l'affût du guetteur.
-            ("Hutte_Ouest", 0, DIS + "House/Small/Slothian_Disabled_House_Small_001", -20, 0, 0),
+            ("Hutte_Ouest", 0, DIS + "House/Small/Slothian_Disabled_House_Small_001", -21, -1, 0),
             ("Hutte_Est", 0, DIS + "House/Small/Slothian_Disabled_House_Small_003", 21, 0, 0),
-            ("Etal_Des_Cendres", 0, MON + "Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001", 0, -15, 0),
+            ("Etal_Des_Cendres", 0, MON + "Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001", -1, -15, 0),
             ("Affut", 0, MON + "Hunting/Incidental_Slothian_Slothian_Hunting_001", 0, 15, 0),
             # Palier 1 : deux maisons, la porte du monastère.
-            ("Maison_Nord_Ouest", 1, DIS + "House/Medium/Slothian_Disabled_House_Medium_001", -24, -24, 0),
-            ("Maison_Sud_Est", 1, DIS + "House/Medium/Slothian_Disabled_House_Medium_002", 24, 26, 0),
-            ("Porte_Du_Monastere", 1, DIS + "Gate/Slothian_Disabled_Gate_001", 0, 32, 0),
+            ("Maison_Nord_Ouest", 1, DIS + "House/Medium/Slothian_Disabled_House_Medium_001", -17, -23, 0),
+            ("Maison_Sud_Est", 1, DIS + "House/Medium/Slothian_Disabled_House_Medium_002", 17, 23, 0),
+            ("Porte_Du_Monastere", 1, DIS + "Gate/Slothian_Disabled_Gate_001", -4, 25, 0),
             # Bâtiments de métier, étape 3 : la bauge de veille (enclos du mod en blocs vanilla, barrière à l'ouest).
-            ("Bauge_De_Veille", 1, gl.PEN + "Slothian_Pen", 40, -13, 3),
+            ("Bauge_De_Veille", 1, gl.PEN + "Slothian_Pen", 15, -23, 3),
             # Palier 2 : le temple de veille (étape 4 de la chaîne), la grande maison, la hutte du nord.
-            ("Temple_De_Veille", 2, MON + "Temple/Incidental_Slothian_Slothian_Temple_001", 26, -26, 0),
-            ("Grande_Maison_Slothian", 2, DIS + "House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001", -26, 26, 0),
-            ("Hutte_Nord", 2, DIS + "House/Small/Slothian_Disabled_House_Small_002", 0, -34, 0),
+            ("Temple_De_Veille", 2, MON + "Temple/Incidental_Slothian_Slothian_Temple_001", 31, -26, 0),
+            ("Grande_Maison_Slothian", 2, DIS + "House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001", -36, 20, 0),
+            ("Hutte_Nord", 2, DIS + "House/Small/Slothian_Disabled_House_Small_002", 0, -45, 0),
             # Palier 3 : le monastère (lieu central du GDD) et la porte riche.
-            ("Monastere", 3, DIS + "Temple/Medium/Slothian_Disabled_Temple_Medium_001", -48, 0, 0),
-            ("Porte_Riche", 3, DIS + "Gate/Rich/Slothian_Disabled_Gate_Rich_001", 48, 0, 0),
+            ("Monastere", 3, DIS + "Temple/Medium/Slothian_Disabled_Temple_Medium_001", -39, -32, 0),
+            ("Porte_Riche", 3, DIS + "Gate/Rich/Slothian_Disabled_Gate_Rich_001", -16, 15, 0),
         ],
+        # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
+        # main) : x0, x1, z0, z1 relatifs au cœur, rue de 3 blocs entre deux zones. Chaque palier voulu y tient.
+        "Zones": {
+            "Hutte_Est": (11, 30, -10, 10),
+            "Affut": (-4, 4, 11, 18),
+            "Etal_Des_Cendres": (-4, 2, -24, -11),
+            "Hutte_Ouest": (-30, -11, -10, 8),
+            "Bauge_De_Veille": (6, 24, -32, -14),
+            "Maison_Nord_Ouest": (-26, -8, -32, -14),
+            "Maison_Sud_Est": (8, 30, 14, 36),
+            "Porte_Du_Monastere": (-16, 4, 22, 28),
+            "Hutte_Nord": (-14, 13, -58, -36),
+            "Porte_Riche": (-24, -8, 12, 18),
+            "Temple_De_Veille": (28, 39, -41, -14),
+            "Grande_Maison_Slothian": (-49, -28, 12, 33),
+            "Monastere": (-48, -30, -40, -19),
+        },
         "Chantiers": [
             (1, 24, [("Rock_Basalt_Cobble", 24), ("Soil_Mud_Dry", 16), ("Ingredient_Fibre", 12)]),
             (2, 24, [("Rock_Basalt_Brick", 32), ("Wood_Hardwood_Planks", 32), ("Soil_Ash", 16),

@@ -533,6 +533,8 @@ def add_zone(people, e, tiers, growth):
         x0, x1, z0, z1 = e["Rect"]
         for t in tiers:
             t["Zone"] = f"{x0} {x1} {z0} {z1}"
+            # Rectangle de l'avant-poste : sa place allouée, tracée telle quelle sur la carte (Kevin, 18 novembre 2026).
+            t["ZoneMax"] = True
         return
     if e["Category"] not in ("Base", "Artisan", "Projet"):
         return

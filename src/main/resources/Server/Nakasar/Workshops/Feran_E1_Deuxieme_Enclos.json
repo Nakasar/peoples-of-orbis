@@ -7,8 +7,8 @@
   "Icon": "Food_Egg",
   "NameKey": "nakasar_peuples.workshop.Feran_E1_Deuxieme_Enclos.name",
   "Board": [
-    1,
-    33,
+    10,
+    43,
     2
   ],
   "Upgrades": [
@@ -67,10 +67,10 @@
     7
   ],
   "Pen": [
-    -6,
-    2,
-    36,
-    44
+    3,
+    11,
+    46,
+    54
   ],
   "Specialties": [
     {

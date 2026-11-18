@@ -7,9 +7,9 @@
   "Icon": "Food_Fish_Raw",
   "NameKey": "nakasar_peuples.workshop.Kweebec_E2_Grand_Bassin.name",
   "Board": [
-    -19,
-    -38,
-    0
+    -55,
+    4,
+    1
   ],
   "Upgrades": [
     {

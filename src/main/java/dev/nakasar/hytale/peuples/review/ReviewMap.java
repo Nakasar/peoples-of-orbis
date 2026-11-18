@@ -110,8 +110,11 @@ public final class ReviewMap {
 
     private static Data data;
     private static String signature;
-    /** Version du calcul des rectangles, comptée dans {@link #signature()} (2 : boîtes de prefab exactes, sans « reach »). */
-    private static final int LAYOUT_VERSION = 2;
+    /**
+     * Version du calcul des rectangles, comptée dans {@link #signature()} (3 : zone allouée = rectangle rouge ;
+     * 4 : boîtes de prefab exactes, sans « reach », pour le cœur, les lieux-dits et les structures du monde).
+     */
+    private static final int LAYOUT_VERSION = 4;
     private static final Map<String, Layout> LAYOUTS = new HashMap<>();
     private static boolean running;
 
@@ -351,6 +354,7 @@ public final class ReviewMap {
                 int[] size = plan.get("R " + rk);
                 if (size == null || r.tiers.stream().anyMatch(t -> !plan.containsKey("T " + tierKey(s, r, t)))) {
                     int w = 1, d = 1, h = 1;
+                    int m = allocated(r) ? 0 : MARGIN;
                     List<int[]> boxes = new ArrayList<>();
                     for (Tier t : r.tiers) {
                         int[] b = withZone(measure(t), t);
@@ -359,13 +363,13 @@ public final class ReviewMap {
                         d = Math.max(d, b[3] - b[2] + 1);
                         h = Math.max(h, b[4]);
                     }
-                    int cw = w + 2 * MARGIN + 2, cd = d + 2 * MARGIN + 2;
+                    int cw = w + 2 * m + 2, cd = d + 2 * m + 2;
                     size = new int[]{cw, cd, h};
                     plan.put("R " + rk, size);
                     for (int i = 0; i < r.tiers.size(); i++) {
                         int[] b = boxes.get(i);
-                        int offX = 1 + MARGIN + (w - (b[1] - b[0] + 1)) / 2 - b[0];
-                        int offZ = 1 + MARGIN + (d - (b[3] - b[2] + 1)) / 2 - b[2];
+                        int offX = 1 + m + (w - (b[1] - b[0] + 1)) / 2 - b[0];
+                        int offZ = 1 + m + (d - (b[3] - b[2] + 1)) / 2 - b[2];
                         plan.put("T " + tierKey(s, r, r.tiers.get(i)), new int[]{offX, offZ});
                     }
                     changed = true;
@@ -386,8 +390,10 @@ public final class ReviewMap {
                     spot.ox = cx + off[0];
                     spot.oz = z + off[1];
                     spot.height = size[2];
-                    spot.signX = spot.x0 + 1;
-                    spot.signZ = spot.z1 - 1;
+                    // Zone allouée : le panneau se pose sur le liseré, pour laisser toute la zone libre à la construction.
+                    boolean onBorder = allocated(r);
+                    spot.signX = onBorder ? spot.x0 : spot.x0 + 1;
+                    spot.signZ = onBorder ? spot.z1 : spot.z1 - 1;
                     layout.spots.add(spot);
                     layout.signs.put(pack(spot.signX, spot.signZ), spot);
                     cx += cw + GAP;
@@ -725,8 +731,8 @@ public final class ReviewMap {
     }
 
     /**
-     * Boîte du palier agrandie à sa zone (Kevin, 18 novembre 2026 : zones maximales des Renoncés tracées en entier pour
-     * y construire les prefabs à la main) : le rectangle de la carte contient toujours toute la zone.
+     * Boîte du palier ramenée à sa zone (Kevin, 18 novembre 2026 : zones maximales des Renoncés tracées en entier pour
+     * y construire les prefabs à la main) : le liseré rouge de la carte borde la zone, un bloc à l'extérieur.
      */
     private static int[] withZone(int[] box, Tier t) {
         if (t.zone == null || !t.zoneMax) {
@@ -736,12 +742,25 @@ public final class ReviewMap {
         if (p.length < 4) {
             return box;
         }
-        return union(box, Integer.parseInt(p[0]), Integer.parseInt(p[1]), Integer.parseInt(p[2]), Integer.parseInt(p[3]), 1);
+        // La zone remplace la boîte mesurée : VillageBuilder.bounds élargit chaque prefab du décalage de son ancre (une
+        // quinzaine de blocs par côté pour les maisons outlanders), alors que la zone contient déjà l'emprise réelle de
+        // tous les paliers (vérifiée par tools/generate_village_layouts.py). Seule la hauteur mesurée est gardée.
+        return new int[] {Integer.parseInt(p[0]), Integer.parseInt(p[1]), Integer.parseInt(p[2]), Integer.parseInt(p[3]),
+                box == null ? 1 : box[4]};
+    }
+
+    /**
+     * Vrai si chaque palier du bâtiment a sa zone maximale allouée par le plan du village (Kevin, 18 novembre 2026 :
+     * « la taille maximale qui lui est allouée dans le village, de sorte à pouvoir construire les prefabs à la main »).
+     * Le rectangle rouge est alors exactement cette zone, liseré compris autour : pas de marge ni de contour jaune.
+     */
+    private static boolean allocated(Row r) {
+        return !r.tiers.isEmpty() && r.tiers.stream().allMatch(t -> t.zoneMax && t.zone != null);
     }
 
     /** Contour de la place libre du palier, sur l'herbe seulement, dans le rectangle (sans le liseré). */
     private static void drawZone(ChunkStore chunks, Spot s) {
-        if (s.tier.zone == null) {
+        if (s.tier.zone == null || allocated(s.row)) {
             return;
         }
         String[] p = s.tier.zone.trim().split("\\s+");

@@ -7,9 +7,9 @@
   "Icon": "Deco_Book_Pile_Small",
   "NameKey": "nakasar_peuples.workshop.Kweebec_E3_Bibliotheque.name",
   "Board": [
-    -49,
-    22,
-    1
+    32,
+    34,
+    3
   ],
   "Upgrades": [
     {

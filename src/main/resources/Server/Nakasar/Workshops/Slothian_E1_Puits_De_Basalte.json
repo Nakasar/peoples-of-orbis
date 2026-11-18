@@ -7,8 +7,8 @@
   "Icon": "Rock_Volcanic",
   "NameKey": "nakasar_peuples.workshop.Slothian_E1_Puits_De_Basalte.name",
   "Board": [
-    3,
-    45,
+    -4,
+    38,
     2
   ],
   "Upgrades": [
