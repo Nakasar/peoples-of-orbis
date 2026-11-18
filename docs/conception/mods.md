@@ -2442,3 +2442,53 @@ jamais : `ApiKeyEnv` donne le nom de la variable d'environnement qui la porte.
 - Le serveur peut joindre l'API (réseau sortant de l'hébergeur ; question 12 du doc, sans réponse).
 - Les sujets lus disent la même chose que les onglets du panneau (demandes, projets, routes, lieux-dits).
 - Les refus des actions s'affichent bien sous la réponse (messages capturés).
+
+## Les gens de passage qui parlent (`steward/FreeTalk`, `steward/Retell`, `world/Wayfarers`)
+
+Kevin, 18 novembre 2026 : étendre l'IA aux Klops, aux voyageurs des routes et à ceux qui colportent des nouvelles, pour
+que leur texte soit généré à partir des infos exactes qu'ils doivent donner et qu'on puisse discuter avec eux. Même
+infrastructure que le gestionnaire (mêmes réglages `gestionnaire.json`, même client, même budget) ; règles de Kevin
+reprises : le PNJ parle en personnage avec la voix de son peuple, jamais de chiffre de jeu (essor, réputation), le rang
+du joueur se dit tel quel, un changement du monde s'annonce comme une nouvelle.
+
+- **Qui** (`Wayfarers.is` / `speaker`) : le Klops errant (`Klops.isWanderer`), les voyageurs (`Travellers` : marchand
+  ambulant, pèlerin, messager, caravane), les caravaniers des routes commerciales (`TradeCaravans`), les marchands en
+  tournée des lieux-dits (`HamletTrips`), les aubergistes (`Inns`) et les campeurs (`Camps`). Le crieur et le gardien de
+  lieu-dit restent au gestionnaire.
+- **Personnage** (`Speaker`) : qui il est (« un pèlerin kweebec sur la route de A à B »), sa voix (celle de son peuple,
+  une voix propre pour le Klops), ses sujets lus par l'outil `lire` sur le thread du monde : `moi` (sa route, son
+  avancée en mots, ce qu'il peut faire, le rang du joueur à ses villages ; aussi donné d'emblée), `nouvelles` (toutes
+  les rumeurs du moment, `Rumours.all`), `courrier` (colis ou lettre que porte le joueur, destination, distance et
+  direction), `klops` (tournée des 3 prochains jours).
+- **Actions** (mêmes fonctions que les réponses du dialogue, paroles capturées par `DialogueSpeech.begin/end` et montrées
+  telles quelles sous la réponse) : Klops `confier_colis` (`Klops.giveParcel`) ; messager `prendre_lettre`,
+  `lettre_de_paix` entre rivaux (`Travellers.letter`) ; pèlerin et caravane `escorter` (`Travellers.escort`) ;
+  caravanier `escorter` (`TradeCaravans.escort`) ; aubergiste `prendre_lettre` (`Travellers.giveLetter`). Aucune ne
+  dépense ni ne détruit : pas de Confirmer. Le troc (page de boutique), les quêtes et dons des campements restent aux
+  réponses habituelles.
+- **Fenêtre** : « Parler librement » sous le portrait (`DialoguePage.wayfarer`), sans la rangée Confirmer / Annuler /
+  Ouvrir le panneau ; secours `steward.wayfarer.fallback.*` (dont `gone` : le PNJ n'est plus de passage).
+- **Répliques redites** (`Retell`) : quand une réponse du dialogue fait parler un de ces PNJ (`DialogueSpeech.say` :
+  rumeur, tournée du Klops, colis, lettre, cargaison, « où vas-tu », refus), la fenêtre montre « … » et le modèle redit
+  le texte exact du jeu avec la voix du PNJ, en un appel sans outil. La réplique n'est gardée que si elle contient tous
+  les faits du texte (`TextRender.facts` : valeurs des paramètres, noms de villages, nombres, directions et autres
+  messages imbriqués courts ; mot entier, sans tenir compte de la casse) et fait au plus 450 caractères ; sinon, et en
+  cas de délai (`RetellTimeoutMs`, 6 s), d'échec, de budget épuisé ou de modèle coupé, le texte du jeu s'affiche tel
+  quel. Cache de 256 répliques par PNJ et texte (une rumeur redemandée ne coûte rien). Un autre choix entre-temps jette
+  la réplique en retard.
+- **Budget commun** (`LlmGate`) : jetons du jour, appels, limite par joueur et par heure (dialogue libre seulement), pause
+  de 10 minutes après trois échecs de suite, partagés par le gestionnaire et les gens de passage.
+
+| Clé de `gestionnaire.json` | Défaut | Rôle |
+|---|---|---|
+| `FreeTalk` | `true` | « Parler librement » pour les gens de passage (rien sans `Enabled`) |
+| `RetellLines` | `true` | Paroles d'information redites avec la voix du PNJ (rien sans `Enabled`) |
+| `RetellTimeoutMs` | 6 000 | Délai d'une réplique redite ; au-delà, le texte du jeu |
+
+### À vérifier en jeu (gens de passage)
+
+- Klops : « Où vas-tu demain ? » redit avec sa voix et les bons villages ; en libre, « Tu as un colis pour moi ? »
+  confie le colis (paroles du jeu sous la réponse).
+- Messager : « Donne-moi ta lettre » ; pèlerin : « Je t'accompagne » lance l'escorte.
+- Aubergiste et campeur : « Quelles nouvelles ? » donne des rumeurs vraies, avec leurs noms exacts.
+- Le « … » d'attente d'une réplique redite ne reste pas affiché (délai de 6 s au plus).

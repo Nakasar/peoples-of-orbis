@@ -23,6 +23,12 @@ Chaque matin, des voyageurs partent d'un village vers un autre village (à moins
 - **Escorte** : restez près de la caravane pendant tout le trajet (elle vous attend une minute si vous vous éloignez) et soyez là à son arrivée : +25 de réputation au village de départ, +12 à celui d'arrivée. Une caravane arrivée fait grandir le village qui la reçoit et rapproche les deux villages.
 - **Embuscades** : un convoi sur trois environ tombe sur une bande de 3 à 5 pillards. Si vous êtes là, défendez-le. Si personne n'est là, il arrive que le convoi perde une partie de son chargement. Les convois de vos avant-postes de métier peuvent aussi être attaqués.
 
+## Parler librement aux gens de passage
+
+Sur les serveurs qui l'ont activé, le Klops errant, les voyageurs, les caravaniers, les marchands en tournée, les aubergistes et les campeurs ont aussi **Parler librement** dans leur fenêtre de dialogue. Demandez-leur leur route, les nouvelles, où livrer votre colis ou votre lettre : ils répondent avec la voix de leur peuple, à partir de ce qui se passe vraiment dans le monde (mêmes noms, mêmes distances et directions que les rumeurs). Le Klops peut vous confier un colis, le messager sa lettre (ou une lettre de paix), le pèlerin et les caravanes se faire escorter, l'aubergiste vous donner une lettre, simplement en le leur demandant. Le troc et les quêtes des campements restent aux réponses habituelles.
+
+Leurs paroles habituelles (une rumeur, la tournée du Klops, un colis confié, la cargaison d'une caravane) sont aussi redites avec leur voix : les noms, nombres et directions restent exactement ceux du jeu, et sans réponse rapide c'est le texte du jeu qui s'affiche.
+
 ## Auberges de relais
 
 Quand un chemin d'au moins 400 blocs voit passer du monde (6 voyageurs en 7 jours, une caravane en compte trois), une **auberge** se construit à mi-chemin, un peu à l'écart de la route (12 heures de jeu de travaux).

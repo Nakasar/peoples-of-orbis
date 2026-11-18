@@ -27,6 +27,15 @@ public final class Rumours {
     }
 
     public static Message random(World world, Store<EntityStore> store, Ref<EntityStore> player) {
+        List<Message> out = all(world, store, player);
+        if (out.isEmpty()) {
+            return Message.translation(KEYS + "none");
+        }
+        return out.get(ThreadLocalRandom.current().nextInt(out.size()));
+    }
+
+    /** Toutes les rumeurs du moment (ce que sait un colporteur de nouvelles qui parle librement, steward/FreeTalk). */
+    public static List<Message> all(World world, Store<EntityStore> store, Ref<EntityStore> player) {
         List<Message> out = new ArrayList<>();
         long day = GameClock.day(store);
         for (Travellers.Traveller t : Travellers.all(world)) {
@@ -76,9 +85,6 @@ public final class Rumours {
                     .param("distance", (int) Math.round(Math.hypot(trace.x() - at.x(), trace.z() - at.z())))
                     .param("direction", Message.translation(Villages.MESSAGES + "dir." + Requests.direction(trace.x() - at.x(), trace.z() - at.z()))));
         }
-        if (out.isEmpty()) {
-            return Message.translation(KEYS + "none");
-        }
-        return out.get(ThreadLocalRandom.current().nextInt(out.size()));
+        return out;
     }
 }

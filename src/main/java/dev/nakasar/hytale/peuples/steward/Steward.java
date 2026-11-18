@@ -16,17 +16,12 @@ import dev.nakasar.hytale.peuples.village.Village;
 import dev.nakasar.hytale.peuples.village.Villages;
 import dev.nakasar.hytale.peuples.world.Hamlets;
 
-import java.time.LocalDate;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
@@ -50,23 +45,13 @@ public final class Steward {
 
     public static final String KEYS = "nakasar_peuples.steward.";
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
-    private static final int FAILURES_BEFORE_PAUSE = 3;
-    private static final long PAUSE_MS = 10L * 60 * 1000;
 
     /** Ce que la fenêtre de dialogue montre après un message ou un clic sur Confirmer. */
     public record Answer(Message line, List<Message> game, List<String> pending, boolean failed) {
     }
 
     private static final Map<UUID, StewardSession> SESSIONS = new ConcurrentHashMap<>();
-    /** Par joueur, hors session : survit au changement de village, pour que la limite horaire ne se contourne pas. */
-    private static final Map<UUID, Quota> QUOTAS = new ConcurrentHashMap<>();
     private static final Map<String, Pattern> MASKS = new ConcurrentHashMap<>();
-    private static final AtomicLong TOKENS_TODAY = new AtomicLong();
-    private static volatile LocalDate tokenDay = LocalDate.now();
-    private static final AtomicLong CALLS_TODAY = new AtomicLong();
-    private static final AtomicInteger FAILURES = new AtomicInteger();
-    private static volatile long pausedUntil;
-    private static volatile String lastError;
 
     private Steward() {
     }
@@ -100,36 +85,16 @@ public final class Steward {
     public static void forget(UUID player) {
         if (player != null) {
             SESSIONS.remove(player);
+            FreeTalk.forget(player);
         }
     }
 
     public static void clearAll() {
         SESSIONS.clear();
-        QUOTAS.clear();
+        FreeTalk.clearAll();
+        Retell.clearAll();
+        LlmGate.clearAll();
         MASKS.clear();
-    }
-
-    /** Un joueur : son message en cours (un seul à la fois) et l'heure de ses derniers messages (limite par heure). */
-    private static final class Quota {
-        volatile boolean busy;
-        private final Deque<Long> calls = new ArrayDeque<>();
-
-        /** Vrai si le joueur peut encore envoyer un message cette heure (et le compte). */
-        synchronized boolean allowCall(int perHour) {
-            long now = System.currentTimeMillis();
-            while (!calls.isEmpty() && now - calls.peekFirst() > 3_600_000L) {
-                calls.removeFirst();
-            }
-            if (calls.size() >= perHour) {
-                return false;
-            }
-            calls.addLast(now);
-            return true;
-        }
-    }
-
-    private static Quota quota(PlayerRef player) {
-        return QUOTAS.computeIfAbsent(player.getUuid(), u -> new Quota());
     }
 
     /** Actions qui attendent le clic du joueur sur Confirmer (libellés lus par le modèle). */
@@ -182,8 +147,8 @@ public final class Steward {
             done.accept(fallback("empty"));
             return;
         }
-        String refusal = refusal(config);
-        Quota quota = quota(player);
+        String refusal = LlmGate.refusal(config);
+        LlmGate.Quota quota = LlmGate.quota(player);
         if (refusal == null && quota.busy) {
             refusal = "busy";
         }
@@ -244,34 +209,6 @@ public final class Steward {
         return out.append("]\n").toString();
     }
 
-    /** Pourquoi le gestionnaire ne peut pas appeler le modèle maintenant, ou null. */
-    private static String refusal(StewardConfig config) {
-        if (!config.enabled) {
-            return "off";
-        }
-        if (StewardConfig.CLAUDE.equals(config.backend) && config.apiKey() == null) {
-            return "key";
-        }
-        if (System.currentTimeMillis() < pausedUntil) {
-            return "paused";
-        }
-        return overBudget(config) ? "budget" : null;
-    }
-
-    private static boolean overBudget(StewardConfig config) {
-        rollDay();
-        return config.dailyTokenBudget > 0 && TOKENS_TODAY.get() >= config.dailyTokenBudget;
-    }
-
-    private static void rollDay() {
-        LocalDate today = LocalDate.now();
-        if (!today.equals(tokenDay)) {
-            tokenDay = today;
-            TOKENS_TODAY.set(0);
-            CALLS_TODAY.set(0);
-        }
-    }
-
     static Answer fallback(String why) {
         return new Answer(Message.translation(KEYS + "fallback." + why), List.of(), List.of(), true);
     }
@@ -282,7 +219,7 @@ public final class Steward {
         final Ref<EntityStore> ref;
         final PlayerRef player;
         final StewardSession session;
-        final Quota quota;
+        final LlmGate.Quota quota;
         final StewardConfig config;
         final Village village;
         final Consumer<Answer> done;
@@ -293,7 +230,7 @@ public final class Steward {
         /** Une action a été refusée par le jeu : les suivantes de ce message ne sont pas tentées. */
         boolean halted;
 
-        Turn(World world, Ref<EntityStore> ref, PlayerRef player, StewardSession session, Quota quota, StewardConfig config,
+        Turn(World world, Ref<EntityStore> ref, PlayerRef player, StewardSession session, LlmGate.Quota quota, StewardConfig config,
              Village village, Consumer<Answer> done) {
             this.world = world;
             this.ref = ref;
@@ -307,7 +244,7 @@ public final class Steward {
         }
 
         void next(String system, JsonArray messages) {
-            CALLS_TODAY.incrementAndGet();
+            LlmGate.called();
             CompletableFuture<LlmClient.Reply> call;
             try {
                 call = client.send(system, tools(village), messages);
@@ -338,8 +275,7 @@ public final class Steward {
         }
 
         void handle(String system, JsonArray messages, LlmClient.Reply reply) {
-            FAILURES.set(0);
-            TOKENS_TODAY.addAndGet(reply.inputTokens() + reply.outputTokens());
+            LlmGate.succeeded(reply);
             if (reply.calls().isEmpty() || toolCalls >= config.maxToolCalls || !ref.isValid()) {
                 finish(reply.text());
                 return;
@@ -367,7 +303,7 @@ public final class Steward {
             toolMessage.addProperty("role", "user");
             toolMessage.add("content", results);
             messages.add(toolMessage);
-            if (overBudget(config)) {
+            if (LlmGate.overBudget(config)) {
                 stop("budget");
                 return;
             }
@@ -375,14 +311,7 @@ public final class Steward {
         }
 
         void fail(Throwable error) {
-            Throwable cause = error instanceof java.util.concurrent.CompletionException && error.getCause() != null ? error.getCause() : error;
-            lastError = cause.getClass().getSimpleName() + ": " + cause.getMessage();
-            LOGGER.atWarning().log("Gestionnaire %s : appel au modèle en échec (%s)", session.villageId, lastError);
-            if (FAILURES.incrementAndGet() >= FAILURES_BEFORE_PAUSE) {
-                FAILURES.set(0);
-                pausedUntil = System.currentTimeMillis() + PAUSE_MS;
-                LOGGER.atWarning().log("Gestionnaire : %d échecs de suite, pause de 10 minutes", FAILURES_BEFORE_PAUSE);
-            }
+            LlmGate.failed(error, "Gestionnaire " + session.villageId);
             quota.busy = false;
             session.pending.clear();
             Answer a = fallback("error");
@@ -695,25 +624,26 @@ public final class Steward {
 
     /** État pour {@code /village gestionnaire} : réglages, budget, dernière erreur. */
     public static List<String> status() {
-        rollDay();
         StewardConfig c = StewardConfig.get();
         List<String> out = new ArrayList<>();
         out.add("Gestionnaire : " + (c.enabled ? "activé" : "désactivé") + " ; backend " + c.backend + ", modèle " + c.modelOrDefault());
         out.add("Clé (" + (c.keyEnv().isEmpty() ? "aucune variable" : c.keyEnv()) + ") : " + (c.apiKey() == null ? "absente" : "présente"));
-        out.add("Jetons aujourd'hui : " + TOKENS_TODAY.get() + " / " + (c.dailyTokenBudget == 0 ? "sans limite" : c.dailyTokenBudget)
-                + " ; appels : " + CALLS_TODAY.get());
-        long pause = pausedUntil - System.currentTimeMillis();
+        out.add("Jetons aujourd'hui (tous les PNJ qui parlent) : " + LlmGate.tokensToday() + " / " + (c.dailyTokenBudget == 0 ? "sans limite" : c.dailyTokenBudget)
+                + " ; appels : " + LlmGate.callsToday());
+        out.add("Voyageurs, Klops et colporteurs : dialogue libre " + (c.freeTalk ? "oui" : "non")
+                + ", répliques reformulées " + (c.retellLines ? "oui" : "non"));
+        long pause = LlmGate.pausedUntil() - System.currentTimeMillis();
         if (pause > 0) {
             out.add("En pause encore " + (pause / 60000 + 1) + " min (échecs de suite)");
         }
-        if (lastError != null) {
-            out.add("Dernière erreur : " + lastError);
+        if (LlmGate.lastError() != null) {
+            out.add("Dernière erreur : " + LlmGate.lastError());
         }
         if (StewardConfig.loadError() != null) {
             out.add("Fichier de réglages illisible : " + StewardConfig.loadError());
         }
         out.add("Fichier : " + StewardConfig.file());
-        out.add("Conversations ouvertes : " + SESSIONS.size());
+        out.add("Conversations ouvertes : " + SESSIONS.size() + " avec un gestionnaire, " + FreeTalk.sessions() + " avec un voyageur");
         return out;
     }
 
@@ -753,8 +683,6 @@ public final class Steward {
 
     /** Remet le compteur du jour et la pause à zéro ({@code /village gestionnaire recharger}). */
     public static void resetPause() {
-        pausedUntil = 0;
-        FAILURES.set(0);
-        lastError = null;
+        LlmGate.resetPause();
     }
 }
