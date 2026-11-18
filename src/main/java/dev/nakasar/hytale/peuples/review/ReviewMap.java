@@ -701,8 +701,8 @@ public final class ReviewMap {
     }
 
     /**
-     * Boîte du palier agrandie à sa zone (Kevin, 18 novembre 2026 : zones maximales des Renoncés tracées en entier pour
-     * y construire les prefabs à la main) : le rectangle de la carte contient toujours toute la zone.
+     * Boîte du palier ramenée à sa zone (Kevin, 18 novembre 2026 : zones maximales des Renoncés tracées en entier pour
+     * y construire les prefabs à la main) : le rectangle rouge de la carte entoure la zone jaune à 4 blocs près.
      */
     private static int[] withZone(int[] box, Tier t) {
         if (t.zone == null || !t.zoneMax) {
@@ -712,7 +712,11 @@ public final class ReviewMap {
         if (p.length < 4) {
             return box;
         }
-        return union(box, Integer.parseInt(p[0]), Integer.parseInt(p[1]), Integer.parseInt(p[2]), Integer.parseInt(p[3]), 1);
+        // La zone remplace la boîte mesurée : VillageBuilder.bounds élargit chaque prefab du décalage de son ancre (une
+        // quinzaine de blocs par côté pour les maisons outlanders), alors que la zone contient déjà l'emprise réelle de
+        // tous les paliers (vérifiée par tools/generate_village_layouts.py). Seule la hauteur mesurée est gardée.
+        return new int[] {Integer.parseInt(p[0]), Integer.parseInt(p[1]), Integer.parseInt(p[2]), Integer.parseInt(p[3]),
+                box == null ? 1 : box[4]};
     }
 
     /** Contour de la place libre du palier, sur l'herbe seulement, dans le rectangle (sans le liseré). */
