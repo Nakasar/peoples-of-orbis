@@ -232,10 +232,26 @@ public final class BuildingPaliers {
         VillageLayout.Building b = layout == null ? null : layout.building(w.building());
         Variant[] v = b == null ? null : variants(layout, b);
         if (v == null) {
-            return plan;
+            return moveBoard(layout, b, plan);
         }
         Variant at = v[Math.max(1, Math.min(MAX, village.palier(b.id())))];
-        return at != null && at.board() != null && at.board().length >= 2 ? at.board() : plan;
+        return moveBoard(layout, b, at != null && at.board() != null && at.board().length >= 2 ? at.board() : plan);
+    }
+
+    /** Panneau {@code [x, z, lacet, (dy)]} du plan type, à sa place dans un village à placement libre. */
+    private static int[] moveBoard(VillageLayout layout, VillageLayout.Building b, int[] board) {
+        Placing t = b == null || layout == null ? null : layout.placing(b.id());
+        if (t == null || board == null || board.length < 2) {
+            return board;
+        }
+        int[] out = board.clone();
+        int[] at = t.point(board[0], board[1]);
+        out[0] = at[0];
+        out[1] = at[1];
+        if (out.length > 2) {
+            out[2] = t.yaw(board[2]);
+        }
+        return out;
     }
 
     /** Pièces de l'avant-poste `w` au palier `palier` (« prefab dx dz rotation »). */

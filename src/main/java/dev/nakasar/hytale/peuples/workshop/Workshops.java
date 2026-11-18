@@ -862,7 +862,7 @@ public final class Workshops {
             if (w.isAnnex()) {
                 dev.nakasar.hytale.peuples.annex.Annexes.placeDecor(world, village, w, ws.board(), up.decor());
             } else {
-                placeDecor(world, ws.board(), up.decor());
+                placeDecor(world, ws.board(), up.decor(), decorTurn(village, w));
             }
         }
         // Nouvelle apparence du bâtiment pour son niveau (Kevin, 2026-11-17 : un bâtiment à niveaux ne change d'apparence
@@ -881,6 +881,21 @@ public final class Workshops {
 
     /** Pose le décor vanilla d'un niveau ({@code "dx dy dz lacet Bloc"} relatifs au panneau), seulement dans l'air. */
     public static void placeDecor(World world, int[] origin, String[] decor) {
+        placeDecor(world, origin, decor, 0);
+    }
+
+    /**
+     * Quarts de tour du bâtiment de métier `w` depuis le plan type (village à placement libre) : son décor, situé par
+     * rapport au panneau dans les données, tourne avec lui.
+     */
+    public static int decorTurn(Village village, Workshop w) {
+        dev.nakasar.hytale.peuples.village.VillageLayout layout = dev.nakasar.hytale.peuples.village.Chantiers.layout(village);
+        dev.nakasar.hytale.peuples.village.Placing t = layout == null ? null : layout.placing(w.building());
+        return t == null ? 0 : t.rot();
+    }
+
+    /** Comme {@link #placeDecor(World, int[], String[])}, décalages et lacets tournés de `turn` quarts de tour. */
+    public static void placeDecor(World world, int[] origin, String[] decor, int turn) {
         ChunkStore chunks = world.getChunkStore();
         for (String line : decor) {
             String[] p = line.trim().split("\\s+");
@@ -888,10 +903,14 @@ public final class Workshops {
                 continue;
             }
             try {
-                int x = origin[0] + Integer.parseInt(p[0]);
+                int[] off = dev.nakasar.hytale.peuples.village.Placing.rotate(Integer.parseInt(p[0]), Integer.parseInt(p[2]), turn);
+                int x = origin[0] + off[0];
                 int y = origin[1] + Integer.parseInt(p[1]);
-                int z = origin[2] + Integer.parseInt(p[2]);
+                int z = origin[2] + off[1];
                 int rot = Integer.parseInt(p[3]);
+                if (turn != 0 && rot >= 0 && rot < 4) {
+                    rot = (rot + turn) & 3;
+                }
                 String current = Blocks.name(chunks, x, y, z);
                 if (Blocks.id(chunks, x, y, z) != Blocks.UNLOADED && (current == null || Terrain.isVegetation(current))
                         && Blocks.name(chunks, x, y - 1, z) != null) {

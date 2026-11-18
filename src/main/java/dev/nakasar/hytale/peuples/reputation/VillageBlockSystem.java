@@ -83,7 +83,7 @@ public final class VillageBlockSystem extends EntityEventSystem<EntityStore, Bre
             if (v.isDeposit(x, y, z) || same(v.board(), x, y, z) || (v.hasBanner() && same(v.banner(), x, y, z))) {
                 return v;
             }
-            VillageLayout layout = v.layout() == null ? null : VillageLayout.get(v.layout());
+            VillageLayout layout = dev.nakasar.hytale.peuples.village.Chantiers.layout(v);
             if (layout == null || y < v.y() - BELOW_HEART) {
                 continue;
             }

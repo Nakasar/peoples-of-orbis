@@ -69,7 +69,8 @@ public final class Chantiers {
 
     /** Plan du village, ou null (village fondé à la main : pas de chantier). */
     public static VillageLayout layout(Village village) {
-        return village.layout() == null ? null : VillageLayout.get(village.layout());
+        // Plan propre du village : plan type, ou plan type déplacé bâtiment par bâtiment (placement libre).
+        return FreePlans.of(village);
     }
 
     /**

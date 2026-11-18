@@ -462,6 +462,8 @@ def main():
     args = parser.parse_args()
     bounds = load_bounds()
     OUT.mkdir(parents=True, exist_ok=True)
+    # Villages à placement libre : leurs sentiers se calculent en jeu avec ces styles (village/StreetPlanner).
+    village_streets.write_styles(bounds)
     failed = False
     for layout_id, spec in LAYOUTS.items():
         doc, rects, errors = build(layout_id, spec, bounds)

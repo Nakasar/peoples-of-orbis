@@ -214,7 +214,7 @@ public final class Rebuilds {
                 for (int level = 2; level <= ws.level(); level++) {
                     Workshop.Upgrade up = w.upgrade(level);
                     if (up != null) {
-                        Workshops.placeDecor(world, ws.board(), up.decor());
+                        Workshops.placeDecor(world, ws.board(), up.decor(), Workshops.decorTurn(village, w));
                     }
                 }
             }

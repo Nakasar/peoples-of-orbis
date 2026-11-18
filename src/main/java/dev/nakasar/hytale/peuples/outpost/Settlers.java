@@ -349,7 +349,7 @@ public final class Settlers {
                 return;
             }
             Village founded = result.village();
-            unstick(world, layout, founded);
+            unstick(world, dev.nakasar.hytale.peuples.village.Chantiers.layout(founded), founded);
             PeuplesPlugin.get().getLogger().atInfo().log("Peuples : colon de %s : village %s fondé en %d %d par %s",
                     homeId, founded.name(), founded.x(), founded.z(), player.getUsername());
             if (owner != null) {
