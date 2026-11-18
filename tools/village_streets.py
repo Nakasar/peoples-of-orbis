@@ -21,6 +21,7 @@ Palier d'un élément de décor : le plus haut palier des emprises à moins de T
 Toutes les positions sont relatives au cœur ; le Java prend la hauteur du sol réel à chaque case.
 """
 import heapq
+import json
 import math
 import random
 from pathlib import Path
@@ -451,6 +452,47 @@ def build(layout_id, people, plaza, buildings, plot_rects, radius, block_ids=Non
     preview = {"paths": {tuple(map(int, e.split()[:2])): t for t, es in paths_by_tier.items() for e in es},
                "decor": [(t, e) for t, es in decor_by_tier.items() for e in es]}
     return streets, errors, preview
+
+
+STYLES_OUT = TOOLS.parent / "src/main/resources/nakasar-peuples/sentiers-styles.json"
+
+
+def write_styles(prefab_bounds):
+    """
+    Styles de sentiers et de décor pour le Java (village/StreetPlanner) : les villages à placement libre (Kevin,
+    18 novembre 2026) calculent leurs sentiers en jeu, une fois les bâtiments placés, avec les mêmes règles que ce
+    module. Les bornes des prefabs de décor (lampadaires, bancs, petits jardins) viennent de la liste vanilla.
+    """
+    used = set(GARDENS)
+    styles = {}
+    for people, st in STYLES.items():
+        styles[people] = {
+            "Path": st["path"], "Speck": st["speck"][0], "SpeckShare": st["speck"][1],
+            "Light": [f"{k} {i}" for k, i in st["light"]],
+            "Door": [f"{k} {i}" for k, i in st["door"]],
+            "Bench": [f"{k} {i}" for k, i in st["bench"]],
+            "Pocket": [{"Weight": w, "Garden": kind == "garden", "Blocks": [] if kind == "garden" else list(kind)}
+                       for w, kind in st["pocket"]],
+        }
+        for key in ("light", "door", "bench"):
+            used.update(i for k, i in st[key] if k == "P")
+    bounds = {}
+    for ident in sorted(used):
+        b = prefab_bounds.get(ident)
+        if b is None:
+            raise SystemExit(f"prefab de décor sans bornes : {ident}")
+        bounds[ident] = list(b)
+    doc = {
+        "$Comment": "Généré par tools/village_streets.py (ne pas modifier à la main) : styles des sentiers et du décor "
+                    "des villages à placement libre (village/StreetPlanner). Bounds : minX maxX minY maxY minZ maxZ.",
+        "Constants": {"Talus": TALUS, "Wall": WALL, "LightEvery": LIGHT_EVERY, "PocketGap": POCKET_GAP,
+                      "PocketPath": POCKET_PATH, "PocketWall": POCKET_WALL},
+        "Styles": styles,
+        "Gardens": GARDENS,
+        "Bounds": bounds,
+    }
+    STYLES_OUT.write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"→ {STYLES_OUT.relative_to(TOOLS.parent)}")
 
 
 def load_block_ids():

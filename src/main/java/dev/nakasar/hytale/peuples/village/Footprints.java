@@ -161,7 +161,7 @@ public final class Footprints {
 
     /** Rayon de terrain à charger pour examiner un site : tout le plan (paliers à venir compris). */
     public static int siteRadius(VillageLayout layout) {
-        return layout.radius() + 2;
+        return FreePlans.siteRadius(layout) + 2;
     }
 
     /** Emprises du plan, relatives au cœur : chaque bâtiment (tous paliers d'apparence), chaque terrain, la place. */
@@ -189,6 +189,11 @@ public final class Footprints {
 
     /** Premier bâtiment (ou terrain, ou « place ») du plan dont l'emprise touche l'eau, ou null. */
     public static String wetBuilding(World world, VillageLayout layout, int cx, int cz) {
+        if (FreePlans.enabled(layout)) {
+            // Placement libre : le placeur évite lui-même l'eau ; le site ne convient pas s'il manque une place.
+            FreePlanner.Result plan = FreePlans.plan(world, layout, cx, cz);
+            return plan.ok() ? null : plan.failed();
+        }
         Terrain terrain = new Terrain(world);
         List<String> names = new ArrayList<>();
         for (VillageLayout.Building b : layout.buildings()) {

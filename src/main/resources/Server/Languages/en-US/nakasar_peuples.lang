@@ -7818,6 +7818,7 @@ village.listHeader = Villages in this world: {count}
 village.listLine = • {name} ({people}, {tier}) at {x} {y} {z}
 village.loadFailed = The village terrain could not be loaded.
 village.siteTaken = Another village took this spot in the meantime.
+village.noRoom = Not enough room around here to build the village ({building} finds no spot: water, slopes or neighbours).
 village.terrainUnloaded = The ground under the village is not loaded: come closer and try again.
 village.layoutMissing = Village layout not found: {layout}.
 village.generating = Building the village "{name}"…

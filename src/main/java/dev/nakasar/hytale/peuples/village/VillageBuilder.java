@@ -109,20 +109,34 @@ public final class VillageBuilder {
             return;
         }
         // Tout le plan (restes de la génération du monde retirés des emprises à venir), talus et couronnes des arbres retirés.
-        int r = Math.max(layout.radiusUpTo(0) + MARGIN + 2 * BLEND + 18, Footprints.siteRadius(layout) + 2);
+        // Placement libre : le campement peut se poser n'importe où dans le disque du plan.
+        int reach = FreePlans.enabled(layout) ? FreePlans.maxRadius(layout) : layout.radiusUpTo(0);
+        int r = Math.max(reach + MARGIN + 2 * BLEND + 18, Footprints.siteRadius(layout) + 2);
         Terrain.load(world, cx - r, cx + r, cz - r, cz + r).whenComplete((ignored, error) -> world.execute(() -> {
             if (error != null) {
                 LOGGER.atWarning().withCause(error).log("Nakasar Peuples : chunks du village %s non chargés", name);
                 done.accept(Result.fail("loadFailed"));
                 return;
             }
-            done.accept(buildNow(world, layout, name, cx, cz, auto));
+            if (FreePlans.enabled(layout)) {
+                // Placement libre (Kevin, 18 novembre 2026) : chaque bâtiment trouve sa place autour du cœur.
+                FreePlanner.Result plan = FreePlans.plan(world, layout, cx, cz);
+                if (!plan.ok()) {
+                    LOGGER.atInfo().log("Nakasar Peuples : pas de place pour %s (%s) en %d %d", plan.failed(), layout.getId(), cx, cz);
+                    done.accept(new Result(null, Message.translation(MESSAGES + "noRoom").param("building", plan.failed())));
+                    return;
+                }
+                String[] placement = FreePlans.encode(plan);
+                done.accept(buildNow(world, FreePlans.placed(layout, placement), name, cx, cz, auto, placement));
+                return;
+            }
+            done.accept(buildNow(world, layout, name, cx, cz, auto, new String[0]));
         }));
     }
 
     /** Distance minimale entre deux cœurs pour qu'un plan entier (tous paliers) tienne sans chevaucher l'autre. */
     public static int spacing(VillageLayout layout) {
-        return Math.max(Villages.MIN_SPACING, 2 * layout.radius() + 16);
+        return Math.max(Villages.MIN_SPACING, 2 * FreePlans.siteRadius(layout) + 16);
     }
 
     /** Village trop proche de (cx, cz) pour y générer ce plan, ou null. */
@@ -138,7 +152,7 @@ public final class VillageBuilder {
         return null;
     }
 
-    private static Result buildNow(World world, VillageLayout layout, String name, int cx, int cz, boolean auto) {
+    private static Result buildNow(World world, VillageLayout layout, String name, int cx, int cz, boolean auto, String[] placement) {
         if (tooClose(world, layout, cx, cz) != null) {
             return Result.fail("siteTaken");
         }
@@ -222,6 +236,7 @@ public final class VillageBuilder {
         }
         Village village = founding.village();
         village.markGenerated(layout.getId(), auto, built.toArray(String[]::new));
+        village.setPlacement(placement);
         for (int i = 0; i < built.size(); i++) {
             village.setSiteY(built.get(i), builtHeights.get(i));
         }

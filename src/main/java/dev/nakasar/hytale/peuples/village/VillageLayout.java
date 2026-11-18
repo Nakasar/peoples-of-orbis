@@ -12,7 +12,9 @@ import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
 import com.hypixel.hytale.codec.validation.ValidationResults;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -82,9 +84,17 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
         int maxZ;
         int minY;
         int maxY = 8;
+        /** Placement libre (FreePlans) : le bâtiment du plan type et son déplacement, ou null dans un plan type. */
+        Building plan;
+        Placing placing;
 
         public String id() {
             return id;
+        }
+
+        /** Déplacement du bâtiment depuis le plan type (village à placement libre), ou null. */
+        public Placing placing() {
+            return placing;
         }
 
         public int tier() {
@@ -142,6 +152,10 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
          * décalé de (dx, dz) et emprise relative au nouveau point de collage ({@link BuildingPaliers}).
          */
         Building variant(String variantPrefab, int dx, int dz, int vMinX, int vMaxX, int vMinZ, int vMaxZ, int vMinY, int vMaxY) {
+            if (plan != null) {
+                // Village à placement libre : la version est calculée dans le plan type, puis suit le même déplacement.
+                return plan.variant(variantPrefab, dx, dz, vMinX, vMaxX, vMinZ, vMaxZ, vMinY, vMaxY).moved(placing);
+            }
             Building b = new Building();
             b.id = id;
             b.plot = plot;
@@ -157,6 +171,30 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             b.maxZ = vMaxZ;
             b.minY = vMinY;
             b.maxY = vMaxY;
+            return b;
+        }
+
+        /** Ce bâtiment du plan type déplacé par `t` (tourné, collé ailleurs, zone et emprise comprises). */
+        Building moved(Placing t) {
+            Building b = new Building();
+            b.id = id;
+            b.plot = plot;
+            b.tier = tier;
+            b.prefab = prefab;
+            int[] at = t.point(x, z);
+            b.x = at[0];
+            b.z = at[1];
+            b.rotation = (rotation + t.rot()) & 3;
+            int[] e = t.extents(minX, maxX, minZ, maxZ);
+            b.minX = e[0];
+            b.maxX = e[1];
+            b.minZ = e[2];
+            b.maxZ = e[3];
+            b.minY = minY;
+            b.maxY = maxY;
+            b.zone = t.rect(zone);
+            b.plan = this;
+            b.placing = t;
             return b;
         }
     }
@@ -281,6 +319,25 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
 
         public boolean builder() {
             return builder;
+        }
+
+        /** Ce métier dans un village à placement libre : poste et logis suivent leur bâtiment (null : ne bougent pas). */
+        Job moved(Placing workMove, Placing homeMove) {
+            Job j = new Job();
+            j.id = id;
+            j.tier = tier;
+            j.role = role;
+            j.dialogue = dialogue;
+            j.building = building;
+            j.home = home;
+            j.builder = builder;
+            int[] w = workMove == null ? work() : workMove.point(workX, workZ);
+            int[] h = homeMove == null ? homeSpot() : homeMove.point(homeX, homeZ);
+            j.workX = w[0];
+            j.workZ = w[1];
+            j.homeX = h[0];
+            j.homeZ = h[1];
+            return j;
         }
     }
 
@@ -413,6 +470,24 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             int half = size / 2;
             return new int[] {x - half, x + half - 1, z - half, z + half - 1};
         }
+
+        public int size() {
+            return size;
+        }
+
+        /** Ce terrain dans un village à placement libre (centre déplacé par `t`). */
+        Plot moved(Placing t) {
+            Plot p = new Plot();
+            p.id = id;
+            p.size = size;
+            p.tier = tier;
+            p.hours = hours;
+            p.materials = materials;
+            int[] r = t.rect(rect());
+            p.x = r[0] + size / 2;
+            p.z = r[2] + size / 2;
+            return p;
+        }
     }
 
     /**
@@ -472,6 +547,15 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
         int tier;
         String[] paths = new String[0];
         String[] decor = new String[0];
+
+        /** Pas calculé en jeu (village à placement libre, {@link StreetPlanner}). */
+        static StreetStep of(int tier, String[] paths, String[] decor) {
+            StreetStep s = new StreetStep();
+            s.tier = tier;
+            s.paths = paths;
+            s.decor = decor;
+            return s;
+        }
 
         public int tier() {
             return tier;
@@ -537,7 +621,81 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
     Heart heart;
     StreetStep[] streets = new StreetStep[0];
 
+    /** Placement libre : déplacement de chaque bâtiment (et terrain « @E1 ») depuis le plan type, ou null. */
+    Map<String, Placing> placings;
+
     VillageLayout() {
+    }
+
+    /**
+     * Le plan propre d'un village à placement libre ({@link FreePlans}) : mêmes bâtiments, métiers, chantiers et cœur
+     * que ce plan type (même id, pour les bâtiments de métier et les paliers d'apparence), chaque bâtiment et terrain
+     * déplacé par `moves` (ids des bâtiments, « @ » + id des terrains), sentiers recalculés (`streets`).
+     */
+    VillageLayout placed(Map<String, Placing> moves, StreetStep[] placedStreets) {
+        VillageLayout l = new VillageLayout();
+        l.data = data;
+        l.id = id;
+        l.people = people;
+        l.plazaRadius = plazaRadius;
+        l.bannerX = bannerX;
+        l.bannerZ = bannerZ;
+        l.chantiers = chantiers;
+        l.heart = heart;
+        l.placings = new HashMap<>();
+        l.plots = new Plot[plots.length];
+        for (int i = 0; i < plots.length; i++) {
+            Placing t = moves.get("@" + plots[i].id);
+            l.plots[i] = t == null ? plots[i] : plots[i].moved(t);
+        }
+        l.buildings = new Building[buildings.length];
+        for (int i = 0; i < buildings.length; i++) {
+            Building b = buildings[i];
+            Placing t = moves.get(b.plot != null ? "@" + b.plot : b.id);
+            if (t != null) {
+                l.placings.put(b.id, t);
+            }
+            l.buildings[i] = t == null ? b : b.moved(t);
+        }
+        l.jobs = new Job[jobs.length];
+        for (int i = 0; i < jobs.length; i++) {
+            Job j = jobs[i];
+            l.jobs[i] = j.moved(j.building.isEmpty() ? null : l.placings.get(j.building), l.placings.get(j.home));
+        }
+        l.streets = placedStreets == null ? new StreetStep[0] : placedStreets;
+        double r = plazaRadius;
+        for (Building b : l.buildings) {
+            int[] rect = b.zone() != null ? b.zone() : b.rect();
+            r = Math.max(r, farCorner(rect));
+        }
+        for (Plot p : l.plots) {
+            r = Math.max(r, farCorner(p.rect()));
+        }
+        l.radius = (int) Math.ceil(r);
+        return l;
+    }
+
+    private static double farCorner(int[] rect) {
+        double r = 0;
+        for (int px : new int[] {rect[0], rect[1]}) {
+            for (int pz : new int[] {rect[2], rect[3]}) {
+                r = Math.max(r, Math.hypot(px, pz));
+            }
+        }
+        return r;
+    }
+
+    /** Vrai pour le plan propre d'un village à placement libre. */
+    public boolean isPlaced() {
+        return placings != null;
+    }
+
+    /**
+     * Déplacement du bâtiment `buildingId` depuis le plan type (village à placement libre), ou null : ce qui est situé
+     * par rapport à ce bâtiment dans les données des générateurs (panneau, enclos, décor) reste où le plan type le met.
+     */
+    public Placing placing(String buildingId) {
+        return placings == null || buildingId == null ? null : placings.get(buildingId);
     }
 
     @SuppressWarnings("unchecked")

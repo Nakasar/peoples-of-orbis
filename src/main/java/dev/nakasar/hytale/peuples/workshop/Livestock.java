@@ -126,7 +126,8 @@ public final class Livestock {
     }
 
     private static Ref<EntityStore> spawn(World world, Store<EntityStore> store, Village village, Workshop w, Key key, String role) {
-        int[] pen = w.pen();
+        // Enclos situé par rapport à son bâtiment : il suit le bâtiment d'un village à placement libre.
+        int[] pen = dev.nakasar.hytale.peuples.village.FreePlans.rect(village, w.building(), w.pen());
         int x0 = village.x() + pen[0];
         int x1 = village.x() + pen[1];
         int z0 = village.z() + pen[2];

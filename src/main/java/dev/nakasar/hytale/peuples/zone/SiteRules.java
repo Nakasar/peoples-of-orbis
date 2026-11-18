@@ -145,7 +145,7 @@ public final class SiteRules {
             if (Zones.number(zone) == people.zone() && !Zones.inland(zone, people.zone())) {
                 return new Check(Reason.SHORE, Message.translation(KEYS + "shore"));
             }
-            if (!ZoneSeeder.inZone(world, people.zone(), cx, cz, layout.radius())) {
+            if (!ZoneSeeder.inZone(world, people.zone(), cx, cz, dev.nakasar.hytale.peuples.village.FreePlans.siteRadius(layout))) {
                 return new Check(Reason.OUT_OF_ZONE, Message.translation(KEYS + "outOfZone")
                         .param("zone", people.zone()).param("here", Math.max(Zones.number(zone), 0)));
             }

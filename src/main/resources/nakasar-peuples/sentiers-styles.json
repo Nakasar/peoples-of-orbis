@@ -1,0 +1,1146 @@
+{
+ "$Comment": "Généré par tools/village_streets.py (ne pas modifier à la main) : styles des sentiers et du décor des villages à placement libre (village/StreetPlanner). Bounds : minX maxX minY maxY minZ maxZ.",
+ "Constants": {
+  "Talus": 10,
+  "Wall": 1,
+  "LightEvery": 10,
+  "PocketGap": 7,
+  "PocketPath": 2,
+  "PocketWall": 3
+ },
+ "Styles": {
+  "Kweebec": {
+   "Path": "Soil_Pathway",
+   "Speck": "Soil_Gravel_Mossy",
+   "SpeckShare": 0.07,
+   "Light": [
+    "P Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_001",
+    "P Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_002",
+    "P Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_003",
+    "P Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_004",
+    "P Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_005",
+    "P Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_006",
+    "P Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_007",
+    "P Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_008",
+    "P Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_009"
+   ],
+   "Door": [
+    "B Furniture_Village_Crate",
+    "B Furniture_Kweebec_Stool",
+    "B Plant_Flower_Bushy_Purple",
+    "B Plant_Flower_Tall_Yellow",
+    "B Plant_Fern"
+   ],
+   "Bench": [
+    "P Npc/Kweebec/Oak/Seats/Small/Kweebec_Oak_Seats_Small_001",
+    "P Npc/Kweebec/Oak/Seats/Small/Kweebec_Oak_Seats_Small_002",
+    "P Npc/Kweebec/Oak/Seats/Small/Kweebec_Oak_Seats_Small_003"
+   ],
+   "Pocket": [
+    {
+     "Weight": 6,
+     "Garden": true,
+     "Blocks": []
+    },
+    {
+     "Weight": 3,
+     "Garden": false,
+     "Blocks": [
+      "Plant_Flower_Common_Yellow",
+      "Plant_Flower_Common_White",
+      "Plant_Flower_Common_Pink",
+      "Plant_Flower_Common_Blue",
+      "Plant_Flower_Bushy_Purple",
+      "Plant_Fern",
+      "Plant_Grass_Sharp"
+     ]
+    },
+    {
+     "Weight": 1,
+     "Garden": false,
+     "Blocks": [
+      "Plant_Bush",
+      "Plant_Bush_Green",
+      "Plant_Fern",
+      "Plant_Flower_Tall_Yellow"
+     ]
+    }
+   ]
+  },
+  "Trork": {
+   "Path": "Soil_Dirt",
+   "Speck": "Soil_Gravel",
+   "SpeckShare": 0.12,
+   "Light": [
+    "B Furniture_Crude_Torch"
+   ],
+   "Door": [
+    "B Furniture_Ancient_Barrel",
+    "B Deco_Bone_Pile",
+    "B Furniture_Village_Crate",
+    "B Plant_Hay_Bundle"
+   ],
+   "Bench": [
+    "B Deco_Campfire_Off"
+   ],
+   "Pocket": [
+    {
+     "Weight": 3,
+     "Garden": false,
+     "Blocks": [
+      "Deco_Bone_Pile",
+      "Deco_Bone_Skulls",
+      "Deco_Bone_Spike",
+      "Rubble_Stone_Medium"
+     ]
+    },
+    {
+     "Weight": 2,
+     "Garden": false,
+     "Blocks": [
+      "Furniture_Ancient_Barrel",
+      "Furniture_Village_Crate",
+      "Plant_Hay_Bundle",
+      "Deco_Trash_Pile_Small"
+     ]
+    },
+    {
+     "Weight": 2,
+     "Garden": false,
+     "Blocks": [
+      "Rubble_Stone",
+      "Rubble_Stone_Medium",
+      "Rubble_Basalt",
+      "Plant_Bush_Bramble"
+     ]
+    }
+   ]
+  },
+  "Feran": {
+   "Path": "Soil_Gravel_Sand",
+   "Speck": "Soil_Sand",
+   "SpeckShare": 0.15,
+   "Light": [
+    "B Furniture_Feran_Torch_Tall"
+   ],
+   "Door": [
+    "B Furniture_Feran_Pot",
+    "B Furniture_Feran_Pot_Secondary",
+    "B Furniture_Feran_Planter"
+   ],
+   "Bench": [
+    "B Furniture_Feran_Bench"
+   ],
+   "Pocket": [
+    {
+     "Weight": 3,
+     "Garden": false,
+     "Blocks": [
+      "Plant_Bush_Arid",
+      "Plant_Bush_Arid_Palm",
+      "Plant_Grass_Arid",
+      "Plant_Grass_Arid_Short",
+      "Plant_Fern_Arid"
+     ]
+    },
+    {
+     "Weight": 2,
+     "Garden": false,
+     "Blocks": [
+      "Furniture_Feran_Pot",
+      "Furniture_Feran_Pot_Secondary",
+      "Furniture_Feran_Planter",
+      "Plant_Bush_Arid_Red"
+     ]
+    },
+    {
+     "Weight": 1,
+     "Garden": false,
+     "Blocks": [
+      "Deco_Bone_Skulls_Feran",
+      "Deco_Bone_Ribs_Feran",
+      "Plant_Bush_Arid_Sharp"
+     ]
+    }
+   ]
+  },
+  "Renonce": {
+   "Path": "Soil_Gravel",
+   "Speck": "Soil_Snow",
+   "SpeckShare": 0.12,
+   "Light": [
+    "B Furniture_Lumberjack_Lantern"
+   ],
+   "Door": [
+    "B Furniture_Tavern_Barrel",
+    "B Furniture_Village_Crate",
+    "B Plant_Hay_Bundle",
+    "B Deco_Bucket"
+   ],
+   "Bench": [
+    "B Furniture_Tavern_Bench"
+   ],
+   "Pocket": [
+    {
+     "Weight": 3,
+     "Garden": false,
+     "Blocks": [
+      "Plant_Bush_Winter",
+      "Plant_Bush_Winter_Red",
+      "Plant_Fern_Winter",
+      "Plant_Grass_Winter_Tall"
+     ]
+    },
+    {
+     "Weight": 2,
+     "Garden": false,
+     "Blocks": [
+      "Furniture_Tavern_Barrel",
+      "Furniture_Village_Crate",
+      "Plant_Hay_Bundle",
+      "Rubble_Stone"
+     ]
+    },
+    {
+     "Weight": 1,
+     "Garden": false,
+     "Blocks": [
+      "Rubble_Stone",
+      "Rubble_Stone_Medium",
+      "Plant_Bush_Winter_Sharp"
+     ]
+    }
+   ]
+  },
+  "Slothian": {
+   "Path": "Rock_Basalt_Cobble",
+   "Speck": "Soil_Mud_Dry",
+   "SpeckShare": 0.15,
+   "Light": [
+    "B Furniture_Jungle_Torch"
+   ],
+   "Door": [
+    "B Furniture_Jungle_Pot",
+    "B Furniture_Jungle_Pot_Secondary",
+    "B Furniture_Jungle_Planter"
+   ],
+   "Bench": [
+    "B Furniture_Jungle_Bench"
+   ],
+   "Pocket": [
+    {
+     "Weight": 3,
+     "Garden": false,
+     "Blocks": [
+      "Plant_Bush_Jungle",
+      "Plant_Fern_Jungle",
+      "Plant_Grass_Jungle_Tall",
+      "Plant_Grass_Jungle"
+     ]
+    },
+    {
+     "Weight": 2,
+     "Garden": false,
+     "Blocks": [
+      "Furniture_Jungle_Planter",
+      "Furniture_Jungle_Pot",
+      "Plant_Fern_Jungle",
+      "Rubble_Basalt"
+     ]
+    }
+   ]
+  }
+ },
+ "Gardens": [
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_001",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_002",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_003",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_004",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_005",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_006",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_007",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_008",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_009",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_010",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_011",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_012",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_013",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_014",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_015",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_016",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_017",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_018",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_019",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_020",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_021",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_022",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_023",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_024",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_025",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_026",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_027",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_028",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_029",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_030",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_031",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_032",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_033",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_034",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_035",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_036",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_037",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_038",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_039",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_040",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_041",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_042",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_043",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_044",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_045",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_046",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_047",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_048",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_049",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_050",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_051",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_052",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_053",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_054",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_055",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_056",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_057",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_058",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_059",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_060",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_061",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_062",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_063",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_064",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_065",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_066",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_067",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_068",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_069",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_070",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_071",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_072",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_073",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_074",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_075",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_076",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_077",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_078",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_079",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_080",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_081",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_082",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_083",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_084",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_085",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_086",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_087",
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_088"
+ ],
+ "Bounds": {
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_001": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_002": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_003": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_004": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_005": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_006": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_007": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_008": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_009": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_010": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_011": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_012": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_013": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_014": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_015": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_016": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_017": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_018": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_019": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_020": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_021": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_022": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_023": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_024": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_025": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_026": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_027": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_028": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_029": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_030": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_031": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_032": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_033": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_034": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_035": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_036": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_037": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_038": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_039": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_040": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_041": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_042": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_043": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_044": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_045": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_046": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_047": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_048": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_049": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_050": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_051": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_052": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_053": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_054": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_055": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_056": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_057": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_058": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_059": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_060": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_061": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_062": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_063": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_064": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_065": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_066": [
+   0,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_067": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_068": [
+   0,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_069": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_070": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_071": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_072": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_073": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_074": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_075": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_076": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_077": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_078": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_079": [
+   0,
+   1,
+   0,
+   1,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_080": [
+   -1,
+   1,
+   0,
+   1,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_081": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_082": [
+   0,
+   0,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_083": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_084": [
+   0,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_085": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_086": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_087": [
+   0,
+   1,
+   0,
+   2,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Garden_Small/Kweebec_Oak_Garden_Small_088": [
+   -1,
+   1,
+   0,
+   2,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_001": [
+   0,
+   1,
+   -3,
+   4,
+   0,
+   1
+  ],
+  "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_002": [
+   0,
+   0,
+   -3,
+   4,
+   -1,
+   2
+  ],
+  "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_003": [
+   0,
+   0,
+   -4,
+   4,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_004": [
+   -1,
+   2,
+   -3,
+   6,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_005": [
+   -1,
+   1,
+   -3,
+   5,
+   -1,
+   2
+  ],
+  "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_006": [
+   0,
+   0,
+   -3,
+   4,
+   0,
+   1
+  ],
+  "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_007": [
+   0,
+   0,
+   -3,
+   4,
+   0,
+   1
+  ],
+  "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_008": [
+   -1,
+   1,
+   -4,
+   5,
+   -1,
+   1
+  ],
+  "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_009": [
+   -1,
+   0,
+   -3,
+   4,
+   -1,
+   0
+  ],
+  "Npc/Kweebec/Oak/Seats/Small/Kweebec_Oak_Seats_Small_001": [
+   -2,
+   2,
+   -1,
+   2,
+   -2,
+   2
+  ],
+  "Npc/Kweebec/Oak/Seats/Small/Kweebec_Oak_Seats_Small_002": [
+   -1,
+   2,
+   0,
+   2,
+   -2,
+   2
+  ],
+  "Npc/Kweebec/Oak/Seats/Small/Kweebec_Oak_Seats_Small_003": [
+   -2,
+   2,
+   -1,
+   2,
+   -2,
+   2
+  ]
+ }
+}

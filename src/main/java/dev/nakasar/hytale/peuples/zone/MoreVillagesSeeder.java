@@ -137,7 +137,7 @@ public final class MoreVillagesSeeder extends TickingSystem<EntityStore> {
         List<Village> all = Villages.registry(world).all();
         List<Village> own = all.stream().filter(v -> v.people() == people).toList();
         Random random = new Random(world.getWorldConfig().getSeed() * 41L + people.ordinal() * 7727L + all.size() * 131L);
-        int r = layout.radius();
+        int r = dev.nakasar.hytale.peuples.village.FreePlans.siteRadius(layout);
         List<int[]> out = new ArrayList<>();
         for (int ring = 0; ring < RINGS && out.size() < MAX_SITES; ring++) {
             double distance = SAME_MIN + 40 + (SAME_MAX - SAME_MIN - 80) * ring / (double) (RINGS - 1);

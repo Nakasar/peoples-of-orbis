@@ -56,7 +56,7 @@ public final class Deposits {
         if (village == null || village.depositLarge() || village.heartTier() < 0 || village.layout() == null) {
             return null;
         }
-        VillageLayout layout = VillageLayout.get(village.layout());
+        VillageLayout layout = Chantiers.layout(village);
         VillageLayout.Heart heart = layout == null ? null : layout.heart();
         if (heart == null || heart.depositWide() == null || heart.deposit() == null) {
             return null;

@@ -51,6 +51,10 @@ public final class Village {
             .append(new KeyedCodec<>("Auto", Codec.BOOLEAN), (v, b) -> v.auto = b != null && b, v -> v.auto)
             .documentation("Vrai pour le village posé automatiquement près du point d'apparition (VillageSeeder).")
             .add()
+            .append(new KeyedCodec<>("Placement", new ArrayCodec<>(Codec.STRING, String[]::new)),
+                    (v, a) -> v.placement = a == null ? new String[0] : a, v -> v.placement)
+            .documentation("Placement libre (FreePlans) : « id x z quarts » par bâtiment, « @E1 x z quarts » par terrain ; vide : plan type.")
+            .add()
             .append(new KeyedCodec<>("Built", new ArrayCodec<>(Codec.STRING, String[]::new)), (v, a) -> v.built = a == null ? new String[0] : a, v -> v.built)
             .documentation("Bâtiments du plan déjà collés (ids VillageLayout.Building).")
             .add()
@@ -149,6 +153,7 @@ public final class Village {
     String layout;
     boolean auto;
     String[] built = new String[0];
+    String[] placement = new String[0];
     boolean banner;
     int bannerX;
     int bannerY;
@@ -209,6 +214,7 @@ public final class Village {
         v.layout = layout;
         v.auto = auto;
         v.built = built.clone();
+        v.placement = placement.clone();
         v.banner = banner;
         v.bannerX = bannerX;
         v.bannerY = bannerY;
@@ -292,6 +298,15 @@ public final class Village {
     /** Vrai pour le village posé automatiquement près du point d'apparition. */
     public boolean isAuto() {
         return auto;
+    }
+
+    /** Placement libre du village ({@link FreePlans}) ; vide pour un village au plan type. */
+    public String[] placement() {
+        return placement;
+    }
+
+    void setPlacement(String[] moves) {
+        placement = moves == null ? new String[0] : moves.clone();
     }
 
     /** Ids des bâtiments du plan déjà collés. */
