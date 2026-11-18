@@ -7,8 +7,8 @@
   "Icon": "Ingredient_Fabric_Scrap_Wool",
   "NameKey": "nakasar_peuples.workshop.Renonce_E3_Deuxieme_Bergerie.name",
   "Board": [
-    3,
-    41,
+    32,
+    31,
     2
   ],
   "Upgrades": [
@@ -67,10 +67,10 @@
     7
   ],
   "Pen": [
-    -4,
-    4,
-    44,
-    52
+    25,
+    33,
+    34,
+    42
   ],
   "Specialties": [
     {

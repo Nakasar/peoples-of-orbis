@@ -7,9 +7,9 @@
   "Icon": "Deco_Book_Pile_Small",
   "NameKey": "nakasar_peuples.workshop.Renonce_E2_Bibliotheque.name",
   "Board": [
-    -31,
-    16,
-    1
+    -1,
+    19,
+    2
   ],
   "Upgrades": [
     {

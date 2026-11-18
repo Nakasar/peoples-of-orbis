@@ -25,6 +25,7 @@ Sortie : src/main/resources/nakasar-peuples/paliers-batiments.json
 """
 import json
 import math
+import os
 import re
 import sys
 from pathlib import Path
@@ -35,7 +36,9 @@ import generate_village_layouts as gvl  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 NAK = ROOT / "src/main/resources/Server/Nakasar"
-OUT = ROOT / "src/main/resources/nakasar-peuples/paliers-batiments.json"
+OUT = Path(os.environ.get("NAKASAR_PALIERS_OUT") or ROOT / "src/main/resources/nakasar-peuples/paliers-batiments.json")
+# NAKASAR_VOULU=1 : chaque palier prend la version voulue sans test de place (simulations de villages).
+WANTED = os.environ.get("NAKASAR_VOULU") == "1"
 PALIERS = (1, 2, 3, 4)
 # Paliers que montrent les bâtiments à niveaux (BuildingPaliers.LEVEL_PALIER : I, II, III).
 LEVEL_PALIERS = (1, 3, 4)
@@ -161,9 +164,15 @@ def layout_entries(layout, workshops, layout_id, incompatible, review, zones):
             """Autre projet du même terrain : jamais bâti en même temps que celui-ci (son panneau n'y est pas)."""
             return bool(b.get("Plot")) and k != bid and k.startswith(b["Plot"] + "_")
 
+        zone = b.get("Zone")  # zone maximale du plan (Kevin, 18 novembre 2026) : tous les paliers y tiennent
+
         def why(r):
             """Raisons pour lesquelles l'emprise `r` (sans décalage) ne tient pas, en clair."""
             out = []
+            if zone is not None:
+                if not contains(zone, r):
+                    out.append("sort de sa zone (%d x %d)" % (zone[1] - zone[0] + 1, zone[3] - zone[2] + 1))
+                return out
             if overlaps(r, plaza_rect, 0):
                 out.append("touche la place")
             if b.get("Plot"):
@@ -185,6 +194,11 @@ def layout_entries(layout, workshops, layout_id, incompatible, review, zones):
             return out
 
         def fits(r):
+            if WANTED:
+                return True  # simulation : la version voulue, même si elle ne tient pas (Kevin, 18 novembre 2026)
+            if zone is not None:
+                # Zones du plan disjointes, hors de la place et des terrains : y tenir suffit.
+                return contains(zone, r)
             if overlaps(r, plaza_rect, 0):
                 return False
             if b.get("Plot"):
@@ -340,7 +354,7 @@ def layout_entries(layout, workshops, layout_id, incompatible, review, zones):
 
         for palier, r in rects.get(bid, {}).items():
             z = list(r)
-            for _ in range(ZONE_GROWTH):
+            for _ in range(0 if b.get("Zone") else ZONE_GROWTH):
                 grew = False
                 for side, step in ((0, -1), (1, 1), (2, -1), (3, 1)):
                     t = list(z)
@@ -350,6 +364,8 @@ def layout_entries(layout, workshops, layout_id, incompatible, review, zones):
                         grew = True
                 if not grew:
                     break
+            if b.get("Zone"):
+                z = list(b["Zone"])  # zone maximale fixée par le plan, la même à tous les paliers
             # Repère de la carte : relatif au point de collage du plan, prefab non tourné.
             corners = [rotate(x - b["X"], c - b["Z"], -b["Rotation"]) for x in z[:2] for c in z[2:]]
             local = [min(c[0] for c in corners), max(c[0] for c in corners), min(c[1] for c in corners),
@@ -477,7 +493,7 @@ def main():
     print(f"avant-postes : {len(annexes)} changent d'apparence ({rep['blocked']} paliers de pièce retenus faute de place)")
     OUT.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"{len(incompatible)} paliers incompatibles (visibles en jeu, version voulue qui ne tient pas)")
-    print(f"→ {OUT.relative_to(ROOT)}")
+    print(f"→ {OUT}")
 
 
 if __name__ == "__main__":

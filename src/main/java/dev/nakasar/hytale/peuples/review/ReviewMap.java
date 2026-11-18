@@ -180,6 +180,12 @@ public final class ReviewMap {
         /** Place libre au village « x0 x1 z0 z1 » relative à l'origine (tracée en {@link #ZONE}). */
         @SerializedName("Zone")
         String zone;
+        /**
+         * Vrai si {@link #zone} est la zone maximale fixée par le plan (Kevin, 18 novembre 2026) : le rectangle de la
+         * carte s'agrandit pour la contenir en entier, on y construit le prefab à la main.
+         */
+        @SerializedName("ZoneMax")
+        boolean zoneMax;
         /** Vrai si cette version ne tient pas au village (liseré bleu, raison dans les notes). */
         @SerializedName("Incompatible")
         boolean incompatible;
@@ -327,7 +333,7 @@ public final class ReviewMap {
                     int w = 1, d = 1, h = 1;
                     List<int[]> boxes = new ArrayList<>();
                     for (Tier t : r.tiers) {
-                        int[] b = measure(t);
+                        int[] b = withZone(measure(t), t);
                         boxes.add(b);
                         w = Math.max(w, b[1] - b[0] + 1);
                         d = Math.max(d, b[3] - b[2] + 1);
@@ -692,6 +698,21 @@ public final class ReviewMap {
         placeBoard(world, chunks, s);
         // Panneau muet dans le coin sud-ouest : l'utiliser dit le bâtiment et le palier.
         Blocks.set(chunks, s.signX, GROUND + 1, s.signZ, SIGN, 0);
+    }
+
+    /**
+     * Boîte du palier agrandie à sa zone (Kevin, 18 novembre 2026 : zones maximales des Renoncés tracées en entier pour
+     * y construire les prefabs à la main) : le rectangle de la carte contient toujours toute la zone.
+     */
+    private static int[] withZone(int[] box, Tier t) {
+        if (t.zone == null || !t.zoneMax) {
+            return box;
+        }
+        String[] p = t.zone.trim().split("\\s+");
+        if (p.length < 4) {
+            return box;
+        }
+        return union(box, Integer.parseInt(p[0]), Integer.parseInt(p[1]), Integer.parseInt(p[2]), Integer.parseInt(p[3]), 1);
     }
 
     /** Contour de la place libre du palier, sur l'herbe seulement, dans le rectangle (sans le liseré). */

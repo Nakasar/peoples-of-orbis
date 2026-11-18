@@ -7,9 +7,9 @@
   "Icon": "Ingredient_Bone_Fragment",
   "NameKey": "nakasar_peuples.workshop.Renonce_E2_Chenil.name",
   "Board": [
-    -31,
-    16,
-    1
+    -1,
+    21,
+    2
   ],
   "Upgrades": [
     {

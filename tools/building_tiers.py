@@ -538,11 +538,18 @@ def add_zone(people, e, tiers, growth):
         return
     layout = layout_file(people)
     zones = growth.get("Zones", {}).get(layout.stem if layout else "", {})
+    # Zones maximales fixées par le plan (Kevin, 18 novembre 2026) : bâtiments à « Zone » et terrains de ce plan.
+    plan = json.loads(layout.read_text(encoding="utf-8")) if layout else {}
+    fixed = {b["Id"] for b in plan.get("Buildings", []) if b.get("Zone")}
+    if fixed:
+        fixed |= {b["Id"] for b in plan.get("Buildings", []) if b.get("Plot")}
     if e["Category"] == "Projet":
         name = e["Id"][len("Projet_"):]
         found = [z for bid, z in zones.items() if re.fullmatch(r"E\d_" + re.escape(name), bid)]
+        maximal = any(bid in fixed for bid in zones if re.fullmatch(r"E\d_" + re.escape(name), bid))
     else:
         found = [zones[e["LayoutId"]]] if e.get("LayoutId") in zones else []
+        maximal = e.get("LayoutId") in fixed
     for t in tiers:
         boxes = [z[str(t["Tier"])] for z in found if str(t["Tier"]) in z]
         if not boxes:
@@ -550,6 +557,8 @@ def add_zone(people, e, tiers, growth):
         box = [max(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), min(b[3] for b in boxes)]
         if box[0] <= box[1] and box[2] <= box[3]:
             t["Zone"] = " ".join(str(v) for v in box)
+            if maximal:
+                t["ZoneMax"] = True
 
 
 def incompatibles():

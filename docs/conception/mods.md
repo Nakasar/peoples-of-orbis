@@ -2189,6 +2189,13 @@ rectangles) et refuse un bloc ou un prefab inconnu (listes `vanilla-*-0.7.2.txt`
   contour est valide en jeu ; deux voisins peuvent voir le même espace libre entre eux, une retouche des deux qui s'y
   rejoint est refusée au calcul suivant (liseré bleu). Une retouche d'avant-poste qui sort de `Annex.Rect` est refusée
   (liste des incompatibles) et le palier garde ses pièces vanilla. Le tracé n'est jamais enregistré dans un prefab.
+- **Zones maximales** (Kevin, 18 novembre 2026, plan des Renoncés écarté) : un plan peut fixer pour chaque bâtiment une
+  zone `Zones` (x0, x1, z0, z1 relatifs au cœur, écrite `Zone` sur le bâtiment du plan). Les zones sont disjointes, avec
+  une rue de 3 blocs entre deux, hors de la place et des terrains. Chaque palier, retouche à la main comprise, doit y
+  tenir (seule règle de place) ; la zone est réservée en entier en jeu (`BuildingPaliers.reserved` : terrassement,
+  sentiers, eau, ménage de la fondation). Sur la carte, `ZoneMax` agrandit le rectangle pour contenir toute la zone,
+  tracée en laine jaune : on y construit le prefab à la main. Renoncés : terrains de 30 x 30 (`plots.PLOT_SIZES`, zone
+  28 x 28 pour les projets), rayon 72.
 - **Retoucher un prefab à la main** (Kevin, 17 novembre 2026 : « le but c'est de pouvoir modifier complètement les
   prefab pour pouvoir faciliter leur mise à jour dans le mod, comme un éditeur ») : retoucher le bâtiment dans son
   rectangle (créatif, outils de construction), puis, debout dans le rectangle, `/village revue --sauver`
