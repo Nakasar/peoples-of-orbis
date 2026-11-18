@@ -257,7 +257,7 @@ public final class VillageBuilder {
                 z + buffer.getMinZ(rot) - reach - 1, z + buffer.getMaxZ(rot) + reach + 1};
     }
 
-    static IPrefabBuffer buffer(String prefab) {
+    public static IPrefabBuffer buffer(String prefab) {
         Path path = PrefabStore.get().findAssetPrefabPath(prefab + ".prefab.json");
         if (path == null) {
             path = PrefabStore.get().findAssetPrefabPath(prefab);

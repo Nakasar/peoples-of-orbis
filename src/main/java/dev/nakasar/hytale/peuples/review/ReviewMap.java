@@ -110,6 +110,8 @@ public final class ReviewMap {
 
     private static Data data;
     private static String signature;
+    /** Version du calcul des rectangles, comptée dans {@link #signature()} (2 : boîtes de prefab exactes, sans « reach »). */
+    private static final int LAYOUT_VERSION = 2;
     private static final Map<String, Layout> LAYOUTS = new HashMap<>();
     private static boolean running;
 
@@ -258,7 +260,7 @@ public final class ReviewMap {
             if (p.length < 5) {
                 continue;
             }
-            int[] b = VillageBuilder.bounds(p[0], Integer.parseInt(p[1]), Integer.parseInt(p[2]), Integer.parseInt(p[3]),
+            int[] b = exactBounds(p[0], Integer.parseInt(p[1]), Integer.parseInt(p[2]), Integer.parseInt(p[3]),
                     Integer.parseInt(p[4]));
             if (b == null) {
                 LOGGER.atWarning().log("Nakasar Peuples : revue, prefab introuvable %s", p[0]);
@@ -281,6 +283,24 @@ public final class ReviewMap {
             }
         }
         return box == null ? new int[]{-2, 2, -2, 2, 4} : box;
+    }
+
+    /**
+     * Boîte {@code [x0, x1, y0, y1, z0, z1]} exacte du prefab collé en (x, y, z), un bloc de plus de chaque côté. Les
+     * blocs du buffer sont déjà relatifs à l'ancre (BsonPrefabBufferDeserializer soustrait anchorX/Y/Z) : la marge
+     * « reach » de {@link VillageBuilder#bounds} (la plus grande coordonnée d'ancre, parfois 15 blocs et plus chez les
+     * Renoncés) gonflait le rectangle loin autour de la zone jaune (Kevin, 18 novembre 2026).
+     */
+    private static int[] exactBounds(String prefab, int x, int y, int z, int rotation) {
+        com.hypixel.hytale.server.core.prefab.selection.buffer.impl.IPrefabBuffer buffer = VillageBuilder.buffer(prefab);
+        if (buffer == null) {
+            return null;
+        }
+        com.hypixel.hytale.server.core.prefab.PrefabRotation rot =
+                com.hypixel.hytale.server.core.prefab.PrefabRotation.VALUES[Math.floorMod(rotation, 4)];
+        return new int[]{x + buffer.getMinX(rot) - 1, x + buffer.getMaxX(rot) + 1,
+                y + buffer.getMinY() - 1, y + buffer.getMaxY() + 1,
+                z + buffer.getMinZ(rot) - 1, z + buffer.getMaxZ(rot) + 1};
     }
 
     private static int[] union(int[] box, int x0, int x1, int z0, int z1, int top) {
@@ -420,7 +440,11 @@ public final class ReviewMap {
                 if (in == null) {
                     throw new IllegalStateException("ressource absente " + RESOURCE);
                 }
-                byte[] hash = java.security.MessageDigest.getInstance("SHA-256").digest(in.readAllBytes());
+                java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+                md.update(in.readAllBytes());
+                // Version du tracé : un changement de mesure des rectangles rebâtit aussi le monde.
+                md.update(("layout:" + LAYOUT_VERSION).getBytes(StandardCharsets.UTF_8));
+                byte[] hash = md.digest();
                 signature = java.util.HexFormat.of().formatHex(hash, 0, 12);
             } catch (IOException | java.security.NoSuchAlgorithmException e) {
                 throw new IllegalStateException("empreinte de " + RESOURCE, e);
