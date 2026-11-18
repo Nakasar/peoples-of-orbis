@@ -7,9 +7,9 @@
   "Icon": "Potion_Health_Small",
   "NameKey": "nakasar_peuples.workshop.Kweebec_Grande_Maison.name",
   "Board": [
-    27,
-    24,
-    2
+    44,
+    3,
+    3
   ],
   "Upgrades": [
     {

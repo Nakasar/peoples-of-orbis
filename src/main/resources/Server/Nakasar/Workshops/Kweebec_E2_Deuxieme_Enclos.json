@@ -7,9 +7,9 @@
   "Icon": "Ingredient_Hay",
   "NameKey": "nakasar_peuples.workshop.Kweebec_E2_Deuxieme_Enclos.name",
   "Board": [
-    -19,
-    -35,
-    0
+    -52,
+    4,
+    1
   ],
   "Upgrades": [
     {
@@ -68,10 +68,10 @@
     7
   ],
   "Pen": [
-    -26,
-    -18,
-    -46,
-    -38
+    -63,
+    -55,
+    -3,
+    5
   ],
   "Specialties": [
     {

@@ -7,8 +7,8 @@
   "Icon": "Ingredient_Leather_Light",
   "NameKey": "nakasar_peuples.workshop.Trork_E2_Tannerie.name",
   "Board": [
-    10,
-    40,
+    4,
+    35,
     2
   ],
   "Upgrades": [

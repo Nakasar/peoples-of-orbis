@@ -7,9 +7,9 @@
   "Icon": "Plant_Seeds_Lettuce",
   "NameKey": "nakasar_peuples.workshop.Kweebec_Potager.name",
   "Board": [
-    -10,
-    -12,
-    0
+    -5,
+    -13,
+    3
   ],
   "Upgrades": [
     {

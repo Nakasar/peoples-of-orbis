@@ -7,8 +7,8 @@
   "Icon": "Ingredient_Water_Essence",
   "NameKey": "nakasar_peuples.workshop.Feran_E1_Citerne.name",
   "Board": [
-    1,
-    38,
+    10,
+    48,
     2
   ],
   "Upgrades": [

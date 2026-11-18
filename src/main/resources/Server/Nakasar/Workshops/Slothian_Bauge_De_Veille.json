@@ -7,9 +7,9 @@
   "Icon": "Food_Pork_Raw",
   "NameKey": "nakasar_peuples.workshop.Slothian_Bauge_De_Veille.name",
   "Board": [
-    33,
-    -10,
-    3
+    18,
+    -16,
+    0
   ],
   "Upgrades": [
     {
@@ -65,10 +65,10 @@
     7
   ],
   "Pen": [
-    36,
-    44,
-    -17,
-    -9
+    11,
+    19,
+    -27,
+    -19
   ],
   "Specialties": [
     {

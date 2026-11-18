@@ -7,8 +7,8 @@
   "Icon": "Food_Pork_Raw",
   "NameKey": "nakasar_peuples.workshop.Slothian_E3_Deuxieme_Bauge.name",
   "Board": [
-    -42,
-    -21,
+    -38,
+    0,
     1
   ],
   "Upgrades": [
@@ -67,10 +67,10 @@
     7
   ],
   "Pen": [
-    -53,
-    -45,
-    -28,
-    -20
+    -49,
+    -41,
+    -7,
+    1
   ],
   "Specialties": [
     {

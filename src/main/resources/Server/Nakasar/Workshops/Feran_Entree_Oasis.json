@@ -7,9 +7,9 @@
   "Icon": "Container_Bucket",
   "NameKey": "nakasar_peuples.workshop.Feran_Entree_Oasis.name",
   "Board": [
-    3,
-    18,
-    2
+    -8,
+    16,
+    3
   ],
   "Upgrades": [
     {

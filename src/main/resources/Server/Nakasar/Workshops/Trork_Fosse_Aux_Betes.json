@@ -7,8 +7,8 @@
   "Icon": "Food_Wildmeat_Raw",
   "NameKey": "nakasar_peuples.workshop.Trork_Fosse_Aux_Betes.name",
   "Board": [
-    -25,
-    17,
+    -26,
+    4,
     1
   ],
   "Upgrades": [
@@ -65,10 +65,10 @@
     7
   ],
   "Pen": [
-    -36,
-    -28,
-    10,
-    18
+    -37,
+    -29,
+    -3,
+    5
   ],
   "Specialties": [
     {

@@ -7,9 +7,9 @@
   "Icon": "Food_Wildmeat_Cooked",
   "NameKey": "nakasar_peuples.workshop.Trork_Feu_De_Camp.name",
   "Board": [
-    2,
-    10,
-    2
+    -10,
+    4,
+    1
   ],
   "Upgrades": [
     {

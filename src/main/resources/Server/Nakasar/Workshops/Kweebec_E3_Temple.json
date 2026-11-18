@@ -7,9 +7,9 @@
   "Icon": "Furniture_Kweebec_Candle",
   "NameKey": "nakasar_peuples.workshop.Kweebec_E3_Temple.name",
   "Board": [
-    -49,
-    22,
-    1
+    32,
+    34,
+    3
   ],
   "Upgrades": [
     {
