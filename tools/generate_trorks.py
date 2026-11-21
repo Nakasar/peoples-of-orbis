@@ -266,7 +266,12 @@ def merchant():
                     FailKey=f"nakasar_peuples.dialogue.fail.rank.{r}", Effects=[{"Type": "OpenShop", "Shop": f"{PFX}Trork_{r}"}])
 
     bye = resp(d, "aurevoir", "À plus.", "Later.")
-    trades = [trade(*s) for s in shops]
+    # Refonte des écrans de commerce (21 novembre 2026) : une seule réponse ouvre l'échoppe du mod, au meilleur étal du
+    # rang du joueur ; les étals Ami et Hôte y sont des onglets (grisés sous le rang). Les deux autres répliques gardent
+    # leurs textes (langue), sans réponse.
+    trades = [trade(*s) for s in shops][:1]
+    trades[0]["HintKey"] = "nakasar_peuples.dialogue.hint.shop.market"
+    trades[0]["Effects"] = [{"Type": "OpenShop"}]
     doc = dlg(d, P, "La marchande trork (étape 7) : troc par rang contre des dents de trophée, échoppes grisées sous le "
                     "rang. Généré par tools/generate_trorks.py.",
               "Mère-Os", "Bone-Mother", "Marchande du camp", "Camp trader",

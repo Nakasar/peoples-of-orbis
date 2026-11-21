@@ -254,6 +254,14 @@ def texts():
     t(K + "button.locked", "Fermé", "Closed")
     t(K + "done", "Troqué : {count} {item}.", "Bartered: {count} {item}.")
     t(K + "log", "{player} a troqué {count} {item} contre {price} {currency}", "{player} bartered {count} {item} for {price} {currency}")
+    t(K + "offers.open", "ouvert", "open")
+    t(K + "offers.rank", "il faut être {rank}", "needs {rank}")
+    t(K + "offers.building", "bâtiment au niveau {level}", "building at level {level}")
+    t(K + "offers.rankNote", "rang {rank}", "rank {rank}")
+    t(K + "offers.more", "et {count} autres", "and {count} more")
+    t(K + "offers.noSpecialty", "spécialité à choisir", "specialty to pick")
+    t("dialogue.hint.shop.market", "ouvre l'échoppe : un étal par rang, les fermés restent visibles",
+      "opens the stall: one stand per rank, closed ones stay visible")
     t(K + "failed", "Le troc n'a pas pu se faire (stock ou inventaire).", "The barter failed (stock or inventory).")
 
 

@@ -8917,5 +8917,12 @@ shop.button.poor = Too dear
 shop.button.locked = Closed
 shop.done = Bartered: {count} {item}.
 shop.log = {player} bartered {count} {item} for {price} {currency}
+shop.offers.open = open
+shop.offers.rank = needs {rank}
+shop.offers.building = building at level {level}
+shop.offers.rankNote = rank {rank}
+shop.offers.more = and {count} more
+shop.offers.noSpecialty = specialty to pick
+dialogue.hint.shop.market = opens the stall: one stand per rank, closed ones stay visible
 shop.failed = The barter failed (stock or inventory).
 # ---- Fin de l'échoppe ----

@@ -360,6 +360,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
         cmd.set("#OffersHeader.TextSpans", Message.translation(KEYS + "offers"));
         Message offers = offersLine(store, ref, village, w, state);
         cmd.set("#OffersLine.TextSpans", w.isPen() ? Message.empty().insert(offers).insert("\n\n").insert(beastsLine(village, w, state)) : offers);
+        offerLevels(cmd, store, ref, village, w, state);
         int level = Workshops.shopLevel(store, ref, village, state);
         boolean shop = level > 0 && Workshops.keeperPresent(village, w);
         cmd.set("#ShopAction.Visible", shop);
@@ -373,6 +374,78 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
         if (share) {
             cmd.set("#ShareAction.Text", Message.translation(KEYS + "shareButton"));
             events.addEventBinding(CustomUIEventBindingType.Activating, "#ShareAction", EventData.of("Action", "Share"));
+        }
+    }
+
+    /** Offres par niveau : icônes de ce que vend chaque niveau, ce qui l'ouvre, et la raison d'un étal fermé. */
+    private static void offerLevels(UICommandBuilder cmd, Store<EntityStore> store, Ref<EntityStore> ref, Village village, Workshop w,
+                                    WorkshopState state) {
+        String shopKeys = "nakasar_peuples.shop.";
+        com.hypixel.hytale.server.core.universe.world.World world = store.getExternalData().getWorld();
+        Rank rank = dev.nakasar.hytale.peuples.reputation.Reputations.rank(store, ref, village);
+        Workshop.Specialty spec = w.specialty(state.specialty());
+        java.time.Instant now = com.hypixel.hytale.builtin.adventure.shop.barter.BarterShopState.getShopGameTime(store);
+        for (int lv = 0; lv < Workshops.MAX_LEVEL; lv++) {
+            int level = lv + 1;
+            String n = Integer.toString(lv);
+            String id = Workshops.shop(w, state, level);
+            com.hypixel.hytale.builtin.adventure.shop.barter.BarterShopAsset asset = id == null ? null
+                    : com.hypixel.hytale.builtin.adventure.shop.barter.BarterShopAsset.getAssetMap().getAsset(id);
+            Rank needed = level == 3 ? Rank.HOTE : level == 2 ? Rank.AMI : Rank.TOLERE;
+            boolean noSpec = level >= 2 && spec == null && w.specialties().length > 0;
+            cmd.set("#OfferLevelName" + n + ".TextSpans", Message.translation(shopKeys + "level").param("level", roman(level)));
+            Message st;
+            String colour;
+            if (level > state.level()) {
+                st = Message.translation(shopKeys + "offers.building").param("level", roman(level));
+                colour = "#e8a65a";
+            } else if (!rank.atLeast(needed)) {
+                st = Message.translation(shopKeys + "offers.rank").param("rank", Message.translation(needed.nameKey()));
+                colour = "#e8a65a";
+            } else {
+                st = Message.translation(shopKeys + "offers.open");
+                colour = "#9ed36a";
+            }
+            cmd.set("#OfferLevelState" + n + ".TextSpans", st);
+            cmd.set("#OfferLevelState" + n + ".Style.TextColor", colour);
+            List<String> items = new ArrayList<>();
+            if (asset != null && !(noSpec && level > state.level())) {
+                for (com.hypixel.hytale.builtin.adventure.shop.barter.BarterTrade t
+                        : com.hypixel.hytale.builtin.adventure.shop.barter.BarterShopState.get().getResolvedTrades(asset, now)) {
+                    if (t != null && t.getOutput() != null && !items.contains(t.getOutput().getItemId())) {
+                        items.add(t.getOutput().getItemId());
+                    }
+                }
+            }
+            for (int k = 0; k < 4; k++) {
+                String slot = n + "abcd".charAt(k);
+                String icon = "#OfferItem" + slot;
+                cmd.set(icon + ".Visible", k < items.size());
+                if (k < items.size()) {
+                    cmd.set(icon + ".ItemId", items.get(k));
+                }
+            }
+            Message note = noSpec ? Message.translation(shopKeys + "offers.noSpecialty")
+                    : items.size() > 4 ? Message.translation(shopKeys + "offers.more").param("count", items.size() - 4)
+                    : Message.translation(shopKeys + "offers.rankNote").param("rank", Message.translation(needed.nameKey()));
+            cmd.set("#OfferLevelNote" + n + ".TextSpans", note);
+        }
+        Message warn = null;
+        VillageLayout.Job job = Workshops.job(village, w);
+        if (!Workshops.keeperPresent(village, w)) {
+            warn = Message.translation(shopKeys + "why.absent").param("name", job == null ? Message.translation(w.nameKey()) : keeperName(job))
+                    .param("hour", GameClock.MORNING);
+        } else if (!Inputs.running(village, w)) {
+            warn = Message.translation(shopKeys + "why.stopped").param("list", Inputs.list(Inputs.needs(village, w)));
+        } else if (spec != null && state.level() >= 2) {
+            Message lacking = Projects.specialtyMissing(world, village, spec);
+            if (lacking != null) {
+                warn = Message.translation(shopKeys + "why.specialty").param("list", lacking);
+            }
+        }
+        cmd.set("#OffersWarn.Visible", warn != null);
+        if (warn != null) {
+            cmd.set("#OffersWarnLine.TextSpans", warn);
         }
     }
 

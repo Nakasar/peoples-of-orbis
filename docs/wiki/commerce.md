@@ -9,6 +9,17 @@
 
 Un village ne produit pas tout ce dont il a besoin. Une **route commerciale** le relie à un voisin ou à un [lieu-dit](lieux-dits.md) : des caravanes y font l'aller et le retour, chargées de ce que chaque bout exporte.
 
+## L'onglet Commerce
+
+En haut, cinq tuiles résument le commerce du village : ses routes (prises sur ses places), la prochaine caravane, ce qui
+lui manque, ses luxes pour le palier suivant, et vos faveurs. Chaque route est une carte : le partenaire, son niveau en
+pastilles, si elle est **équilibrée** (ou le poids qui manque), une jauge de la caravane, puis ses cases en icônes. Le
+bouton **...** montre son bilan et **Fermer la route**. À droite : ce dont le village manque, ce qu'on lui commande et
+l'étal des importations ; en bas, le bandeau des neuf luxes.
+
+Le sous-onglet **Registre** garde les 24 derniers événements du commerce du village (caravanes arrivées ou pillées,
+manques, commandes, achats, routes), filtrables par sorte.
+
 ## Ouvrir une route
 
 Dans l'onglet **Commerce** du panneau, la liste des partenaires possibles montre les villages de ses liaisons (jusqu'à 2400 blocs, pas rivaux) et les lieux-dits posés (sans embargo contre lui). Il faut être **Ami** du village, **Toléré** du partenaire, et verser **5 faveurs** du village.
@@ -27,7 +38,7 @@ Trois caravanes perdues d'affilée font redescendre la route d'un niveau. Si les
 
 ## Ce qui s'échange
 
-Toute ressource s'échange, pas seulement les luxes. Cliquez sur une case **Exporte** ou **Importe** pour faire défiler ce que l'expéditeur produit :
+Toute ressource s'échange, pas seulement les luxes. Cliquez sur une case **Envoie** ou **Reçoit** d'une route : une grille montre ce que l'expéditeur peut envoyer (avec le chargement par caravane et sa classe, filtrable par classe) et le poids envoyé et reçu par la route. Un clic pose la marchandise, **Laisser vide** vide la case. L'expéditeur peut envoyer :
 
 - les lots et livraisons de ses [avant-postes de métier](avant-postes-de-metier.md) ;
 - les spécialités de ses ateliers au niveau II et plus ;
@@ -64,8 +75,8 @@ Deux luxes posés au dépôt prolongent l'accès de 3 jours quand il touche à s
 
 Chaque matin, un village fait la liste de ce qui lui manque (trois choses au plus) : les ressources du jour de ses
 ateliers qu'il ne produit ni n'importe, un luxe quand il lui en manque pour grandir, et ce qu'attend un bâtiment qu'il a
-promis de bâtir pour un autre village. L'onglet **Commerce** du panneau affiche ces besoins et les commandes en cours, à
-côté de la règle des routes.
+promis de bâtir pour un autre village. L'onglet **Commerce** du panneau affiche ces besoins (et quel village en envoie) et
+les commandes que d'autres villages lui ont passées, dans la colonne de droite.
 
 Personne ne connaît ces besoins d'office : ce sont les gens de passage qui les portent. Un voyageur, une caravane de
 commerce ou un marchand de lieu-dit part avec les besoins de son village et ce qu'on y a appris ; à son arrivée, le

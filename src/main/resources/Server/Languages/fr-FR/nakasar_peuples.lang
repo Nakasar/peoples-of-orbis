@@ -8917,5 +8917,12 @@ shop.button.poor = Trop cher
 shop.button.locked = Fermé
 shop.done = Troqué : {count} {item}.
 shop.log = {player} a troqué {count} {item} contre {price} {currency}
+shop.offers.open = ouvert
+shop.offers.rank = il faut être {rank}
+shop.offers.building = bâtiment au niveau {level}
+shop.offers.rankNote = rang {rank}
+shop.offers.more = et {count} autres
+shop.offers.noSpecialty = spécialité à choisir
+dialogue.hint.shop.market = ouvre l'échoppe : un étal par rang, les fermés restent visibles
 shop.failed = Le troc n'a pas pu se faire (stock ou inventaire).
 # ---- Fin de l'échoppe ----
