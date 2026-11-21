@@ -1,0 +1,39 @@
+{
+  "$Comment": "Un marchand itinérant posté à l'étal de passage d'une place du marché, généré par tools/generate_markets.py (effets WorldAction MarketGuestShop et Rumour, world/WorldDialogueTypes).",
+  "NpcNameKey": "nakasar_peuples.dialogue.Monde_Marchand_Etal.npc",
+  "RoleKey": "nakasar_peuples.dialogue.Monde_Marchand_Etal.role",
+  "Entries": [
+    {
+      "Node": "Accueil"
+    }
+  ],
+  "Nodes": [
+    {
+      "Id": "Accueil",
+      "TextKey": "nakasar_peuples.dialogue.Monde_Marchand_Etal.accueil",
+      "Responses": [
+        {
+          "TextKey": "nakasar_peuples.dialogue.Monde_Marchand_Etal.troc",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketGuestShop"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Monde_Marchand_Etal.rumeur",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "Rumour"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Monde_Marchand_Etal.aurevoir"
+        }
+      ]
+    }
+  ]
+}

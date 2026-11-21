@@ -18,6 +18,7 @@ const sidebars = {
         "lieux-dits",
         "conquete",
         "commerce",
+        "marche",
         "climats",
       ],
     },

@@ -1,0 +1,213 @@
+{
+  "version": 8,
+  "blockIdVersion": 11,
+  "anchorX": 0,
+  "anchorY": 0,
+  "anchorZ": 0,
+  "blocks": [
+    {
+      "x": -2,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": -1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 1,
+      "name": "Wood_Tropicalwood_Beam"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 1,
+      "name": "Wood_Tropicalwood_Planks"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 1,
+      "name": "Wood_Tropicalwood_Planks"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 1,
+      "name": "Wood_Tropicalwood_Planks"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": 1,
+      "name": "Furniture_Jungle_Pot"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 1,
+      "name": "Furniture_Jungle_Pot_Secondary"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -1,
+      "name": "Deco_Scroll"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -1,
+      "name": "Furniture_Jungle_Pot"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 0,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": 0,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 0,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 0,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 0,
+      "name": "Cloth_Roof_Red_Flat"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Red_Flat"
+    }
+  ]
+}

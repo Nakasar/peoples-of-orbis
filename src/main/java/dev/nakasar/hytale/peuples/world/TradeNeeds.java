@@ -107,7 +107,9 @@ public final class TradeNeeds {
         /** Ressource demandée par un bâtiment promis à un autre village. */
         CHAIN,
         /** Luxe pour le chantier du palier suivant. */
-        LUXURY;
+        LUXURY,
+        /** Commande d'un joueur au comptoir ou au dépôt-vente de la place du marché ({@link Markets}). */
+        ORDER;
 
         public String key() {
             return name().toLowerCase(java.util.Locale.ROOT);
@@ -258,6 +260,11 @@ public final class TradeNeeds {
                             && !TradeAccess.available(world, v, item, day, catalogue)) {
                         found.putIfAbsent(item, Reason.CHAIN);
                     }
+                }
+            }
+            for (String item : Markets.wanted(world, v)) {
+                if (found.size() < MAX_NEEDS) {
+                    found.putIfAbsent(item, Reason.ORDER);
                 }
             }
             if (found.size() < MAX_NEEDS && v.tier() < 3 && TradeAccess.missingFor(world, v, v.tier() + 1, day) > 0) {

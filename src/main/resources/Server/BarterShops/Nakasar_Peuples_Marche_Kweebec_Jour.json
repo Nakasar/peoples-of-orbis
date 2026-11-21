@@ -1,0 +1,106 @@
+{
+  "$Comment": "L'étal du jour de marché des villages Kweebec (marché intérieur, un jour sur sept), généré par tools/generate_markets.py : la première offre de chaque bâtiment de métier, une faveur de moins (ou le double pour une faveur), stock doublé, et un lot du luxe de terroir.",
+  "DisplayNameKey": "nakasar_peuples.barter.Marche_Kweebec_Jour.title",
+  "RefreshInterval": {
+    "Days": 7
+  },
+  "RestockHour": 6,
+  "TradeSlots": [
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Hay",
+          "Quantity": 16
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 1
+          }
+        ],
+        "Stock": 16
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Potion_Health_Lesser",
+          "Quantity": 2
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 1
+          }
+        ],
+        "Stock": 16
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Plant_Seeds_Lettuce",
+          "Quantity": 8
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 1
+          }
+        ],
+        "Stock": 16
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Water_Essence",
+          "Quantity": 4
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 1
+          }
+        ],
+        "Stock": 16
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Weapon_Arrow_Crude",
+          "Quantity": 32
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 1
+          }
+        ],
+        "Stock": 16
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Plant_Fruit_Azure",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 6
+          }
+        ],
+        "Stock": 2
+      }
+    }
+  ]
+}

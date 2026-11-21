@@ -394,6 +394,10 @@ public final class Travellers {
         long day = GameClock.day(store);
         Links.trip(world, from.id(), to.id(), Links.SUCCEEDED);
         TradeNeeds.unpack(world, store, t.walkKey(), to, day, "traveller." + t.kind.key());
+        if (t.kind == Kind.MERCHANT || t.kind == Kind.CARAVAN) {
+            // Le marchand passe à la place du marché : étal de passage, commandes, dépôt-vente (world/Markets).
+            Markets.welcome(world, store, to, from);
+        }
         // Chaque marcheur arrivé compte pour un passage (une caravane : ses trois porteurs).
         Links.pass(world, Links.key(from.id(), to.id()), day, Math.max(1, t.walkers));
         if (t.kind == Kind.CARAVAN && t.cargo > 0) {

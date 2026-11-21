@@ -273,6 +273,7 @@ public final class PeuplesPlugin extends JavaPlugin {
         Klops.clearAll();
         dev.nakasar.hytale.peuples.zone.Climate.clearAll();
         dev.nakasar.hytale.peuples.world.WorldLife.clearAll();
+        dev.nakasar.hytale.peuples.world.Markets.clearAll();
         dev.nakasar.hytale.peuples.steward.Steward.clearAll();
     }
 }

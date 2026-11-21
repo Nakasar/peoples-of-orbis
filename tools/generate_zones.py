@@ -92,6 +92,8 @@ PEOPLES = {
                 ("Hutte_Ouest", 0, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", -21, -1, 0),
                 ("Hutte_Est", 0, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", 21, 0, 2),
                 ("Muret_Du_Vent", 0, FERAN_T3 + "Walls/Feran_Tier3_Walls_001", -1, -14, 0),
+                # Place du marché (Kevin, 21 novembre 2026, tools/generate_markets.py).
+                ("Marche", 0, gl.MARKET + "Feran_Marche", 39, 28, 3),
                 # Palier 1 : la grande hutte, l'entrée de l'oasis, une hutte au sud.
                 ("Grande_Hutte", 1, FERAN_T2 + "Hut/Feran_Tier2_Hut_001", -23, 26, 0),
                 ("Entree_Oasis", 1, FERAN_T2 + "Entrance/Feran_Tier2_Entrance_001", -1, 14, 0),
@@ -109,6 +111,7 @@ PEOPLES = {
             # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
             # main) : x0, x1, z0, z1 relatifs au cœur, rue de 3 blocs entre deux zones. Chaque palier voulu y tient.
             "Zones": {
+                "Marche": (34, 44, 21, 35),
                 "Hutte_Ouest": (-30, -11, -10, 9),
                 "Muret_Du_Vent": (-4, 6, -26, -11),
                 "Hutte_Est": (11, 30, -10, 9),
@@ -179,6 +182,7 @@ PEOPLES = {
                 ("Abri_Des_Fuyards", 0, OUT + "Houses/Tier0/Outlander_Houses_Tier0_001", 27, 4, 0),
                 ("Abri_Du_Guet", 0, OUT + "Houses/Tier0/Outlander_Houses_Tier0_003", 0, -27, 0),
                 ("Tour_De_Guet_Givre", 0, OUT + "Towers/Tier1/Outlander_Towers_Tier1_001", -19, -1, 0),
+                ("Marche", 0, gl.MARKET + "Renonce_Marche", -19, 55, 2),
                 # Palier 1 : deux maisons Tier 1, le petit bateau ramené.
                 ("Maison_Des_Repentis", 1, OUT + "Houses/Tier1/Outlander_Houses_Tier1_002", 32, -29, 0),
                 ("Maison_Du_Chasseur", 1, OUT + "Houses/Tier1/Outlander_Houses_Tier1_005", -41, -2, 0),
@@ -197,6 +201,7 @@ PEOPLES = {
             # retouché à la main compris, y tient ; deux zones gardent une rue de 3 blocs entre elles. Tracées en laine
             # jaune sur la carte de revue (/village revue).
             "Zones": {
+                "Marche": (-26, -12, 50, 60),
                 "Abri_Du_Guet": (-14, 14, -40, -14),
                 "Tour_De_Guet_Givre": (-24, -14, -6, 4),
                 "Abri_Des_Fuyards": (14, 40, -10, 19),

@@ -1,0 +1,88 @@
+{
+  "$Comment": "Le commis du comptoir du marché extérieur (place du marché, palier 2), généré par tools/generate_markets.py : ce que le comptoir a acheté aux marchands de passage, les commandes du joueur (effets WorldAction Market*, world/WorldDialogueTypes et world/Markets).",
+  "NpcNameKey": "nakasar_peuples.dialogue.Slothian_Comptoir.npc",
+  "RoleKey": "nakasar_peuples.dialogue.Slothian_Comptoir.role",
+  "People": "Slothian",
+  "Entries": [
+    {
+      "Node": "Refus",
+      "Conditions": [
+        {
+          "Type": "Rank",
+          "Max": "Etranger"
+        }
+      ]
+    },
+    {
+      "Node": "Accueil"
+    }
+  ],
+  "Nodes": [
+    {
+      "Id": "Accueil",
+      "TextKey": "nakasar_peuples.dialogue.Slothian_Comptoir.accueil",
+      "Responses": [
+        {
+          "TextKey": "nakasar_peuples.dialogue.Slothian_Comptoir.voir",
+          "Conditions": [
+            {
+              "Type": "Rank",
+              "Min": "Tolere"
+            }
+          ],
+          "FailKey": "nakasar_peuples.dialogue.fail.rank.Tolere",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketCounterShop"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Slothian_Comptoir.commander",
+          "Conditions": [
+            {
+              "Type": "Rank",
+              "Min": "Ami"
+            }
+          ],
+          "FailKey": "nakasar_peuples.dialogue.fail.rank.Ami",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketOrder"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Slothian_Comptoir.retirer",
+          "Conditions": [
+            {
+              "Type": "Rank",
+              "Min": "Tolere"
+            }
+          ],
+          "FailKey": "nakasar_peuples.dialogue.fail.rank.Tolere",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketCollect"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Slothian_Comptoir.aurevoir"
+        }
+      ]
+    },
+    {
+      "Id": "Refus",
+      "TextKey": "nakasar_peuples.dialogue.Slothian_Comptoir.refus",
+      "Responses": [
+        {
+          "TextKey": "nakasar_peuples.dialogue.Slothian_Comptoir.aurevoir"
+        }
+      ]
+    }
+  ]
+}

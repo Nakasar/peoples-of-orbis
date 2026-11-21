@@ -179,6 +179,26 @@ WORKSHOPS = [
     ]),
 ]
 
+# Place du marché (Kevin, 21 novembre 2026, tools/generate_markets.py) : bâtiment de base au palier 0 tenu par le
+# marchand du village (« Keeper » Merchant : pas de métier du plan, world/Markets le pose à son étal). Ses commandes
+# montent son savoir-faire ; au niveau II (palier 2 du village), deux spécialités : marché intérieur (dépôt-vente,
+# commandes aux marchands itinérants, jour de marché) et marché extérieur (comptoir).
+MARKET_PEOPLE = {
+    # peuple : (plan, planches, lumière, chasse)
+    "Kweebec": ("Kweebec_Oak", "Wood_Hardwood_Planks", "Furniture_Kweebec_Lantern", ["Trork_Hunter", "Trork_Hunter"]),
+    "Trork": ("Trork_Camp", "Wood_Deadwood_Planks", "Furniture_Crude_Torch", ["Wolf_Black", "Wolf_Black"]),
+    "Feran": ("Feran_Oasis", "Wood_Drywood_Planks", "Furniture_Feran_Torch", ["Scarak_Fighter", "Scarak_Fighter"]),
+    "Renonce": ("Renonce_Givre", "Wood_Fir_Trunk", "Furniture_Lumberjack_Lantern", ["Outlander_Hunter", "Outlander_Hunter"]),
+    "Slothian": ("Slothian_Monastere", "Wood_Tropicalwood_Planks", "Furniture_Jungle_Torch", ["Crawler_Void", "Crawler_Void"]),
+}
+MARKET_KEEPER = {f"{p}_Marche" for p in MARKET_PEOPLE}
+for _p, (_layout, _planks, _light, _hunt) in MARKET_PEOPLE.items():
+    WORKSHOPS.append((f"{_p}_Marche", _layout, "Marche", None, "Furniture_Village_Crate", "Place du marché", "Market square", [
+        ("Planks", "Craft", _planks, 16, "Bois des étals", "Wood for the stalls"),
+        ("Fibre", "Gather", "Ingredient_Fibre", 16, "Fibre des auvents", "Fibre for the awnings"),
+        ("Bandits", "Hunt", _hunt, 0, "Rôdeurs de la route", "Road prowlers"),
+    ]))
+
 # Étape 3 : spécialités (choisies au niveau II, rang Ami ; une reconversion tous les 7 jours) et bêtes des enclos.
 # Un bâtiment : (bêtes de base, [(id, nom fr, nom en, icône, ligne fr, ligne en, bêtes)]). Les bêtes sont des rôles
 # vanilla Tamed_* (Assets.zip), ou du mod (tools/generate_pens.py) quand le jeu n'en a pas d'apprivoisé.
@@ -305,6 +325,15 @@ SPECIALTIES = {
          "Torches; +1 guard in raids.", []),
     ]),
 }
+for _p in MARKET_PEOPLE:
+    SPECIALTIES[f"{_p}_Marche"] = (None, [
+        ("Interieur", "Marché intérieur", "Inner market", "Deco_Map",
+         "Dépôt-vente, commandes aux marchands itinérants, jour de marché tous les 7 jours.",
+         "Consignment, orders to travelling merchants, a market day every 7 days.", []),
+        ("Exterieur", "Marché extérieur", "Outer market", "Tool_Map",
+         "Un comptoir qui achète aux marchands de passage, revend leurs marchandises et prend vos commandes.",
+         "A counter that buys from visiting merchants, resells their wares and takes your orders.", []),
+    ])
 # Étape 5 : effet en raid des spécialités de garde (bâtiment ouvert, niveau II ou plus, spécialité choisie) :
 # Guards gardes de plus autour du cœur, Posted gardes postés au bâtiment (la tour), Health multiplicateur des PV
 # maximaux de tous les gardes du raid. Au niveau III, Guards et Posted prennent +1. Les Trorks ne subissent pas de raid.
@@ -475,6 +504,14 @@ SHOPS = {
                       [("Potion_Health", 1, 3), ("Armor_Leather_Raven_Chest", 1, 5)]),
     },
 }
+for _p, (_layout, _planks, _light, _hunt) in MARKET_PEOPLE.items():
+    SHOPS[f"{_p}_Marche"] = {
+        "Base": [("Food_Bread", 2, 1), ("Furniture_Village_Crate", 1, 1), (_light, 2, 1)],
+        "Interieur": ([("Food_Salad_Berry", 2, 1), ("Deco_Map", 1, 2)],
+                      [("Furniture_Village_Shelf_Full", 1, 3), ("Tool_Map", 1, 4)]),
+        "Exterieur": ([("Ingredient_Fabric_Scrap_Linen", 4, 1), ("Deco_Scroll", 1, 1)],
+                      [("Ingredient_Bolt_Linen", 2, 3), ("Tool_Map", 1, 4)]),
+    }
 # Stock de chaque échange par niveau de la boutique (renouvelé tous les 3 jours, comme le marchand vanilla).
 SHOP_STOCK = {1: 8, 2: 6, 3: 3}
 BARTER = RES / "BarterShops"
@@ -1401,6 +1438,8 @@ def main():
         people = layout["People"]
         building = next((b for b in layout["Buildings"] if b["Id"] == building_id), None)
         job = next((j for j in layout["Jobs"] if j["Id"] == job_id), None)
+        if wid in MARKET_KEEPER:
+            job = {"Building": building_id}  # tenu par le marchand du village (world/Markets)
         if building is None or job is None:
             errors.append(f"{wid} : bâtiment {building_id} ou métier {job_id} absent du plan {layout_id}")
             continue
@@ -1415,7 +1454,8 @@ def main():
             "People": people,
             "Layout": layout_id,
             "Building": building_id,
-            "Job": job_id,
+            "Job": job_id or "",
+            **({"Keeper": "Merchant"} if wid in MARKET_KEEPER else {}),
             "Icon": icon,
             "NameKey": f"nakasar_peuples.workshop.{wid}.name",
             "Board": spot or [0, 0, 0],

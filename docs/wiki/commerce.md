@@ -7,7 +7,7 @@
 <Info label="Commande">/monde route</Info>
 </Infobox>
 
-Un village ne produit pas tout ce dont il a besoin. Une **route commerciale** le relie à un voisin ou à un [lieu-dit](lieux-dits.md) : des caravanes y font l'aller et le retour, chargées de ce que chaque bout exporte.
+Un village ne produit pas tout ce dont il a besoin. Les marchands de passage s'installent aussi sur sa [place du marché](marche.md), où l'on peut leur passer commande. Une **route commerciale** le relie à un voisin ou à un [lieu-dit](lieux-dits.md) : des caravanes y font l'aller et le retour, chargées de ce que chaque bout exporte.
 
 ## L'onglet Commerce
 

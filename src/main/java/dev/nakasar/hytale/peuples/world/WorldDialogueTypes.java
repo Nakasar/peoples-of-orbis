@@ -24,6 +24,8 @@ import java.util.concurrent.ThreadLocalRandom;
  *       InnTravel, InnLetter (aubergiste) ; CampTurnIn, CampDefend, CampDonate, CampShop (campements) ; HideAndSeek
  *       (enfants) ; FeastOffering, FairRace (hôtes du calendrier).</li>
  *   <li>Commerce : TradeShop, TradeWhere, TradeEscort (caravaniers des routes commerciales).</li>
+ *   <li>Place du marché ({@link Markets}) : MarketGuestShop (marchand de passage), MarketCounterShop (comptoir),
+ *       MarketOrder, MarketConsign, MarketCollect (commis du comptoir et du dépôt-vente).</li>
  *   <li>Conquête : HamletOwner (« à qui appartient ce lieu ? »), HamletRally (lettre de ralliement ; aussi en
  *   WorldCheck).</li>
  *   <li>{@code {"Type": "WorldCheck", "Check": "..."}} : InnLevel2, InnLevel3, Parley (villages rivaux et joueur Ami des
@@ -142,6 +144,16 @@ public final class WorldDialogueTypes {
                         default -> Camps.shop(world, c.store(), c.ref(), c.playerRef(), camp);
                     };
                 }
+                case "MarketGuestShop", "MarketCounterShop", "MarketOrder", "MarketConsign", "MarketCollect" -> {
+                    Village host = Markets.villageOf(world, npc);
+                    return switch (action) {
+                        case "MarketGuestShop" -> Markets.guestShop(world, c.store(), c.ref(), c.playerRef(), host);
+                        case "MarketCounterShop" -> Markets.counterShop(world, c.store(), c.ref(), c.playerRef(), host);
+                        case "MarketOrder" -> Markets.openPicker(world, c.store(), c.ref(), c.playerRef(), host, false);
+                        case "MarketConsign" -> Markets.openPicker(world, c.store(), c.ref(), c.playerRef(), host, true);
+                        default -> Markets.collect(world, c.store(), c.ref(), c.playerRef(), host);
+                    };
+                }
                 case "HideAndSeek" -> {
                     return Surroundings.hideAndSeek(world, c.store(), c.ref(), c.playerRef(), Surroundings.childVillage(world, npc));
                 }
@@ -160,7 +172,8 @@ public final class WorldDialogueTypes {
 
         @Override
         public boolean closesDialogue() {
-            return action != null && (action.endsWith("Shop") || action.equals("InnTravel"));
+            return action != null && (action.endsWith("Shop") || action.equals("InnTravel") || action.equals("MarketOrder")
+                    || action.equals("MarketConsign"));
         }
     }
 

@@ -44,7 +44,7 @@ Votre rang dans un village est le **meilleur des deux** : un ami des Kweebecs es
 
 ## Les échoppes {#les-echoppes}
 
-Le marchand de chaque village ouvre l'**échoppe** : trois étals en onglets, un par rang (Toléré, Ami, Hôte), payés en
+Le marchand de chaque village, à son étal de la [place du marché](marche.md), ouvre l'**échoppe** : trois étals en onglets, un par rang (Toléré, Ami, Hôte), payés en
 **faveurs** du peuple ; on en gagne une poignée à chaque demande remplie et à chaque raid gagné. Un étal au-dessus de
 votre rang reste visible, grisé, avec la réputation qui vous manque. À gauche, le **marché du village** liste aussi
 chaque [bâtiment de métier](batiments-de-metier.md) qui vend, avec ses niveaux I à III en onglets et la raison d'un étal

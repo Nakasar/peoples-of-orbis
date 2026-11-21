@@ -1,0 +1,74 @@
+{
+  "$Comment": "Ce que le comptoir du marché Trork revend des marchands Slothian de passage, généré par tools/generate_markets.py : marchandises des voyageurs de l'origine, au même prix, payées en faveurs de l'hôte ; la moitié du stock (le comptoir n'achète que le reste d'un étal).",
+  "DisplayNameKey": "nakasar_peuples.barter.Comptoir_Trork_Slothian.title",
+  "RefreshInterval": {
+    "Days": 2
+  },
+  "RestockHour": 6,
+  "TradeSlots": [
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Food_Kebab_Vegetable",
+          "Quantity": 2
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Trork",
+            "Quantity": 1
+          }
+        ],
+        "Stock": 3
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Bolt_Silk",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Trork",
+            "Quantity": 2
+          }
+        ],
+        "Stock": 3
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Crystal_Green",
+          "Quantity": 2
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Trork",
+            "Quantity": 1
+          }
+        ],
+        "Stock": 3
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Life_Essence",
+          "Quantity": 4
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Trork",
+            "Quantity": 1
+          }
+        ],
+        "Stock": 3
+      }
+    }
+  ]
+}

@@ -357,6 +357,7 @@ public final class TradeCaravans {
         Villages.addEssor(to, 1);
         TradeNeeds.delivered(world, from, to, c.cargo, day);
         TradeNeeds.unpack(world, store, c.walkKey(), to, day, "caravan");
+        Markets.welcome(world, store, to, from);
         escortArrived(world, store, c, from, to);
         TradeRoutes.announce(world, to, Message.translation(TradeRoutes.KEYS + "arrived").param("from", TradeRoutes.name(world, from))
                 .param("goods", goodsLine(c.cargo)), NotificationStyle.Success, TradeLog.Kind.ARRIVAL,
