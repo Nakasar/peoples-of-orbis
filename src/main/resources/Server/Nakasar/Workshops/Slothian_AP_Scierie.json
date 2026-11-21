@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Scierie",
     "Rule": "TREES",
     "Prefabs": [
-      "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002 1 -12 0",
-      "Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_003 15 -12 0"
+      "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002 1 -12 0",
+      "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_003 15 -12 0"
     ],
     "Rect": [
       -10,

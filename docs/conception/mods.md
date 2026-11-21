@@ -161,7 +161,8 @@ Les demandes (étape 3), la réputation et les rangs (étape 4, groupes et rangs
 ### Plan du village
 
 Un plan (`Server/Nakasar/VillageLayouts/<Id>.json`, asset `VillageLayout`) place des prefabs **vanilla**
-(`Server/Prefabs/Npc/Kweebec/Oak/...`, règle n° 2) autour du cœur. Il est écrit par
+(règle n° 2), toujours par leur copie dans le mod (`Server/Prefabs/Nakasar/Peuples/Npc/Kweebec/Oak/...`, règle n° 5)
+autour du cœur. Il est écrit par
 `tools/generate_village_layouts.py`, qui lit les emprises de `tools/vanilla-prefabs-0.7.2.txt` (relevées dans
 Assets.zip), refuse tout chevauchement (3 blocs entre bâtiments, 1 pour les lanternes et les bancs) et dessine un
 aperçu (`--preview DIR`). Chaque bâtiment a un palier : seul le campement (palier 0) est collé à la génération, les
@@ -235,9 +236,9 @@ viennent de sa boîte de collision tournée par le moteur (`FillerBlockUtil`) ; 
 du coffre ou pas libre, l'autre voisine sur l'axe (hors d'un chemin d'abord). Le village (`DepositLarge`,
 `Deposit2X/Y/Z`) protège les deux cases. Un village qui redescend de palier garde son grand coffre.
 
-Aperçus : `python3 tools/generate_village_hearts.py --vanilla dump.json --preview DIR --palette pal.json` (le dump vient
-de `tools/extract_vanilla_prefabs.py Assets.zip pieces.txt dump.json --palette pal.json`, la liste des pièces de
-`--list`). Le script refuse un bloc inconnu, un meuble de plusieurs cases posé bloc à bloc, un bloc hors de la place ou
+Aperçus : `python3 tools/generate_village_hearts.py --preview DIR --palette pal.json` (les pièces sont lues dans leurs
+copies du mod ; la palette vient de `tools/extract_vanilla_prefabs.py Assets.zip pieces.txt dump.json --palette
+pal.json`, la liste des pièces de `--list`). Le script refuse un bloc inconnu, un meuble de plusieurs cases posé bloc à bloc, un bloc hors de la place ou
 une case réservée occupée.
 
 `VillageSeeder` pose tout seul **le premier village kweebec du monde par défaut** : 15 s après le démarrage, il essaie
@@ -1741,7 +1742,7 @@ Ligne de bâtiment : `"chemin x z rot côté chance x0 x1 z0 z1 haut"` dans le r
 principal au nord `-z`, marché à `z = 5`). Côté `M` toujours posé ; `W` et `E` : un tirage par côté (chaque choix a sa
 chance, au plus un). Le tirage est fait à la création (`mask`, bit i = bâtiment i). Décor `"dx dy dz lacet Bloc"` posé
 seulement dans l'air (bancs vanilla de la forge, caisses, sacs). Les emprises des nouveaux prefabs sont relevées dans
-`tools/vanilla-prefabs-0.7.2.txt`.
+`tools/vanilla-prefabs-0.7.2.txt`, et leur copie ajoutée au mod par `tools/copy_vanilla_prefabs.py`.
 
 Habitants (1 à 3) : rôles `Nakasar_Peuples_<Peuple>_Hamlet_{Keeper,Worker,Sentry}` (apparences vanilla du peuple),
 dialogue `Monde_LieuDit_<Genre>` (troc, « qui vient commercer ici ? », rumeurs). Troc `Nakasar_Peuples_Hamlet_<P>_<G>`

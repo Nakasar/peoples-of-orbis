@@ -9,7 +9,7 @@
     {
       "Id": "Feu_De_Camp",
       "Tier": 0,
-      "Prefab": "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_001",
       "X": -13,
       "Z": 1,
       "Rotation": 0,
@@ -29,7 +29,7 @@
     {
       "Id": "Tente_Ouest",
       "Tier": 0,
-      "Prefab": "Npc/Trork/Tent/Trork_Tent_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
       "X": 0,
       "Z": -16,
       "Rotation": 0,
@@ -49,7 +49,7 @@
     {
       "Id": "Tente_Est",
       "Tier": 0,
-      "Prefab": "Npc/Trork/Tent/Trork_Tent_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
       "X": 14,
       "Z": 0,
       "Rotation": 2,
@@ -69,7 +69,7 @@
     {
       "Id": "Tour_De_Guet",
       "Tier": 0,
-      "Prefab": "Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001",
       "X": -14,
       "Z": -11,
       "Rotation": 0,
@@ -89,7 +89,7 @@
     {
       "Id": "Avertissement",
       "Tier": 0,
-      "Prefab": "Npc/Trork/Warning/Trork_Warning_Trork_Warning_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_001",
       "X": -1,
       "Z": 13,
       "Rotation": 0,
@@ -109,7 +109,7 @@
     {
       "Id": "Terrier",
       "Tier": 1,
-      "Prefab": "Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
       "X": -14,
       "Z": -24,
       "Rotation": 0,
@@ -129,7 +129,7 @@
     {
       "Id": "Piege",
       "Tier": 1,
-      "Prefab": "Npc/Trork/Trap/Trork_Trap_Trork_Trap_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Trap/Trork_Trap_Trork_Trap_001",
       "X": 11,
       "Z": 12,
       "Rotation": 0,
@@ -149,7 +149,7 @@
     {
       "Id": "Reserve",
       "Tier": 1,
-      "Prefab": "Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
       "X": 13,
       "Z": -16,
       "Rotation": 0,
@@ -169,7 +169,7 @@
     {
       "Id": "Tente_Sud",
       "Tier": 1,
-      "Prefab": "Npc/Trork/Tent/Trork_Tent_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
       "X": -14,
       "Z": 13,
       "Rotation": 0,
@@ -209,7 +209,7 @@
     {
       "Id": "Tour_Est",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Tier_2/Watchtower/Trork_Tier_2_Watchtower_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tier_2/Watchtower/Trork_Tier_2_Watchtower_001",
       "X": 28,
       "Z": -1,
       "Rotation": 0,
@@ -229,7 +229,7 @@
     {
       "Id": "Entrepot",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001",
       "X": -26,
       "Z": -15,
       "Rotation": 0,
@@ -249,7 +249,7 @@
     {
       "Id": "Bric_A_Brac",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_001",
       "X": 1,
       "Z": 21,
       "Rotation": 0,
@@ -269,7 +269,7 @@
     {
       "Id": "Reserve_Du_Chef",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
       "X": 26,
       "Z": -16,
       "Rotation": 0,
@@ -289,7 +289,7 @@
     {
       "Id": "Tour_Ouest",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Tier_3/Watchtower/Trork_Tier_3_Watchtower_002",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tier_3/Watchtower/Trork_Tier_3_Watchtower_002",
       "X": -26,
       "Z": -28,
       "Rotation": 0,
@@ -309,7 +309,7 @@
     {
       "Id": "Grand_Feu",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002",
       "X": -19,
       "Z": 27,
       "Rotation": 0,
@@ -329,7 +329,7 @@
     {
       "Id": "E1_Forge_De_Guerre",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_002",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_002",
       "X": 6,
       "Z": -36,
       "Rotation": 0,
@@ -344,7 +344,7 @@
     {
       "Id": "E1_Camp_Bucherons",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001",
       "X": 7,
       "Z": -35,
       "Rotation": 0,
@@ -359,7 +359,7 @@
     {
       "Id": "E1_Carriere",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
       "X": 5,
       "Z": -36,
       "Rotation": 0,
@@ -374,7 +374,7 @@
     {
       "Id": "E1_Tannerie",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Tent/Trork_Tent_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
       "X": 6,
       "Z": -36,
       "Rotation": 0,
@@ -404,7 +404,7 @@
     {
       "Id": "E1_Conseil",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_003",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_003",
       "X": 6,
       "Z": -36,
       "Rotation": 0,
@@ -419,7 +419,7 @@
     {
       "Id": "E1_Caserne",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_004",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004",
       "X": 6,
       "Z": -36,
       "Rotation": 0,
@@ -434,7 +434,7 @@
     {
       "Id": "E1_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_005",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_005",
       "X": 6,
       "Z": -36,
       "Rotation": 0,
@@ -449,7 +449,7 @@
     {
       "Id": "E1_Temple",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
       "X": 8,
       "Z": -35,
       "Rotation": 0,
@@ -464,7 +464,7 @@
     {
       "Id": "E1_Halle",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_006",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_006",
       "X": 6,
       "Z": -36,
       "Rotation": 0,
@@ -479,7 +479,7 @@
     {
       "Id": "E2_Forge_De_Guerre",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_002",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_002",
       "X": 1,
       "Z": 40,
       "Rotation": 0,
@@ -494,7 +494,7 @@
     {
       "Id": "E2_Camp_Bucherons",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001",
       "X": 2,
       "Z": 41,
       "Rotation": 0,
@@ -509,7 +509,7 @@
     {
       "Id": "E2_Carriere",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
       "X": 0,
       "Z": 40,
       "Rotation": 0,
@@ -524,7 +524,7 @@
     {
       "Id": "E2_Tannerie",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Tent/Trork_Tent_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
       "X": 1,
       "Z": 40,
       "Rotation": 0,
@@ -554,7 +554,7 @@
     {
       "Id": "E2_Conseil",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_003",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_003",
       "X": 1,
       "Z": 40,
       "Rotation": 0,
@@ -569,7 +569,7 @@
     {
       "Id": "E2_Caserne",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_004",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004",
       "X": 1,
       "Z": 40,
       "Rotation": 0,
@@ -584,7 +584,7 @@
     {
       "Id": "E2_Bibliotheque",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_005",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_005",
       "X": 1,
       "Z": 40,
       "Rotation": 0,
@@ -599,7 +599,7 @@
     {
       "Id": "E2_Temple",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
       "X": 3,
       "Z": 41,
       "Rotation": 0,
@@ -614,7 +614,7 @@
     {
       "Id": "E2_Halle",
       "Tier": 3,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_006",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_006",
       "X": 1,
       "Z": 40,
       "Rotation": 0,
@@ -629,7 +629,7 @@
     {
       "Id": "E3_Forge_De_Guerre",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_002",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_002",
       "X": 30,
       "Z": 21,
       "Rotation": 0,
@@ -644,7 +644,7 @@
     {
       "Id": "E3_Camp_Bucherons",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001",
       "X": 31,
       "Z": 22,
       "Rotation": 0,
@@ -659,7 +659,7 @@
     {
       "Id": "E3_Carriere",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
       "X": 29,
       "Z": 21,
       "Rotation": 0,
@@ -674,7 +674,7 @@
     {
       "Id": "E3_Tannerie",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Tent/Trork_Tent_001",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
       "X": 30,
       "Z": 21,
       "Rotation": 0,
@@ -704,7 +704,7 @@
     {
       "Id": "E3_Conseil",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_003",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_003",
       "X": 30,
       "Z": 21,
       "Rotation": 0,
@@ -719,7 +719,7 @@
     {
       "Id": "E3_Caserne",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_004",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004",
       "X": 30,
       "Z": 21,
       "Rotation": 0,
@@ -734,7 +734,7 @@
     {
       "Id": "E3_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_005",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_005",
       "X": 30,
       "Z": 21,
       "Rotation": 0,
@@ -749,7 +749,7 @@
     {
       "Id": "E3_Temple",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
       "X": 32,
       "Z": 22,
       "Rotation": 0,
@@ -764,7 +764,7 @@
     {
       "Id": "E3_Halle",
       "Tier": 2,
-      "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_006",
+      "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_006",
       "X": 30,
       "Z": 21,
       "Rotation": 0,
@@ -1980,14 +1980,14 @@
         "Tier": 0,
         "Pieces": [
           {
-            "Prefab": "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
+            "Prefab": "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
             "X": 1,
             "Y": 0,
             "Z": -4,
             "Rotation": 0
           },
           {
-            "Prefab": "Npc/Trork/Fireplace/Trork_Fireplace_001",
+            "Prefab": "Nakasar/Peuples/Npc/Trork/Fireplace/Trork_Fireplace_001",
             "X": 0,
             "Y": 0,
             "Z": 3,
@@ -2182,7 +2182,7 @@
         "Tier": 2,
         "Pieces": [
           {
-            "Prefab": "Npc/Trork/Misc/Large/Trork_Misc_Large_002",
+            "Prefab": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_002",
             "X": 5,
             "Y": 0,
             "Z": 5,

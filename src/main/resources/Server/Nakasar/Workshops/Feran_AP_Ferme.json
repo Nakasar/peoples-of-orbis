@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Ferme",
     "Rule": "FERTILE",
     "Prefabs": [
-      "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001 0 -8 0",
-      "Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_002 9 -7 0"
+      "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001 0 -8 0",
+      "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_002 9 -7 0"
     ],
     "Rect": [
       -6,

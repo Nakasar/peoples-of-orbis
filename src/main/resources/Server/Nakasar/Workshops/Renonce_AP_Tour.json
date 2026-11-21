@@ -58,7 +58,7 @@
     "Item": "Nakasar_Peuples_Annex_Tour",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_002 0 -6 0"
+      "Nakasar/Peuples/Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_002 0 -6 0"
     ],
     "Rect": [
       -4,

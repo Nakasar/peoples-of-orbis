@@ -8,8 +8,8 @@
   "Rule": "TREES",
   "Weight": 3,
   "Buildings": [
-    "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002 1 -13 0 M 1 -9 10 -22 -4 12",
-    "Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_003 16 -13 0 E 1 13 17 -16 -10 3"
+    "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002 1 -13 0 M 1 -9 10 -22 -4 12",
+    "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_003 16 -13 0 E 1 13 17 -16 -10 3"
   ],
   "Decor": [],
   "Residents": [

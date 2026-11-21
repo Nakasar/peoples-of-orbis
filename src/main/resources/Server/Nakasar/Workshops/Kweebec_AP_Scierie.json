@@ -59,9 +59,9 @@
     "Item": "Nakasar_Peuples_Annex_Scierie",
     "Rule": "TREES",
     "Prefabs": [
-      "Npc/Kweebec/Redwood/Normal_Plot/House/Kweebec_Redwood_Normal_Plot_House_001 0 -9 0",
-      "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001 11 -9 0",
-      "Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_002 -9 -10 0"
+      "Nakasar/Peuples/Npc/Kweebec/Redwood/Normal_Plot/House/Kweebec_Redwood_Normal_Plot_House_001 0 -9 0",
+      "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001 11 -9 0",
+      "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_002 -9 -10 0"
     ],
     "Rect": [
       -12,

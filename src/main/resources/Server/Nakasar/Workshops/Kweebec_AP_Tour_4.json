@@ -59,8 +59,8 @@
     "Item": "Nakasar_Peuples_Annex_Tour",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004 0 -6 0",
-      "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_005 7 -7 0"
+      "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004 0 -6 0",
+      "Nakasar/Peuples/Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_005 7 -7 0"
     ],
     "Rect": [
       -5,

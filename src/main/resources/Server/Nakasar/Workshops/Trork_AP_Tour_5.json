@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Tour",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001 1 -6 0",
-      "Npc/Trork/Warning/Trork_Warning_Trork_Warning_002 10 -6 0"
+      "Nakasar/Peuples/Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001 1 -6 0",
+      "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_002 10 -6 0"
     ],
     "Rect": [
       -3,

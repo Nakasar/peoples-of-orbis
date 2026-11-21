@@ -18,8 +18,8 @@ Prefabs, objets et apparences vanilla seulement (règle n° 2). Les Kweebecs ne 
 """
 import outposts
 
-NPC = "Npc/"
-MON = "Monuments/"
+NPC = "Nakasar/Peuples/Npc/"
+MON = "Nakasar/Peuples/Monuments/"
 ROCKS = outposts.ROCKS
 LUMBER = outposts.LUMBER
 SLOTH = MON + "Incidental/Slothian/Land/"

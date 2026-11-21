@@ -58,9 +58,9 @@
     "Item": "Nakasar_Peuples_Annex_Mine",
     "Rule": "ROCK",
     "Prefabs": [
-      "Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_002 0 -7 0",
-      "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_001 6 -6 0",
-      "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005 -8 -7 0"
+      "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_002 0 -7 0",
+      "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_001 6 -6 0",
+      "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005 -8 -7 0"
     ],
     "Rect": [
       -9,

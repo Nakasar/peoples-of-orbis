@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Poste",
     "Rule": "ROAD",
     "Prefabs": [
-      "Npc/Trork/Tent/Trork_Tent_001 0 -8 0",
-      "Npc/Trork/Warning/Trork_Warning_Trork_Warning_001 10 -7 0"
+      "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001 0 -8 0",
+      "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_001 10 -7 0"
     ],
     "Rect": [
       -5,

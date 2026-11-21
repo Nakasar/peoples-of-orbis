@@ -8,8 +8,8 @@
   "Rule": "FERTILE",
   "Weight": 4,
   "Buildings": [
-    "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001 0 -9 0 M 1 -5 5 -14 -4 6",
-    "Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_002 10 -8 0 E 1 8 12 -9 -8 4"
+    "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001 0 -9 0 M 1 -5 5 -14 -4 6",
+    "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_002 10 -8 0 E 1 8 12 -9 -8 4"
   ],
   "Decor": [],
   "Residents": [

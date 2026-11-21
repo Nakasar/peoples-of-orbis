@@ -8,9 +8,9 @@
   "Rule": "NONE",
   "Weight": 2,
   "Buildings": [
-    "Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_004 0 -19 0 M 1 -14 15 -31 -4 31",
-    "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002 -21 -18 0 W 1 -26 -17 -22 -14 12",
-    "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_005 22 -18 0 E 1 18 26 -22 -14 11"
+    "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_004 0 -19 0 M 1 -14 15 -31 -4 31",
+    "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002 -21 -18 0 W 1 -26 -17 -22 -14 12",
+    "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_005 22 -18 0 E 1 18 26 -22 -14 11"
   ],
   "Decor": [],
   "Residents": [

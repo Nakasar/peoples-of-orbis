@@ -197,7 +197,7 @@ public final class VillageStreets {
         return Blocks.set(chunks, x, y, z, block, 0);
     }
 
-    /** Pose un élément de décor (prefab vanilla ou bloc) sur le sol naturel libre. Vrai s'il est posé. */
+    /** Pose un élément de décor (copie de prefab vanilla ou bloc) sur le sol naturel libre. Vrai s'il est posé. */
     private static boolean decor(World world, Store<EntityStore> store, Terrain terrain, ChunkStore chunks, Village village,
                                  VillageLayout layout, int plaza, int x, int z, int rotation, boolean prefab, String id) {
         if (insideBuilding(village, layout, x, z)) {

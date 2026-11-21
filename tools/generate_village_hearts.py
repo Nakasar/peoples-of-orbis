@@ -21,27 +21,30 @@ Orientation (rotation = index RotationTuple : lacet + 4 × tangage) : lacet 0 = 
 un tronc couché vaut 4 le long de Z, 5 le long de X. Pas de meuble à plusieurs cases (bancs, cage, grande torche
 feran) parmi les blocs posés un à un : le moteur ne poserait pas leurs cases de remplissage.
 
-Les prefabs vanilla viennent d'Assets.zip : `--vanilla` est le JSON écrit par tools/extract_vanilla_prefabs.py
-(prefabs listés dans PIECES). Sortie : tools/village-hearts.json, lu par generate_village_layouts.py (champ « Heart »
+Les pièces sont les copies du mod des prefabs vanilla (Server/Prefabs/Nakasar/Peuples/..., tools/mod_prefabs.py),
+lues dans src/main/resources ; `--vanilla` lit à la place le JSON écrit par tools/extract_vanilla_prefabs.py. Sortie : tools/village-hearts.json, lu par generate_village_layouts.py (champ « Heart »
 des plans), et les prefabs de fluides Server/Prefabs/Nakasar/Peuples/Hearts/. `--preview DIR --palette pal.json` dessine
 les aperçus (tools/heart_render.py).
 
-    python3 tools/generate_village_hearts.py --vanilla vanilla-heart-prefabs.json [--preview DIR --palette pal.json]
+    python3 tools/generate_village_hearts.py [--preview DIR --palette pal.json]
 """
 import argparse
 import json
 import math
 from pathlib import Path
 
+from mod_prefabs import mod
+
 TOOLS = Path(__file__).resolve().parent
 ROOT = TOOLS.parent
 OUT_JSON = TOOLS / "village-hearts.json"
 FLUID_DIR = ROOT / "src/main/resources/Server/Prefabs/Nakasar/Peuples/Hearts"
 FLUID_PREFIX = "Nakasar/Peuples/Hearts/"
+PREFABS = ROOT / "src/main/resources/Server/Prefabs"
 BLOCK_IDS = TOOLS / "vanilla-block-ids-0.7.2.txt"
 
-OAK = "Npc/Kweebec/Oak/"
-TRORK = "Npc/Trork/"
+OAK = "Nakasar/Peuples/Npc/Kweebec/Oak/"
+TRORK = "Nakasar/Peuples/Npc/Trork/"
 TIERS = (0, 1, 2, 3)
 
 # Lacets : face au sud, à l'est, au nord, à l'ouest.
@@ -170,8 +173,8 @@ def functional(S, board, deposit, banner, wide):
 
 
 # ---------------------------------------------------------------- Kweebecs : la clairière du rejeton
-KWEEBEC_TREE = {0: "Orbis/Trees/Oak/Stage_1/Oak_Stage1_001", 1: "Orbis/Trees/Oak/Stage_2/Oak_Stage2_001",
-                2: "Orbis/Trees/Oak/Stage_2/Oak_Stage2_001", 3: "Orbis/Trees/Oak/Stage_3/Oak_Stage3_001"}
+KWEEBEC_TREE = {0: "Nakasar/Peuples/Orbis/Trees/Oak/Stage_1/Oak_Stage1_001", 1: "Nakasar/Peuples/Orbis/Trees/Oak/Stage_2/Oak_Stage2_001",
+                2: "Nakasar/Peuples/Orbis/Trees/Oak/Stage_2/Oak_Stage2_001", 3: "Nakasar/Peuples/Orbis/Trees/Oak/Stage_3/Oak_Stage3_001"}
 FLOWERS = ["Plant_Flower_Common_Pink", "Plant_Flower_Common_Yellow", "Plant_Flower_Common_White",
            "Plant_Flower_Tall_Yellow", "Plant_Flower_Common_Blue", "Plant_Flower_Bushy_Purple"]
 
@@ -304,8 +307,8 @@ def trork(tier):
 
 
 # ---------------------------------------------------------------- Feran : le bassin de l'oasis
-PALMS = {0: "Orbis/Trees/Palm/Stage_2/Palm_Stage2_001", 1: "Orbis/Trees/Palm/Stage_3/Palm_Stage3_002",
-         2: "Orbis/Trees/Palm/Stage_3/Palm_Stage3_002", 3: "Orbis/Trees/Palm/Stage_4/Palm_Stage4_001"}
+PALMS = {0: "Nakasar/Peuples/Orbis/Trees/Palm/Stage_2/Palm_Stage2_001", 1: "Nakasar/Peuples/Orbis/Trees/Palm/Stage_3/Palm_Stage3_002",
+         2: "Nakasar/Peuples/Orbis/Trees/Palm/Stage_3/Palm_Stage3_002", 3: "Nakasar/Peuples/Orbis/Trees/Palm/Stage_4/Palm_Stage4_001"}
 
 
 def pillar_torch(S, x, z, height=2):
@@ -386,18 +389,18 @@ def renonce(tier):
 
     ground(S, R, P, pick, salt=7)
     # Foyer vanilla des Outlanders (fosse à feu, bancs, appentis de peaux) au nord du cœur.
-    S.paste("Npc/Outlander/Misc/Outlander_Misc_003", 0, -1, -3)
+    S.paste("Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_003", 0, -1, -3)
     # Bûcher de sapin couché, lanterne de bûcheron.
     for (x, y, z) in ((5, 1, 6), (5, 1, 7), (5, 2, 6), (5, 2, 7)):
         S.set(x, y, z, "Wood_Fir_Trunk", ALONG_X)
     S.set(-5, 1, 6, "Furniture_Lumberjack_Lantern")
     if tier >= 1:
-        S.paste("Orbis/Trees/Fir_Snow/Stage_2/Fir_Snow_Stage2_001", -7, 1, 5)
+        S.paste("Nakasar/Peuples/Orbis/Trees/Fir_Snow/Stage_2/Fir_Snow_Stage2_001", -7, 1, 5)
     if tier >= 2:
-        S.paste("Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001", -8, 0, -2)
-        S.paste("Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001", 8, 0, -2)
+        S.paste("Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001", -8, 0, -2)
+        S.paste("Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001", 8, 0, -2)
     if tier >= 3:
-        S.paste("Orbis/Trees/Fir_Snow/Stage_3/Fir_Snow_Stage3_001", -8, 1, -7)
+        S.paste("Nakasar/Peuples/Orbis/Trees/Fir_Snow/Stage_3/Fir_Snow_Stage3_001", -8, 1, -7)
     functional(S, board=(-3, 1, 6), deposit=(3, 1, 6), banner=(0, 1, 7), wide=(4, 1, 6))
     S.marks["woodpile"] = (2, 7)
     scatter(S, {c for c in S.marks["plaza"] if c[1] > 4}, 0.15, ["Plant_Grass_Winter_Short", "Rubble_Slate"], 71)
@@ -417,7 +420,7 @@ def slothian(tier):
 
     ground(S, R, P, pick, salt=9)
     # Sanctuaire slothian vanilla au nord (sans son bloc de spawn).
-    S.paste("Monuments/Incidental/Slothian/Land/Shrine/Incidental_Slothian_Shrine_Slothian_Shrine_001", 0, 0, -4)
+    S.paste("Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Shrine/Incidental_Slothian_Shrine_Slothian_Shrine_001", 0, 0, -4)
     # Bosquets de bambou (tiges vanilla, feuillage au sommet), plus hauts à chaque palier.
     for (bx, bz) in ((-6, -2), (6, -3)) + (((-5, 5), (5, 5)) if tier >= 2 else ()):
         for dx, dz in ((0, 0), (1, 0), (0, 1)):
@@ -570,16 +573,31 @@ def fluid_prefab(cells):
 
 
 def load_vanilla(path):
-    data = json.loads(Path(path).read_text(encoding="utf-8"))
-    prefabs = data.get("prefabs", data)
+    if path:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+        prefabs = {mod(k): v for k, v in data.get("prefabs", data).items()}
+    else:
+        prefabs = {p: read_copy(p) for p in pieces_needed()}
     for name, p in prefabs.items():
         p["stripped"] = [b for b in p["blocks"] if b[3] in STRIP]
         VANILLA[name] = p
 
 
+def read_copy(prefab):
+    """Pièce lue dans sa copie du mod (Server/Prefabs/Nakasar/Peuples/..., tools/copy_vanilla_prefabs.py), au format
+    de tools/extract_vanilla_prefabs.py."""
+    d = json.loads((PREFABS / (prefab + ".prefab.json")).read_text(encoding="utf-8"))
+    return {
+        "anchor": [d["anchorX"], d["anchorY"], d["anchorZ"]],
+        "blocks": [[b["x"], b["y"], b["z"], b["name"], b.get("rotation", 0)] for b in d["blocks"]
+                   if b["name"] != "Empty" and not b.get("filler")],
+        "fluids": [[b["x"], b["y"], b["z"], b["name"]] for b in d.get("fluids", [])],
+    }
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--vanilla", help="JSON des prefabs vanilla (tools/extract_vanilla_prefabs.py)")
+    parser.add_argument("--vanilla", help="JSON des prefabs (tools/extract_vanilla_prefabs.py) ; par défaut les copies du mod")
     parser.add_argument("--preview", type=Path, help="dossier des aperçus PNG")
     parser.add_argument("--palette", type=Path, help="palette des blocs pour les aperçus (extract_vanilla_prefabs.py --palette)")
     parser.add_argument("--list", action="store_true", help="liste les prefabs vanilla utilisés et s'arrête")

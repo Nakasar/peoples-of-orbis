@@ -58,7 +58,7 @@
     "Item": "Nakasar_Peuples_Annex_Poste",
     "Rule": "ROAD",
     "Prefabs": [
-      "Npc/Slothian/Disabled/Gate/Slothian_Disabled_Gate_002 0 -6 0"
+      "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Slothian_Disabled_Gate_002 0 -6 0"
     ],
     "Rect": [
       -8,

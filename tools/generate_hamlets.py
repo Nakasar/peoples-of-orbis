@@ -17,6 +17,7 @@ from pathlib import Path
 import generate_world_life as gwl
 import hamlets
 import outposts
+from mod_prefabs import mod
 
 TOOLS = Path(__file__).resolve().parent
 ROOT = TOOLS.parent
@@ -63,7 +64,7 @@ def bounds():
         parts = line.split()
         if len(parts) == 7 and not line.startswith("#"):
             try:
-                out[parts[0]] = tuple(int(v) for v in parts[1:])
+                out[mod(parts[0])] = tuple(int(v) for v in parts[1:])
             except ValueError:
                 pass
     return out

@@ -10,11 +10,13 @@ import io
 import json
 import zipfile
 
+from mod_prefabs import vanilla
+
 
 def prefabs(z, names):
     out = {}
     for p in names:
-        d = json.loads(z.read(f"Server/Prefabs/{p}.prefab.json"))
+        d = json.loads(z.read(f"Server/Prefabs/{vanilla(p)}.prefab.json"))
         out[p] = {
             "anchor": [d["anchorX"], d["anchorY"], d["anchorZ"]],
             "blocks": [[b["x"], b["y"], b["z"], b["name"], b.get("rotation", 0)] for b in d["blocks"]

@@ -28,8 +28,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * palier 2, E2 au palier 3 ; les piquets du terrain réservé apparaissent un palier plus tôt. Au panneau du village
  * (page {@link PlotPage}), un joueur de rang {@link #CHOOSE_RANK Ami} choisit un des 5 projets du peuple ; tant que le
  * chantier n'est pas lancé, on peut en changer sans frais. Lancer le chantier prend ses matériaux au dépôt ;
- * {@value #DEFAULT_HOURS} h de jeu de travaux dans le style du peuple ({@link SiteStyle}), puis le prefab vanilla est
- * collé et le villageois du projet arrive : c'est un bâtiment de métier complet (workshop/). Démolir rend un quart des
+ * {@value #DEFAULT_HOURS} h de jeu de travaux dans le style du peuple ({@link SiteStyle}), puis la copie du prefab vanilla est
+ * collée et le villageois du projet arrive : c'est un bâtiment de métier complet (workshop/). Démolir rend un quart des
  * matériaux, une fois tous les {@value #DEMOLISH_DAYS} jours de jeu par terrain ; le bâtiment repart au niveau I.
  *
  * <p>Un projet est un bâtiment du plan par terrain ({@code E1_<Projet>}, {@code E2_<Projet>}, champ {@code Plot}),

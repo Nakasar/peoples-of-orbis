@@ -14,8 +14,8 @@ Lu par tools/generate_workshops.py (bâtiments de métier <Peuple>_AP_<Type>, co
 Prefabs, objets et rôles vanilla seulement (règle n° 2), sauf les rôles de villageois du mod.
 """
 
-NPC = "Npc/"
-MON = "Monuments/Incidental/Slothian/Land/"
+NPC = "Nakasar/Peuples/Npc/"
+MON = "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/"
 ROCKS = NPC + "Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_"
 LUMBER = NPC + "Trork/Resource/Lumber/"
 

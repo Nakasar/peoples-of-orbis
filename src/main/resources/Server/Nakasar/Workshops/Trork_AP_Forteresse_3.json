@@ -58,9 +58,9 @@
     "Item": "Nakasar_Peuples_Annex_Forteresse",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Trork/Tier_3/Watchtower/Trork_Tier_3_Watchtower_001 0 -8 0",
-      "Npc/Trork/Tier_2/Watchtower/Trork_Tier_2_Watchtower_001 -10 -8 0",
-      "Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001 10 -7 0"
+      "Nakasar/Peuples/Npc/Trork/Tier_3/Watchtower/Trork_Tier_3_Watchtower_001 0 -8 0",
+      "Nakasar/Peuples/Npc/Trork/Tier_2/Watchtower/Trork_Tier_2_Watchtower_001 -10 -8 0",
+      "Nakasar/Peuples/Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001 10 -7 0"
     ],
     "Rect": [
       -15,

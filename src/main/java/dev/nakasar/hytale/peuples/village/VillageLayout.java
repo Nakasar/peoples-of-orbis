@@ -24,7 +24,7 @@ import java.util.Set;
  *
  * <pre>
  * { "People": "Kweebec", "Radius": 65, "PlazaRadius": 5, "BannerX": 0, "BannerZ": -4,
- *   "Buildings": [ {"Id": "Abri_Ouest", "Tier": 0, "Prefab": "Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+ *   "Buildings": [ {"Id": "Abri_Ouest", "Tier": 0, "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
  *                   "X": -20, "Z": 2, "Rotation": 0, "MinX": -7, "MaxX": 7, "MinZ": -8, "MaxZ": 9} ] }
  * </pre>
  * Les coordonnées sont relatives au cœur ; {@code Prefab} est un chemin sous {@code Server/Prefabs/} sans
