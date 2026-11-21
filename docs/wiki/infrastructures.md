@@ -7,7 +7,7 @@
 <Info label="Chantier">24 heures (tour, poste), 48 heures (fortin, forteresse)</Info>
 </Infobox>
 
-Les **ouvrages** protègent le village et ses routes. Comme les [avant-postes de production](avant-postes-de-metier.md), ils se posent dehors à partir d'une fondation reçue au panneau, mais un village peut en bâtir plusieurs du même type, et un village rival peut les **prendre** ou les **raser**. On les gère à l'onglet **Ouvrages** du panneau du village.
+Les **ouvrages** protègent le village et ses routes. Comme les [avant-postes de production](avant-postes-de-metier.md), ils se posent dehors à partir d'une fondation reçue au panneau, mais un village peut en bâtir plusieurs du même type, et un village rival peut les **prendre** ou les **raser**. On les trouve à l'onglet [**Bâtir**](batir.md) du panneau du village (famille Militaire ou Commerce, filtre **Où : Ouvrage**), et on les gère sur la page des ouvrages (bouton **Voir les ouvrages**).
 
 ## Les quatre ouvrages
 
@@ -34,7 +34,7 @@ Un joueur de rang **Hôte** d'un village peut le lancer contre l'ouvrage d'un vi
 
 Les soldats partent du **fortin** le plus avancé du village attaquant s'il en tient un plus près de la cible que le village.
 
-Le propriétaire peut le **reprendre** (bouton Reprendre de l'onglet Ouvrages, rang Ami). S'il ne le reprend pas en **14 jours**, l'ouvrage est perdu pour de bon. Un village de palier 3 tente aussi de lui-même de reprendre son ouvrage après 3 jours.
+Le propriétaire peut le **reprendre** (bouton Reprendre de la page des ouvrages, rang Ami). S'il ne le reprend pas en **14 jours**, l'ouvrage est perdu pour de bon. Un village de palier 3 tente aussi de lui-même de reprendre son ouvrage après 3 jours.
 
 ## Raids et ruines
 

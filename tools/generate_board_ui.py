@@ -51,9 +51,11 @@ PANEL_WIDTH, PANEL_HEIGHT = WIDTH, HEIGHT
 # Onglets du panneau du village (request/BoardTabs.java), dans l'ordre de la barre. Maquette Claude Design
 # « Panneau du village — refonte » (16 novembre 2026) : les onglets en haut, toujours visibles. Kevin, 17 novembre 2026 :
 # une icône par onglet (les noms coupés égaraient), le nom en info-bulle et celui de l'onglet ouvert à côté de la barre.
-TABS = ("Board", "Plots", "Annexes", "Works", "World", "Domain", "Trade", "People")
-# Icônes Board/Tab_<Onglet>.png de tools/generate_tab_icons.py : maison, livre et utilisateur sont les icônes vanilla du
-# client passées en blanc ; le jeu n'a ni globe, ni balance, ni mine, ni tour, ni couronne, qui y sont dessinées.
+# Kevin, 21 novembre 2026 : un seul onglet « Bâtir » (Build) remplace Emplacements, Avant-postes et Ouvrages ; ces trois
+# pages restent, ouvertes depuis Bâtir, et allument son onglet.
+TABS = ("Board", "Build", "World", "Domain", "Trade", "People")
+# Icônes Board/Tab_<Onglet>.png de tools/generate_tab_icons.py : maison et utilisateur sont les icônes vanilla du
+# client passées en blanc ; le jeu n'a ni globe, ni balance, ni marteau, ni couronne, qui y sont dessinés.
 TAB_ICONS = {tab: f"Board/Tab_{tab}.png" for tab in TABS}
 TAB_WIDTH = 52
 TAB_ICON = 24
@@ -92,7 +94,7 @@ def tab_strip(w, acc, active, indent="      "):
     (#Tab<X>On), les autres en boutons à icône (#Tab<X>Button, comme Hud/ReturnToHubButton.ui) dont BoardTabs met le nom
     en info-bulle ; le nom de l'onglet ouvert (#TabName<X>, seul visible) suit la barre, l'heure du jeu à droite (#Clock),
     un filet de la couleur du peuple dessous. Chaque onglet porte les deux formes (#Tab<X>Off enveloppe le bouton) et
-    chaque page les huit noms : seule la visibilité diffère d'une page à l'autre, BoardTabs remplit les mêmes ids partout."""
+    chaque page les six noms : seule la visibilité diffère d'une page à l'autre, BoardTabs remplit les mêmes ids partout."""
     i = indent
     w(f"{i}Group #Tabs {{")
     w(f"{i}  LayoutMode: Left;")

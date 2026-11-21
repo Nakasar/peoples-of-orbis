@@ -500,6 +500,22 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
         return out;
     }
 
+    /** Bâtiments de lieu-dit du peuple `people` (un par genre : Mine, Ferme…), triés par id. */
+    public static List<Workshop> hamlets(People people) {
+        List<Workshop> out = new ArrayList<>();
+        AssetStore<String, Workshop, DefaultAssetMap<String, Workshop>> store = getAssetStore();
+        if (store == null || people == null) {
+            return out;
+        }
+        for (Workshop w : store.getAssetMap().getAssetMap().values()) {
+            if (w != null && w.hamlet != null && people.id().equals(w.people)) {
+                out.add(w);
+            }
+        }
+        out.sort((a, b) -> a.id.compareTo(b.id));
+        return out;
+    }
+
     /** Bâtiment dont on tire les commandes (son propre id, ou celui de la place 1 d'un ouvrage). */
     public String orders() {
         return orders != null ? orders : id;
