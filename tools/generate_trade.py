@@ -201,6 +201,8 @@ def trade_page(theme_id):
     w("      Group {")
     w("        LayoutMode: Left;")
     w("        Anchor: (Height: 48, Top: 8);")
+    # Besoins et commandes du village (world/TradeNeeds), à côté de la règle.
+    w(f'        {label("Needs", "@SmallWrap", extra=" FlexWeight: 1; Visible: false;")}')
     w(f'        {label("Rule", "@SmallWrap", extra=" FlexWeight: 1;")}')
     w("      }")
     w("    }")

@@ -2046,7 +2046,12 @@ ce qu'il faut et exporte. Choix de Kevin le même jour : le conseil réserve un 
   charge une case de commande pleine sans prendre au dépôt. `TradeNeeds.delivered` : +2 de relation, première
   livraison annoncée au demandeur. `TradeRoutes.drop` → `routeDropped`.
 - **Paroles** : `Rumours.all` (commandes et besoins portés), action de dialogue `Rumour` (une fois sur deux, une
-  nouvelle du sac du PNJ), onglet Commerce (`#Rule` remplacé par `TradeNeeds.pageLine` quand il y a quelque chose).
+  nouvelle du sac du PNJ), onglet Commerce (label `#Needs` à côté de `#Rule`, `TradeNeeds.pageLine`).
+- Relecture (PR #17) : `respond` rejoué quand une nouvelle est réentendue un autre jour ; route fermée → toutes ses
+  commandes finissent (`end.route`), pas de réouverture ; case de commande rendue sur une route de joueur à la fin ;
+  commandes du receveur exclues de son budget (`TradeRoutes.paying`) ; couverture jugée par `TradeAccess.available`
+  (`lacks`) ; `orderedProduce` limité à la route de l'acheteur ; plafond `AUTO_MAX` respecté ; rumeurs de commandes
+  limitées à 4.
 - Commande `/monde besoins [--faire liste|matin|dire] [--vers village]`. Textes écrits à la main en fin des fichiers
   de langue (bloc « Échanges commerciaux nés des besoins »).
 - Écarts / limites : les avant-postes (fondation posée par un joueur) ne sont jamais bâtis par le conseil ; les

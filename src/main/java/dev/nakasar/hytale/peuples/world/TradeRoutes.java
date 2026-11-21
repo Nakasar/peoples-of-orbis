@@ -533,7 +533,7 @@ public final class TradeRoutes {
         for (String item : r.importsOf(receiver)) {
             (orders.contains(item) ? out : cases).add(item);
         }
-        int budget = weight(r.exportsOf(receiver)) + r.credit(receiver);
+        int budget = weight(paying(world, r, receiver)) + r.credit(receiver);
         cases.sort((x, y) -> TradeGoods.grade(y).weight() - TradeGoods.grade(x).weight());
         while (!cases.isEmpty() && weight(cases) > budget) {
             cases.remove(0);
@@ -542,11 +542,29 @@ public final class TradeRoutes {
         return out;
     }
 
+    /** Ce qu'envoie `id` et qui paie ses importations : ses exportations sans ses commandes (offertes, hors équilibre). */
+    static List<String> paying(World world, Route r, String id) {
+        List<String> out = new ArrayList<>(r.exportsOf(id));
+        out.removeAll(TradeNeeds.ordered(world, id, r.other(id)));
+        return out;
+    }
+
+    /** Routes autonomes du monde (plafond {@value #AUTO_MAX}, conseil et commandes). */
+    static int autoCount(World world) {
+        int n = 0;
+        for (Route r : all(world)) {
+            if (r.auto) {
+                n++;
+            }
+        }
+        return n;
+    }
+
     /** Débite le crédit de `receiver` du manque de poids de ce que la caravane porte vraiment. */
     static void spendCredit(World world, Route r, String receiver, List<String> loaded) {
         List<String> counted = new ArrayList<>(loaded);
         counted.removeAll(TradeNeeds.ordered(world, r.other(receiver), receiver));
-        int used = weight(counted) - weight(r.exportsOf(receiver));
+        int used = weight(counted) - weight(paying(world, r, receiver));
         if (used > 0) {
             r.addCredit(receiver, -Math.min(used, r.credit(receiver)));
         }

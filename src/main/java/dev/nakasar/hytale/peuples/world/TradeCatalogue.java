@@ -96,7 +96,7 @@ public final class TradeCatalogue {
             }
         }
         // Commandes (échanges nés des besoins) : ce qu'un de ses bâtiments ouverts vend, même au niveau I.
-        for (String item : TradeNeeds.orderedProduce(world, v)) {
+        for (String item : TradeNeeds.orderedProduce(world, v, exceptRoute)) {
             out.putIfAbsent(item, Source.WORKSHOP);
         }
         // Réexportation (Kevin : toute ressource importée, dès le niveau I, tant que sa route d'origine est active).

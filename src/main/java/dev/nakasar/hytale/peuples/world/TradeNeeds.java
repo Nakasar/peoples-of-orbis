@@ -396,18 +396,25 @@ public final class TradeNeeds {
             }
         }
         put(world, key, day + "|" + hops);
-        trim(world, holder);
-        if (was == null) {
+        trim(world, holder, key);
+        // Réentendue un autre jour : le lieu y repense (une place d'engagement a pu se libérer, un atelier ouvrir).
+        if (was == null || !was.startsWith(day + "|")) {
             respond(world, store, holder, n, day, kind);
         }
     }
 
     /** Un lieu ne garde que ses {@value #MAX_KNOWN} nouvelles les plus fraîches. */
-    private static void trim(World world, Village holder) {
+    private static void trim(World world, Village holder, String keep) {
         List<News> all = known(world, holder);
-        for (int i = MAX_KNOWN; i < all.size(); i++) {
-            News n = all.get(i);
-            put(world, KNOWN + holder.id() + "|" + n.village() + "|" + n.item(), null);
+        int kept = 0;
+        for (News n : all) {
+            String key = KNOWN + holder.id() + "|" + n.village() + "|" + n.item();
+            if (key.equals(keep)) {
+                continue; // la nouvelle qu'on vient d'apprendre reste toujours
+            }
+            if (++kept >= MAX_KNOWN) {
+                put(world, key, null);
+            }
         }
     }
 
@@ -477,10 +484,12 @@ public final class TradeNeeds {
     }
 
     /** Objets que le village produit pour ses commandes grâce à un bâtiment ouvert (catalogue des routes). */
-    static Set<String> orderedProduce(World world, Village v) {
+    static Set<String> orderedProduce(World world, Village v, String route) {
         Set<String> out = new LinkedHashSet<>();
         for (Pledge p : pledges(world)) {
-            if (p.state != State.BUILD && p.supplier.equals(v.id()) && workshopMakes(v, p.item)) {
+            // Pour une route donnée : seulement les commandes de son acheteur (pas sur les autres routes du fournisseur).
+            if (p.state != State.BUILD && p.supplier.equals(v.id()) && (route == null || route.equals(Links.key(p.supplier, p.buyer)))
+                    && workshopMakes(v, p.item)) {
                 out.add(p.item);
             }
         }
@@ -647,8 +656,8 @@ public final class TradeNeeds {
                 continue;
             }
             TradeRoutes.Route r = TradeRoutes.between(world, supplier, buyer);
-            if (p.state == State.OPEN && !needed(world, buyer, p.item) && (r == null || !r.exportsOf(supplier.id()).contains(p.item))) {
-                remove(world, p); // un autre l'a couvert avant que la caravane parte : rien à annoncer
+            if (p.state == State.OPEN && !lacks(world, buyer, p.item, day) && (r == null || !r.exportsOf(supplier.id()).contains(p.item))) {
+                release(world, p); // un autre l'a couvert avant que la caravane parte : rien à annoncer
                 continue;
             }
             if (r == null && p.state == State.ACTIVE) {
@@ -658,6 +667,9 @@ public final class TradeNeeds {
             if (r == null) {
                 Message why = supplier.isHamlet() ? TradeRoutes.blocked(world, buyer, supplier, day)
                         : TradeRoutes.blocked(world, supplier, buyer, day);
+                if (why == null && TradeRoutes.autoCount(world) >= TradeRoutes.AUTO_MAX) {
+                    why = Message.raw("auto"); // plafond des routes autonomes du monde : on attend qu'une se libère
+                }
                 if (why != null) {
                     if (day - p.since > WAIT_DAYS) {
                         end(world, p, supplier, buyer, "end.noRoute");
@@ -716,7 +728,7 @@ public final class TradeNeeds {
         if (s.working()) {
             return;
         }
-        if (!needed(world, buyer, p.item)) {
+        if (!lacks(world, buyer, p.item, day)) {
             // Le demandeur a trouvé ailleurs : le terrain est rendu tant que les travaux n'ont pas commencé.
             Plots.reserveByVillage(supplier, plot, null);
             end(world, p, supplier, buyer, "end.covered");
@@ -739,7 +751,7 @@ public final class TradeNeeds {
     }
 
     private static void end(World world, Pledge p, Village supplier, Village buyer, String why) {
-        remove(world, p);
+        release(world, p);
         announce(world, supplier, Message.translation(KEYS + why).param("buyer", buyer.name()).param("item", VillageBoard.itemName(p.item)));
         log("%s → %s (%s) : engagement fini (%s)", supplier.id(), buyer.id(), p.item, why);
     }
@@ -767,11 +779,34 @@ public final class TradeNeeds {
     /** Une route est fermée ou rompue : ses commandes tombent. */
     static void routeDropped(World world, String a, String b) {
         for (Pledge p : pledges(world)) {
-            if ((p.supplier.equals(a) && p.buyer.equals(b)) || (p.supplier.equals(b) && p.buyer.equals(a))) {
-                if (p.state == State.ACTIVE) {
-                    remove(world, p);
-                }
+            boolean pair = (p.supplier.equals(a) && p.buyer.equals(b)) || (p.supplier.equals(b) && p.buyer.equals(a));
+            if (!pair || p.state == State.BUILD) {
+                continue;
             }
+            // Route fermée (souvent par un joueur) : la commande s'arrête, le conseil ne rouvre pas la route de lui-même.
+            Village s = Villages.registry(world).byId(p.supplier);
+            Village b2 = Villages.registry(world).byId(p.buyer);
+            if (s != null && b2 != null) {
+                end(world, p, s, b2, "end.route");
+            } else {
+                remove(world, p);
+            }
+        }
+    }
+
+    /** Le demandeur manque-t-il encore de l'objet (ni produit, ni importé) ? Plus large que sa liste plafonnée. */
+    static boolean lacks(World world, Village buyer, String item, long day) {
+        return !TradeAccess.available(world, buyer, item, day);
+    }
+
+    /** Retire l'engagement ; sur une route tenue par un joueur, sa case de commande est rendue. */
+    private static void release(World world, Pledge p) {
+        remove(world, p);
+        Village s = Villages.registry(world).byId(p.supplier);
+        Village b = Villages.registry(world).byId(p.buyer);
+        TradeRoutes.Route r = s == null || b == null ? null : TradeRoutes.between(world, s, b);
+        if (r != null && !r.auto() && r.exportsOf(p.supplier).remove(p.item)) {
+            TradeRoutes.save(world, r);
         }
     }
 
@@ -840,7 +875,9 @@ public final class TradeNeeds {
     /** Rumeurs du commerce né des besoins : commandes en cours et besoins que portent les voyageurs (au plus 4). */
     static List<Message> rumours(World world, long day) {
         List<Message> out = new ArrayList<>();
-        for (Pledge p : pledges(world)) {
+        List<Pledge> all = pledges(world);
+        Collections.shuffle(all, ThreadLocalRandom.current());
+        for (Pledge p : all.subList(0, Math.min(4, all.size()))) {
             Village s = Villages.registry(world).byId(p.supplier);
             Village b = Villages.registry(world).byId(p.buyer);
             if (s == null || b == null) {

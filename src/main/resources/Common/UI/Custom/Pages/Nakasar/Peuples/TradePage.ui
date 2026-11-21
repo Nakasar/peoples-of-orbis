@@ -541,6 +541,7 @@ $C.@PageOverlay {
       Group {
         LayoutMode: Left;
         Anchor: (Height: 48, Top: 8);
+        Label #Needs { Style: @SmallWrap; Text: ""; FlexWeight: 1; Visible: false; }
         Label #Rule { Style: @SmallWrap; Text: ""; FlexWeight: 1; }
       }
     }

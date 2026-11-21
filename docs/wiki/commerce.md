@@ -64,12 +64,12 @@ Deux luxes posés au dépôt prolongent l'accès de 3 jours quand il touche à s
 
 Chaque matin, un village fait la liste de ce qui lui manque (trois choses au plus) : les ressources du jour de ses
 ateliers qu'il ne produit ni n'importe, un luxe quand il lui en manque pour grandir, et ce qu'attend un bâtiment qu'il a
-promis de bâtir pour un autre village. Le **Commerce** du panneau affiche ces besoins à la place de la règle quand il y
-en a.
+promis de bâtir pour un autre village. L'onglet **Commerce** du panneau affiche ces besoins et les commandes en cours, à
+côté de la règle des routes.
 
 Personne ne connaît ces besoins d'office : ce sont les gens de passage qui les portent. Un voyageur, une caravane de
 commerce ou un marchand de lieu-dit part avec les besoins de son village et ce qu'on y a appris ; à son arrivée, le
-village l'apprend à son tour. Les lieux-dits servent de relais : ils retiennent ce que leur disent les marchands et le
+village l'apprend à son tour, et y repense chaque jour où on le lui redit. Les lieux-dits servent de relais : ils retiennent ce que leur disent les marchands et le
 racontent aux suivants. Le **Klops errant** porte les nouvelles d'un arrêt à l'autre, aussi loin soient-ils. Une
 nouvelle passe par quatre mains au plus et s'oublie au bout de 20 jours. Demandez des nouvelles aux voyageurs : ils
 parlent volontiers de ce qu'ils portent (« À Givrelande, on manque de sel… »).
@@ -89,7 +89,7 @@ place libre. Une **commande** a toujours sa case et ne compte pas dans l'équili
 même s'il n'a rien d'aussi lourd à rendre. Le bâtiment qui la produit remplit la case. Chaque livraison d'une commande
 rapproche les deux villages (+2 de relation). Un besoin n'a qu'un fournisseur, le premier qui l'apprend, et un village
 tient deux commandes au plus. La commande s'arrête si le fournisseur ne produit plus pendant 7 jours ou si la route est
-fermée ; la promesse tombe si aucune route ne peut s'ouvrir en 14 jours ou si le chantier n'a pas commencé en 21 jours.
+fermée (le conseil ne la rouvre pas de lui-même) ; la promesse tombe si aucune route ne peut s'ouvrir en 14 jours ou si le chantier n'a pas commencé en 21 jours.
 
 ## Sur la route
 
