@@ -456,12 +456,12 @@ BLACK_EXTRA = {
 # generate_slothians.py) : (objet, nombre, faveurs).
 RECEL = {
     "Kweebec": [("Weapon_Battleaxe_Stone_Trork", 1, 2), ("Weapon_Mace_Crude", 1, 1), ("Weapon_Club_Crude", 1, 1),
-                ("Ingredient_Hide_Medium", 4, 1), ("Ingredient_Bone_Fragment", 8, 1)],
-    "Trork": [("Ingredient_Hide_Light", 6, 1), ("Ingredient_Hide_Medium", 4, 1), ("Ingredient_Bone_Fragment", 8, 1),
+                ("Ingredient_Hide_Medium", 4, 1), ("Ingredient_Bone_Fragment", 12, 1)],
+    "Trork": [("Ingredient_Hide_Light", 6, 1), ("Ingredient_Hide_Medium", 4, 1), ("Ingredient_Bone_Fragment", 12, 1),
               ("Weapon_Daggers_Bone", 1, 1)],
-    "Feran": [("Ingredient_Chitin_Sturdy", 4, 1), ("Ingredient_Bone_Fragment", 8, 1), ("Ingredient_Hide_Scaled", 4, 1)],
-    "Renonce": [("Ingredient_Hide_Dark", 4, 1), ("Ingredient_Ice_Essence", 4, 1), ("Ingredient_Bone_Fragment", 8, 1)],
-    "Slothian": [("Ingredient_Void_Essence", 4, 1), ("Ingredient_Voidheart", 1, 3), ("Ingredient_Bone_Fragment", 8, 1)],
+    "Feran": [("Ingredient_Chitin_Sturdy", 4, 1), ("Ingredient_Bone_Fragment", 12, 1), ("Ingredient_Hide_Scaled", 4, 1)],
+    "Renonce": [("Ingredient_Hide_Dark", 4, 1), ("Ingredient_Ice_Essence", 4, 1), ("Ingredient_Bone_Fragment", 12, 1)],
+    "Slothian": [("Ingredient_Void_Essence", 4, 1), ("Ingredient_Voidheart", 1, 3), ("Ingredient_Bone_Fragment", 12, 1)],
 }
 
 

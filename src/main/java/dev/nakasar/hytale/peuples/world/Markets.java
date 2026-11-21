@@ -102,6 +102,8 @@ public final class Markets {
     /** PNJ posés : marchand de passage et commis, par village ; et le village de chaque PNJ. */
     private static final Map<String, Ref<EntityStore>> GUEST_NPC = new ConcurrentHashMap<>();
     private static final Map<String, Ref<EntityStore>> CLERK_NPC = new ConcurrentHashMap<>();
+    /** Spécialité du commis posé : changée (reconversion), il est remplacé. */
+    private static final Map<String, String> CLERK_SPEC = new ConcurrentHashMap<>();
     private static final Map<Ref<EntityStore>, String> VILLAGE_OF = new ConcurrentHashMap<>();
     private static final Map<String, Place> PLACES = new ConcurrentHashMap<>();
 
@@ -674,7 +676,8 @@ public final class Markets {
         }
         // Le receleur du marché noir ne vient qu'à la nuit tombée.
         boolean absent = BLACK.equals(spec) && !GameClock.isNight(store);
-        if (spec == null || !near || absent) {
+        boolean changed = npc != null && !java.util.Objects.equals(spec, CLERK_SPEC.get(v.id()));
+        if (spec == null || !near || absent || changed) {
             if (npc != null) {
                 CLERK_NPC.remove(v.id());
                 VILLAGE_OF.remove(npc);
@@ -688,6 +691,7 @@ public final class Markets {
             npc = WorldLife.spawn(store, role, p.stand(COUNTER), p.yaw());
             if (npc != null) {
                 CLERK_NPC.put(v.id(), npc);
+                CLERK_SPEC.put(v.id(), spec);
                 VILLAGE_OF.put(npc, v.id());
                 WorldLife.talker(npc, (w, s, player, playerRef, ref) -> open(w, s, player, playerRef, ref, dialogue));
             }
@@ -890,6 +894,7 @@ public final class Markets {
     public static void clearAll() {
         GUEST_NPC.clear();
         CLERK_NPC.clear();
+        CLERK_SPEC.clear();
         VILLAGE_OF.clear();
         PLACES.clear();
     }
