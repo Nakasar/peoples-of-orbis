@@ -133,10 +133,12 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
             page.wanted = shopId;
             return page;
         }
-        ShopPage page = new ShopPage(playerRef, village, SINGLE + shopId, 0);
-        // Boutique des voyageurs : l'étal de passage du marché si son marchand y est posté (vu à l'affichage).
-        page.wanted = shopId.startsWith("Nakasar_Peuples_Travel_") ? shopId : null;
-        return page;
+        return new ShopPage(playerRef, village, SINGLE + shopId, 0);
+    }
+
+    /** Page du marché du village ouverte sur l'étal du marchand de passage (world/Markets.guestShop seulement). */
+    public static ShopPage guest(PlayerRef playerRef, Village village) {
+        return new ShopPage(playerRef, village, GUEST, 0);
     }
 
     static String layout(People people) {
@@ -325,13 +327,6 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
         cmd.append(layout(v == null ? null : v.people()));
         if (v == null) {
             return;
-        }
-        if (wanted != null && stand.startsWith(SINGLE)) {
-            Markets.Guest g = Markets.guest(world, v);
-            if (g != null && wanted.equals(Travellers.shop(g.people()))) {
-                stand = GUEST;
-            }
-            wanted = null;
         }
         boolean inMarket = !stand.startsWith(SINGLE);
         List<Stand> market = inMarket ? market(world, store, ref, v) : List.of();

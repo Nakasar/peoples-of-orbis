@@ -83,6 +83,8 @@ public final class Markets {
     public static final int MAX_ORDERS = 3;
     public static final int ORDER_LOTS = 3;
     public static final int ORDER_FEE = 1;
+    /** Une commande non retirée est oubliée après ce nombre de jours (le marché ne reste pas bloqué). */
+    public static final int ORDER_DAYS = 14;
     /** Chance qu'un marchand de passage achète le dépôt-vente (sûr au jour de marché). */
     private static final double GUEST_BUYS = 0.5;
 
@@ -372,9 +374,20 @@ public final class Markets {
         return false;
     }
 
-    /** Ce que le dépôt-vente accepte : une marchandise que le village peut échanger (ni faveur ni objet du mod). */
-    public static boolean consignable(Village host, String item) {
-        return item != null && !item.startsWith("Nakasar_") && TradeGoods.allowed(host.people(), item);
+    /**
+     * Les marchandises que le dépôt-vente accepte : ce que vendent les marchands itinérants des cinq peuples et les
+     * luxes, que le village peut échanger. Un bloc quelconque (terre, pierre) n'a pas d'acheteur.
+     */
+    public static java.util.Set<String> consignable(Store<EntityStore> store, Village host) {
+        java.util.Set<String> out = new java.util.HashSet<>();
+        for (People origin : People.values()) {
+            for (Offer o : travelOffers(store, origin)) {
+                out.add(o.item());
+            }
+        }
+        out.addAll(TradeGoods.luxuryItems());
+        out.removeIf(item -> item.startsWith("Nakasar_") || !TradeGoods.allowed(host.people(), item));
+        return out;
     }
 
     /** Au plus un chargement de route du niveau III par dépôt. */
@@ -488,6 +501,12 @@ public final class Markets {
                                 .param("luxury", lux == null ? Message.raw("?") : VillageBoard.itemName(lux.item())), NotificationStyle.Default);
             }
             for (Order o : orders(world, v)) {
+                if (day - o.day() > ORDER_DAYS) {
+                    cancelOrder(world, v, UUID.fromString(o.player()));
+                    tell(world, o.player(), Message.translation(KEYS + "order.expired").param("village", v.name())
+                            .param("item", VillageBoard.itemName(o.item())).param("days", ORDER_DAYS), NotificationStyle.Warning);
+                    continue;
+                }
                 if (!o.ready() && TradeAccess.has(world, v, o.item(), day)) {
                     ready(world, v, o, Message.translation(KEYS + "order.readyImport").param("village", v.name()).param("count", o.count())
                             .param("item", VillageBoard.itemName(o.item())));
@@ -533,7 +552,10 @@ public final class Markets {
         for (Village v : Villages.registry(world).all()) {
             Place p = place(v);
             if (p == null) {
+                // Place brûlée ou pas encore bâtie : comptoir à recoller et marchand à replacer après la reconstruction.
                 dropNpcs(store, v.id());
+                part(world).remove(COUNTER_MARK + v.id());
+                part(world).remove(MOVED + v.id());
                 continue;
             }
             if (!part(world).containsKey(MOVED + v.id())) {
@@ -664,7 +686,13 @@ public final class Markets {
             DialogueSpeech.say(player, Message.translation(KEYS + "guest.rank").param("village", from.name()));
             return false;
         }
-        return dev.nakasar.hytale.peuples.reputation.Shops.open(store, ref, player, host, Travellers.shop(g.people()));
+        com.hypixel.hytale.server.core.entity.entities.Player p = store.getComponent(ref,
+                com.hypixel.hytale.server.core.entity.entities.Player.getComponentType());
+        if (p == null) {
+            return false;
+        }
+        p.getPageManager().openCustomPage(ref, store, dev.nakasar.hytale.peuples.reputation.ShopPage.guest(player, host));
+        return true;
     }
 
     /** Peuples dont l'étal du comptoir est ouvert (visite de moins de {@value #VISIT_DAYS} jours), le plus récent d'abord. */
@@ -732,7 +760,7 @@ public final class Markets {
         }
         long day = GameClock.day(store);
         Guest g = guest(world, host);
-        boolean ready = (g != null && g.people() == offer.origin()) || TradeAccess.has(world, host, offer.item(), day);
+        boolean ready = (g != null && g.people() == offer.origin() && carries(store, g.people(), offer.item())) || TradeAccess.has(world, host, offer.item(), day);
         save(world, new Order(host.id(), player.toString(), offer.item(), offer.count(), offer.total(), offer.origin(), ready, day));
         return null;
     }
@@ -746,6 +774,9 @@ public final class Markets {
         if (consignment(world, host, player) != null) {
             return Message.translation(KEYS + "consign.already");
         }
+        if (!consignable(store, host).contains(item)) {
+            return Message.translation(KEYS + "consign.none").param("village", host.name());
+        }
         int taken = WorldLife.take(store, ref, item::equals, consignMax(item));
         if (taken <= 0) {
             return Message.translation(KEYS + "consign.none").param("village", host.name());
@@ -757,7 +788,7 @@ public final class Markets {
 
     /** Retire le produit des ventes et la commande prête (payée en faveurs du village). */
     public static boolean collect(World world, Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef player, Village host) {
-        if (host == null || specialty(host) == null) {
+        if (host == null) {
             DialogueSpeech.say(player, Message.translation(KEYS + "order.notHere"));
             return false;
         }
@@ -771,6 +802,13 @@ public final class Markets {
             lines.add(Message.translation(KEYS + "consign.proceeds").param("price", gain));
         }
         Consignment c = consignment(world, host, uuid);
+        if (c != null && !interior(host)) {
+            // Plus de dépôt-vente (reconversion, place brûlée) : le commis rend les marchandises.
+            part(world).remove(CONSIGN + host.id() + "|" + uuid);
+            Requests.give(store, ref, new ItemStack(c.item(), c.count()));
+            lines.add(Message.translation(KEYS + "consign.returned").param("count", c.count()).param("item", VillageBoard.itemName(c.item())));
+            c = null;
+        }
         if (c != null) {
             lines.add(Message.translation(KEYS + "consign.waiting").param("count", c.count()).param("item", VillageBoard.itemName(c.item())));
         }

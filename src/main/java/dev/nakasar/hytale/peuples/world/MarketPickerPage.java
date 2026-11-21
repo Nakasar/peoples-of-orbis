@@ -82,10 +82,11 @@ public final class MarketPickerPage extends InteractiveCustomUIPage<MarketPicker
     /** Ce que le joueur porte et que le village peut vendre : objet = nombre porté. */
     private static Map<String, Integer> carried(Store<EntityStore> store, Ref<EntityStore> ref, Village host) {
         Map<String, Integer> out = new LinkedHashMap<>();
+        java.util.Set<String> goods = Markets.consignable(store, host);
         CombinedItemContainer inv = InventoryComponent.getCombined(store, ref, InventoryComponent.HOTBAR_STORAGE_BACKPACK);
         for (short slot = 0; slot < inv.getCapacity(); slot++) {
             ItemStack stack = inv.getItemStack(slot);
-            if (!ItemStack.isEmpty(stack) && Markets.consignable(host, stack.getItemId())) {
+            if (!ItemStack.isEmpty(stack) && goods.contains(stack.getItemId())) {
                 out.merge(stack.getItemId(), stack.getQuantity(), Integer::sum);
             }
         }

@@ -37,13 +37,14 @@ Le commis prend aussi vos **commandes** (rang Ami) : choisissez une marchandise 
 apporter. Le comptoir l'achète au premier marchand de ce peuple qui passe, ou la reçoit par une
 [route commerciale](commerce.md). En attendant, le village fait savoir aux voyageurs qu'il la cherche (besoin
 « commandé au comptoir »). Une commande vaut trois lots ; elle se paie en faveurs du village quand vous la retirez. Le
-comptoir garde 3 commandes en cours, une par joueur.
+comptoir garde 3 commandes en cours, une par joueur ; une commande non retirée est oubliée après 14 jours.
 
 ### Marché intérieur
 
-- **Dépôt-vente** : laissez au commis des marchandises que le village peut échanger, jusqu'à un chargement (32 communes,
-  12 fines ou 4 luxes). Elles se vendent au prochain marchand de passage (une chance sur deux) ou à coup sûr au jour de
-  marché. Le produit, en faveurs du village, vous attend chez le commis.
+- **Dépôt-vente** : laissez au commis des marchandises que vendent les marchands itinérants, ou un luxe, jusqu'à un
+  chargement (32 communes, 12 fines ou 4 luxes). Les blocs ordinaires n'ont pas d'acheteur. Elles se vendent au prochain marchand de passage (une chance sur deux) ou à coup sûr au jour de
+  marché. Le produit, en faveurs du village, vous attend chez le commis. Si le marché change de spécialité, le commis vous rend
+  ce qui n'est pas vendu.
 - **Commandes aux marchands itinérants** : comme au marché extérieur.
 - **Jour de marché** : un jour sur sept (pas le même d'un village à l'autre). Le village l'annonce le matin, un
   marchand d'un village voisin vient à coup sûr, le dépôt-vente vend tout, et l'étal **Jour de marché** ouvre dans

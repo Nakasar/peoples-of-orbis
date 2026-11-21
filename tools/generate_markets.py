@@ -221,6 +221,8 @@ def texts():
       "The {village} counter received your order ({count} {item}) by trade route.")
     t(k + "order.wanted", "Le comptoir de {village} cherche {item} : il le fait savoir aux voyageurs.",
       "The {village} counter is looking for {item}: it tells travellers.")
+    t(k + "order.expired", "Votre commande de {item} au marché de {village} est oubliée après {days} jours.",
+      "Your order of {item} at the {village} market is dropped after {days} days.")
     t(k + "order.notReady", "Votre commande attend encore un marchand qui en porte.", "Your order is still waiting for a merchant who carries some.")
     t(k + "order.noFavors", "Il faut {price} faveurs de {people} pour retirer la commande.",
       "You need {price} {people} favours to collect the order.")
@@ -246,6 +248,8 @@ def texts():
       "The {village} consignment sold your {count} {item}: {price} favours are waiting for you.")
     t(k + "consign.proceeds", "Vous retirez {price} faveurs du dépôt-vente.", "You collect {price} favours from the consignment stall.")
     t(k + "consign.waiting", "Vos {count} {item} attendent encore un acheteur.", "Your {count} {item} are still waiting for a buyer.")
+    t(k + "consign.returned", "Le dépôt-vente est fermé : le commis vous rend vos {count} {item}.",
+      "The consignment stall is closed: the clerk gives back your {count} {item}.")
     t(k + "collect.nothing", "Je n'ai rien pour vous pour l'instant.", "I have nothing for you yet.")
     t(k + "depot.placed", "Le dépôt-vente du marché de {village} ouvre ses étagères.", "The {village} market consignment stall opens.")
     # Jours de marché du marché intérieur.
