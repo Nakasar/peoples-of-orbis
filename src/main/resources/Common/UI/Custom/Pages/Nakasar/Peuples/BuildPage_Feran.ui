@@ -319,201 +319,264 @@ $C.@PageOverlay {
           LayoutMode: Top;
           FlexWeight: 1;
           Anchor: (Right: 12);
+          Label #WhereLabel { Anchor: (Height: 16, Bottom: 2); Style: @Head; Text: ""; }
           Group {
             LayoutMode: Left;
-            Anchor: (Height: 32, Bottom: 6);
-            Label #WhereLabel { Anchor: (Width: 76); Style: @Head; Text: ""; }
+            Anchor: (Height: 44, Bottom: 6);
             Button #Where0 {
-              Anchor: (Width: 92, Height: 32, Right: 4);
+              Anchor: (Height: 44, Right: 4);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 4);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
-                Group {
-                  LayoutMode: Left;
-                  FlexWeight: 1;
-                  Group { Anchor: (Width: 22, Height: 22, Right: 4); Background: (TexturePath: "Board/Place_Village.png"); }
-                  Label #WhereName0 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn0 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
                 }
-                Group #WhereOn0 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Village.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName0 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
             }
             Button #Where1 {
-              Anchor: (Width: 92, Height: 32, Right: 4);
+              Anchor: (Height: 44, Right: 4);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 4);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
-                Group {
-                  LayoutMode: Left;
-                  FlexWeight: 1;
-                  Group { Anchor: (Width: 22, Height: 22, Right: 4); Background: (TexturePath: "Board/Place_Plot.png"); }
-                  Label #WhereName1 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn1 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
                 }
-                Group #WhereOn1 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Plot.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName1 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
             }
             Button #Where2 {
-              Anchor: (Width: 92, Height: 32, Right: 4);
+              Anchor: (Height: 44, Right: 4);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 4);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
-                Group {
-                  LayoutMode: Left;
-                  FlexWeight: 1;
-                  Group { Anchor: (Width: 22, Height: 22, Right: 4); Background: (TexturePath: "Board/Place_Outpost.png"); }
-                  Label #WhereName2 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn2 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
                 }
-                Group #WhereOn2 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Outpost.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName2 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
             }
             Button #Where3 {
-              Anchor: (Width: 92, Height: 32, Right: 4);
+              Anchor: (Height: 44, Right: 4);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 4);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
-                Group {
-                  LayoutMode: Left;
-                  FlexWeight: 1;
-                  Group { Anchor: (Width: 22, Height: 22, Right: 4); Background: (TexturePath: "Board/Place_Work.png"); }
-                  Label #WhereName3 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn3 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
                 }
-                Group #WhereOn3 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Work.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName3 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
             }
             Button #Where4 {
-              Anchor: (Width: 92, Height: 32, Right: 4);
+              Anchor: (Height: 44);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 4);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
-                Group {
-                  LayoutMode: Left;
-                  FlexWeight: 1;
-                  Group { Anchor: (Width: 22, Height: 22, Right: 4); Background: (TexturePath: "Board/Place_Hamlet.png"); }
-                  Label #WhereName4 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn4 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
                 }
-                Group #WhereOn4 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Hamlet.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName4 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
             }
           }
+          Label #SeekLabel { Anchor: (Height: 16, Bottom: 2); Style: @Head; Text: ""; }
           Group {
             LayoutMode: Left;
             Anchor: (Height: 32, Bottom: 10);
-            Label #SeekLabel { Anchor: (Width: 76); Style: @Head; Text: ""; }
             Button #Seek0 {
-              Anchor: (Width: 74, Height: 32, Right: 3);
+              Anchor: (Height: 32, Right: 3);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 3);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn0 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
+                }
                 Group {
                   LayoutMode: Left;
-                  FlexWeight: 1;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
                   ItemIcon #SeekIcon0 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
                   Label #SeekName0 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
                 }
-                Group #SeekOn0 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
             }
             Button #Seek1 {
-              Anchor: (Width: 74, Height: 32, Right: 3);
+              Anchor: (Height: 32, Right: 3);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 3);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn1 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
+                }
                 Group {
                   LayoutMode: Left;
-                  FlexWeight: 1;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
                   ItemIcon #SeekIcon1 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
                   Label #SeekName1 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
                 }
-                Group #SeekOn1 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
             }
             Button #Seek2 {
-              Anchor: (Width: 74, Height: 32, Right: 3);
+              Anchor: (Height: 32, Right: 3);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 3);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn2 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
+                }
                 Group {
                   LayoutMode: Left;
-                  FlexWeight: 1;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
                   ItemIcon #SeekIcon2 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
                   Label #SeekName2 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
                 }
-                Group #SeekOn2 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
             }
             Button #Seek3 {
-              Anchor: (Width: 74, Height: 32, Right: 3);
+              Anchor: (Height: 32, Right: 3);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 3);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn3 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
+                }
                 Group {
                   LayoutMode: Left;
-                  FlexWeight: 1;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
                   ItemIcon #SeekIcon3 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
                   Label #SeekName3 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
                 }
-                Group #SeekOn3 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
             }
             Button #Seek4 {
-              Anchor: (Width: 74, Height: 32, Right: 3);
+              Anchor: (Height: 32, Right: 3);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 3);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn4 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
+                }
                 Group {
                   LayoutMode: Left;
-                  FlexWeight: 1;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
                   ItemIcon #SeekIcon4 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
                   Label #SeekName4 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
                 }
-                Group #SeekOn4 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
             }
             Button #Seek5 {
-              Anchor: (Width: 74, Height: 32, Right: 3);
+              Anchor: (Height: 32);
               Style: $C.@SecondaryButtonStyle;
-              LayoutMode: Left;
-              Padding: (Horizontal: 3);
-              Group {
-                LayoutMode: Top;
-                FlexWeight: 1;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn5 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #e6b552(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #e6b552); }
+                }
                 Group {
                   LayoutMode: Left;
-                  FlexWeight: 1;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
                   ItemIcon #SeekIcon5 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
                   Label #SeekName5 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
                 }
-                Group #SeekOn5 { Anchor: (Height: 2); Background: (Color: #e6b552); Visible: false; }
-              }
             }
           }
           Group {

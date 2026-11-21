@@ -162,7 +162,8 @@ public final class BuildPage extends InteractiveCustomUIPage<BuildPage.Event> {
     private void rail(UICommandBuilder cmd, UIEventBuilder events, List<Entry> all) {
         for (Family f : Family.values()) {
             String n = Integer.toString(f.ordinal());
-            cmd.set("#FamOn" + n + ".Visible", f.ordinal() == family);
+            // Un objet cherché passe outre la famille : aucune famille ne paraît choisie.
+            cmd.set("#FamOn" + n + ".Visible", seek < 0 && f.ordinal() == family);
             cmd.set("#FamIcon" + n + ".ItemId", f.icon);
             cmd.set("#FamName" + n + ".TextSpans", Message.translation(KEYS + "family." + f.key));
             cmd.set("#FamCount" + n + ".TextSpans", Message.translation(KEYS + "familyCount").param("built", count(all, f, true))
