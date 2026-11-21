@@ -282,7 +282,7 @@ $C.@PageOverlay {
               Anchor: (Width: 48, Height: 48, Top: 4, Right: 12);
               Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
               ItemIcon #RowIcon0 { Anchor: (Full: 6); ShowItemTooltip: true; }
-              Label #RowQty0 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: Bottom); Text: ""; }
+              Label #RowQty0 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: End); Text: ""; }
             }
             Group {
               LayoutMode: Top;
@@ -308,7 +308,7 @@ $C.@PageOverlay {
               Anchor: (Width: 48, Height: 48, Top: 4, Right: 12);
               Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
               ItemIcon #RowIcon1 { Anchor: (Full: 6); ShowItemTooltip: true; }
-              Label #RowQty1 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: Bottom); Text: ""; }
+              Label #RowQty1 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: End); Text: ""; }
             }
             Group {
               LayoutMode: Top;
@@ -334,7 +334,7 @@ $C.@PageOverlay {
               Anchor: (Width: 48, Height: 48, Top: 4, Right: 12);
               Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
               ItemIcon #RowIcon2 { Anchor: (Full: 6); ShowItemTooltip: true; }
-              Label #RowQty2 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: Bottom); Text: ""; }
+              Label #RowQty2 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: End); Text: ""; }
             }
             Group {
               LayoutMode: Top;
@@ -360,7 +360,7 @@ $C.@PageOverlay {
               Anchor: (Width: 48, Height: 48, Top: 4, Right: 12);
               Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
               ItemIcon #RowIcon3 { Anchor: (Full: 6); ShowItemTooltip: true; }
-              Label #RowQty3 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: Bottom); Text: ""; }
+              Label #RowQty3 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: End); Text: ""; }
             }
             Group {
               LayoutMode: Top;
@@ -386,7 +386,7 @@ $C.@PageOverlay {
               Anchor: (Width: 48, Height: 48, Top: 4, Right: 12);
               Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
               ItemIcon #RowIcon4 { Anchor: (Full: 6); ShowItemTooltip: true; }
-              Label #RowQty4 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: Bottom); Text: ""; }
+              Label #RowQty4 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: End); Text: ""; }
             }
             Group {
               LayoutMode: Top;
@@ -412,7 +412,7 @@ $C.@PageOverlay {
               Anchor: (Width: 48, Height: 48, Top: 4, Right: 12);
               Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
               ItemIcon #RowIcon5 { Anchor: (Full: 6); ShowItemTooltip: true; }
-              Label #RowQty5 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: Bottom); Text: ""; }
+              Label #RowQty5 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: End); Text: ""; }
             }
             Group {
               LayoutMode: Top;
@@ -438,7 +438,7 @@ $C.@PageOverlay {
               Anchor: (Width: 48, Height: 48, Top: 4, Right: 12);
               Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
               ItemIcon #RowIcon6 { Anchor: (Full: 6); ShowItemTooltip: true; }
-              Label #RowQty6 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: Bottom); Text: ""; }
+              Label #RowQty6 { Anchor: (Right: 4, Bottom: 2, Width: 30, Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: End); Text: ""; }
             }
             Group {
               LayoutMode: Top;

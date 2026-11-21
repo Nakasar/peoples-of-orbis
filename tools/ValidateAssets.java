@@ -2014,7 +2014,8 @@ public class ValidateAssets {
     /**
      * Syntaxe d'une page .ui telle que le client la lit (une erreur déconnecte le client au chargement, pour TOUTES
      * les pages) : un id d'élément {@code #Nom} n'a que lettres et chiffres (le client lit {@code #RouteOut0_0} comme
-     * {@code #RouteOut0} puis attend {@code {}) ; accolades et parenthèses équilibrées hors chaînes et commentaires.
+     * {@code #RouteOut0} puis attend {@code {}) ; accolades et parenthèses équilibrées hors chaînes et commentaires ;
+     * alignements de style parmi {@link #UI_ALIGNMENTS}.
      */
     private static int checkUiSyntax(Path root, Path ui) throws Exception {
         String text = Files.readString(ui);
@@ -2063,8 +2064,23 @@ public class ValidateAssets {
             errors++;
             System.out.println("ERROR " + name + " (" + uiPos(text, open.peek()) + ") : " + text.charAt(open.peek()) + " jamais refermé");
         }
+        Matcher align = UI_ALIGNMENT.matcher(text);
+        while (align.find()) {
+            if (!UI_ALIGNMENTS.contains(align.group(2))) {
+                errors++;
+                System.out.println("ERROR " + name + " (" + uiPos(text, align.start(2)) + ") : " + align.group(1) + "Alignment: "
+                        + align.group(2) + " invalide, le client n'accepte que " + String.join("/", UI_ALIGNMENTS));
+            }
+        }
         return errors;
     }
+
+    /**
+     * Alignements d'un style (type {@code LabelAlignment} côté client) : Start, Center ou End. « Bottom », « Top », « Left »
+     * ou « Right » déconnectent le client au chargement (échoppe, 21 novembre 2026 : {@code VerticalAlignment: Bottom}).
+     */
+    private static final Pattern UI_ALIGNMENT = Pattern.compile("\\b(Horizontal|Vertical)Alignment\\s*:\\s*([A-Za-z]+)");
+    private static final List<String> UI_ALIGNMENTS = List.of("Start", "Center", "End");
 
     /** Position {@code ligne:colonne} (base 1, comme le client) d'un index dans un texte. */
     private static String uiPos(String text, int index) {
