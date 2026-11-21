@@ -71,6 +71,8 @@ public final class Markets {
     public static final String KEYS = "nakasar_peuples.market.";
     public static final String INTERIOR = "Interieur";
     public static final String EXTERIOR = "Exterieur";
+    /** Marché noir (Kevin, 21 novembre 2026) : un receleur la nuit, sans perte de réputation. */
+    public static final String BLACK = "Noir";
     /** tools/generate_markets.py VILLAGE_STALL, GUEST_STALL, COUNTER (coordonnées du prefab, devant = +Z). */
     private static final int[] VILLAGE_STALL = {-4, -2};
     private static final int[] GUEST_STALL = {4, -2};
@@ -190,6 +192,40 @@ public final class Markets {
 
     public static boolean interior(Village v) {
         return INTERIOR.equals(specialty(v));
+    }
+
+    public static boolean black(Village v) {
+        return BLACK.equals(specialty(v));
+    }
+
+    /** Ce que le receleur vend sous le manteau. */
+    public static String blackShop(People people) {
+        return "Nakasar_Peuples_Marche_" + people.id() + "_Noir";
+    }
+
+    /** Le butin des raids que le receleur rachète. */
+    public static String fenceShop(People people) {
+        return "Nakasar_Peuples_Marche_" + people.id() + "_Recel";
+    }
+
+    /** Pourquoi le marché noir est fermé (le jour), ou null s'il est ouvert. */
+    public static Message blackLock(Store<EntityStore> store) {
+        return GameClock.isNight(store) ? null : Message.translation(KEYS + "noir.closed").param("hour", GameClock.DUSK);
+    }
+
+    /** Les étals du receleur : sa vente ou son recel, la nuit seulement. */
+    public static boolean blackShop(World world, Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef player, Village host, boolean fence) {
+        if (host == null || !black(host)) {
+            DialogueSpeech.say(player, Message.translation(KEYS + "order.notHere"));
+            return false;
+        }
+        Message closed = blackLock(store);
+        if (closed != null) {
+            DialogueSpeech.say(player, closed);
+            return false;
+        }
+        return dev.nakasar.hytale.peuples.reputation.Shops.open(store, ref, player, host,
+                fence ? fenceShop(host.people()) : blackShop(host.people()));
     }
 
     /** Vrai le jour de marché du village (marché intérieur seulement). */
@@ -583,12 +619,18 @@ public final class Markets {
         if (!Sites.loaded(world, at[0], at[1])) {
             return;
         }
-        String prefab = "Nakasar/Peuples/Markets/" + v.people().id() + (INTERIOR.equals(spec) ? "_Depot" : "_Comptoir");
+        String prefab = "Nakasar/Peuples/Markets/" + v.people().id() + suffix(spec);
         if (Sites.pastePermanent(world, store, prefab, at[0], p.y(), at[1], p.rot())) {
             part(world).put(COUNTER_MARK + v.id(), mark);
-            WorldLife.announce(world, store, p.x(), p.z(), WorldLife.REAL_RANGE, Message.translation(KEYS
-                    + (INTERIOR.equals(spec) ? "depot.placed" : "counter.placed")).param("village", v.name()), NotificationStyle.Success);
+            String placed = INTERIOR.equals(spec) ? "depot.placed" : BLACK.equals(spec) ? "noir.placed" : "counter.placed";
+            WorldLife.announce(world, store, p.x(), p.z(), WorldLife.REAL_RANGE, Message.translation(KEYS + placed)
+                    .param("village", v.name()), NotificationStyle.Success);
         }
+    }
+
+    /** Prefab et dialogue du comptoir de la spécialité : _Depot, _Noir ou _Comptoir. */
+    private static String suffix(String spec) {
+        return INTERIOR.equals(spec) ? "_Depot" : BLACK.equals(spec) ? "_Noir" : "_Comptoir";
     }
 
     private static void guestNpc(World world, Store<EntityStore> store, Village v, Place p, Guest g, boolean near) {
@@ -630,7 +672,9 @@ public final class Markets {
             VILLAGE_OF.remove(npc);
             npc = null;
         }
-        if (spec == null || !near) {
+        // Le receleur du marché noir ne vient qu'à la nuit tombée.
+        boolean absent = BLACK.equals(spec) && !GameClock.isNight(store);
+        if (spec == null || !near || absent) {
             if (npc != null) {
                 CLERK_NPC.remove(v.id());
                 VILLAGE_OF.remove(npc);
@@ -639,8 +683,9 @@ public final class Markets {
             return;
         }
         if (npc == null && WorldLife.budget(world, 1)) {
-            String dialogue = v.people().id() + (INTERIOR.equals(spec) ? "_Depot" : "_Comptoir");
-            npc = WorldLife.spawn(store, v.people().merchantRole(), p.stand(COUNTER), p.yaw());
+            String dialogue = v.people().id() + suffix(spec);
+            String role = BLACK.equals(spec) ? Travellers.travellerRole(v.people()) : v.people().merchantRole();
+            npc = WorldLife.spawn(store, role, p.stand(COUNTER), p.yaw());
             if (npc != null) {
                 CLERK_NPC.put(v.id(), npc);
                 VILLAGE_OF.put(npc, v.id());

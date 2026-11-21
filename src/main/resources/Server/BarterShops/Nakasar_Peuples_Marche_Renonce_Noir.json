@@ -1,0 +1,122 @@
+{
+  "$Comment": "Marché noir des villages Renonce (receleur de la place du marché, la nuit), généré par tools/generate_markets.py : ce que le peuple refuse d'échanger : luxes d'ailleurs sans route ni terroir, métal, au prix fort.",
+  "DisplayNameKey": "nakasar_peuples.barter.Marche_Renonce_Noir.title",
+  "RefreshInterval": {
+    "Days": 3
+  },
+  "RestockHour": 20,
+  "TradeSlots": [
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Plant_Fruit_Azure",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Renonce",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Leather_Heavy",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Renonce",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Spices",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Renonce",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Crystal_Purple",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Renonce",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Bar_Gold",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Renonce",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Bolt_Silk",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Renonce",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Bar_Thorium",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Renonce",
+            "Quantity": 8
+          }
+        ],
+        "Stock": 2
+      }
+    }
+  ]
+}

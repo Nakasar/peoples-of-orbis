@@ -80,6 +80,18 @@
       ],
       "ShareItem": "Ingredient_Fabric_Scrap_Linen",
       "ShareQuantity": 4
+    },
+    {
+      "Id": "Noir",
+      "NameKey": "nakasar_peuples.workshop.specialty.Trork_Marche.Noir",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_Marche.Noir",
+      "Icon": "Deco_Bone_Skulls",
+      "Shops": [
+        "Nakasar_Peuples_W_Trork_Marche_Noir_2",
+        "Nakasar_Peuples_W_Trork_Marche_Noir_3"
+      ],
+      "ShareItem": "Ingredient_Bone_Fragment",
+      "ShareQuantity": 4
     }
   ],
   "Shop": "Nakasar_Peuples_W_Trork_Marche_Base_1"

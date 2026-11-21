@@ -25,7 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
  *       (enfants) ; FeastOffering, FairRace (hôtes du calendrier).</li>
  *   <li>Commerce : TradeShop, TradeWhere, TradeEscort (caravaniers des routes commerciales).</li>
  *   <li>Place du marché ({@link Markets}) : MarketGuestShop (marchand de passage), MarketCounterShop (comptoir),
- *       MarketOrder, MarketConsign, MarketCollect (commis du comptoir et du dépôt-vente).</li>
+ *       MarketOrder, MarketConsign, MarketCollect (commis du comptoir et du dépôt-vente) ; MarketBlackShop,
+ *       MarketFenceShop (receleur du marché noir, la nuit).</li>
  *   <li>Conquête : HamletOwner (« à qui appartient ce lieu ? »), HamletRally (lettre de ralliement ; aussi en
  *   WorldCheck).</li>
  *   <li>{@code {"Type": "WorldCheck", "Check": "..."}} : InnLevel2, InnLevel3, Parley (villages rivaux et joueur Ami des
@@ -144,9 +145,12 @@ public final class WorldDialogueTypes {
                         default -> Camps.shop(world, c.store(), c.ref(), c.playerRef(), camp);
                     };
                 }
-                case "MarketGuestShop", "MarketCounterShop", "MarketOrder", "MarketConsign", "MarketCollect" -> {
+                case "MarketGuestShop", "MarketCounterShop", "MarketOrder", "MarketConsign", "MarketCollect", "MarketBlackShop",
+                     "MarketFenceShop" -> {
                     Village host = Markets.villageOf(world, npc);
                     return switch (action) {
+                        case "MarketBlackShop" -> Markets.blackShop(world, c.store(), c.ref(), c.playerRef(), host, false);
+                        case "MarketFenceShop" -> Markets.blackShop(world, c.store(), c.ref(), c.playerRef(), host, true);
                         case "MarketGuestShop" -> Markets.guestShop(world, c.store(), c.ref(), c.playerRef(), host);
                         case "MarketCounterShop" -> Markets.counterShop(world, c.store(), c.ref(), c.playerRef(), host);
                         case "MarketOrder" -> Markets.openPicker(world, c.store(), c.ref(), c.playerRef(), host, false);

@@ -70,6 +70,7 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
     private static final String GUEST = "G";
     private static final String COUNTER = "C";
     private static final String MARKET_DAY = "D";
+    private static final String BLACK = "N";
     private static final String MARKET_KEYS = Markets.KEYS;
     private static final String RED = "#e07468";
     private static final String CREAM = "#f2ead2";
@@ -124,6 +125,11 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
                     return new ShopPage(playerRef, village, WORKSHOP + w.getId(), level - 1);
                 }
             }
+        }
+        if (shopId.equals(Markets.blackShop(village.people())) || shopId.equals(Markets.fenceShop(village.people()))) {
+            ShopPage page = new ShopPage(playerRef, village, BLACK, 0);
+            page.wanted = shopId;
+            return page;
         }
         if (shopId.equals(Markets.dayShop(village.people()))) {
             return new ShopPage(playerRef, village, MARKET_DAY, 0);
@@ -277,6 +283,14 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
                 out.add(new Stand(COUNTER, "Tool_Map", Message.translation(MARKET_KEYS + "stand.counter"),
                         Message.translation(MARKET_KEYS + "stand.counterSub").param("open", open).param("total", tabs.size()), tabs));
             }
+        }
+        if (Markets.black(v) && exists(Markets.blackShop(v.people())) && exists(Markets.fenceShop(v.people()))) {
+            Message closed = Markets.blackLock(store);
+            Message lock = closed != null ? closed : rankLock(store, ref, v, Rank.TOLERE);
+            out.add(new Stand(BLACK, "Deco_Bone_Skulls", Message.translation(MARKET_KEYS + "stand.noir"),
+                    Message.translation(MARKET_KEYS + "stand.noirSub"), List.of(
+                    new Tab(Markets.blackShop(v.people()), Message.translation(MARKET_KEYS + "stand.noirSale"), lock),
+                    new Tab(Markets.fenceShop(v.people()), Message.translation(MARKET_KEYS + "stand.noirFence"), lock))));
         }
         String dayShop = Markets.dayShop(v.people());
         if (Markets.marketDay(v, day) && exists(dayShop)) {
