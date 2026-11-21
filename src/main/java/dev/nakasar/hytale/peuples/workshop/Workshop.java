@@ -359,6 +359,9 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
             .append(new KeyedCodec<>("Job", Codec.STRING), (w, v) -> w.job = v, w -> w.job)
             .documentation("Métier du plan qui y travaille (son villageois tient le bâtiment).")
             .add()
+            .append(new KeyedCodec<>("Keeper", Codec.STRING), (w, v) -> w.keeper = v == null ? "" : v, w -> w.keeper)
+            .documentation("« Merchant » : la place du marché, tenue par le marchand du village (world/Markets), sans métier du plan.")
+            .add()
             .append(new KeyedCodec<>("Icon", Codec.STRING), (w, v) -> w.icon = v, w -> w.icon)
             .documentation("Objet vanilla montré en tête de la page du bâtiment.")
             .add()
@@ -430,6 +433,7 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
     String layout;
     String building;
     String job;
+    String keeper = "";
     String icon;
     String nameKey;
     int[] board;
@@ -598,6 +602,11 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
 
     public String job() {
         return job;
+    }
+
+    /** La place du marché : tenue par le marchand du village ({@code Keeper} Merchant), pas par un métier du plan. */
+    public boolean isMarket() {
+        return "Merchant".equals(keeper);
     }
 
     /** Enclos de base que double ce deuxième élevage (emplacement libre), ou null. */

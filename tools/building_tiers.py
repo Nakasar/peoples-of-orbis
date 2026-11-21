@@ -130,6 +130,9 @@ CHAINS = [
     # Enclos du mod : enclos de plus en plus grand (tools/generate_pens.py, TIER_HALF).
     (r"^Nakasar/Peuples/Pens/(\w+)_Pen$",
      lambda m: [f"Nakasar/Peuples/Pens/{m.group(1)}_Pen_T{t}" for t in (2, 3, 4)]),
+    # Place du marché (tools/generate_markets.py) : même place, de plus en plus garnie.
+    (r"^Nakasar/Peuples/Markets/(\w+)_Marche$",
+     lambda m: [f"Nakasar/Peuples/Markets/{m.group(1)}_Marche_T{t}" for t in (2, 3, 4)]),
     # Tente trork → terrier → réserve → grande réserve.
     (r"^Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001$",
      lambda m: [NPC + "Trork/Burrow/Trork_Burrow_Trork_Burrow_001", NPC + "Trork/Tier_2/Store/Trork_Tier_2_Store_001",

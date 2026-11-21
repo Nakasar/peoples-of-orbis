@@ -64,6 +64,13 @@ public final class Criers {
             if (this == CHIEF) {
                 return new Vector3d(village.x() + 3.5, village.y(), village.z() - 2.5);
             }
+            if (this == MERCHANT) {
+                // Place du marché debout : le marchand tient son étal (Kevin, 21 novembre 2026).
+                Vector3d stall = dev.nakasar.hytale.peuples.world.Markets.merchantSpot(village);
+                if (stall != null) {
+                    return stall;
+                }
+            }
             int[] b = this == CRIER ? village.board() : village.deposit();
             return new Vector3d(b[0] + 0.5, b[1], b[2] + 2.5);
         }
@@ -147,8 +154,9 @@ public final class Criers {
         String role = post.role(village);
         Vector3d at = post.spot(village);
         Key key = new Key(village.id(), post);
-        // Tourné vers le nord (le tableau, le dépôt et la place).
-        Pair<Ref<EntityStore>, INonPlayerCharacter> spawned = NPCPlugin.get().spawnNPC(store, role, null, at, new Rotation3f(0f, 0f, 0f));
+        // Tourné vers le nord (le tableau, le dépôt et la place), ou vers le devant de son étal au marché.
+        float yaw = post == Post.MERCHANT ? dev.nakasar.hytale.peuples.world.Markets.merchantYaw(village) : 0f;
+        Pair<Ref<EntityStore>, INonPlayerCharacter> spawned = NPCPlugin.get().spawnNPC(store, role, null, at, new Rotation3f(0f, yaw, 0f));
         if (spawned == null || spawned.first() == null) {
             PeuplesPlugin.get().getLogger().atWarning().log("Peuples : impossible de poser '%s' au village %s", role, village.name());
             DEATHS.put(key, Long.MAX_VALUE - 1);
@@ -170,6 +178,27 @@ public final class Criers {
     public static String merchantVillageOf(Ref<EntityStore> ref) {
         Spawned s = ref == null ? null : SPAWNED.get(ref);
         return s != null && s.post() == Post.MERCHANT ? s.village() : null;
+    }
+
+    /** Vrai si le marchand du village tient son poste (pas mort aujourd'hui, pas enfermé par un raid). */
+    public static synchronized boolean merchantPresent(Village village) {
+        Key key = new Key(village.id(), Post.MERCHANT);
+        Ref<EntityStore> ref = BY_VILLAGE.get(key);
+        if (ref != null && ref.isValid()) {
+            return true;
+        }
+        return !DEATHS.containsKey(key) && !dev.nakasar.hytale.peuples.raid.Raids.isActive(village);
+    }
+
+    /** Le marchand du village change de place (place du marché bâtie) : il revient à la prochaine approche. */
+    public static synchronized void moveMerchant(Store<EntityStore> store, Village village) {
+        Ref<EntityStore> ref = BY_VILLAGE.remove(new Key(village.id(), Post.MERCHANT));
+        if (ref != null) {
+            SPAWNED.remove(ref);
+            if (ref.isValid()) {
+                store.removeEntity(ref, RemoveReason.REMOVE);
+            }
+        }
     }
 
     /** Id du village dont `ref` est le chef, ou null. */

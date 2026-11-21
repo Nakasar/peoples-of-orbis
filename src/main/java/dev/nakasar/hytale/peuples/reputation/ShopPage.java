@@ -36,6 +36,8 @@ import dev.nakasar.hytale.peuples.workshop.Workshop;
 import dev.nakasar.hytale.peuples.workshop.WorkshopPage;
 import dev.nakasar.hytale.peuples.village.WorkshopState;
 import dev.nakasar.hytale.peuples.workshop.Workshops;
+import dev.nakasar.hytale.peuples.world.Markets;
+import dev.nakasar.hytale.peuples.world.Travellers;
 import dev.nakasar.hytale.peuples.world.WorldLife;
 
 import java.time.Duration;
@@ -64,6 +66,11 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
     private static final String MERCHANT = "M";
     private static final String WORKSHOP = "W:";
     private static final String SINGLE = "S:";
+    /** Place du marché (world/Markets) : marchand de passage, comptoir du marché extérieur, jour de marché. */
+    private static final String GUEST = "G";
+    private static final String COUNTER = "C";
+    private static final String MARKET_DAY = "D";
+    private static final String MARKET_KEYS = Markets.KEYS;
     private static final String RED = "#e07468";
     private static final String CREAM = "#f2ead2";
 
@@ -92,6 +99,8 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
     /** Index vanilla des offres affichées, par ligne. */
     private final int[] slots = new int[ROWS];
     private final List<String> rail = new ArrayList<>();
+    /** Boutique à montrer à l'ouverture (onglet du comptoir), ou null. */
+    private String wanted;
 
     private ShopPage(PlayerRef playerRef, Village village, String stand, int tab) {
         super(playerRef, CustomPageLifetime.CanDismiss, Event.CODEC);
@@ -116,7 +125,20 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
                 }
             }
         }
+        if (shopId.equals(Markets.dayShop(village.people()))) {
+            return new ShopPage(playerRef, village, MARKET_DAY, 0);
+        }
+        if (shopId.startsWith("Nakasar_Peuples_Comptoir_" + village.people().id() + "_")) {
+            ShopPage page = new ShopPage(playerRef, village, COUNTER, 0);
+            page.wanted = shopId;
+            return page;
+        }
         return new ShopPage(playerRef, village, SINGLE + shopId, 0);
+    }
+
+    /** Page du marché du village ouverte sur l'étal du marchand de passage (world/Markets.guestShop seulement). */
+    public static ShopPage guest(PlayerRef playerRef, Village village) {
+        return new ShopPage(playerRef, village, GUEST, 0);
     }
 
     static String layout(People people) {
@@ -224,6 +246,46 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
         return new Stand(SINGLE + shopId, null, name, Message.empty(), List.of(new Tab(shopId, name, null)));
     }
 
+    /** Les étals de la place du marché : marchand de passage, comptoir du marché extérieur, jour de marché. */
+    private static void marketPlace(World world, Store<EntityStore> store, Ref<EntityStore> ref, Village v, List<Stand> out) {
+        Markets.Guest g = Markets.guest(world, v);
+        Village from = g == null ? null : Villages.registry(world).byId(g.from());
+        String guestShop = g == null ? null : Travellers.shop(g.people());
+        if (from != null && exists(guestShop)) {
+            out.add(new Stand(GUEST, g.people().favorItem(), Message.translation(MARKET_KEYS + "stand.guest"),
+                    Message.translation(MARKET_KEYS + "stand.guestSub").param("people", Message.translation(g.people().nameKey()))
+                            .param("village", from.name()),
+                    List.of(new Tab(guestShop, Message.translation(g.people().nameKey()), rankLock(store, ref, from, Rank.TOLERE)))));
+        }
+        long day = GameClock.day(store);
+        if (Markets.exterior(v)) {
+            List<Tab> tabs = new ArrayList<>();
+            int open = 0;
+            for (People origin : Markets.counterOrigins(world, v, day)) {
+                String id = Markets.counterShop(v, origin);
+                if (tabs.size() >= TABS || !exists(id)) {
+                    continue;
+                }
+                Message lock = Markets.counterLock(world, v, origin, day);
+                if (lock == null) {
+                    lock = rankLock(store, ref, v, Rank.TOLERE);
+                }
+                open += lock == null ? 1 : 0;
+                tabs.add(new Tab(id, Message.translation(MARKET_KEYS + "counter.tab").param("people", Message.translation(origin.nameKey())), lock));
+            }
+            if (!tabs.isEmpty()) {
+                out.add(new Stand(COUNTER, "Tool_Map", Message.translation(MARKET_KEYS + "stand.counter"),
+                        Message.translation(MARKET_KEYS + "stand.counterSub").param("open", open).param("total", tabs.size()), tabs));
+            }
+        }
+        String dayShop = Markets.dayShop(v.people());
+        if (Markets.marketDay(v, day) && exists(dayShop)) {
+            out.add(new Stand(MARKET_DAY, "Deco_Map", Message.translation(MARKET_KEYS + "stand.day"),
+                    Message.translation(MARKET_KEYS + "stand.daySub"),
+                    List.of(new Tab(dayShop, Message.translation(MARKET_KEYS + "stand.day"), rankLock(store, ref, v, Rank.TOLERE)))));
+        }
+    }
+
     /** Les étals du marché du village, l'échoppe du peuple d'abord. */
     private static List<Stand> market(World world, Store<EntityStore> store, Ref<EntityStore> ref, Village v) {
         List<Stand> out = new ArrayList<>();
@@ -231,6 +293,7 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
         if (m != null) {
             out.add(m);
         }
+        marketPlace(world, store, ref, v, out);
         for (Workshop w : Workshops.opened(v)) {
             if (w.isHamlet() || out.size() >= RAIL) {
                 continue;
@@ -272,6 +335,14 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
             s = single(stand.substring(Math.min(stand.length(), SINGLE.length())));
         }
         stand = s.key();
+        if (wanted != null) {
+            for (int i = 0; i < s.tabs().size(); i++) {
+                if (s.tabs().get(i).shopId().equals(wanted)) {
+                    tab = i;
+                }
+            }
+            wanted = null;
+        }
         tab = Math.max(0, Math.min(tab, s.tabs().size() - 1));
         Tab t = s.tabs().get(tab);
         cmd.set("#PageTitle.TextSpans", inMarket ? Message.translation(KEYS + "market").param("village", v.name()) : s.name());

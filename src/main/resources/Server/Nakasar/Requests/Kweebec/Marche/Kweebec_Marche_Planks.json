@@ -1,0 +1,17 @@
+{
+  "$Comment": "Commande du bâtiment de métier Kweebec_Marche, générée par tools/generate_workshops.py (ne pas modifier à la main) : voir RequestTemplate.",
+  "People": "Kweebec",
+  "Workshop": "Kweebec_Marche",
+  "Type": "Craft",
+  "MinLevel": 1,
+  "MaxLevel": 3,
+  "Weight": 1,
+  "TitleKey": "nakasar_peuples.request.Kweebec_Marche_Planks.title",
+  "TaskKey": "nakasar_peuples.request.Kweebec_Marche_Planks.task",
+  "ItemId": "Wood_Hardwood_Planks",
+  "Quantity": 16,
+  "Knowledge": 40,
+  "Essor": 5,
+  "Favors": 1,
+  "Reputation": 6
+}

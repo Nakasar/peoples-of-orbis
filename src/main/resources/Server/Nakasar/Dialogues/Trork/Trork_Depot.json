@@ -1,0 +1,88 @@
+{
+  "$Comment": "Le commis du dépôt-vente du marché intérieur (place du marché, palier 2), généré par tools/generate_markets.py : dépôt-vente, commandes aux marchands itinérants, retrait du produit des ventes et des commandes (effets WorldAction Market*, world/WorldDialogueTypes et world/Markets).",
+  "NpcNameKey": "nakasar_peuples.dialogue.Trork_Depot.npc",
+  "RoleKey": "nakasar_peuples.dialogue.Trork_Depot.role",
+  "People": "Trork",
+  "Entries": [
+    {
+      "Node": "Refus",
+      "Conditions": [
+        {
+          "Type": "Rank",
+          "Max": "Etranger"
+        }
+      ]
+    },
+    {
+      "Node": "Accueil"
+    }
+  ],
+  "Nodes": [
+    {
+      "Id": "Accueil",
+      "TextKey": "nakasar_peuples.dialogue.Trork_Depot.accueil",
+      "Responses": [
+        {
+          "TextKey": "nakasar_peuples.dialogue.Trork_Depot.deposer",
+          "Conditions": [
+            {
+              "Type": "Rank",
+              "Min": "Tolere"
+            }
+          ],
+          "FailKey": "nakasar_peuples.dialogue.fail.rank.Tolere",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketConsign"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Trork_Depot.commander",
+          "Conditions": [
+            {
+              "Type": "Rank",
+              "Min": "Ami"
+            }
+          ],
+          "FailKey": "nakasar_peuples.dialogue.fail.rank.Ami",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketOrder"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Trork_Depot.retirer",
+          "Conditions": [
+            {
+              "Type": "Rank",
+              "Min": "Tolere"
+            }
+          ],
+          "FailKey": "nakasar_peuples.dialogue.fail.rank.Tolere",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketCollect"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Trork_Depot.aurevoir"
+        }
+      ]
+    },
+    {
+      "Id": "Refus",
+      "TextKey": "nakasar_peuples.dialogue.Trork_Depot.refus",
+      "Responses": [
+        {
+          "TextKey": "nakasar_peuples.dialogue.Trork_Depot.aurevoir"
+        }
+      ]
+    }
+  ]
+}

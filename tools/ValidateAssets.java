@@ -1352,7 +1352,13 @@ public class ValidateAssets {
                 if (!hasBuilding) {
                     problems.add("bâtiment " + building + " absent du plan " + layoutId);
                 }
-                if (jobDoc == null) {
+                boolean market = doc.containsKey("Keeper") && doc.getString("Keeper").getValue().equals("Merchant");
+                if (market) {
+                    // Place du marché : tenue par le marchand du village (world/Markets), sans métier du plan.
+                    if (!job.isEmpty()) {
+                        problems.add("la place du marché " + building + " n'a pas de métier (Keeper Merchant)");
+                    }
+                } else if (jobDoc == null) {
                     problems.add("métier " + job + " absent du plan " + layoutId);
                 } else if (!jobDoc.getString("Building", new org.bson.BsonString("")).getValue().equals(building)) {
                     problems.add("le métier " + job + " ne travaille pas dans " + building);

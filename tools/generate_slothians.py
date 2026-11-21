@@ -78,6 +78,8 @@ SPEC = {
             ("Hutte_Est", 0, DIS + "House/Small/Slothian_Disabled_House_Small_003", 21, 0, 0),
             ("Etal_Des_Cendres", 0, MON + "Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001", -1, -15, 0),
             ("Affut", 0, MON + "Hunting/Incidental_Slothian_Slothian_Hunting_001", 0, 15, 0),
+            # Place du marché (Kevin, 21 novembre 2026, tools/generate_markets.py).
+            ("Marche", 0, gl.MARKET + "Slothian_Marche", 39, 26, 3),
             # Palier 1 : deux maisons, la porte du monastère.
             ("Maison_Nord_Ouest", 1, DIS + "House/Medium/Slothian_Disabled_House_Medium_001", -17, -23, 0),
             ("Maison_Sud_Est", 1, DIS + "House/Medium/Slothian_Disabled_House_Medium_002", 17, 23, 0),
@@ -95,6 +97,7 @@ SPEC = {
         # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
         # main) : x0, x1, z0, z1 relatifs au cœur, rue de 3 blocs entre deux zones. Chaque palier voulu y tient.
         "Zones": {
+            "Marche": (34, 44, 19, 33),
             "Hutte_Est": (11, 30, -10, 10),
             "Affut": (-4, 4, 11, 18),
             "Etal_Des_Cendres": (-4, 2, -24, -11),
