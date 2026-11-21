@@ -63,7 +63,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
                 .documentation("Plus haut bloc du prefab au-dessus de son ancre (échafaudage, incendie).")
                 .add()
                 .append(new KeyedCodec<>("Plot", Codec.STRING), (b, v) -> b.plot = v == null || v.isBlank() ? null : v, b -> b.plot)
-                .documentation("Terrain libre (E1, E2) du projet : collé seulement par son chantier d'emplacement.")
+                .documentation("Terrain libre (E1, E2, E3…) du projet : collé seulement par son chantier d'emplacement.")
                 .add()
                 .append(new KeyedCodec<>("Zone", Codec.INT_ARRAY), (b, v) -> b.zone = v == null || v.length < 4 ? null : v, b -> b.zone)
                 .documentation("Zone maximale x0, x1, z0, z1 relative au cœur : tous les paliers du bâtiment y tiennent.")
@@ -419,7 +419,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
         }
     }
 
-    /** Un terrain libre du plan (E1, E2 ; étape 6 des bâtiments de métier) : 24 × 24 blocs centrés en (X, Z). */
+    /** Un terrain libre du plan (E1, E2, E3… ; étape 6 des bâtiments de métier) : 24 × 24 blocs centrés en (X, Z). */
     public static final class Plot {
         public static final BuilderCodec<Plot> CODEC = BuilderCodec.builder(Plot.class, Plot::new)
                 .append(new KeyedCodec<>("Id", Codec.STRING), (p, v) -> p.id = v, p -> p.id).add()
@@ -593,7 +593,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             .documentation("Métiers du village (étape 5).")
             .add()
             .append(new KeyedCodec<>("Plots", new ArrayCodec<>(Plot.CODEC, Plot[]::new)), (l, v) -> l.plots = v == null ? new Plot[0] : v, l -> l.plots)
-            .documentation("Terrains libres E1 et E2 (étape 6 des bâtiments de métier).")
+            .documentation("Terrains libres E1, E2, E3… (étape 6 des bâtiments de métier).")
             .add()
             .append(new KeyedCodec<>("Heart", Heart.CODEC), (l, v) -> l.heart = v, l -> l.heart)
             .documentation("Cœur du village par peuple (place, pièces vanilla par palier), ou absent (place carrée d'avant).")

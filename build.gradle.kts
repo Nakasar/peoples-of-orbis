@@ -141,6 +141,27 @@ val checkSystemRegistrations = tasks.register<Exec>("checkSystemRegistrations") 
     }
 }
 
+// Vérifie qu'aucun id de terrain (E1, E2…) n'est écrit à la main dans le code : un bâtiment de projet se cherche
+// sur tous les terrains du plan (village.Plots.projectBuildings), Kevin 2026-11-21.
+val checkPlotLookups = tasks.register<Exec>("checkPlotLookups") {
+    group = "verification"
+    description = "Refuse les ids de terrain écrits à la main (recherche de bâtiment limitée à certains terrains)."
+    val launcher = javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(25)) }
+    val tool = file("tools/CheckPlotLookups.java")
+    val sources = file("src/main/java")
+    inputs.file(tool)
+    inputs.dir(sources)
+    val marker = layout.buildDirectory.file("checkPlotLookups.ok")
+    outputs.file(marker)
+    doFirst {
+        executable = launcher.get().executablePath.asFile.absolutePath
+        args(listOf("-Dstdout.encoding=UTF-8", "-Dstderr.encoding=UTF-8", tool.absolutePath, sources.absolutePath))
+    }
+    doLast {
+        marker.get().asFile.writeText("ok")
+    }
+}
+
 // Vérifie que chaque fichier JSON d'assets est syntaxiquement valide.
 // Les assets Hytale sont lus par un parseur strict : une virgule en trop fait échouer le chargement.
 val validateJson = tasks.register("validateJson") {
@@ -168,7 +189,7 @@ val validateJson = tasks.register("validateJson") {
 }
 
 tasks.named("check") {
-    dependsOn(validateJson, checkSystemRegistrations, validateRoles, validateAssets)
+    dependsOn(validateJson, checkSystemRegistrations, checkPlotLookups, validateRoles, validateAssets)
 }
 
 // Lit hytale.modsDir depuis -P, gradle.properties ou gradle-local.properties (non versionné).
