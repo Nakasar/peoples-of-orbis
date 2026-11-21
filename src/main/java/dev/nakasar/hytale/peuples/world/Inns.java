@@ -110,6 +110,11 @@ public final class Inns {
             return stage == OPEN;
         }
 
+        /** Chantier en cours (pas encore ouverte). */
+        public boolean building() {
+            return stage == WORKS;
+        }
+
         public int x() {
             return x;
         }

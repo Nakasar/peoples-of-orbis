@@ -116,6 +116,11 @@ public final class Relations {
         return read(world, a, b)[1] >= day;
     }
 
+    /** Dernier jour de la trêve entre deux villages (Integer.MIN_VALUE : aucune). */
+    public static int truceUntil(World world, Village a, Village b) {
+        return read(world, a, b)[1];
+    }
+
     public static int change(World world, Village a, Village b, int delta) {
         int[] v = read(world, a, b);
         v[0] = Math.max(MIN, Math.min(MAX, v[0] + delta));
@@ -333,6 +338,12 @@ public final class Relations {
     /** Escarmouche en cours sur la liaison (onglet Monde du panneau). */
     static boolean fighting(String link) {
         return SKIRMISHES.containsKey(link);
+    }
+
+    /** Lieu de l'escarmouche en cours sur la liaison {x, z}, ou null. */
+    static double[] fightAt(String link) {
+        Skirmish s = SKIRMISHES.get(link);
+        return s == null ? null : new double[] {s.x(), s.z()};
     }
 
     /** Heure de l'escarmouche prévue aujourd'hui sur la liaison, ou -1. */
