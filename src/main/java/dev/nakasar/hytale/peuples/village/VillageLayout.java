@@ -811,6 +811,23 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
         return null;
     }
 
+    /**
+     * Rayon au plus du campement dont le sol est jugé pour choisir un site ({@link #campRadius}) : celui des huttes et
+     * abris du palier 0 d'avant la place du marché (22 à 35 blocs selon le peuple).
+     */
+    public static final int CAMP_RADIUS_MAX = 36;
+
+    /**
+     * Rayon du campement jugé par les seeders et le colon (sol du peuple, relief) : celui du palier 0, borné à
+     * {@value #CAMP_RADIUS_MAX}. Kevin 2026-11-21 : depuis la place du marché (palier 0, posée en bordure à 50-65 blocs)
+     * et le Grand-Père kweebec dès le palier 0, le disque jugé avait doublé de rayon et presque aucun site ne tenait
+     * 9 blocs de relief ni 80 % d'herbe ; aucun village suivant n'était plus semé. Au-delà du campement, ces bâtiments
+     * sont placés comme ceux des paliers suivants (placement libre, emprises sondées pour l'eau, terrassement).
+     */
+    public int campRadius() {
+        return Math.min(radiusUpTo(0), Math.max(CAMP_RADIUS_MAX, plazaRadius));
+    }
+
     /** Rayon des bâtiments des paliers 0 à `tier` (pour charger et juger le terrain). */
     public int radiusUpTo(int tier) {
         double r = plazaRadius;
