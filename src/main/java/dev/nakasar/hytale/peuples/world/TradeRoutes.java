@@ -807,8 +807,14 @@ public final class TradeRoutes {
     }
 
     static void announce(World world, Village v, Message m, NotificationStyle style) {
+        announce(world, v, m, style, style == NotificationStyle.Warning ? TradeLog.Kind.LOSS : TradeLog.Kind.ROUTE, null);
+    }
+
+    /** Annonce au village et note la ligne dans son registre du commerce (onglet Commerce, Registre). */
+    static void announce(World world, Village v, Message m, NotificationStyle style, TradeLog.Kind kind, String item) {
         if (v != null && !v.isHamlet()) {
             Chantiers.announce(world, v, m, null, style);
+            TradeLog.add(world, v, kind, item, m);
         }
     }
 

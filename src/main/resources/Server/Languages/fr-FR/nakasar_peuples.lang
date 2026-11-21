@@ -8796,3 +8796,36 @@ build.name.Tour_Du_Fort = Tour du fort
 build.name.Tour_Est = Tour est
 build.name.Tour_Ouest = Tour ouest
 # ---- Fin de l'onglet Bâtir ----
+# ---- Échoppe (généré par tools/generate_shop_ui.py, ne pas modifier à la main) ----
+shop.market = Marché de {village}
+shop.rail = Marché du village
+shop.merchant = Échoppe des {people}
+shop.merchantSub = {open} étals ouverts sur {total}
+shop.workshopSub = niveau {level} · {count} offres
+shop.absent = absent jusqu'à {hour} h
+shop.stopped = à l'arrêt
+shop.level = Niveau {level}
+shop.locked = {tab} · fermé
+shop.rankLine = Tu es {rank} · {next} à {max}
+shop.rankMax = Tu es {rank} · {value} de réputation
+shop.restockDays = nouveau stock dans {days} j
+shop.restockHours = nouveau stock dans {hours} h
+shop.why.rank = Il faut être {rank} : il te manque {missing} de réputation. Les offres restent visibles pour savoir ce qui t'attend.
+shop.why.level = Le bâtiment doit d'abord passer au niveau {level} (son chantier se lance depuis son panneau).
+shop.why.absent = {name} est absent jusqu'à {hour} h : l'étal rouvre à son retour.
+shop.why.stopped = L'atelier est à l'arrêt : il manque {list} au dépôt du village ce matin.
+shop.why.specialty = La spécialité manque de {list} : seul le niveau I reste ouvert.
+shop.why.noSpecialty = Le bâtiment n'a pas encore de spécialité : son niveau II vend comme le niveau I.
+shop.empty = Rien à troquer ici pour l'instant.
+shop.stock = reste {count}
+shop.note.have = tu en as {count}
+shop.note.out = épuisé · revient avec le nouveau stock
+shop.note.poor = il te manque {count}
+shop.button.trade = Troquer
+shop.button.out = Épuisé
+shop.button.poor = Trop cher
+shop.button.locked = Fermé
+shop.done = Troqué : {count} {item}.
+shop.log = {player} a troqué {count} {item} contre {price} {currency}
+shop.failed = Le troc n'a pas pu se faire (stock ou inventaire).
+# ---- Fin de l'échoppe ----

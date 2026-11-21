@@ -8796,3 +8796,36 @@ build.name.Tour_Du_Fort = Fort tower
 build.name.Tour_Est = East tower
 build.name.Tour_Ouest = West tower
 # ---- Fin de l'onglet Bâtir ----
+# ---- Échoppe (généré par tools/generate_shop_ui.py, ne pas modifier à la main) ----
+shop.market = {village} market
+shop.rail = Village market
+shop.merchant = {people} stall
+shop.merchantSub = {open} of {total} stalls open
+shop.workshopSub = level {level} · {count} offers
+shop.absent = away until {hour}:00
+shop.stopped = stopped
+shop.level = Level {level}
+shop.locked = {tab} · closed
+shop.rankLine = You are {rank} · {next} at {max}
+shop.rankMax = You are {rank} · {value} reputation
+shop.restockDays = new stock in {days} d
+shop.restockHours = new stock in {hours} h
+shop.why.rank = You must be {rank}: {missing} reputation to go. The offers stay visible so you know what awaits.
+shop.why.level = The building must first reach level {level} (start its works from its board).
+shop.why.absent = {name} is away until {hour}:00: the stall reopens when they return.
+shop.why.stopped = The workshop is stopped: {list} was missing from the village deposit this morning.
+shop.why.specialty = The specialty lacks {list}: only level I stays open.
+shop.why.noSpecialty = The building has no specialty yet: its level II sells like level I.
+shop.empty = Nothing to barter here for now.
+shop.stock = {count} left
+shop.note.have = you have {count}
+shop.note.out = sold out · back with the new stock
+shop.note.poor = you lack {count}
+shop.button.trade = Barter
+shop.button.out = Sold out
+shop.button.poor = Too dear
+shop.button.locked = Closed
+shop.done = Bartered: {count} {item}.
+shop.log = {player} bartered {count} {item} for {price} {currency}
+shop.failed = The barter failed (stock or inventory).
+# ---- Fin de l'échoppe ----

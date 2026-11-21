@@ -208,7 +208,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
     }
 
     /** Nom du villageois : celui de son dialogue, sinon le nom du métier. */
-    static Message keeperName(VillageLayout.Job job) {
+    public static Message keeperName(VillageLayout.Job job) {
         Dialogue d = job.dialogue() == null || job.dialogue().isEmpty() ? null : Dialogue.get(job.dialogue());
         if (d != null && d.npcNameKey() != null) {
             return Message.translation(d.npcNameKey());

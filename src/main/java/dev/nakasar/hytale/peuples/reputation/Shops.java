@@ -1,6 +1,5 @@
 package dev.nakasar.hytale.peuples.reputation;
 
-import com.hypixel.hytale.builtin.adventure.shop.barter.BarterPage;
 import com.hypixel.hytale.builtin.adventure.shop.barter.BarterShopAsset;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -12,8 +11,9 @@ import dev.nakasar.hytale.peuples.village.Village;
 
 /**
  * Les échoppes de troc du village (GDD, Récompenses, Par rang ; étape 4) : des boutiques de troc vanilla
- * ({@code Server/BarterShops/Nakasar_Peuples_<Peuple>_<Rang>.json}, payées en faveurs du peuple), ouvertes dans la page
- * vanilla {@link BarterPage} comme le fait l'action PNJ {@code OpenBarterShop} du marchand kweebec. Une échoppe par
+ * ({@code Server/BarterShops/Nakasar_Peuples_<Peuple>_<Rang>.json}, payées en faveurs du peuple), ouvertes dans
+ * l'échoppe du mod {@link ShopPage} (refonte des écrans de commerce, 21 novembre 2026 : la page vanilla ne montrait ni
+ * le rang, ni les autres étals, ni pourquoi un troc était impossible). Une échoppe par
  * rang : toléré (troc de base), ami (échoppe avancée), hôte (réserve de l'hôte). Le stock de chacune est partagé par
  * le monde et se renouvelle tous les 3 jours, comme celui du marchand vanilla.
  */
@@ -70,7 +70,7 @@ public final class Shops {
             playerRef.sendMessage(Message.translation(Reputations.KEYS + "shopMissing").param("shop", shopId));
             return false;
         }
-        player.getPageManager().openCustomPage(ref, store, new BarterPage(playerRef, shopId));
+        player.getPageManager().openCustomPage(ref, store, ShopPage.of(playerRef, village, shopId));
         return true;
     }
 }
