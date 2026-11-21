@@ -322,7 +322,7 @@ $C.@PageOverlay {
           Group {
             LayoutMode: Left;
             Anchor: (Height: 32, Bottom: 6);
-            Label #WhereLabel { Anchor: (Width: 44); Style: @Head; Text: ""; }
+            Label #WhereLabel { Anchor: (Width: 76); Style: @Head; Text: ""; }
             Button #Where0 {
               Anchor: (Width: 92, Height: 32, Right: 4);
               Style: $C.@SecondaryButtonStyle;
@@ -412,7 +412,7 @@ $C.@PageOverlay {
           Group {
             LayoutMode: Left;
             Anchor: (Height: 32, Bottom: 10);
-            Label #SeekLabel { Anchor: (Width: 44); Style: @Head; Text: ""; }
+            Label #SeekLabel { Anchor: (Width: 76); Style: @Head; Text: ""; }
             Button #Seek0 {
               Anchor: (Width: 74, Height: 32, Right: 3);
               Style: $C.@SecondaryButtonStyle;
@@ -545,7 +545,12 @@ $C.@PageOverlay {
                 LayoutMode: Top;
                 FlexWeight: 1;
                 Padding: (Vertical: 7);
-                Label #CardName0 { Anchor: (Height: 20); Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName0 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState0 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
                 Group {
                   LayoutMode: Left;
                   Anchor: (Height: 30, Top: 2);
@@ -594,24 +599,23 @@ $C.@PageOverlay {
                   Anchor: (Height: 20, Top: 3);
                   Group #CardCost0 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon0 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount0 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost1 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon1 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount1 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost2 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon2 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount2 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Label #CardNote0 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
-                  Label #CardState0 { Anchor: (Width: 86); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
                 }
               }
             }
@@ -641,7 +645,12 @@ $C.@PageOverlay {
                 LayoutMode: Top;
                 FlexWeight: 1;
                 Padding: (Vertical: 7);
-                Label #CardName1 { Anchor: (Height: 20); Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName1 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState1 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
                 Group {
                   LayoutMode: Left;
                   Anchor: (Height: 30, Top: 2);
@@ -690,24 +699,23 @@ $C.@PageOverlay {
                   Anchor: (Height: 20, Top: 3);
                   Group #CardCost3 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon3 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount3 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost4 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon4 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount4 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost5 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon5 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount5 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Label #CardNote1 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
-                  Label #CardState1 { Anchor: (Width: 86); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
                 }
               }
             }
@@ -741,7 +749,12 @@ $C.@PageOverlay {
                 LayoutMode: Top;
                 FlexWeight: 1;
                 Padding: (Vertical: 7);
-                Label #CardName2 { Anchor: (Height: 20); Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName2 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState2 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
                 Group {
                   LayoutMode: Left;
                   Anchor: (Height: 30, Top: 2);
@@ -790,24 +803,23 @@ $C.@PageOverlay {
                   Anchor: (Height: 20, Top: 3);
                   Group #CardCost6 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon6 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount6 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost7 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon7 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount7 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost8 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon8 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount8 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Label #CardNote2 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
-                  Label #CardState2 { Anchor: (Width: 86); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
                 }
               }
             }
@@ -837,7 +849,12 @@ $C.@PageOverlay {
                 LayoutMode: Top;
                 FlexWeight: 1;
                 Padding: (Vertical: 7);
-                Label #CardName3 { Anchor: (Height: 20); Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName3 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState3 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
                 Group {
                   LayoutMode: Left;
                   Anchor: (Height: 30, Top: 2);
@@ -886,24 +903,23 @@ $C.@PageOverlay {
                   Anchor: (Height: 20, Top: 3);
                   Group #CardCost9 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon9 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount9 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost10 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon10 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount10 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost11 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon11 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount11 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Label #CardNote3 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
-                  Label #CardState3 { Anchor: (Width: 86); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
                 }
               }
             }
@@ -937,7 +953,12 @@ $C.@PageOverlay {
                 LayoutMode: Top;
                 FlexWeight: 1;
                 Padding: (Vertical: 7);
-                Label #CardName4 { Anchor: (Height: 20); Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName4 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState4 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
                 Group {
                   LayoutMode: Left;
                   Anchor: (Height: 30, Top: 2);
@@ -986,24 +1007,23 @@ $C.@PageOverlay {
                   Anchor: (Height: 20, Top: 3);
                   Group #CardCost12 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon12 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount12 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost13 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon13 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount13 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost14 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon14 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount14 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Label #CardNote4 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
-                  Label #CardState4 { Anchor: (Width: 86); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
                 }
               }
             }
@@ -1033,7 +1053,12 @@ $C.@PageOverlay {
                 LayoutMode: Top;
                 FlexWeight: 1;
                 Padding: (Vertical: 7);
-                Label #CardName5 { Anchor: (Height: 20); Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName5 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState5 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
                 Group {
                   LayoutMode: Left;
                   Anchor: (Height: 30, Top: 2);
@@ -1082,24 +1107,23 @@ $C.@PageOverlay {
                   Anchor: (Height: 20, Top: 3);
                   Group #CardCost15 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon15 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount15 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost16 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon16 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount16 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost17 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon17 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount17 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Label #CardNote5 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
-                  Label #CardState5 { Anchor: (Width: 86); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
                 }
               }
             }
@@ -1133,7 +1157,12 @@ $C.@PageOverlay {
                 LayoutMode: Top;
                 FlexWeight: 1;
                 Padding: (Vertical: 7);
-                Label #CardName6 { Anchor: (Height: 20); Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName6 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState6 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
                 Group {
                   LayoutMode: Left;
                   Anchor: (Height: 30, Top: 2);
@@ -1182,24 +1211,23 @@ $C.@PageOverlay {
                   Anchor: (Height: 20, Top: 3);
                   Group #CardCost18 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon18 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount18 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost19 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon19 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount19 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost20 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon20 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount20 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Label #CardNote6 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
-                  Label #CardState6 { Anchor: (Width: 86); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
                 }
               }
             }
@@ -1229,7 +1257,12 @@ $C.@PageOverlay {
                 LayoutMode: Top;
                 FlexWeight: 1;
                 Padding: (Vertical: 7);
-                Label #CardName7 { Anchor: (Height: 20); Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName7 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState7 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
                 Group {
                   LayoutMode: Left;
                   Anchor: (Height: 30, Top: 2);
@@ -1278,24 +1311,23 @@ $C.@PageOverlay {
                   Anchor: (Height: 20, Top: 3);
                   Group #CardCost21 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon21 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount21 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost22 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon22 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount22 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Group #CardCost23 {
                     LayoutMode: Left;
-                    Anchor: (Width: 52);
+                    Anchor: (Width: 48);
                     ItemIcon #CardCostIcon23 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
                     Label #CardCostCount23 { Style: @Qty; Text: ""; FlexWeight: 1; }
                   }
                   Label #CardNote7 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
-                  Label #CardState7 { Anchor: (Width: 86); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
                 }
               }
             }

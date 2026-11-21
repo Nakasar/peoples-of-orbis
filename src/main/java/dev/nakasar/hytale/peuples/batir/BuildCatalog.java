@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
  */
 public final class BuildCatalog {
 
-    public static final String KEYS = "nakasar_peuples.batir.";
+    public static final String KEYS = "nakasar_peuples.build.";
 
     /** Familles d'usage, dans l'ordre de la colonne de gauche ({@code FAMILIES} de tools/generate_build_tab.py). */
     public enum Family {

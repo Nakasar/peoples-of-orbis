@@ -1838,6 +1838,62 @@ public class ValidateAssets {
      * {@code request.BoardPage} ({@code "#Id"} et {@code "#Id" + n}, case 0) existe dans chaque mise en page du tableau
      * (un id absent d'une page ouverte fait planter le client) ; les icônes de type de demande sont des objets vanilla.
      */
+    /**
+     * Clés de texte des pages Java : chaque préfixe {@code KEYS = "nakasar_peuples.x."} a des clés dans les deux fichiers de
+     * langue, et signale (avertissement) chaque {@code KEYS + "y")} complet du même fichier absent (un renommage de paquet avait changé le préfixe de
+     * l'onglet Bâtir et le jeu affichait les clés brutes, Kevin 2026-11-21).
+     */
+    private static int checkJavaKeys(Path root) throws Exception {
+        Path sources = root.getParent().getParent().resolve("java");
+        if (!Files.isDirectory(sources)) {
+            return 0;
+        }
+        Map<String, Set<String>> langs = new HashMap<>();
+        for (String locale : List.of("fr-FR", "en-US")) {
+            Path lang = root.resolve("Languages/" + locale + "/nakasar_peuples.lang");
+            Set<String> keys = new HashSet<>();
+            if (Files.isRegularFile(lang)) {
+                for (String line : Files.readAllLines(lang, java.nio.charset.StandardCharsets.UTF_8)) {
+                    int eq = line.indexOf('=');
+                    if (eq > 0 && !line.startsWith("#")) {
+                        keys.add(line.substring(0, eq).trim());
+                    }
+                }
+            }
+            langs.put(locale, keys);
+        }
+        Pattern prefix = Pattern.compile("String KEYS = \"nakasar_peuples\\.([A-Za-z0-9_.]+\\.)\";");
+        Pattern full = Pattern.compile("\\bKEYS \\+ \"([A-Za-z0-9_.]+)\"\\)");
+        int errors = 0;
+        List<Path> files;
+        try (Stream<Path> walk = Files.walk(sources)) {
+            files = walk.filter(f -> f.toString().endsWith(".java")).sorted().toList();
+        }
+        for (Path f : files) {
+            String code = Files.readString(f);
+            Matcher m = prefix.matcher(code);
+            if (!m.find()) {
+                continue;
+            }
+            String pre = m.group(1);
+            for (Map.Entry<String, Set<String>> lang : langs.entrySet()) {
+                if (lang.getValue().stream().noneMatch(k -> k.startsWith(pre))) {
+                    errors++;
+                    System.out.println("ERROR " + sources.relativize(f) + " : aucune clé " + pre + "* dans " + lang.getKey());
+                    continue;
+                }
+                Matcher k = full.matcher(code);
+                while (k.find()) {
+                    if (!lang.getValue().contains(pre + k.group(1))) {
+                        // Avertissement seulement : des clés manquaient déjà (commandes d'admin, quelques messages).
+                        System.out.println("WARN  " + sources.relativize(f) + " : clé " + pre + k.group(1) + " absente de " + lang.getKey());
+                    }
+                }
+            }
+        }
+        return errors;
+    }
+
     private static int checkUiPages(Path root, String vanillaTextures, String vanillaItems) throws Exception {
         Path custom = root.resolveSibling("Common/UI/Custom");
         Path pages = custom.resolve("Pages/Nakasar");
@@ -2200,6 +2256,7 @@ public class ValidateAssets {
         errors += checkMapMarkerIcons(root);
         errors += checkReputation(root);
         errors += checkUiPages(root, System.getProperty("uitextures"), System.getProperty("items"));
+        errors += checkJavaKeys(root);
         String blocks = System.getProperty("blocks");
         if (blocks != null) {
             errors += checkBlockIds(root, Path.of(blocks));
