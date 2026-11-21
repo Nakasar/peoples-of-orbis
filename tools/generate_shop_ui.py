@@ -190,7 +190,7 @@ def page(theme_id):
         w("              Anchor: (Width: 48, Height: 48, Top: 4, Right: 12);")
         w(f"              {slot}")
         w(f"              ItemIcon #RowIcon{i} {{ Anchor: (Full: 6); ShowItemTooltip: true; }}")
-        w(f'              {label(f"RowQty{i}", "LabelStyle(FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: Bottom)", anchor="Right: 4, Bottom: 2, Width: 30, Height: 18")}')
+        w(f'              {label(f"RowQty{i}", "LabelStyle(FontSize: 13, RenderBold: true, TextColor: #ffffff, HorizontalAlignment: End, VerticalAlignment: End)", anchor="Right: 4, Bottom: 2, Width: 30, Height: 18")}')
         w("            }")
         w("            Group {")
         w("              LayoutMode: Top;")
