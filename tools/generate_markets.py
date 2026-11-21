@@ -26,8 +26,14 @@ Ce script écrit, en blocs vanilla seulement (règle n° 2 d'AGENTS.md, comme le
   Server/BarterShops/Nakasar_Peuples_Marche_<Peuple>_Jour.json
       l'étal du jour de marché du marché intérieur (un jour sur sept) : la première offre de chaque bâtiment de métier
       du village, moins chère et en double, plus un lot du luxe de terroir du peuple ;
-  Server/Nakasar/Dialogues/<Peuple>/<Peuple>_Comptoir.json, <Peuple>_Depot.json et Monde/Monde_Marchand_Etal.json
-      le commis du comptoir, celui du dépôt-vente et le marchand posté à l'étal ;
+  Server/Prefabs/Nakasar/Peuples/Markets/<Peuple>_Noir.prefab.json et Server/BarterShops/Nakasar_Peuples_Marche_<Peuple>_
+  Noir.json / _Recel.json
+      l'étal du receleur du marché noir (Kevin, 21 novembre 2026), là où se tiennent le comptoir et le dépôt-vente, ouvert
+      la nuit seulement : ce que le peuple refuse d'échanger (luxes d'ailleurs, métal chez les Kweebecs), et le rachat
+      du butin des raids contre des faveurs ; sans perte de réputation ;
+  Server/Nakasar/Dialogues/<Peuple>/<Peuple>_Comptoir.json, <Peuple>_Depot.json, <Peuple>_Noir.json et
+  Monde/Monde_Marchand_Etal.json
+      le commis du comptoir, celui du dépôt-vente, le receleur et le marchand posté à l'étal ;
   le bloc de langue « Place du marché » des deux fichiers .lang (textes du Java world/Markets compris).
 
 Géométrie (coordonnées du prefab, rotation 0, devant = +Z, sol y = 0) : reprise telle quelle par world/Markets.
@@ -119,6 +125,16 @@ def depot(style):
         block(out, dx, 1, -1, "Furniture_Village_Shelf_Full")
     block(out, -1, 2, 1, style["goods"][0])
     block(out, 1, 2, 1, "Furniture_Village_Crate")
+    return out
+
+
+def black_stall(style):
+    """L'étal du receleur : auvent de cuir sombre, une lanterne, des crânes et des peaux sur le comptoir."""
+    dark = dict(style, cloth="Leather")
+    out = stall(0, 0, dark, wide=True, goods=False)
+    block(out, -1, 2, 1, "Deco_Bone_Skulls")
+    block(out, 1, 2, 1, style["light"])
+    block(out, 0, 1, -1, "Furniture_Village_Crate")
     return out
 
 
@@ -258,6 +274,13 @@ def texts():
     t(k + "day.today", "C'est jour de marché à {village} : étals des artisans, prix bas et un lot de {luxury}.",
       "It is market day in {village}: artisan stalls, low prices and a lot of {luxury}.")
     t(k + "day.next", "Prochain jour de marché dans {days} jours.", "Next market day in {days} days.")
+    # Marché noir.
+    t(k + "noir.placed", "Un étal sombre s'installe au marché de {village}.", "A shady stall sets up at the {village} market.")
+    t(k + "noir.closed", "Le receleur ne vient qu'à la nuit tombée ({hour} h).", "The fence only comes after nightfall ({hour}:00).")
+    t(k + "stand.noir", "Marché noir", "Black market")
+    t(k + "stand.noirSub", "La nuit seulement", "Night only")
+    t(k + "stand.noirSale", "Sous le manteau", "Under the counter")
+    t(k + "stand.noirFence", "Recel", "Buy-back")
     t("world.needs.reason.order", "un joueur l'a commandé au comptoir", "a player ordered it at the counter")
 
 
@@ -417,6 +440,101 @@ def day_shops(errors):
         t(f"barter.{sid}.title", "Jour de marché", "Market day")
 
 
+# ---- Marché noir ----
+LUX_ALL = ["Plant_Fruit_Azure", "Ingredient_Leather_Heavy", "Ingredient_Spices", "Food_Cheese", "Ingredient_Crystal_Purple",
+           "Ingredient_Bar_Gold", "Ingredient_Bolt_Silk", "Food_Fish_Raw_Rare", "Food_Pie_Apple"]  # world/TradeGoods.LUXURIES
+BLACK_LUX_PRICE = 9          # un luxe d'ailleurs, sans route ni terroir : trois fois le prix du jour de marché
+BLACK_EXTRA = {
+    # Le métal que les Kweebecs refusent d'échanger (world/TradeGoods.isMetal).
+    "Kweebec": [("Ingredient_Bar_Iron", 2, 4), ("Ingredient_Bar_Copper", 2, 3), ("Tool_Pickaxe_Iron", 1, 8)],
+    "Trork": [("Weapon_Sword_Iron", 1, 8)],
+    "Feran": [("Ingredient_Bar_Silver", 1, 6)],
+    "Renonce": [("Ingredient_Bar_Thorium", 1, 8)],
+    "Slothian": [("Ingredient_Bar_Silver", 1, 6)],
+}
+# Le butin des raids que le receleur rachète, par peuple (assaillants : tools/generate_raids.py, generate_zones.py,
+# generate_slothians.py) : (objet, nombre, faveurs).
+RECEL = {
+    "Kweebec": [("Weapon_Battleaxe_Stone_Trork", 1, 2), ("Weapon_Mace_Crude", 1, 1), ("Weapon_Club_Crude", 1, 1),
+                ("Ingredient_Hide_Medium", 4, 1), ("Ingredient_Bone_Fragment", 12, 1)],
+    "Trork": [("Ingredient_Hide_Light", 6, 1), ("Ingredient_Hide_Medium", 4, 1), ("Ingredient_Bone_Fragment", 12, 1),
+              ("Weapon_Daggers_Bone", 1, 1)],
+    "Feran": [("Ingredient_Chitin_Sturdy", 4, 1), ("Ingredient_Bone_Fragment", 12, 1), ("Ingredient_Hide_Scaled", 4, 1)],
+    "Renonce": [("Ingredient_Hide_Dark", 4, 1), ("Ingredient_Ice_Essence", 4, 1), ("Ingredient_Bone_Fragment", 12, 1)],
+    "Slothian": [("Ingredient_Void_Essence", 4, 1), ("Ingredient_Voidheart", 1, 3), ("Ingredient_Bone_Fragment", 12, 1)],
+}
+
+
+def black_shops(errors, items):
+    for people in PEOPLES:
+        fav = f"Nakasar_Peuples_Favor_{people}"
+        sale = [{"Type": "Fixed", "Trade": {"Output": {"ItemId": item, "Quantity": 1},
+                                            "Input": [{"ItemId": fav, "Quantity": BLACK_LUX_PRICE}], "Stock": 1}}
+                for item in LUX_ALL if item != TERROIR[people]][:7 - len(BLACK_EXTRA[people])]
+        sale += [{"Type": "Fixed", "Trade": {"Output": {"ItemId": item, "Quantity": n},
+                                             "Input": [{"ItemId": fav, "Quantity": price}], "Stock": 2}}
+                 for item, n, price in BLACK_EXTRA[people]]
+        buy = [{"Type": "Fixed", "Trade": {"Output": {"ItemId": fav, "Quantity": price},
+                                           "Input": [{"ItemId": item, "Quantity": n}], "Stock": 6}}
+               for item, n, price in RECEL[people]]
+        for kind, slots, fr, en, comment in (
+                ("Noir", sale, "Sous le manteau", "Under the counter",
+                 "ce que le peuple refuse d'échanger : luxes d'ailleurs sans route ni terroir, métal, au prix fort"),
+                ("Recel", buy, "Recel du butin", "Loot buy-back",
+                 "le butin des assaillants des raids, racheté contre des faveurs du village")):
+            for s in slots:
+                for st in [s["Trade"]["Output"]] + s["Trade"]["Input"]:
+                    if not st["ItemId"].startswith("Nakasar_") and st["ItemId"] not in items:
+                        errors.append(f"marché noir {people} : objet vanilla inconnu {st['ItemId']}")
+            sid = f"Marche_{people}_{kind}"
+            (BARTER / f"Nakasar_Peuples_{sid}.json").write_text(json.dumps({
+                "$Comment": f"Marché noir des villages {people} (receleur de la place du marché, la nuit), généré par "
+                            f"tools/generate_markets.py : {comment}.",
+                "DisplayNameKey": f"nakasar_peuples.barter.{sid}.title",
+                "RefreshInterval": {"Days": 3},
+                "RestockHour": 20,
+                "TradeSlots": slots,
+            }, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            t(f"barter.{sid}.title", fr, en)
+
+
+def black_dialogue(people):
+    did = f"{people}_Noir"
+    rank = lambda r: [{"Type": "Rank", "Min": r}]
+    accueil = {
+        "Id": "Accueil",
+        "TextKey": f"nakasar_peuples.dialogue.{did}.accueil",
+        "Responses": [
+            resp(did, "voir", market_action("MarketBlackShop"), conditions=rank("Tolere"),
+                 fail="nakasar_peuples.dialogue.fail.rank.Tolere"),
+            resp(did, "vendre", market_action("MarketFenceShop"), conditions=rank("Tolere"),
+                 fail="nakasar_peuples.dialogue.fail.rank.Tolere"),
+            resp(did, "retirer", market_action("MarketCollect")),
+            resp(did, "aurevoir"),
+        ],
+    }
+    d = {
+        "$Comment": "Le receleur du marché noir (place du marché, palier 2), la nuit seulement, généré par "
+                    "tools/generate_markets.py (effets WorldAction MarketBlackShop, MarketFenceShop, MarketCollect). "
+                    "Aucune perte de réputation (Kevin, 21 novembre 2026).",
+        "NpcNameKey": f"nakasar_peuples.dialogue.{did}.npc",
+        "RoleKey": f"nakasar_peuples.dialogue.{did}.role",
+        "People": people,
+        "Entries": [{"Node": "Accueil"}],
+        "Nodes": [accueil],
+    }
+    dialogue_texts(did, "Receleur", "Fence", "marché noir", "black market", {
+        "accueil": ("Pas si fort... Ce que le village ne vend pas, moi je l'ai. Et ce que vous avez pris aux pillards, je "
+                    "le rachète.", "Not so loud... What the village won't sell, I have. And what you took from the "
+                    "raiders, I buy back."),
+        "voir": ("Qu'avez-vous sous le manteau ?", "What do you have under the counter?"),
+        "vendre": ("J'ai du butin à vendre.", "I have loot to sell."),
+        "retirer": ("Le commis m'a laissé quelque chose ?", "Did the clerk leave something for me?"),
+        "aurevoir": ("Je n'ai rien vu.", "I saw nothing."),
+    })
+    return d
+
+
 def guest_dialogue():
     did = "Monde_Marchand_Etal"
     d = {
@@ -447,7 +565,7 @@ def guest_dialogue():
 
 def counter_shops(errors):
     """Comptoir de l'hôte : les marchandises des voyageurs de chaque autre peuple, payées en faveurs de l'hôte."""
-    for old in list(BARTER.glob("Nakasar_Peuples_Comptoir_*.json")) + list(BARTER.glob("Nakasar_Peuples_Marche_*_Jour.json")):
+    for old in list(BARTER.glob("Nakasar_Peuples_Comptoir_*.json")) + list(BARTER.glob("Nakasar_Peuples_Marche_*_*.json")):
         old.unlink()
     for origin in PEOPLES:
         path = BARTER / f"Nakasar_Peuples_Travel_{origin}.json"
@@ -526,6 +644,7 @@ def main():
         docs[f"Etal_{people}"] = doc(stall(0, 0, s))
         docs[f"{people}_Comptoir"] = doc(stall(0, 0, s, wide=True))
         docs[f"{people}_Depot"] = doc(depot(s))
+        docs[f"{people}_Noir"] = doc(black_stall(s))
     for name, d in docs.items():
         seen = set()
         for b in d["blocks"]:
@@ -540,7 +659,10 @@ def main():
     texts()
     counter_shops(errors)
     day_shops(errors)
+    black_shops(errors, {line.strip().lstrip("*") for line in ITEMS.read_text(encoding="utf-8").splitlines() if line.strip()})
     for people in PEOPLES:
+        (DIALOGUES / people / f"{people}_Noir.json").write_text(
+            json.dumps(black_dialogue(people), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         path = DIALOGUES / people / f"{people}_Depot.json"
         path.write_text(json.dumps(depot_dialogue(people), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         path = DIALOGUES / people / f"{people}_Comptoir.json"

@@ -3,7 +3,7 @@
 <Infobox pending title="Place du marché" kind="Bâtiment">
 <Info label="Qui">tous les villages, dès le palier 0</Info>
 <Info label="Quoi">le marchand du village, l'étal des marchands de passage, commandes et dépôt-vente</Info>
-<Info label="Spécialités">Marché extérieur, Marché intérieur (niveau II)</Info>
+<Info label="Spécialités">Marché extérieur, Marché intérieur, Marché noir (niveau II)</Info>
 </Infobox>
 
 Chaque village a sa **place du marché** dès sa fondation : une place pavée de 13 × 9 blocs aux couleurs du peuple. Les
@@ -25,7 +25,7 @@ Toléré de son village. Son étal apparaît aussi à gauche de l'échoppe du vi
 
 ## Spécialités (niveau II)
 
-Au niveau II (village au palier 2, rang Ami), la place choisit l'une de ses deux spécialités. Un commis vient alors
+Au niveau II (village au palier 2, rang Ami), la place choisit l'une de ses trois spécialités. Un commis vient alors
 tenir un second comptoir, devant la place.
 
 ### Marché extérieur
@@ -51,6 +51,18 @@ comptoir garde 3 commandes en cours, une par joueur ; une commande non retirée 
   l'échoppe : la première offre de chaque bâtiment de métier, moins chère et en double, plus un lot du luxe de terroir
   du peuple.
 
+### Marché noir
+
+Un **receleur** tient un étal sombre à la place du comptoir, **la nuit seulement** (de 20 h à 6 h). Il ne demande que le
+rang Toléré, et traiter avec lui ne coûte jamais de réputation.
+
+- **Sous le manteau** : ce que le peuple refuse d'échanger, au prix fort. On y trouve les luxes des autres terroirs et
+  ceux sans terroir, ainsi que du métal (lingots et pioche de fer chez les Kweebecs, qui n'en échangent pas).
+- **Recel** : il rachète contre des faveurs du village le butin des assaillants des raids : armes trorks, chitine
+  scarak, essences et cœurs du Vide, peaux, os.
+
+Son étal apparaît aussi dans l'échoppe du village, sous **Marché noir**, fermé le jour.
+
 ## Parler au commis
 
 | Réponse | Rang | Ce qu'elle fait |
@@ -59,3 +71,4 @@ comptoir garde 3 commandes en cours, une par joueur ; une commande non retirée 
 | Déposer des marchandises | Toléré | la grille du dépôt-vente (marché intérieur) |
 | Passer une commande | Ami | la grille des marchandises des autres peuples |
 | Où en est ma commande ? | Toléré | retire le produit des ventes et la commande prête |
+| Qu'avez-vous sous le manteau ? / J'ai du butin à vendre. | Toléré | les deux étals du receleur, la nuit (marché noir) |

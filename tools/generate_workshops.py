@@ -333,6 +333,9 @@ for _p in MARKET_PEOPLE:
         ("Exterieur", "Marché extérieur", "Outer market", "Tool_Map",
          "Un comptoir qui achète aux marchands de passage, revend leurs marchandises et prend vos commandes.",
          "A counter that buys from visiting merchants, resells their wares and takes your orders.", []),
+        ("Noir", "Marché noir", "Black market", "Deco_Bone_Skulls",
+         "Un receleur, la nuit : ce que le peuple refuse d'échanger, et le rachat du butin des raids.",
+         "A fence, at night: what the people refuses to trade, and buying back raid loot.", []),
     ])
 # Étape 5 : effet en raid des spécialités de garde (bâtiment ouvert, niveau II ou plus, spécialité choisie) :
 # Guards gardes de plus autour du cœur, Posted gardes postés au bâtiment (la tour), Health multiplicateur des PV
@@ -511,6 +514,8 @@ for _p, (_layout, _planks, _light, _hunt) in MARKET_PEOPLE.items():
                       [("Furniture_Village_Shelf_Full", 1, 3), ("Tool_Map", 1, 4)]),
         "Exterieur": ([("Ingredient_Fabric_Scrap_Linen", 4, 1), ("Deco_Scroll", 1, 1)],
                       [("Ingredient_Bolt_Linen", 2, 3), ("Tool_Map", 1, 4)]),
+        "Noir": ([("Ingredient_Bone_Fragment", 4, 1), ("Deco_Bone_Skulls", 1, 2)],
+                 [("Ingredient_Hide_Dark", 2, 3), ("Weapon_Daggers_Bone", 1, 4)]),
     }
 # Stock de chaque échange par niveau de la boutique (renouvelé tous les 3 jours, comme le marchand vanilla).
 SHOP_STOCK = {1: 8, 2: 6, 3: 3}

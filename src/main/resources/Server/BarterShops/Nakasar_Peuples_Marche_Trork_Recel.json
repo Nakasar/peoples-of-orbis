@@ -1,0 +1,74 @@
+{
+  "$Comment": "Marché noir des villages Trork (receleur de la place du marché, la nuit), généré par tools/generate_markets.py : le butin des assaillants des raids, racheté contre des faveurs du village.",
+  "DisplayNameKey": "nakasar_peuples.barter.Marche_Trork_Recel.title",
+  "RefreshInterval": {
+    "Days": 3
+  },
+  "RestockHour": 20,
+  "TradeSlots": [
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Nakasar_Peuples_Favor_Trork",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Ingredient_Hide_Light",
+            "Quantity": 6
+          }
+        ],
+        "Stock": 6
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Nakasar_Peuples_Favor_Trork",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Ingredient_Hide_Medium",
+            "Quantity": 4
+          }
+        ],
+        "Stock": 6
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Nakasar_Peuples_Favor_Trork",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Ingredient_Bone_Fragment",
+            "Quantity": 12
+          }
+        ],
+        "Stock": 6
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Nakasar_Peuples_Favor_Trork",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Weapon_Daggers_Bone",
+            "Quantity": 1
+          }
+        ],
+        "Stock": 6
+      }
+    }
+  ]
+}
