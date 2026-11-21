@@ -1,10 +1,10 @@
 {
-  "$Comment": "Feuille de sève : la faveur des Kweebecs, donnée par les demandes remplies (étape 3) et dépensée chez leurs artisans (étape 5). Modèle, texture et icône de la sève vanilla (Ingredient_Tree_Sap), sans recette ni usage de combustible.",
+  "$Comment": "Feuille de sève : la faveur des Kweebecs, donnée par les demandes remplies (étape 3) et dépensée chez leurs artisans (étape 5). Modèle et texture de la sève vanilla, icône de jeton propre (tools/generate_favor_icons.py) (Ingredient_Tree_Sap), sans recette ni usage de combustible.",
   "TranslationProperties": {
     "Name": "nakasar_peuples.items.Nakasar_Peuples_Favor_Kweebec.name",
     "Description": "nakasar_peuples.items.Nakasar_Peuples_Favor_Kweebec.description"
   },
-  "Icon": "Icons/ItemsGenerated/Ingredient_Tree_Sap.png",
+  "Icon": "Icons/ItemsGenerated/Nakasar_Peuples_Favor_Kweebec.png",
   "Categories": [
     "Items.Ingredients"
   ],

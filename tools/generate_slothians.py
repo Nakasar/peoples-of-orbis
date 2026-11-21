@@ -147,7 +147,7 @@ SPEC = {
     "defender": ("Slothian_Warrior", "Weapon_Axe_Tribal",
                  ["Outlander_Berserker_Axe_Swing_Left", "Outlander_Berserker_Axe_Swing_Right",
                   "Outlander_Berserker_Axe_Swing_Down"], 2.6),
-    "favor": {"Icon": "Icons/ItemsGenerated/Rubble_Charcoal_Small.png",
+    "favor": {"Icon": "Icons/ItemsGenerated/Nakasar_Peuples_Favor_Slothian.png",
               "Model": "Blocks/Stone/Rubble_Charcoal.blockymodel",
               "Texture": "Items/Rubble/Rubble_Textures/Charcoal.png",
               "IconProperties": {"Scale": 0.6, "Rotation": [22.5, 45, 22.5], "Translation": [0, -6]},

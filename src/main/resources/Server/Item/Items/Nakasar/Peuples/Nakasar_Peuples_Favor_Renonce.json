@@ -4,7 +4,7 @@
     "Name": "nakasar_peuples.items.Nakasar_Peuples_Favor_Renonce.name",
     "Description": "nakasar_peuples.items.Nakasar_Peuples_Favor_Renonce.description"
   },
-  "Icon": "Icons/ItemsGenerated/Ingredient_Ice_Essence.png",
+  "Icon": "Icons/ItemsGenerated/Nakasar_Peuples_Favor_Renonce.png",
   "Categories": [
     "Items.Ingredients"
   ],
