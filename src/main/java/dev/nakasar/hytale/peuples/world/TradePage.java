@@ -103,6 +103,12 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
         stall(cmd, events, world, village, day);
         cmd.set("#Rule.TextSpans", Message.translation(KEYS + "rule").param("offering", TradeRoutes.OFFERING)
                 .param("credit", dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(village)));
+        // Besoins et commandes du village (échanges nés des besoins), à côté de la règle.
+        Message needs = TradeNeeds.pageLine(world, village);
+        cmd.set("#Needs.Visible", needs != null);
+        if (needs != null) {
+            cmd.set("#Needs.TextSpans", needs);
+        }
     }
 
     // ---- Luxes ----

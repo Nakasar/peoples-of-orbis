@@ -62,7 +62,10 @@ public final class WorldDialogueTypes {
             }
             switch (action) {
                 case "Rumour" -> {
-                    DialogueSpeech.say(c.playerRef(), Rumours.random(world, c.store(), c.ref()));
+                    // Un PNJ de passage parle volontiers des besoins qu'il porte (échanges nés des besoins).
+                    Message carried = ThreadLocalRandom.current().nextBoolean() ? TradeNeeds.rumourOf(world, TradeNeeds.carrierOf(world, npc),
+                            dev.nakasar.hytale.peuples.request.GameClock.day(c.store())) : null;
+                    DialogueSpeech.say(c.playerRef(), carried != null ? carried : Rumours.random(world, c.store(), c.ref()));
                     return true;
                 }
                 case "Shop", "Escort", "Letter", "Parley" -> {

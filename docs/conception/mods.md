@@ -2020,6 +2020,44 @@ Textes, onglet, demandes et dialogue : `tools/generate_trade.py`.
   défilent au clic, niveau, crédit, fermeture), partenaires, étal des importations (demi-chargement de niveau I pris
   au dépôt contre 1 faveur, rang Toléré).
 - Commande `/monde route [--faire liste|ouvrir|niveau|depart|acces|fermer] [--vers village]`.
+## Échanges nés des besoins (`world/TradeNeeds`)
+
+Demande de Kevin (21 novembre 2026) : les villages créent eux-mêmes leurs échanges selon leurs besoins ; les besoins
+voyagent avec les PNJ de passage ; un village qui peut produire apprend le besoin quand un porteur passe chez lui, bâtit
+ce qu'il faut et exporte. Choix de Kevin le même jour : le conseil réserve un terrain libre **et lance seul** le chantier.
+
+- **Besoins** (`N:<village>|<objet> = raison|depuis`, partie `TradeNeeds`), refaits chaque matin avant les routes, au plus
+  3 : `INPUT` (Inputs d'un atelier ouvert non `TradeAccess.available`), `CHAIN` (Requires d'un projet promis non
+  disponible), `LUXURY` (un luxe à terroir étranger quand `missingFor(tier+1) > 0`, tiré par hachage de l'id).
+- **Nouvelles** (`K:<lieu>|<village>|<objet> = jour|mains`, 16 par lieu, oubliées à 20 jours) et **sacs**
+  (`B:<porteur>`, 8 nouvelles, porteur = `walkKey()` : `T:`, `TC:`, `HT:`, ou `KLOPS`). `pack` au départ
+  (`Travellers.start`, `TradeCaravans.dispatch`, `HamletTrips.start`), `unpack` à l'arrivée (voyageur, caravane,
+  place du lieu-dit puis `pack` depuis le lieu-dit, retour au village), `discard` au `drop`. Klops : chaque matin,
+  `unpack` puis `pack` à `Klops.stop(day)`. 4 mains au plus.
+- **Engagements** (`P:<fournisseur>|<demandeur>|<objet> = état|depuis|bâtiment|livré le|porteur`), pris à la première
+  nouvelle (`respond`) : un fournisseur par besoin, 2 par village, partenaire via `TradeRoutes.candidates`. Ordre :
+  `canSupply` (catalogue hors réexport, ou boutique d'un bâtiment ouvert, base comprise) → spécialité d'un atelier de
+  niveau II sans spécialité → terrain libre ouvert (`Plots.catalog`, boutique de base qui vend l'objet ; refus
+  `requires` accepté, il crée le besoin `CHAIN`) via `Plots.reserveByVillage`. États `BUILD` → `OPEN` → `ACTIVE`.
+  `BUILD` : `Plots.startByVillage` dès que matériaux au dépôt + `Projects.projectMissing == null` (`AUTO_START`).
+- **Routes** : `TradeNeeds.ordered(sender, receiver)` = commandes ; `TradeRoutes.cleared` les laisse toujours passer,
+  `spendCredit` ne les compte pas, `autoCases` les pose en premier (sans paire) ; la route autonome n'est « idle » que
+  si les deux côtés sont vides. `TradeCatalogue.of` ajoute `orderedProduce` (source WORKSHOP) ; `TradeCaravans.dispatch`
+  charge une case de commande pleine sans prendre au dépôt. `TradeNeeds.delivered` : +2 de relation, première
+  livraison annoncée au demandeur. `TradeRoutes.drop` → `routeDropped`.
+- **Paroles** : `Rumours.all` (commandes et besoins portés), action de dialogue `Rumour` (une fois sur deux, une
+  nouvelle du sac du PNJ), onglet Commerce (label `#Needs` à côté de `#Rule`, `TradeNeeds.pageLine`).
+- Relecture (PR #17) : `respond` rejoué quand une nouvelle est réentendue un autre jour ; route fermée → toutes ses
+  commandes finissent (`end.route`), pas de réouverture ; case de commande rendue sur une route de joueur à la fin ;
+  commandes du receveur exclues de son budget (`TradeRoutes.paying`) ; couverture jugée par `TradeAccess.available`
+  (`lacks`) ; `orderedProduce` limité à la route de l'acheteur ; plafond `AUTO_MAX` respecté ; rumeurs de commandes
+  limitées à 4.
+- Commande `/monde besoins [--faire liste|matin|dire] [--vers village]`. Textes écrits à la main en fin des fichiers
+  de langue (bloc « Échanges commerciaux nés des besoins »).
+- Écarts / limites : les avant-postes (fondation posée par un joueur) ne sont jamais bâtis par le conseil ; les
+  aubergistes et campeurs ne portent pas de nouvelles ; une commande `ACTIVE` dure tant que le fournisseur produit et
+  que la route tient, même si le besoin d'origine a disparu.
+
 ## Générations de villageois (`population/`)
 
 Proposition validée par Kevin le 16 novembre 2026 (Claude Doc « Peuples d'Orbis — Générations de villageois »,
