@@ -31,7 +31,8 @@ SAP = "Ingredient_Tree_Sap"
 SAP_COUNT = 10
 SAP_REPUTATION = 80
 SEED = "Nakasar_Peuples_Echo_Seed"
-# La veillée (étape 4) se joue autour du Grand-Père, bâtiment du palier Bourg : sans lui, le chef attend.
+# La veillée (étape 4) se joue autour du Grand-Père, bâti dès la fondation (palier 0) : s'il a brûlé ou n'est pas
+# encore relevé, le chef attend.
 VIGIL_BUILDING = "Grand_Pere"
 
 
