@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Le pas du monde vivant, dans le monde par défaut, joueurs connectés : chaque seconde les jeux et les charges (à
+ * Le pas du monde vivant, dans le monde par défaut, joueurs connectés ou, sans joueur, quand la veille est active
+ * ({@link Veille}) : chaque seconde les jeux et les charges (à
  * l'heure près des annonces rouges), toutes les {@value #INTERVAL} s le reste ; au changement de jour de jeu (le
  * matin, {@value GameClock#MORNING} h), les départs et tirages du jour.
  */
@@ -59,7 +60,8 @@ public final class WorldLifeSystem extends TickingSystem<EntityStore> {
         }
         world.execute(() -> {
             Store<EntityStore> s = world.getEntityStore().getStore();
-            if (Villages.registry(world).all().isEmpty() || world.getPlayerRefs().isEmpty()) {
+            // Sans joueur, la veille fait tourner le monde comme si tous les joueurs étaient loin (Veille).
+            if (Villages.registry(world).all().isEmpty() || !Veille.runs(world)) {
                 return;
             }
             try {
@@ -67,7 +69,19 @@ public final class WorldLifeSystem extends TickingSystem<EntityStore> {
                 List<Vector3d> players = WorldLife.players(world, s);
                 Calendar.step(world, s, players, fastDt);
                 if (full) {
-                    daily(world, s);
+                    if (Veille.on(world) && newDay(world, s)) {
+                        // Matin : les dépôts sont chargés le temps des prélèvements du jour (ateliers, besoins).
+                        Veille.withDeposits(world, () -> {
+                            try {
+                                daily(world, world.getEntityStore().getStore());
+                                TradeRoutes.flushInboxes(world);
+                            } catch (RuntimeException e) {
+                                PeuplesPlugin.get().getLogger().atWarning().withCause(e).log("Peuples (monde vivant) : erreur du matin");
+                            }
+                        });
+                    } else {
+                        daily(world, s);
+                    }
                     Travellers.step(world, s, players, slowDt);
                     Travellers.letters(world, s);
                     Surroundings.step(world, s, players);
@@ -89,6 +103,10 @@ public final class WorldLifeSystem extends TickingSystem<EntityStore> {
                 PeuplesPlugin.get().getLogger().atWarning().withCause(e).log("Peuples (monde vivant) : erreur du pas");
             }
         });
+    }
+
+    private static boolean newDay(World world, Store<EntityStore> store) {
+        return WorldLife.registry(world).getLong(WorldLifeRegistry.Part.CALENDAR, "day", Long.MIN_VALUE) != GameClock.day(store);
     }
 
     /** Une fois par jour de jeu : départs, campements, relations, auberges, vestiges. */

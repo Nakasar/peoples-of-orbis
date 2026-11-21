@@ -78,7 +78,8 @@ import java.util.concurrent.ThreadLocalRandom;
  *       palier, au hasard chaque matin (selon le palier, deux nuits au moins entre deux raids), quand un joueur prend la
  *       demande de défense ou la veillée de la chaîne, ou par la commande. Les gardes en parlent le jour.</li>
  *   <li><b>Annonce</b> ({@value #WARN_SECONDS} s) : la nuit, dès qu'un joueur est à moins de {@value #START_RADIUS}
- *       blocs du cœur (un village ne brûle jamais sans témoin : sinon le raid attend la nuit suivante). Cor de guerre,
+ *       blocs du cœur (sans témoin, le raid attend la nuit suivante ; avec la veille et ses raids actifs, il se joue
+ *       sans PNJ et son bilan est tiré au sort, {@link #resolveAlone}). Cor de guerre,
  *       titre, direction du camp ; les gardes du village (un par palier, {@link #DEFENDERS}) se postent autour du
  *       cœur.</li>
  *   <li><b>Assaut</b> (au plus {@value #FIGHT_SECONDS} s) : la vague ({@link #wave}) sort du camp, à
@@ -184,6 +185,18 @@ public final class Raids {
     private static final Map<UUID, Vector3i> LOCATIONS = new ConcurrentHashMap<>();
     /** Dernier jour de jeu où le tirage du matin a été fait, par village. */
     private static final Map<String, Long> ROLLED = new HashMap<>();
+    /** Villages dont le raid sans témoin attend le chargement de leurs chunks. */
+    private static final Set<String> ALONE = Collections.synchronizedSet(new HashSet<>());
+
+    /**
+     * Raid sans témoin : poids de l'attaque face aux gardes. Chance de victoire = défense / (défense + attaque × ce
+     * poids), entre {@link #ALONE_MIN} et {@link #ALONE_MAX} (palier 0 : un tiers environ, palier 3 : une sur deux).
+     */
+    static final double ALONE_ATTACK = 0.35;
+    static final double ALONE_MIN = 0.2;
+    static final double ALONE_MAX = 0.8;
+    /** Poids d'un assaillant selon son rang dans {@link #raiders} (guerrier, cogneur, brute, chef de guerre). */
+    static final double[] ALONE_WEIGHTS = {1.0, 1.5, 2.0, 3.0};
 
     private Raids() {
     }
@@ -418,12 +431,15 @@ public final class Raids {
             }
             morning(store, village, day, night);
             if (r.scheduled() && r.night() < day) {
-                // Personne n'est venu la nuit prévue : le raid attend la prochaine nuit avec un témoin.
+                // Personne n'est venu la nuit prévue (et pas de raid sans témoin) : le raid attend la prochaine nuit.
                 r.schedule(day, r.cause());
             }
-            if (r.scheduled() && r.night() <= day && night && hour >= 0 && !(hour >= LAST_START_HOUR && hour < GameClock.MORNING)
-                    && near(village, players, START_RADIUS) && Villages.heartPresent(world, village)) {
+            boolean due = r.scheduled() && r.night() <= day && night && hour >= 0 && !(hour >= LAST_START_HOUR && hour < GameClock.MORNING);
+            if (due && near(village, players, START_RADIUS) && Villages.heartPresent(world, village)) {
                 begin(world, store, village);
+            } else if (due && dev.nakasar.hytale.peuples.world.Veille.raids(world) && !ALONE.contains(village.id())) {
+                // Veille (Kevin, 22 novembre 2026) : sans témoin, le raid se joue quand même, bilan tiré au sort.
+                alone(world, village);
             }
         }
         // Raids d'un village effacé.
@@ -463,6 +479,75 @@ public final class Raids {
         if (random.nextDouble() < chance) {
             schedule(village, day, "Random");
         }
+    }
+
+    /**
+     * Raid sans témoin (veille, world/Veille) : les chunks du village sont chargés (un bâtiment peut brûler), puis le
+     * bilan est tiré au sort selon les gardes et la vague, sans PNJ. Même bilan qu'un raid joué : essor gagné, ou
+     * bâtiment brûlé ou qui perd un niveau, palier perdu, habitants au refuge ; les gardes tombés sont blessés.
+     */
+    private static void alone(World world, Village village) {
+        ALONE.add(village.id());
+        try {
+            Chantiers.loadThen(world, village, () -> {
+                try {
+                    synchronized (Raids.class) {
+                        Store<EntityStore> store = world.getEntityStore().getStore();
+                        RaidRecord r = village.raid();
+                        if (ACTIVE.containsKey(village.id()) || !r.scheduled() || Villages.registry(world).byId(village.id()) == null) {
+                            return;
+                        }
+                        resolveAlone(world, store, village);
+                    }
+                } finally {
+                    ALONE.remove(village.id());
+                }
+            });
+        } catch (RuntimeException e) {
+            ALONE.remove(village.id());
+            throw e;
+        }
+    }
+
+    static void resolveAlone(World world, Store<EntityStore> store, Village village) {
+        Random random = ThreadLocalRandom.current();
+        long day = GameClock.day(store);
+        Active a = new Active(village.id(), day, UUID.randomUUID());
+        Workshops.RaidBonus bonus = Workshops.raidBonus(village);
+        int guards = DEFENDERS[Math.max(0, Math.min(3, village.tier()))] + bonus.guards() + bonus.posts().size()
+                + dev.nakasar.hytale.peuples.world.Relations.reinforcements(world, village);
+        double defence = guards * Math.max(1f, bonus.health());
+        List<String> wave = wave(village.people(), village.tier(), dev.nakasar.hytale.peuples.zone.Hive.extraRaiders(world, village));
+        String[] roles = raiders(village.people());
+        double attack = 0;
+        for (String role : wave) {
+            int rank = 0;
+            for (int i = 0; i < roles.length; i++) {
+                if (roles[i].equals(role)) {
+                    rank = i;
+                    break;
+                }
+            }
+            attack += ALONE_WEIGHTS[Math.min(rank, ALONE_WEIGHTS.length - 1)];
+        }
+        double chance = Math.max(ALONE_MIN, Math.min(ALONE_MAX, defence / (defence + attack * ALONE_ATTACK)));
+        boolean victory = random.nextDouble() < chance;
+        a.total = wave.size();
+        if (victory) {
+            a.byGuards = a.total;
+            a.fallen = random.nextInt(guards / 3 + 1);
+        } else {
+            a.byGuards = random.nextInt(a.total / 2 + 1);
+            a.fallen = guards;
+        }
+        List<dev.nakasar.hytale.peuples.population.Inhabitant> named = dev.nakasar.hytale.peuples.population.RaidLosses
+                .defenders(village, day, guards);
+        for (int i = 0; i < Math.min(a.fallen, named.size()); i++) {
+            a.wounded.add(named.get(i).id());
+        }
+        PeuplesPlugin.get().getLogger().atInfo().log("Peuples (veille) : raid sans témoin sur %s, %d gardes contre %d assaillants, chance %.0f %%",
+                village.name(), guards, a.total, chance * 100);
+        resolve(world, store, village, a, victory, victory ? "cleared" : "guards");
     }
 
     /** Ouvre le raid : annonce, gardes, évènement de monde. Rend faux si aucun camp n'a pu être placé. */

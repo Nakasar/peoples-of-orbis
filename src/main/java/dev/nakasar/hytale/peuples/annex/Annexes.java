@@ -822,9 +822,16 @@ public final class Annexes {
                 continue;
             }
             String key = key(village, w);
+            // Sans joueur proche, la veille tient l'avant-poste le temps de ses travaux (world/Veille).
+            boolean seen = watched(a, players) || dev.nakasar.hytale.peuples.world.Veille.held(world, "annex:" + key);
+            if (!seen && dev.nakasar.hytale.peuples.world.Veille.free(world, "annex:" + key) && workDue(store, village, w, a, key, now)) {
+                int[] r = worldRect(w, a);
+                dev.nakasar.hytale.peuples.world.Veille.offer(world, "annex:" + key, r[0] - 12, r[1] + 12, r[2] - 12, r[3] + 12,
+                        () -> BUSY.contains(key) || BUSY.contains(key + "/palier"));
+            }
             if (a.ruined()) {
                 // Ouvrage rasé (raid perdu) : ses blocs partent au passage d'un joueur, la place reste à relever.
-                if (!a.cleared() && watched(a, players) && demolish(world, village, w, a)) {
+                if (!a.cleared() && seen && demolish(world, village, w, a)) {
                     a.setCleared(true);
                 }
                 continue;
@@ -833,10 +840,10 @@ public final class Annexes {
                 continue; // pris par un rival : plus de production ni de convoi pour le propriétaire
             }
             if (a.built()) {
-                if (watched(a, players) && behind(village, w, a)) {
+                if (seen && behind(village, w, a)) {
                     afterLevel(world, village, w); // bâti avant les paliers d'apparence, ou recollage interrompu
                 }
-                if (!SWEPT.contains(key) && watched(a, players)) {
+                if (!SWEPT.contains(key) && seen) {
                     // Avant-postes bâtis avant le correctif : le panneau de chantier était resté sur place.
                     ChunkStore chunks = world.getChunkStore();
                     if (Blocks.id(chunks, a.x(), a.y(), a.z()) != Blocks.UNLOADED) {
@@ -848,7 +855,7 @@ public final class Annexes {
                 }
                 // Production du matin au coffre de l'avant-poste ; à midi, un convoi de porteurs emporte le coffre au
                 // dépôt du village.
-                AnnexChests.step(world, store, village, w, a, watched(a, players));
+                AnnexChests.step(world, store, village, w, a, seen);
                 if (a.convoy()) {
                     Convoys.step(world, store, village, w, a, players, dt);
                 } else {
@@ -856,7 +863,7 @@ public final class Annexes {
                 }
                 continue;
             }
-            if (!watched(a, players)) {
+            if (!seen) {
                 continue;
             }
             if (a.working()) {
@@ -880,6 +887,29 @@ public final class Annexes {
                 }
             }
         }
+    }
+
+    /** Travaux de blocs qui attendent à l'avant-poste (mêmes conditions que {@link #step}) : la veille le tient alors. */
+    private static boolean workDue(Store<EntityStore> store, Village village, Workshop w, AnnexState a, String key, long now) {
+        if (BUSY.contains(key)) {
+            return false;
+        }
+        if (a.ruined()) {
+            return !a.cleared();
+        }
+        if (a.built()) {
+            return !a.occupied() && behind(village, w, a);
+        }
+        if (!a.working()) {
+            return false;
+        }
+        if (now >= a.end()) {
+            return true;
+        }
+        long span = Math.max(1, a.end() - a.start());
+        int phase = 1 + (int) Math.min(SiteStyle.PHASES - 1, (now - a.start()) * SiteStyle.PHASES / span);
+        Integer shown = PHASE.get(key);
+        return shown == null || shown != phase;
     }
 
     private static boolean watched(AnnexState a, List<Vector3d> players) {

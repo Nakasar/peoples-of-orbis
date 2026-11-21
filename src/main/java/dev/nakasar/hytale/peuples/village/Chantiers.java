@@ -841,8 +841,30 @@ public final class Chantiers {
         }));
     }
 
+    /** Rayon chargé autour du cœur pour les travaux du village (talus et couronnes des arbres retirés compris). */
+    public static int reach(Village village) {
+        VillageLayout layout = layout(village);
+        return (layout == null ? 32 : layout.radius()) + MARGIN + 2 * BLEND + 18;
+    }
+
+    /**
+     * Vrai si le chantier en cours a du travail à faire maintenant (fini, ou phase suivante à poser) : la veille tient
+     * alors le village sans joueur (world/Veille).
+     */
+    public static boolean workDue(Store<EntityStore> store, Village village) {
+        ChantierState c = village.chantier();
+        if (c == null || BUSY.contains(village.id())) {
+            return false;
+        }
+        if (due(store, village)) {
+            return true;
+        }
+        Integer known = PHASE.get(village.id());
+        return known == null || known < phase(store, c);
+    }
+
     /** Vrai pendant qu'un chantier du village se finit ou se bâtit (chunks en chargement, collage). */
-    static boolean busy(Village village) {
+    public static boolean busy(Village village) {
         return BUSY.contains(village.id());
     }
 
