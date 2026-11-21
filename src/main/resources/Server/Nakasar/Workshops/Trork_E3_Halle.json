@@ -56,31 +56,26 @@
     }
   ],
   "Category": "Commerce",
-  "Specialties": [
-    {
-      "Id": "Courtiers",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E3_Halle.Courtiers",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E3_Halle.Courtiers",
-      "Icon": "Deco_Scroll",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E3_Halle_Courtiers_2",
-        "Nakasar_Peuples_W_Trork_E3_Halle_Courtiers_3"
-      ],
-      "ShareItem": "Ingredient_Bolt_Linen",
-      "ShareQuantity": 3
-    },
-    {
-      "Id": "Entrepots",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E3_Halle.Entrepots",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E3_Halle.Entrepots",
-      "Icon": "Tool_Capture_Crate",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E3_Halle_Entrepots_2",
-        "Nakasar_Peuples_W_Trork_E3_Halle_Entrepots_3"
-      ],
-      "ShareItem": "Tool_Feedbag",
-      "ShareQuantity": 1
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Trork_E3_Halle_Base_1"
+  "Shop": "Nakasar_Peuples_W_Trork_E3_Halle_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Ingredient_Bolt_Linen",
+    "Includes": [
+      "Courtiers",
+      "Entrepots"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Trork_E3_Halle_Full_2",
+      "Nakasar_Peuples_W_Trork_E3_Halle_Full_3"
+    ],
+    "ShareItem": "Ingredient_Bolt_Linen",
+    "ShareQuantity": 3,
+    "Shares": [
+      {
+        "ItemId": "Tool_Feedbag",
+        "Quantity": 1
+      }
+    ]
+  }
 }

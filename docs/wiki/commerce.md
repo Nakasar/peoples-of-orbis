@@ -30,7 +30,7 @@ Trois caravanes perdues d'affilée font redescendre la route d'un niveau. Si les
 Toute ressource s'échange, pas seulement les luxes. Cliquez sur une case **Exporte** ou **Importe** pour faire défiler ce que l'expéditeur produit :
 
 - les lots et livraisons de ses [avant-postes de métier](avant-postes-de-metier.md) ;
-- les spécialités de ses ateliers au niveau II et plus ;
+- les spécialités de ses ateliers au niveau II et plus (tout ce que font ses projets) ;
 - le tribut des lieux-dits qu'il tient ;
 - le luxe de son terroir, dès le palier 2 ;
 - tout ce qu'il importe déjà par une autre route (réexportation).

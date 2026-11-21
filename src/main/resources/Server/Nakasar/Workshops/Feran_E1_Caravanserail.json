@@ -59,31 +59,26 @@
   "Requires": [
     "Ingredient_Bar_Iron"
   ],
-  "Specialties": [
-    {
-      "Id": "Epices",
-      "NameKey": "nakasar_peuples.workshop.specialty.Feran_E1_Caravanserail.Epices",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Feran_E1_Caravanserail.Epices",
-      "Icon": "Ingredient_Salt",
-      "Shops": [
-        "Nakasar_Peuples_W_Feran_E1_Caravanserail_Epices_2",
-        "Nakasar_Peuples_W_Feran_E1_Caravanserail_Epices_3"
-      ],
-      "ShareItem": "Ingredient_Spices",
-      "ShareQuantity": 4
-    },
-    {
-      "Id": "Ailleurs",
-      "NameKey": "nakasar_peuples.workshop.specialty.Feran_E1_Caravanserail.Ailleurs",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Feran_E1_Caravanserail.Ailleurs",
-      "Icon": "Ingredient_Bolt_Silk",
-      "Shops": [
-        "Nakasar_Peuples_W_Feran_E1_Caravanserail_Ailleurs_2",
-        "Nakasar_Peuples_W_Feran_E1_Caravanserail_Ailleurs_3"
-      ],
-      "ShareItem": "Ingredient_Bolt_Linen",
-      "ShareQuantity": 2
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Feran_E1_Caravanserail_Base_1"
+  "Shop": "Nakasar_Peuples_W_Feran_E1_Caravanserail_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Ingredient_Spices",
+    "Includes": [
+      "Epices",
+      "Ailleurs"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Feran_E1_Caravanserail_Full_2",
+      "Nakasar_Peuples_W_Feran_E1_Caravanserail_Full_3"
+    ],
+    "ShareItem": "Ingredient_Spices",
+    "ShareQuantity": 4,
+    "Shares": [
+      {
+        "ItemId": "Ingredient_Bolt_Linen",
+        "Quantity": 2
+      }
+    ]
+  }
 }

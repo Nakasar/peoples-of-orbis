@@ -15,19 +15,19 @@ Chaque village garde trois terrains vides, **E1**, **E2** et **E3**, pour des b�
 2. **Choisir** un projet (rang **Ami**). Tant que le chantier n'est pas lancé, vous pouvez en changer ou y renoncer sans frais.
 3. Réunir au **dépôt** du village les matériaux du terrain : la page dit ce qu'il manque.
 4. **Lancer le chantier** : les matériaux sont pris, le terrain est aplani, et les bâtisseurs travaillent 24 heures de jeu.
-5. Le bâtiment est là, et son villageois arrive. C'est un [bâtiment de métier](batiments-de-metier.md) complet : panneau, commandes, niveaux, spécialités, boutique.
+5. Le bâtiment est là, et son villageois arrive. C'est un [bâtiment de métier](batiments-de-metier.md) complet : panneau, commandes, niveaux, boutique. Il n'a **pas de spécialité à choisir** : dès le niveau II, il fait tout son métier à la fois (toutes les offres, toutes les bêtes, tous les effets de la colonne « Au niveau II » ci-dessous).
 
-Un même projet ne peut être que sur un seul terrain, et le village n'a qu'**un projet par catégorie**, sauf l'Artisanat : jusqu'à trois ateliers. Le deuxième élevage reste à part (hors catégorie, un seul) ; il doit avoir une autre spécialité que l'enclos du village.
+Un même projet ne peut être que sur un seul terrain, et le village n'a qu'**un projet par catégorie**, sauf l'Artisanat : jusqu'à trois ateliers. Le deuxième élevage reste à part (hors catégorie, un seul) ; il élève toutes les bêtes du catalogue de l'enclos du village, quelle que soit la spécialité de celui-ci.
 
 ## Les catégories {#les-categories}
 
-| Catégorie | Bâtiment | Effet sur le village | Spécialités |
+| Catégorie | Bâtiment | Effet sur le village | Au niveau II (tout à la fois) |
 | --- | --- | --- | --- |
 | **Défense** | Caserne | en raid, 2 gardes de plus autour du cœur au niveau I, +1 par niveau ; gardes des [ouvrages](infrastructures.md) tenus : +25 % de vie par niveau | **Milice** : encore 2 gardes en raid. **Garnison** : +1 garde dans chaque lieu-dit tenu, chaque ouvrage et chaque expédition |
 | **Diplomatie** | Ambassade (l'ancienne Maison du conseil) | +1 lieu-dit tenu par niveau | **Négociants** : ambassades dès 30 d'influence (40 sinon), plus sûres, ralliement plus tôt. **Hérauts** : les relations avec les autres villages remontent deux fois plus vite |
 | **Savoir** | Bibliothèque | savoir-faire +15 % pour tous les bâtiments de métier du village | **Cartographes** : les lieux-dits à moins de 600 blocs du village apparaissent sur votre carte si vous y êtes au moins Toléré. **Maîtres** : les commandes de maître de récolte, de fabrication et de plantation demandent un quart de moins |
 | **Culte** | Temple | essor +10 % | **Protection** : un raid perdu ne brûle un bâtiment qu'une fois sur deux. Bénédiction (boutique d'offrandes) |
-| **Artisanat** | ateliers du peuple | transforment des ressources du dépôt en objets | celles de chaque atelier |
+| **Artisanat** | ateliers du peuple | transforment des ressources du dépôt en objets | toutes les offres de chaque atelier |
 | **Commerce** | Halle marchande | +1 place de [route commerciale](commerce.md) par niveau | **Courtiers** : une faveur versée au crédit d'une route vaut 4 au lieu de 3. **Entrepôts** : ce que livrent les caravanes reste en accès 10 jours au lieu de 7 |
 
 ### Les ateliers consomment des ressources
@@ -38,9 +38,9 @@ Les ressources arrivent par le convoi d'un [avant-poste de production](avant-pos
 
 ### Certains projets demandent une ressource d'ailleurs
 
-Quelques projets et spécialités ne se choisissent que si le village a **accès** à une ressource : par une [route commerciale](commerce.md), une demande « Luxe d'ailleurs » remplie, ou parce qu'il la produit lui-même. La page du terrain dit ce qui manque.
+Quelques projets ne se choisissent, et quelques offres ne s'ouvrent, que si le village a **accès** à une ressource : par une [route commerciale](commerce.md), une demande « Luxe d'ailleurs » remplie, ou parce qu'il la produit lui-même. La page du terrain dit ce qui manque.
 
-| Projet ou spécialité | Il faut |
+| Projet ou offres | Il faut |
 | --- | --- |
 | Temple | des cristaux d'améthyste et 2 luxes |
 | Bibliothèque | de la soie |
@@ -52,7 +52,7 @@ Quelques projets et spécialités ne se choisissent que si le village a **accès
 | Flèches (volerie feran), Armes (forge des repentis) | du fer |
 | Dorures (taillerie slothiane) | de l'or |
 
-Si la ressource vient à manquer, le bâtiment reste debout mais sa boutique redescend au niveau I.
+Si la ressource vient à manquer, le bâtiment reste debout mais sa boutique redescend au niveau I. Pour les offres d'un projet, il suffit d'avoir l'une des ressources demandées par ses offres.
 
 | Peuple | Matériaux d'un chantier |
 | --- | --- |
@@ -74,7 +74,7 @@ Si la ressource vient à manquer, le bâtiment reste debout mais sa boutique red
 
 Les projets qui récoltaient (Grand bassin, Camp de bûcherons, Carrière, Citerne, Cabanes de pêche, Puits de basalte) doublaient un avant-poste de production : ils ne sont plus proposés. Ceux déjà bâtis restent debout et continuent de travailler.
 
-Les spécialités de chaque projet sont dans [Bâtiments de métier](batiments-de-metier.md#les-batiments-par-peuple).
+Ce que fabrique chaque projet est dans [Bâtiments de métier](batiments-de-metier.md#les-batiments-par-peuple).
 
 ## Démolir
 

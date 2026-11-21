@@ -59,31 +59,26 @@
   "Requires": [
     "Ingredient_Bolt_Silk"
   ],
-  "Specialties": [
-    {
-      "Id": "Cartographes",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E2_Bibliotheque.Cartographes",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E2_Bibliotheque.Cartographes",
-      "Icon": "Deco_Map",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E2_Bibliotheque_Cartographes_2",
-        "Nakasar_Peuples_W_Trork_E2_Bibliotheque_Cartographes_3"
-      ],
-      "ShareItem": "Deco_Map",
-      "ShareQuantity": 1
-    },
-    {
-      "Id": "Maitres",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E2_Bibliotheque.Maitres",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E2_Bibliotheque.Maitres",
-      "Icon": "Recipe_Page",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E2_Bibliotheque_Maitres_2",
-        "Nakasar_Peuples_W_Trork_E2_Bibliotheque_Maitres_3"
-      ],
-      "ShareItem": "Recipe_Page",
-      "ShareQuantity": 2
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Trork_E2_Bibliotheque_Base_1"
+  "Shop": "Nakasar_Peuples_W_Trork_E2_Bibliotheque_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Deco_Book_Pile_Small",
+    "Includes": [
+      "Cartographes",
+      "Maitres"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Trork_E2_Bibliotheque_Full_2",
+      "Nakasar_Peuples_W_Trork_E2_Bibliotheque_Full_3"
+    ],
+    "ShareItem": "Deco_Map",
+    "ShareQuantity": 1,
+    "Shares": [
+      {
+        "ItemId": "Recipe_Page",
+        "Quantity": 2
+      }
+    ]
+  }
 }

@@ -56,7 +56,7 @@ public final class TradeCatalogue {
                     continue;
                 }
                 shop(out, w.baseShop(), Source.WORKSHOP);
-                Workshop.Specialty s = ws.level() >= 2 ? w.specialty(ws.specialty()) : null;
+                Workshop.Specialty s = ws.level() >= 2 ? w.current(ws.specialty()) : null;
                 if (s != null) {
                     shop(out, s.shop(ws.level()), Source.WORKSHOP);
                 }
@@ -83,7 +83,7 @@ public final class TradeCatalogue {
         }
         for (WorkshopState ws : v.workshops()) {
             Workshop w = ws.level() >= 2 ? Workshop.get(ws.id()) : null;
-            Workshop.Specialty s = w == null ? null : w.specialty(ws.specialty());
+            Workshop.Specialty s = w == null ? null : w.current(ws.specialty());
             if (s != null) {
                 shop(out, s.shop(ws.level()), Source.WORKSHOP);
             }

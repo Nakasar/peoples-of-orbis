@@ -65,34 +65,26 @@
   "Requires": [
     "Ingredient_Bar_Iron"
   ],
-  "Specialties": [
-    {
-      "Id": "Cuirs",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E1_Tannerie.Cuirs",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E1_Tannerie.Cuirs",
-      "Icon": "Ingredient_Leather_Medium",
-      "Requires": [
-        "Ingredient_Salt"
-      ],
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E1_Tannerie_Cuirs_2",
-        "Nakasar_Peuples_W_Trork_E1_Tannerie_Cuirs_3"
-      ],
-      "ShareItem": "Ingredient_Leather_Medium",
-      "ShareQuantity": 2
-    },
-    {
-      "Id": "Sangles",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E1_Tannerie.Sangles",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E1_Tannerie.Sangles",
-      "Icon": "Ingredient_Strap_Leather",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E1_Tannerie_Sangles_2",
-        "Nakasar_Peuples_W_Trork_E1_Tannerie_Sangles_3"
-      ],
-      "ShareItem": "Ingredient_Strap_Leather",
-      "ShareQuantity": 4
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Trork_E1_Tannerie_Base_1"
+  "Shop": "Nakasar_Peuples_W_Trork_E1_Tannerie_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Ingredient_Leather_Light",
+    "Includes": [
+      "Cuirs",
+      "Sangles"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Trork_E1_Tannerie_Full_2",
+      "Nakasar_Peuples_W_Trork_E1_Tannerie_Full_3"
+    ],
+    "ShareItem": "Ingredient_Leather_Medium",
+    "ShareQuantity": 2,
+    "Shares": [
+      {
+        "ItemId": "Ingredient_Strap_Leather",
+        "Quantity": 4
+      }
+    ]
+  }
 }

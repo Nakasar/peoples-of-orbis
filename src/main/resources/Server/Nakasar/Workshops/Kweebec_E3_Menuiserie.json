@@ -66,35 +66,26 @@
   "Requires": [
     "Ingredient_Leather_Medium"
   ],
-  "Specialties": [
-    {
-      "Id": "Mobilier",
-      "NameKey": "nakasar_peuples.workshop.specialty.Kweebec_E3_Menuiserie.Mobilier",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Kweebec_E3_Menuiserie.Mobilier",
-      "Icon": "Furniture_Kweebec_Table",
-      "Requires": [
-        "Ingredient_Bolt_Cotton",
-        "Ingredient_Bolt_Wool"
-      ],
-      "Shops": [
-        "Nakasar_Peuples_W_Kweebec_E3_Menuiserie_Mobilier_2",
-        "Nakasar_Peuples_W_Kweebec_E3_Menuiserie_Mobilier_3"
-      ],
-      "ShareItem": "Furniture_Kweebec_Stool",
-      "ShareQuantity": 1
-    },
-    {
-      "Id": "Lanternes",
-      "NameKey": "nakasar_peuples.workshop.specialty.Kweebec_E3_Menuiserie.Lanternes",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Kweebec_E3_Menuiserie.Lanternes",
-      "Icon": "Furniture_Kweebec_Lantern",
-      "Shops": [
-        "Nakasar_Peuples_W_Kweebec_E3_Menuiserie_Lanternes_2",
-        "Nakasar_Peuples_W_Kweebec_E3_Menuiserie_Lanternes_3"
-      ],
-      "ShareItem": "Furniture_Kweebec_Lantern",
-      "ShareQuantity": 2
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Kweebec_E3_Menuiserie_Base_1"
+  "Shop": "Nakasar_Peuples_W_Kweebec_E3_Menuiserie_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Furniture_Kweebec_Stool",
+    "Includes": [
+      "Mobilier",
+      "Lanternes"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Kweebec_E3_Menuiserie_Full_2",
+      "Nakasar_Peuples_W_Kweebec_E3_Menuiserie_Full_3"
+    ],
+    "ShareItem": "Furniture_Kweebec_Stool",
+    "ShareQuantity": 1,
+    "Shares": [
+      {
+        "ItemId": "Furniture_Kweebec_Lantern",
+        "Quantity": 2
+      }
+    ]
+  }
 }

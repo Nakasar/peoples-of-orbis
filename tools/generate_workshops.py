@@ -500,8 +500,8 @@ PAGE = {
     "workshop.requires.routes": ("{count} routes commerciales ouvertes", "{count} open trade routes"),
     "workshop.specialtyRequires": ("Cette spécialité demande que le village dispose de : {list} (par une route commerciale ou sa propre production).",
                                    "This specialty needs the village to have: {list} (through a trade route or its own production)."),
-    "workshop.shopRequires": ("Il manque au village : {list}. La boutique de la spécialité est fermée ; seule celle de base est ouverte.",
-                              "The village lacks: {list}. The specialty shop is closed; only the basic one is open."),
+    "workshop.shopRequires": ("Il manque au village : {list}. Les offres des niveaux II et III sont fermées ; seule la boutique de base est ouverte.",
+                              "The village lacks: {list}. The level II and III offers are closed; only the basic shop is open."),
     "plot.requires": ("Ce projet demande que le village dispose de : {list}.", "This project needs the village to have: {list}."),
     "plot.page.requires": ("{category} : il faut {list}.", "{category}: needs {list}."),
     "workshop.hamletKeeper": ("le tenancier du lieu-dit", "the hamlet keeper"),
@@ -516,6 +516,12 @@ PAGE = {
     "workshop.keeperAbsent": ("{name} revient à {hour} h", "{name} is back at {hour}:00"),
     "workshop.keeperNone": ("Personne n'y travaille encore", "Nobody works here yet"),
     "workshop.noSpecialty": ("Pas encore de spécialité (au niveau II)", "No specialty yet (at level II)"),
+    # Bâtiments de projet (terrains E1/E2/E3, Kevin 2026-11-21) : pas de spécialité, tout le métier dès le niveau II.
+    "workshop.full": ("Tout le métier", "The whole craft"),
+    "workshop.fullLine": ("Sans spécialité : fait tout ({list})", "No specialty: makes everything ({list})"),
+    "workshop.fullLater": ("Sans spécialité : tout le métier au niveau II ({list})", "No specialty: the whole craft at level II ({list})"),
+    "workshop.fullNoChoice": ("Un bâtiment de projet n'a pas de spécialité : il fait tout son métier dès le niveau II.",
+                              "A project building has no specialty: it does its whole craft from level II."),
     "workshop.specialtyChoose": ("Choisir la spécialité", "Choose the specialty"),
     "workshop.specialtyChange": ("Spécialités", "Specialties"),
     "workshop.specialtyTitle": ("Spécialité : {building}", "Specialty: {building}"),
@@ -585,8 +591,8 @@ PAGE = {
     "workshop.shareLine": ("Part de l'Hôte : chaque matin, {quantity} × {item} attendent chaque {rank} dans la caisse.",
                            "Host's share: every morning, {quantity} × {item} wait in the crate for each {rank}."),
     "workshop.shareButton": ("Prendre la Part de l'Hôte", "Take the Host's share"),
-    "workshop.shareLevel": ("La Part de l'Hôte ouvre au niveau III, avec une spécialité.",
-                            "The Host's share opens at level III, with a specialty."),
+    "workshop.shareLevel": ("La Part de l'Hôte ouvre au niveau III (avec une spécialité pour un bâtiment de production).",
+                            "The Host's share opens at level III (with a specialty for a production building)."),
     "workshop.shareRank": ("La Part de l'Hôte est réservée au rang {rank}.", "The Host's share is for rank {rank}."),
     "workshop.shareTaken": ("Tu as déjà pris ta Part de l'Hôte : la caisse se remplit à {hour} h.",
                             "You already took your Host's share: the crate refills at {hour}:00."),
@@ -1227,7 +1233,12 @@ def selling_rules(errors):
 
 
 def specialties(doc, wid, people, name_fr, name_en, items, roles, fr, en, errors, building=None):
-    """Spécialités, bêtes et boutiques (niveaux I à III) d'un bâtiment de métier, ajoutées à `doc`."""
+    """Spécialités, bêtes et boutiques (niveaux I à III) d'un bâtiment de métier, ajoutées à `doc`.
+
+    Un bâtiment de projet (terrain E1/E2/E3, Kevin 2026-11-21) n'a pas de spécialité à choisir : il fait tout son
+    métier dès le niveau II. Ses spécialités du catalogue sont fondues dans un seul champ « Full » (voir full_craft).
+    """
+    full = wid in PLOT_META
     specs = SPECIALTIES.get(wid)
     if specs is None:
         errors.append(f"{wid} : pas de spécialités")
@@ -1285,6 +1296,8 @@ def specialties(doc, wid, people, name_fr, name_en, items, roles, fr, en, errors
             two, three = shops.get(sid, ([], []))
             if not two or not three:
                 errors.append(f"{wid}/{sid} : boutique des niveaux II et III manquante")
+            elif full:
+                spec["_two"], spec["_three"] = two, three
             else:
                 trades = list(base_trades)
                 spec["Shops"] = []
@@ -1299,6 +1312,11 @@ def specialties(doc, wid, people, name_fr, name_en, items, roles, fr, en, errors
                     en[f"barter.W_{wid}_{sid}_{level}.title"] = f"{name_en}: {sen} {ROMAN[level]}"
                 spec["ShareItem"], spec["ShareQuantity"] = two[0][0], two[0][1]
             doc["Specialties"].append(spec)
+            if full:
+                # Noms gardés : la page des terrains et celle du bâtiment disent ce que le projet fabrique.
+                fr[f"workshop.specialty.{wid}.{sid}"] = sfr
+                en[f"workshop.specialty.{wid}.{sid}"] = sen
+                continue
             # La page de choix n'a que generate_workshop_ui.SPECIALTIES cartes (WorkshopSpecialtyPage.CARDS).
             if len(doc["Specialties"]) > 4:
                 raise SystemExit(f"{wid} : {len(doc['Specialties'])} spécialités, 4 cartes au plus sur la page de choix")
@@ -1306,6 +1324,62 @@ def specialties(doc, wid, people, name_fr, name_en, items, roles, fr, en, errors
             en[f"workshop.specialty.{wid}.{sid}"] = sen
             fr[f"workshop.specialtyLine.{wid}.{sid}"] = lfr
             en[f"workshop.specialtyLine.{wid}.{sid}"] = len_
+        if full:
+            full_craft(doc, wid, people, name_fr, name_en, base_trades, items, errors)
+
+
+def merge_trades(trades, add, stock):
+    """Ajoute les échanges `add` (stock `stock`) à `trades`, sans doubler un objet déjà vendu."""
+    sold = {t[0] for t in trades}
+    out = list(trades)
+    for t in add:
+        if t[0] not in sold:
+            out.append(tuple(t) + (stock,))
+            sold.add(t[0])
+    return out
+
+
+def full_craft(doc, wid, people, name_fr, name_en, base_trades, items, errors):
+    """Bâtiment de projet sans spécialité : toutes ses spécialités du catalogue à la fois, dès le niveau II.
+
+    Boutiques des niveaux II et III = celle du niveau I + les offres de toutes les spécialités ; bêtes de toutes les
+    spécialités ; Part de l'Hôte de chacune ; effet en raid le plus fort ; ressources demandées : une au moins de toutes.
+    """
+    specs = doc.pop("Specialties", [])
+    if not specs:
+        return
+    out = {"Id": "Full", "NameKey": "nakasar_peuples.workshop.full", "Icon": doc["Icon"],
+           "Includes": [sp["Id"] for sp in specs]}
+    animals = []
+    for sp in specs:
+        animals += [a for a in sp.get("Animals", []) if a not in animals]
+    if animals:
+        out["Animals"] = animals
+    trades, out["Shops"] = list(base_trades), []
+    for level, key in ((2, "_two"), (3, "_three")):
+        for sp in specs:
+            trades = merge_trades(trades, sp.get(key, []), SHOP_STOCK[level])
+        shop_id = f"{SHOP_PREFIX}{wid}_Full_{level}"
+        write_shop(shop_id, people, trades, f"nakasar_peuples.barter.W_{wid}_Full_{level}.title",
+                   f"Boutique du niveau {level} du bâtiment de projet {wid} (toutes ses offres, sans spécialité), "
+                   "générée par tools/generate_workshops.py.", items, errors)
+        out["Shops"].append(shop_id)
+        FULL_TITLES[f"barter.W_{wid}_Full_{level}.title"] = (f"{name_fr} {ROMAN[level]}", f"{name_en} {ROMAN[level]}")
+    shares = [{"ItemId": sp["_two"][0][0], "Quantity": sp["_two"][0][1]} for sp in specs if sp.get("_two")]
+    if shares:
+        out["ShareItem"], out["ShareQuantity"] = shares[0]["ItemId"], shares[0]["Quantity"]
+        if len(shares) > 1:
+            out["Shares"] = shares[1:]
+    raids = [sp["Raid"] for sp in specs if sp.get("Raid")]
+    if raids:
+        out["Raid"] = {k: max(r.get(k, 0) for r in raids) for k in sorted({k for r in raids for k in r})}
+    needs = [sp["Requires"] for sp in specs if sp.get("Requires")]
+    if needs and len(needs) == len(specs):
+        out["Requires"] = sorted({i for n in needs for i in n})
+    doc["Full"] = out
+
+
+FULL_TITLES = {}
 
 
 def write_orders(wid, people, folder, orders, items, roles, fr, en, errors):
@@ -1453,7 +1527,7 @@ def main():
         print(f"{wid} : {len(orders)} commandes + 2 de maître, panneau {spot}")
     write_annexes(items, roles, fr, en, errors)
     write_hamlet_workshops(items, roles, fr, en, errors)
-    for key, (f, e) in PAGE.items():
+    for key, (f, e) in list(FULL_TITLES.items()) + list(PAGE.items()):
         fr[key] = f
         en[key] = e
     if errors:

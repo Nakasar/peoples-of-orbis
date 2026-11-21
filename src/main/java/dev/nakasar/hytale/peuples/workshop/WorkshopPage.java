@@ -161,7 +161,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
         cmd.set("#Level.TextSpans", Message.translation(KEYS + "level." + state.level()));
         cmd.set("#Keeper.TextSpans", keeperLine(village, w));
         Workshop.Specialty spec = w.specialty(state.specialty());
-        cmd.set("#Specialty.TextSpans", spec == null ? Message.translation(KEYS + "noSpecialty") : Message.translation(spec.nameKey()));
+        cmd.set("#Specialty.TextSpans", specialtyLine(w, state));
         // Étape 3 : le choix de la spécialité s'ouvre au niveau II (la page dit ce qui manque : rang, délai).
         boolean choose = w.specialties().length > 0 && state.level() >= Workshops.SPECIALTY_LEVEL;
         cmd.set("#SpecialtyAction.Visible", choose);
@@ -403,14 +403,37 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
         }
         Workshop.Specialty spec = Workshops.shareSpecialty(w, state);
         if (spec != null) {
-            out = out.insert("\n").insert(Message.translation(KEYS + "shareLine").param("quantity", spec.shareQuantity())
-                    .param("item", dev.nakasar.hytale.peuples.village.VillageBoard.itemName(spec.shareItem()))
-                    .param("rank", Message.translation(Workshops.SHARE_RANK.nameKey())));
+            // Bâtiment de projet : un lot par spécialité de son catalogue, tous dans la même caisse.
+            for (dev.nakasar.hytale.peuples.village.VillageLayout.Material lot : spec.shareLots()) {
+                out = out.insert("\n").insert(Message.translation(KEYS + "shareLine").param("quantity", lot.quantity())
+                        .param("item", dev.nakasar.hytale.peuples.village.VillageBoard.itemName(lot.itemId()))
+                        .param("rank", Message.translation(Workshops.SHARE_RANK.nameKey())));
+            }
         }
         return out;
     }
 
     private static final int MATERIALS = 4;
+
+    /**
+     * Ligne de la spécialité : celle choisie (ou « pas encore »), et pour un bâtiment de projet, qui n'en choisit pas,
+     * tout ce qu'il fabrique (dès le niveau II).
+     */
+    static Message specialtyLine(Workshop w, WorkshopState state) {
+        if (w.isFull()) {
+            Message list = Message.empty();
+            List<String> keys = w.craftKeys();
+            for (int i = 0; i < keys.size(); i++) {
+                if (i > 0) {
+                    list.insert(" / ");
+                }
+                list.insert(Message.translation(keys.get(i)));
+            }
+            return Message.translation(KEYS + (state.level() >= Workshops.SPECIALTY_LEVEL ? "fullLine" : "fullLater")).param("list", list);
+        }
+        Workshop.Specialty spec = w.specialty(state.specialty());
+        return spec == null ? Message.translation(KEYS + "noSpecialty") : Message.translation(spec.nameKey());
+    }
 
     /** Ligne de l'enclos : bêtes présentes sur bêtes voulues, retour au matin, réputation perdue. */
     static Message beastsLine(Village village, Workshop w, WorkshopState state) {
@@ -478,8 +501,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
         if (holder != null) {
             lines.add(Message.translation(dev.nakasar.hytale.peuples.world.Heraldry.KEYS + "panel.line").param("village", holder.name()));
         }
-        Workshop.Specialty spec = w.specialty(state.specialty());
-        lines.add(spec == null ? Message.translation(KEYS + "noSpecialty") : Message.translation(spec.nameKey()));
+        lines.add(specialtyLine(w, state));
         if (w.isPen()) {
             lines.add(beastsLine(village, w, state));
         }

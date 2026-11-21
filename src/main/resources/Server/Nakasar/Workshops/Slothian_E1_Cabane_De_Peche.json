@@ -56,31 +56,26 @@
     }
   ],
   "Legacy": true,
-  "Specialties": [
-    {
-      "Id": "Poissons",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E1_Cabane_De_Peche.Poissons",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E1_Cabane_De_Peche.Poissons",
-      "Icon": "Food_Fish_Raw",
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E1_Cabane_De_Peche_Poissons_2",
-        "Nakasar_Peuples_W_Slothian_E1_Cabane_De_Peche_Poissons_3"
-      ],
-      "ShareItem": "Food_Fish_Raw",
-      "ShareQuantity": 4
-    },
-    {
-      "Id": "Coquillages",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E1_Cabane_De_Peche.Coquillages",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E1_Cabane_De_Peche.Coquillages",
-      "Icon": "Ingredient_Chitin_Sturdy",
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E1_Cabane_De_Peche_Coquillages_2",
-        "Nakasar_Peuples_W_Slothian_E1_Cabane_De_Peche_Coquillages_3"
-      ],
-      "ShareItem": "Ingredient_Chitin_Sturdy",
-      "ShareQuantity": 1
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Slothian_E1_Cabane_De_Peche_Base_1"
+  "Shop": "Nakasar_Peuples_W_Slothian_E1_Cabane_De_Peche_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Food_Fish_Raw",
+    "Includes": [
+      "Poissons",
+      "Coquillages"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Slothian_E1_Cabane_De_Peche_Full_2",
+      "Nakasar_Peuples_W_Slothian_E1_Cabane_De_Peche_Full_3"
+    ],
+    "ShareItem": "Food_Fish_Raw",
+    "ShareQuantity": 4,
+    "Shares": [
+      {
+        "ItemId": "Ingredient_Chitin_Sturdy",
+        "Quantity": 1
+      }
+    ]
+  }
 }
