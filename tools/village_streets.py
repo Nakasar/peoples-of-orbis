@@ -27,7 +27,7 @@ import random
 from pathlib import Path
 
 TOOLS = Path(__file__).resolve().parent
-NPC = "Npc/Kweebec/Oak/"
+NPC = "Nakasar/Peuples/Npc/Kweebec/Oak/"
 
 # Terrassement d'une emprise (Java VillageBuilder/Chantiers : MARGIN 2 + 2 * BLEND 4) : le sol y bouge quand le
 # bâtiment est collé, donc le décor voisin attend ce palier-là.

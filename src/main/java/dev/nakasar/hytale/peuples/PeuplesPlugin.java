@@ -60,7 +60,7 @@ import dev.nakasar.hytale.peuples.klops.KlopsSystem;
  * </ul>
  * Étape 2, le premier village :
  * <ul>
- *   <li>les plans de village, assets JSON {@code Server/}{@value VillageLayout#PATH} (prefabs vanilla autour du cœur,
+ *   <li>les plans de village, assets JSON {@code Server/}{@value VillageLayout#PATH} (copies des prefabs vanilla autour du cœur,
  *       générés par {@code tools/generate_village_layouts.py}), bâtis par {@code VillageBuilder} ;</li>
  *   <li>{@link VillageSeeder} : un village kweebec posé tout seul près du point d'apparition du monde par défaut ;</li>
  *   <li>{@link VillageEntrySystem} : titre d'écran à l'entrée d'un village, bannière de carte révélée à l'approche ;</li>
@@ -90,7 +90,7 @@ import dev.nakasar.hytale.peuples.klops.KlopsSystem;
  * Étape 5, les chantiers et les métiers :
  * <ul>
  *   <li>{@link VillageLifeSystem} : jauge pleine et matériaux au dépôt, le chantier du palier suivant s'ouvre
- *       (échafaudage en blocs vanilla, un jour de jeu), puis les prefabs vanilla sont collés et le village change de
+ *       (échafaudage en blocs vanilla, un jour de jeu), puis les copies des prefabs vanilla sont collées et le village change de
  *       palier ({@code village/Chantiers}) ; un bâtiment peut brûler ({@code village/Burning}) et sera rebâti ;</li>
  *   <li>{@link Villagers} : les villageois à métier du plan (jardinière, bâtisseur, guetteur...), leur poste de jour et
  *       leur logis de nuit.</li>

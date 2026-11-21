@@ -8,8 +8,8 @@
   "Rule": "FERTILE",
   "Weight": 4,
   "Buildings": [
-    "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_004 0 -12 0 M 1 -4 5 -19 -4 8",
-    "Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001 9 -12 0 E 1 8 10 -13 -11 4"
+    "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_004 0 -12 0 M 1 -4 5 -19 -4 8",
+    "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001 9 -12 0 E 1 8 10 -13 -11 4"
   ],
   "Decor": [],
   "Residents": [

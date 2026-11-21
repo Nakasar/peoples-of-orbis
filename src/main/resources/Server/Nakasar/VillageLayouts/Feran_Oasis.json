@@ -9,7 +9,7 @@
     {
       "Id": "Hutte_Ouest",
       "Tier": 0,
-      "Prefab": "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
       "X": -21,
       "Z": -1,
       "Rotation": 0,
@@ -29,7 +29,7 @@
     {
       "Id": "Hutte_Est",
       "Tier": 0,
-      "Prefab": "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
       "X": 21,
       "Z": 0,
       "Rotation": 2,
@@ -49,7 +49,7 @@
     {
       "Id": "Muret_Du_Vent",
       "Tier": 0,
-      "Prefab": "Npc/Feran/Tier3/Walls/Feran_Tier3_Walls_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Walls/Feran_Tier3_Walls_001",
       "X": -1,
       "Z": -14,
       "Rotation": 0,
@@ -69,7 +69,7 @@
     {
       "Id": "Grande_Hutte",
       "Tier": 1,
-      "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
       "X": -23,
       "Z": 26,
       "Rotation": 0,
@@ -89,7 +89,7 @@
     {
       "Id": "Entree_Oasis",
       "Tier": 1,
-      "Prefab": "Npc/Feran/Tier2/Entrance/Feran_Tier2_Entrance_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Entrance/Feran_Tier2_Entrance_001",
       "X": -1,
       "Z": 14,
       "Rotation": 0,
@@ -109,7 +109,7 @@
     {
       "Id": "Hutte_Sud",
       "Tier": 1,
-      "Prefab": "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
       "X": 19,
       "Z": 22,
       "Rotation": 0,
@@ -149,7 +149,7 @@
     {
       "Id": "Hutte_Nord_Ouest",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
       "X": -6,
       "Z": -48,
       "Rotation": 0,
@@ -169,7 +169,7 @@
     {
       "Id": "Hutte_Pilier",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
       "X": 1,
       "Z": 25,
       "Rotation": 0,
@@ -189,7 +189,7 @@
     {
       "Id": "Hutte_Sud_Est",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_003",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_003",
       "X": 23,
       "Z": -26,
       "Rotation": 0,
@@ -209,7 +209,7 @@
     {
       "Id": "Hutte_Du_Chef",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
       "X": -39,
       "Z": -31,
       "Rotation": 0,
@@ -229,7 +229,7 @@
     {
       "Id": "Hutte_Du_Windwalker",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
       "X": 47,
       "Z": -22,
       "Rotation": 0,
@@ -249,7 +249,7 @@
     {
       "Id": "E1_Caravanserail",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002",
       "X": 7,
       "Z": 50,
       "Rotation": 0,
@@ -264,7 +264,7 @@
     {
       "Id": "E1_Tissage",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001",
       "X": 7,
       "Z": 50,
       "Rotation": 0,
@@ -279,7 +279,7 @@
     {
       "Id": "E1_Citerne",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005",
       "X": 7,
       "Z": 50,
       "Rotation": 0,
@@ -294,7 +294,7 @@
     {
       "Id": "E1_Volerie",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
       "X": 7,
       "Z": 50,
       "Rotation": 0,
@@ -324,7 +324,7 @@
     {
       "Id": "E1_Conseil",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003",
       "X": 8,
       "Z": 50,
       "Rotation": 0,
@@ -339,7 +339,7 @@
     {
       "Id": "E1_Caserne",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
       "X": 7,
       "Z": 50,
       "Rotation": 0,
@@ -354,7 +354,7 @@
     {
       "Id": "E1_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
       "X": 8,
       "Z": 51,
       "Rotation": 0,
@@ -369,7 +369,7 @@
     {
       "Id": "E1_Temple",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
       "X": 7,
       "Z": 51,
       "Rotation": 0,
@@ -384,7 +384,7 @@
     {
       "Id": "E1_Halle",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
       "X": 7,
       "Z": 50,
       "Rotation": 0,
@@ -399,7 +399,7 @@
     {
       "Id": "E2_Caravanserail",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002",
       "X": 48,
       "Z": 4,
       "Rotation": 0,
@@ -414,7 +414,7 @@
     {
       "Id": "E2_Tissage",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001",
       "X": 48,
       "Z": 4,
       "Rotation": 0,
@@ -429,7 +429,7 @@
     {
       "Id": "E2_Citerne",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005",
       "X": 48,
       "Z": 4,
       "Rotation": 0,
@@ -444,7 +444,7 @@
     {
       "Id": "E2_Volerie",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
       "X": 48,
       "Z": 4,
       "Rotation": 0,
@@ -474,7 +474,7 @@
     {
       "Id": "E2_Conseil",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003",
       "X": 49,
       "Z": 4,
       "Rotation": 0,
@@ -489,7 +489,7 @@
     {
       "Id": "E2_Caserne",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
       "X": 48,
       "Z": 4,
       "Rotation": 0,
@@ -504,7 +504,7 @@
     {
       "Id": "E2_Bibliotheque",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
       "X": 49,
       "Z": 5,
       "Rotation": 0,
@@ -519,7 +519,7 @@
     {
       "Id": "E2_Temple",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
       "X": 48,
       "Z": 5,
       "Rotation": 0,
@@ -534,7 +534,7 @@
     {
       "Id": "E2_Halle",
       "Tier": 3,
-      "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
       "X": 48,
       "Z": 4,
       "Rotation": 0,
@@ -549,7 +549,7 @@
     {
       "Id": "E3_Caravanserail",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002",
       "X": -47,
       "Z": -4,
       "Rotation": 0,
@@ -564,7 +564,7 @@
     {
       "Id": "E3_Tissage",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001",
       "X": -47,
       "Z": -4,
       "Rotation": 0,
@@ -579,7 +579,7 @@
     {
       "Id": "E3_Citerne",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005",
       "X": -47,
       "Z": -4,
       "Rotation": 0,
@@ -594,7 +594,7 @@
     {
       "Id": "E3_Volerie",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
       "X": -47,
       "Z": -4,
       "Rotation": 0,
@@ -624,7 +624,7 @@
     {
       "Id": "E3_Conseil",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003",
       "X": -46,
       "Z": -4,
       "Rotation": 0,
@@ -639,7 +639,7 @@
     {
       "Id": "E3_Caserne",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
       "X": -47,
       "Z": -4,
       "Rotation": 0,
@@ -654,7 +654,7 @@
     {
       "Id": "E3_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
       "X": -46,
       "Z": -3,
       "Rotation": 0,
@@ -669,7 +669,7 @@
     {
       "Id": "E3_Temple",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
       "X": -47,
       "Z": -3,
       "Rotation": 0,
@@ -684,7 +684,7 @@
     {
       "Id": "E3_Halle",
       "Tier": 2,
-      "Prefab": "Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+      "Prefab": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
       "X": -47,
       "Z": -4,
       "Rotation": 0,
@@ -2009,14 +2009,14 @@
         "Tier": 0,
         "Pieces": [
           {
-            "Prefab": "Orbis/Trees/Palm/Stage_2/Palm_Stage2_001",
+            "Prefab": "Nakasar/Peuples/Orbis/Trees/Palm/Stage_2/Palm_Stage2_001",
             "X": -5,
             "Y": 1,
             "Z": -7,
             "Rotation": 0
           },
           {
-            "Prefab": "Orbis/Trees/Palm/Stage_2/Palm_Stage2_001",
+            "Prefab": "Nakasar/Peuples/Orbis/Trees/Palm/Stage_2/Palm_Stage2_001",
             "X": 5,
             "Y": 1,
             "Z": -6,
@@ -2308,7 +2308,7 @@
         "Tier": 1,
         "Pieces": [
           {
-            "Prefab": "Orbis/Trees/Palm/Stage_3/Palm_Stage3_002",
+            "Prefab": "Nakasar/Peuples/Orbis/Trees/Palm/Stage_3/Palm_Stage3_002",
             "X": -5,
             "Y": 1,
             "Z": -7,
@@ -2323,14 +2323,14 @@
         "Tier": 2,
         "Pieces": [
           {
-            "Prefab": "Orbis/Trees/Palm/Stage_3/Palm_Stage3_002",
+            "Prefab": "Nakasar/Peuples/Orbis/Trees/Palm/Stage_3/Palm_Stage3_002",
             "X": 5,
             "Y": 1,
             "Z": -6,
             "Rotation": 0
           },
           {
-            "Prefab": "Orbis/Trees/Palm/Stage_3/Palm_Stage3_002",
+            "Prefab": "Nakasar/Peuples/Orbis/Trees/Palm/Stage_3/Palm_Stage3_002",
             "X": -6,
             "Y": 1,
             "Z": 4,
@@ -2345,14 +2345,14 @@
         "Tier": 3,
         "Pieces": [
           {
-            "Prefab": "Orbis/Trees/Palm/Stage_4/Palm_Stage4_001",
+            "Prefab": "Nakasar/Peuples/Orbis/Trees/Palm/Stage_4/Palm_Stage4_001",
             "X": -5,
             "Y": 1,
             "Z": -7,
             "Rotation": 0
           },
           {
-            "Prefab": "Orbis/Trees/Palm/Stage_4/Palm_Stage4_001",
+            "Prefab": "Nakasar/Peuples/Orbis/Trees/Palm/Stage_4/Palm_Stage4_001",
             "X": -6,
             "Y": 1,
             "Z": 4,

@@ -58,9 +58,9 @@
     "Item": "Nakasar_Peuples_Annex_Ferme",
     "Rule": "FERTILE",
     "Prefabs": [
-      "Npc/Trork/Tent/Trork_Tent_001 0 -8 0",
-      "Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002 9 -8 0",
-      "Npc/Trork/Misc/Large/Trork_Misc_Large_004 -9 -8 0"
+      "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001 0 -8 0",
+      "Nakasar/Peuples/Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002 9 -8 0",
+      "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004 -9 -8 0"
     ],
     "Rect": [
       -13,

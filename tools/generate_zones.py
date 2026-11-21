@@ -72,11 +72,11 @@ def write(path, doc):
 # Peuples
 # ----------------------------------------------------------------------------------------------------------------------
 
-FERAN_T1 = "Npc/Feran/Tier1/"
-FERAN_T2 = "Npc/Feran/Tier2/"
-FERAN_T3 = "Npc/Feran/Tier3/"
-OASIS = "Npc/Feran/Portals_Oasis/"
-OUT = "Npc/Outlander/"
+FERAN_T1 = "Nakasar/Peuples/Npc/Feran/Tier1/"
+FERAN_T2 = "Nakasar/Peuples/Npc/Feran/Tier2/"
+FERAN_T3 = "Nakasar/Peuples/Npc/Feran/Tier3/"
+OASIS = "Nakasar/Peuples/Npc/Feran/Portals_Oasis/"
+OUT = "Nakasar/Peuples/Npc/Outlander/"
 
 PEOPLES = {
     "Feran": {

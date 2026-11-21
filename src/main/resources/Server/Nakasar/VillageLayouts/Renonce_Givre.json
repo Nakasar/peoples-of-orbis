@@ -9,7 +9,7 @@
     {
       "Id": "Abri_Des_Fuyards",
       "Tier": 0,
-      "Prefab": "Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_001",
       "X": 27,
       "Z": 4,
       "Rotation": 0,
@@ -29,7 +29,7 @@
     {
       "Id": "Abri_Du_Guet",
       "Tier": 0,
-      "Prefab": "Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_003",
       "X": 0,
       "Z": -27,
       "Rotation": 0,
@@ -49,7 +49,7 @@
     {
       "Id": "Tour_De_Guet_Givre",
       "Tier": 0,
-      "Prefab": "Npc/Outlander/Towers/Tier1/Outlander_Towers_Tier1_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Towers/Tier1/Outlander_Towers_Tier1_001",
       "X": -19,
       "Z": -1,
       "Rotation": 0,
@@ -69,7 +69,7 @@
     {
       "Id": "Maison_Des_Repentis",
       "Tier": 1,
-      "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_002",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_002",
       "X": 32,
       "Z": -29,
       "Rotation": 0,
@@ -89,7 +89,7 @@
     {
       "Id": "Maison_Du_Chasseur",
       "Tier": 1,
-      "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_005",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_005",
       "X": -41,
       "Z": -2,
       "Rotation": 0,
@@ -109,7 +109,7 @@
     {
       "Id": "Petit_Bateau",
       "Tier": 1,
-      "Prefab": "Npc/Outlander/Boats/Small/Outlander_Boats_Small_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Boats/Small/Outlander_Boats_Small_001",
       "X": 53,
       "Z": -20,
       "Rotation": 0,
@@ -149,7 +149,7 @@
     {
       "Id": "Grande_Maison_Givre",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
       "X": 0,
       "Z": -57,
       "Rotation": 0,
@@ -169,7 +169,7 @@
     {
       "Id": "Tour_Du_Fort",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_001",
       "X": 23,
       "Z": -51,
       "Rotation": 0,
@@ -189,7 +189,7 @@
     {
       "Id": "Grand_Bateau",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Boats/Large/Outlander_Boats_Large_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Boats/Large/Outlander_Boats_Large_001",
       "X": -1,
       "Z": 59,
       "Rotation": 0,
@@ -209,7 +209,7 @@
     {
       "Id": "Maison_Du_Sorcier",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_002",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_002",
       "X": -36,
       "Z": 31,
       "Rotation": 0,
@@ -229,7 +229,7 @@
     {
       "Id": "Totem_Brise",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Totems/Outlander_Totems_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Totems/Outlander_Totems_001",
       "X": 55,
       "Z": 21,
       "Rotation": 0,
@@ -249,7 +249,7 @@
     {
       "Id": "E1_Forge",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
       "X": -32,
       "Z": -32,
       "Rotation": 0,
@@ -264,7 +264,7 @@
     {
       "Id": "E1_Fumoir",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_001",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -279,7 +279,7 @@
     {
       "Id": "E1_Cabane_De_Peche",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_003",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -294,7 +294,7 @@
     {
       "Id": "E1_Chenil",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_002",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_002",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -324,7 +324,7 @@
     {
       "Id": "E1_Conseil",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
       "X": -29,
       "Z": -34,
       "Rotation": 0,
@@ -339,7 +339,7 @@
     {
       "Id": "E1_Caserne",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_004",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -354,7 +354,7 @@
     {
       "Id": "E1_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
       "X": -32,
       "Z": -32,
       "Rotation": 0,
@@ -369,7 +369,7 @@
     {
       "Id": "E1_Temple",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_006",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -384,7 +384,7 @@
     {
       "Id": "E1_Halle",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_005",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_005",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -399,7 +399,7 @@
     {
       "Id": "E2_Forge",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
       "X": -4,
       "Z": 30,
       "Rotation": 0,
@@ -414,7 +414,7 @@
     {
       "Id": "E2_Fumoir",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_001",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -429,7 +429,7 @@
     {
       "Id": "E2_Cabane_De_Peche",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_003",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -444,7 +444,7 @@
     {
       "Id": "E2_Chenil",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_002",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_002",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -474,7 +474,7 @@
     {
       "Id": "E2_Conseil",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
       "X": -1,
       "Z": 28,
       "Rotation": 0,
@@ -489,7 +489,7 @@
     {
       "Id": "E2_Caserne",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_004",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -504,7 +504,7 @@
     {
       "Id": "E2_Bibliotheque",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
       "X": -4,
       "Z": 30,
       "Rotation": 0,
@@ -519,7 +519,7 @@
     {
       "Id": "E2_Temple",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_006",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -534,7 +534,7 @@
     {
       "Id": "E2_Halle",
       "Tier": 3,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_005",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_005",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -549,7 +549,7 @@
     {
       "Id": "E3_Forge",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
       "X": 29,
       "Z": 39,
       "Rotation": 0,
@@ -564,7 +564,7 @@
     {
       "Id": "E3_Fumoir",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_001",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_001",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -579,7 +579,7 @@
     {
       "Id": "E3_Cabane_De_Peche",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_003",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -594,7 +594,7 @@
     {
       "Id": "E3_Chenil",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_002",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_002",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -624,7 +624,7 @@
     {
       "Id": "E3_Conseil",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
       "X": 32,
       "Z": 37,
       "Rotation": 0,
@@ -639,7 +639,7 @@
     {
       "Id": "E3_Caserne",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_004",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -654,7 +654,7 @@
     {
       "Id": "E3_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
       "X": 29,
       "Z": 39,
       "Rotation": 0,
@@ -669,7 +669,7 @@
     {
       "Id": "E3_Temple",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_006",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -684,7 +684,7 @@
     {
       "Id": "E3_Halle",
       "Tier": 2,
-      "Prefab": "Npc/Outlander/Misc/Outlander_Misc_005",
+      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_005",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -2217,7 +2217,7 @@
         "Tier": 0,
         "Pieces": [
           {
-            "Prefab": "Npc/Outlander/Misc/Outlander_Misc_003",
+            "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_003",
             "X": 0,
             "Y": -1,
             "Z": -3,
@@ -2316,7 +2316,7 @@
         "Tier": 1,
         "Pieces": [
           {
-            "Prefab": "Orbis/Trees/Fir_Snow/Stage_2/Fir_Snow_Stage2_001",
+            "Prefab": "Nakasar/Peuples/Orbis/Trees/Fir_Snow/Stage_2/Fir_Snow_Stage2_001",
             "X": -7,
             "Y": 1,
             "Z": 5,
@@ -2333,14 +2333,14 @@
         "Tier": 2,
         "Pieces": [
           {
-            "Prefab": "Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001",
+            "Prefab": "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001",
             "X": -8,
             "Y": 0,
             "Z": -2,
             "Rotation": 0
           },
           {
-            "Prefab": "Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001",
+            "Prefab": "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001",
             "X": 8,
             "Y": 0,
             "Z": -2,
@@ -2355,7 +2355,7 @@
         "Tier": 3,
         "Pieces": [
           {
-            "Prefab": "Orbis/Trees/Fir_Snow/Stage_3/Fir_Snow_Stage3_001",
+            "Prefab": "Nakasar/Peuples/Orbis/Trees/Fir_Snow/Stage_3/Fir_Snow_Stage3_001",
             "X": -8,
             "Y": 1,
             "Z": -7,

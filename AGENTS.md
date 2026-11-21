@@ -36,6 +36,15 @@ Consignes de Kevin (25 octobre 2026), à respecter pour chaque mob, boss, élite
    blanc sur un sol clair (dalles de la Voix de la montagne, neige). Les générateurs (`generate_warnings.py`, `tower_warnings.py`) portent ces valeurs ; `validateAssets` refuse tout émetteur
    d'un dossier `Warnings` ou à texture `Warning_*` qui s'en écarte. Seules les zones favorables listées dans
    `POSITIVE_ZONES` gardent une autre couleur.
+5. **Jamais de prefab vanilla référencé pour un bâtiment ou une structure** (Kevin, 21 novembre 2026 : « pour tous
+   les prefab qu'on utilise, copie le prefab dans le mod avec sa propre référence »). Un prefab vanilla réemployé
+   (règle n° 2) est copié tel quel d'`Assets.zip` (`Server/Prefabs/<chemin>`) dans
+   `src/main/resources/Server/Prefabs/Nakasar/Peuples/<chemin>`, et le mod ne cite que cette copie
+   (`Nakasar/Peuples/<chemin>`) : Java, plans, paliers, lieux-dits, avant-postes, générateurs `tools/*.py`
+   (`tools/mod_prefabs.py`). Après avoir pris un nouveau prefab vanilla dans un générateur, lancer
+   `python3 tools/copy_vanilla_prefabs.py Assets.zip` sur le PC du jeu. `validateAssets` refuse tout chemin de prefab
+   vanilla (`tools/vanilla-prefab-paths-0.7.2.txt`) cité dans `src/main` et toute copie absente. Le Java lit un
+   chemin vanilla resté dans un monde sauvé comme sa copie (`VillageBuilder.modPrefab`).
 
 ## Vérifications
 

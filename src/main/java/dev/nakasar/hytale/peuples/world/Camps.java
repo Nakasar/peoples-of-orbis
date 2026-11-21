@@ -37,8 +37,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * Étape 4 : les campements temporaires. Chaque matin, une chance sur quatre ({@value #CHANCE}) qu'un campement
  * s'installe entre {@value #MIN_DISTANCE} et {@value #MAX_DISTANCE} blocs d'un village (au plus {@value #MAX_WORLD}
  * à la fois), pour trois à cinq jours : chasseurs (viande crue contre cuir), bûcherons (pain contre sève), prospecteurs
- * (à défendre contre une bande), halte de marchands (troc du peuple). Le campement est un prefab vanilla posé pour un
- * temps ({@link Sites#pasteTemporary}) et rendu à la fin.
+ * (à défendre contre une bande), halte de marchands (troc du peuple). Le campement est une copie de prefab vanilla posée pour un
+ * temps ({@link Sites#pasteTemporary}) et rendue à la fin.
  *
  * <p>Réfugiés : un raid perdu brûle un bâtiment (le village ne disparaît jamais) ; ses habitants campent au bord du
  * village jusqu'à ce qu'il soit relevé. Leur donner à manger fait avancer l'essor du village.
@@ -167,21 +167,21 @@ public final class Camps {
     static String[] prefabs(Type type, int zone) {
         return switch (type) {
             case HUNTERS -> new String[] {switch (zone) {
-                case 2 -> "Monuments/Incidental/Sandstone/Tent/Incidental_Sandstone_001";
-                case 3 -> "Monuments/Incidental/Softwood/Tent/Incidental_Softwood_001";
-                case 4 -> "Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_002";
-                default -> "Monuments/Incidental/Grasslands/Hunting/Camps/Incidental_Grasslands_Incidentals_Grasslands_Hunting_Camps_001";
+                case 2 -> "Nakasar/Peuples/Monuments/Incidental/Sandstone/Tent/Incidental_Sandstone_001";
+                case 3 -> "Nakasar/Peuples/Monuments/Incidental/Softwood/Tent/Incidental_Softwood_001";
+                case 4 -> "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_002";
+                default -> "Nakasar/Peuples/Monuments/Incidental/Grasslands/Hunting/Camps/Incidental_Grasslands_Incidentals_Grasslands_Hunting_Camps_001";
             }};
-            case WOODCUTTERS -> new String[] {zone == 2 ? "Monuments/Incidental/Sandstone/Tent/Incidental_Sandstone_003"
-                    : "Monuments/Incidental/Softwood/Misc/Incidental_Softwood_002"};
-            case PROSPECTORS -> new String[] {zone == 2 ? "Monuments/Incidental/Sandstone/Normal/Incidental_Sandstone_002"
-                    : "Monuments/Incidental/Softwood/Tent/Incidental_Softwood_003"};
-            case MERCHANTS -> new String[] {"Orbis/Enkindled/Deco_Carts/Deco_Carts_001", "Orbis/Enkindled/Deco_Stalls/Deco_Stalls_001"};
+            case WOODCUTTERS -> new String[] {zone == 2 ? "Nakasar/Peuples/Monuments/Incidental/Sandstone/Tent/Incidental_Sandstone_003"
+                    : "Nakasar/Peuples/Monuments/Incidental/Softwood/Misc/Incidental_Softwood_002"};
+            case PROSPECTORS -> new String[] {zone == 2 ? "Nakasar/Peuples/Monuments/Incidental/Sandstone/Normal/Incidental_Sandstone_002"
+                    : "Nakasar/Peuples/Monuments/Incidental/Softwood/Tent/Incidental_Softwood_003"};
+            case MERCHANTS -> new String[] {"Nakasar/Peuples/Orbis/Enkindled/Deco_Carts/Deco_Carts_001", "Nakasar/Peuples/Orbis/Enkindled/Deco_Stalls/Deco_Stalls_001"};
             case REFUGEES -> new String[] {switch (zone) {
-                case 2 -> "Monuments/Incidental/Sandstone/Tent/Incidental_Sandstone_002";
-                case 3 -> "Monuments/Incidental/Softwood/Tent/Incidental_Softwood_002";
-                case 4 -> "Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001";
-                default -> "Monuments/Incidental/Grasslands/Camps/Plains/Incidental_Grasslands_Plains_Incidentals_Grasslands_Camps_Plains_001";
+                case 2 -> "Nakasar/Peuples/Monuments/Incidental/Sandstone/Tent/Incidental_Sandstone_002";
+                case 3 -> "Nakasar/Peuples/Monuments/Incidental/Softwood/Tent/Incidental_Softwood_002";
+                case 4 -> "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001";
+                default -> "Nakasar/Peuples/Monuments/Incidental/Grasslands/Camps/Plains/Incidental_Grasslands_Plains_Incidentals_Grasslands_Camps_Plains_001";
             }};
         };
     }

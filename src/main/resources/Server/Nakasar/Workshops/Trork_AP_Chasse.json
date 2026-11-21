@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Chasse",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Trork/Trap/Trork_Trap_Trork_Trap_001 0 -7 0",
-      "Npc/Trork/Tent/Trork_Tent_001 -9 -8 0"
+      "Nakasar/Peuples/Npc/Trork/Trap/Trork_Trap_Trork_Trap_001 0 -7 0",
+      "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001 -9 -8 0"
     ],
     "Rect": [
       -14,

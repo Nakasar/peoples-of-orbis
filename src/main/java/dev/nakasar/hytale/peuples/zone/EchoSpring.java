@@ -51,10 +51,10 @@ public final class EchoSpring {
     static final int MIN_SPACING = 24;
     /** Pièces vanilla (generate_echo_spring.py, PIECES) : prefab, x, y, z relatifs au centre et à la surface. */
     private static final Object[][] PIECES = {
-            {"Orbis/Trees/Palm/Stage_3/Palm_Stage3_002", -4, 1, -3},
-            {"Orbis/Trees/Palm/Stage_2/Palm_Stage2_001", 3, 1, -4},
-            {"Orbis/Trees/Palm/Stage_3/Palm_Stage3_004", 4, 1, 2},
-            {"Rock_Formations/Rocks/Sandstone/Oasis/Rock_Oasis_Small_01", -5, 1, 2},
+            {"Nakasar/Peuples/Orbis/Trees/Palm/Stage_3/Palm_Stage3_002", -4, 1, -3},
+            {"Nakasar/Peuples/Orbis/Trees/Palm/Stage_2/Palm_Stage2_001", 3, 1, -4},
+            {"Nakasar/Peuples/Orbis/Trees/Palm/Stage_3/Palm_Stage3_004", 4, 1, 2},
+            {"Nakasar/Peuples/Rock_Formations/Rocks/Sandstone/Oasis/Rock_Oasis_Small_01", -5, 1, 2},
     };
     /** Boîte de l'ancien bassin kweebec (Kweebec_Oak_Water_Pool_005, ancre au sol) autour du point inscrit. */
     private static final int OLD_REACH = 5;

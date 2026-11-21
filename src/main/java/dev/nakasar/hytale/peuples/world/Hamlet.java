@@ -18,7 +18,7 @@ import java.util.Random;
 
 /**
  * Un genre de lieu-dit d'un peuple (Kevin, 16 novembre 2026), asset JSON {@value #PATH}/&lt;Peuple&gt;_&lt;Type&gt;.json généré
- * par {@code tools/generate_hamlets.py} depuis {@code tools/hamlets.py} : un groupe de 1 à 3 prefabs vanilla (mine,
+ * par {@code tools/generate_hamlets.py} depuis {@code tools/hamlets.py} : un groupe de 1 à 3 copies de prefabs vanilla (mine,
  * ferme, moulin, caserne et ses deux tours, forge avec mine et comptoir ou tour tirés au sort...), ses habitants, son
  * dialogue et son troc. Le lieu-dit posé dans le monde est un état du monde vivant ({@link Hamlets}).
  *

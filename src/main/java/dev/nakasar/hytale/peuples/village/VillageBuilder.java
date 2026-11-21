@@ -272,7 +272,20 @@ public final class VillageBuilder {
                 z + buffer.getMinZ(rot) - reach - 1, z + buffer.getMaxZ(rot) + reach + 1};
     }
 
+    /** Dossier des prefabs du mod ; les prefabs vanilla employés y sont copiés sous leur chemin d'origine. */
+    public static final String MOD_PREFABS = "Nakasar/Peuples/";
+
+    /**
+     * Id du mod d'un prefab : le mod ne colle jamais de prefab vanilla (Kevin, 21 novembre 2026), il colle leurs copies
+     * {@code Nakasar/Peuples/<chemin vanilla>} (tools/mod_prefabs.py). Un chemin vanilla encore gardé dans l'état d'un
+     * monde sauvé avant ce changement (vestiges, campements, auberges) est lu comme sa copie.
+     */
+    public static String modPrefab(String prefab) {
+        return prefab.startsWith("Nakasar/") ? prefab : MOD_PREFABS + prefab;
+    }
+
     static IPrefabBuffer buffer(String prefab) {
+        prefab = modPrefab(prefab);
         Path path = PrefabStore.get().findAssetPrefabPath(prefab + ".prefab.json");
         if (path == null) {
             path = PrefabStore.get().findAssetPrefabPath(prefab);
@@ -281,10 +294,11 @@ public final class VillageBuilder {
     }
 
     /**
-     * Colle le prefab vanilla `prefab` (chemin sous Server/Prefabs/ sans extension), son ancre (niveau du sol du
+     * Colle le prefab du mod `prefab` (chemin sous Server/Prefabs/ sans extension, {@link #modPrefab}), son ancre (niveau du sol du
      * prefab) en (x, y, z). Faux si le prefab est introuvable ou que la zone n'est pas chargée.
      */
     public static boolean paste(World world, Store<EntityStore> store, String prefab, int x, int y, int z, int rotation) {
+        prefab = modPrefab(prefab);
         Path path = PrefabStore.get().findAssetPrefabPath(prefab + ".prefab.json");
         if (path == null) {
             path = PrefabStore.get().findAssetPrefabPath(prefab);

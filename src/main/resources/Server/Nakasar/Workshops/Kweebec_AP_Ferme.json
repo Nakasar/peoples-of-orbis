@@ -59,8 +59,8 @@
     "Item": "Nakasar_Peuples_Annex_Ferme",
     "Rule": "FERTILE",
     "Prefabs": [
-      "Npc/Kweebec/Redwood/Normal_Plot/Farm/Kweebec_Redwood_Normal_Plot_Farm_001 0 -9 0",
-      "Npc/Kweebec/Redwood/Small_Plot/House/Kweebec_Redwood_Small_Plot_House_001 -12 -8 0"
+      "Nakasar/Peuples/Npc/Kweebec/Redwood/Normal_Plot/Farm/Kweebec_Redwood_Normal_Plot_Farm_001 0 -9 0",
+      "Nakasar/Peuples/Npc/Kweebec/Redwood/Small_Plot/House/Kweebec_Redwood_Small_Plot_House_001 -12 -8 0"
     ],
     "Rect": [
       -17,

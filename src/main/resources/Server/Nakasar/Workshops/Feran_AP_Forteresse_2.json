@@ -58,9 +58,9 @@
     "Item": "Nakasar_Peuples_Annex_Forteresse",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Feran/Portals_Oasis/Chieftain/Feran_Tier2_Chieftain_001 0 -12 0",
-      "Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_004 -13 -13 0",
-      "Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_003 15 -12 0"
+      "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Chieftain/Feran_Tier2_Chieftain_001 0 -12 0",
+      "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_004 -13 -13 0",
+      "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_003 15 -12 0"
     ],
     "Rect": [
       -17,

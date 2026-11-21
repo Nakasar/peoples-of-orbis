@@ -59,9 +59,9 @@
     "Item": "Nakasar_Peuples_Annex_Bosquet",
     "Rule": "TREES",
     "Prefabs": [
-      "Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_003 0 -7 0",
-      "Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005 -11 -7 0",
-      "Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_004 9 -6 0"
+      "Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_003 0 -7 0",
+      "Nakasar/Peuples/Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005 -11 -7 0",
+      "Nakasar/Peuples/Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_004 9 -6 0"
     ],
     "Rect": [
       -15,

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Plans des villages du mod Peuples d'Orbis (étape 2 du plan d'implémentation).
 
-Un plan place des prefabs VANILLA (règle n° 2 d'AGENTS.md : Server/Prefabs/Npc/Kweebec/Oak/...) autour du cœur du
-village. Le Java (village/VillageBuilder) aplanit le sol sous chaque emprise, colle le prefab, puis pose le cœur, le
+Un plan place les copies du mod des prefabs vanilla (règle n° 2 d'AGENTS.md, et règle n° 5 : jamais le prefab vanilla
+lui-même, mais Server/Prefabs/Nakasar/Peuples/Npc/Kweebec/Oak/..., tools/mod_prefabs.py) autour du cœur du village. Le Java (village/VillageBuilder) aplanit le sol sous chaque emprise, colle le prefab, puis pose le cœur, le
 dépôt, le tableau et la bannière sur la place centrale. Seuls les bâtiments dont le palier est atteint sont collés :
 le campement (palier 0) dès la génération, les autres avec les chantiers de l'étape 5.
 
 Les emprises viennent de tools/vanilla-prefabs-0.7.2.txt (bornes des blocs relatifs à l'ancre, relevées dans
-Assets.zip). Le script vérifie qu'aucune emprise n'en chevauche une autre (marge MARGIN) ni la place, et que tout
+Assets.zip, clés traduites en ids du mod par mod_prefabs.mod). Le script vérifie qu'aucune emprise n'en chevauche une autre (marge MARGIN) ni la place, et que tout
 tient dans le rayon du plan.
 
 Étape 5 : chaque palier au-delà du campement a son chantier (matériaux pris au dépôt, durée en heures de jeu), et le
@@ -23,6 +23,7 @@ import json
 import plots
 import math
 import village_streets
+from mod_prefabs import mod
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -39,7 +40,7 @@ MARGIN = 3
 # Petits décors (lanternes, bancs) : posés au bord de la place et près des maisons, un bloc d'écart suffit.
 DECOR = ("/Lampposts/", "/Seats/")
 DECOR_MARGIN = 1
-OAK = "Npc/Kweebec/Oak/"
+OAK = "Nakasar/Peuples/Npc/Kweebec/Oak/"
 
 # Plans : id -> description. Une entrée de bâtiment : (id, palier, prefab, x, z, rotation 0-3 par quarts de tour).
 # Rotation 1 = ROTATION_90 du serveur (x' = z, z' = -x), comme PrefabRotation$RotationExecutor_90.
@@ -112,7 +113,7 @@ LAYOUTS = {
     },
 }
 
-TRORK = "Npc/Trork/"
+TRORK = "Nakasar/Peuples/Npc/Trork/"
 
 # Étape 7 : le camp trork apprivoisable de la zone 1. Prefabs vanilla Npc/Trork « feuilles » seulement (les
 # Encampment vanilla posent des Prefab_Spawner_Block). Les Trorks du camp sont des rôles VANILLA (« @Rôle ») : leur
@@ -195,9 +196,9 @@ def load_bounds():
             continue
         parts = line.split()
         if len(parts) == 7:
-            bounds[parts[0]] = tuple(int(v) for v in parts[1:])
+            bounds[mod(parts[0])] = tuple(int(v) for v in parts[1:])
         else:
-            bounds[parts[0]] = None
+            bounds[mod(parts[0])] = None
     # Prefabs du mod (enclos des peuples, tools/generate_pens.py) : bornes lues dans le fichier.
     for f in sorted(MOD_PREFABS.glob("**/*.prefab.json")):
         blocks = json.loads(f.read_text(encoding="utf-8"))["blocks"]

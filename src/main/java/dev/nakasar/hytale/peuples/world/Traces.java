@@ -41,35 +41,35 @@ public final class Traces {
 
     private static final String[][] RUINS = {
             {},
-            {"Monuments/Incidental/Shale/Ruins/Normal/Incidental_Shale_Monuments_Incidental_Shale_Normal_001",
-                    "Monuments/Incidental/Shale/Ruins/Normal/Incidental_Shale_Monuments_Incidental_Shale_Normal_003",
-                    "Monuments/Incidental/Slate/Ruins/Incidental_Slate_Ruin_001",
-                    "Monuments/Encounter/City_Ruins/Towers/Encounter_City_Ruins_001"},
-            {"Monuments/Incidental/Quartzite/Ruins/Incidental_Quartzite_001",
-                    "Monuments/Incidental/Quartzite/Ruins/Incidental_Quartzite_003",
-                    "Monuments/Incidental/Sandstone/Normal/Incidental_Sandstone_001"},
-            {"Monuments/Incidental/Shale/Ruins/Frozen/Incidental_Shale_Monuments_Incidental_Shale_Frozen_001",
-                    "Monuments/Incidental/Shale/Ruins/Frozen/Incidental_Shale_Monuments_Incidental_Shale_Frozen_003",
-                    "Monuments/Incidental/Slate/Ruins/Incidental_Slate_Ruin_002"},
-            {"Monuments/Incidental/Slothian/Land/Shrine/Incidental_Slothian_Shrine_Slothian_Shrine_001",
-                    "Monuments/Incidental/Slothian/Land/Well/Incidental_Slothian_Well_Slothian_Well_001",
-                    "Monuments/Incidental/Slate/Ruins/Incidental_Slate_Ruin_003"},
+            {"Nakasar/Peuples/Monuments/Incidental/Shale/Ruins/Normal/Incidental_Shale_Monuments_Incidental_Shale_Normal_001",
+                    "Nakasar/Peuples/Monuments/Incidental/Shale/Ruins/Normal/Incidental_Shale_Monuments_Incidental_Shale_Normal_003",
+                    "Nakasar/Peuples/Monuments/Incidental/Slate/Ruins/Incidental_Slate_Ruin_001",
+                    "Nakasar/Peuples/Monuments/Encounter/City_Ruins/Towers/Encounter_City_Ruins_001"},
+            {"Nakasar/Peuples/Monuments/Incidental/Quartzite/Ruins/Incidental_Quartzite_001",
+                    "Nakasar/Peuples/Monuments/Incidental/Quartzite/Ruins/Incidental_Quartzite_003",
+                    "Nakasar/Peuples/Monuments/Incidental/Sandstone/Normal/Incidental_Sandstone_001"},
+            {"Nakasar/Peuples/Monuments/Incidental/Shale/Ruins/Frozen/Incidental_Shale_Monuments_Incidental_Shale_Frozen_001",
+                    "Nakasar/Peuples/Monuments/Incidental/Shale/Ruins/Frozen/Incidental_Shale_Monuments_Incidental_Shale_Frozen_003",
+                    "Nakasar/Peuples/Monuments/Incidental/Slate/Ruins/Incidental_Slate_Ruin_002"},
+            {"Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Shrine/Incidental_Slothian_Shrine_Slothian_Shrine_001",
+                    "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Well/Incidental_Slothian_Well_Slothian_Well_001",
+                    "Nakasar/Peuples/Monuments/Incidental/Slate/Ruins/Incidental_Slate_Ruin_003"},
     };
 
     private static final String[][] OLD_CAMPS = {
             {},
-            {"Monuments/Incidental/Grasslands/Camps/Plains/Incidental_Grasslands_Plains_Incidentals_Grasslands_Camps_Plains_001",
-                    "Monuments/Incidental/Grasslands/Hunting/Camps/Incidental_Grasslands_Incidentals_Grasslands_Hunting_Camps_001"},
-            {"Monuments/Incidental/Sandstone/Tent/Incidental_Sandstone_002"},
-            {"Monuments/Incidental/Softwood/Misc/Incidental_Softwood_004"},
-            {"Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001"},
+            {"Nakasar/Peuples/Monuments/Incidental/Grasslands/Camps/Plains/Incidental_Grasslands_Plains_Incidentals_Grasslands_Camps_Plains_001",
+                    "Nakasar/Peuples/Monuments/Incidental/Grasslands/Hunting/Camps/Incidental_Grasslands_Incidentals_Grasslands_Hunting_Camps_001"},
+            {"Nakasar/Peuples/Monuments/Incidental/Sandstone/Tent/Incidental_Sandstone_002"},
+            {"Nakasar/Peuples/Monuments/Incidental/Softwood/Misc/Incidental_Softwood_004"},
+            {"Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001"},
     };
 
     /** Arbres brûlés vanilla laissés par un raid perdu. */
     public static final String[] BURNT_TREES = {
-            "Orbis/Trees/Burnt/Stage_1/Burnt_Stage1_002", "Orbis/Trees/Burnt/Stage_1/Burnt_Stage1_005",
-            "Orbis/Trees/Burnt/Stage_1/Burnt_Stage1_009", "Orbis/Trees/Burnt/Stage_2/Burnt_Stage2_001",
-            "Orbis/Trees/Burnt/Stage_2/Burnt_Stage2_003"};
+            "Nakasar/Peuples/Orbis/Trees/Burnt/Stage_1/Burnt_Stage1_002", "Nakasar/Peuples/Orbis/Trees/Burnt/Stage_1/Burnt_Stage1_005",
+            "Nakasar/Peuples/Orbis/Trees/Burnt/Stage_1/Burnt_Stage1_009", "Nakasar/Peuples/Orbis/Trees/Burnt/Stage_2/Burnt_Stage2_001",
+            "Nakasar/Peuples/Orbis/Trees/Burnt/Stage_2/Burnt_Stage2_003"};
 
     /** Un vestige (état sauvé). */
     public record Trace(String id, String type, int x, int z, boolean placed, String prefab, int rotation, int lore, String village) {

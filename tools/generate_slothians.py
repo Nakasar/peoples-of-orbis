@@ -61,8 +61,8 @@ def t(key, fr, en):
 write = gz.write
 
 PID = "Slothian"
-DIS = "Npc/Slothian/Disabled/"
-MON = "Monuments/Incidental/Slothian/Land/"
+DIS = "Nakasar/Peuples/Npc/Slothian/Disabled/"
+MON = "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/"
 
 SPEC = {
     "name": ("Slothians", "Slothians"),

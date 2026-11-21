@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Pose des prefabs vanilla du monde vivant : à demeure (traces, auberges, arbres brûlés) ou pour un temps (campements,
+ * Pose des copies de prefabs vanilla du monde vivant : à demeure (traces, auberges, arbres brûlés) ou pour un temps (campements,
  * étals de foire), auquel cas les blocs changés sont notés ({@link WorldLifeRegistry.Part#STRUCTURES}) et rendus à la
  * fin. On ne rend un bloc que s'il est encore celui du prefab : ce qu'un joueur a construit ou cassé entre-temps reste.
  */

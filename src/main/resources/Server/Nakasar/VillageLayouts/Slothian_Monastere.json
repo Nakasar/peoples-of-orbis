@@ -9,7 +9,7 @@
     {
       "Id": "Hutte_Ouest",
       "Tier": 0,
-      "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
       "X": -21,
       "Z": -1,
       "Rotation": 0,
@@ -29,7 +29,7 @@
     {
       "Id": "Hutte_Est",
       "Tier": 0,
-      "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_003",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_003",
       "X": 21,
       "Z": 0,
       "Rotation": 0,
@@ -49,7 +49,7 @@
     {
       "Id": "Etal_Des_Cendres",
       "Tier": 0,
-      "Prefab": "Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001",
+      "Prefab": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001",
       "X": -1,
       "Z": -15,
       "Rotation": 0,
@@ -69,7 +69,7 @@
     {
       "Id": "Affut",
       "Tier": 0,
-      "Prefab": "Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001",
+      "Prefab": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001",
       "X": 0,
       "Z": 15,
       "Rotation": 0,
@@ -89,7 +89,7 @@
     {
       "Id": "Maison_Nord_Ouest",
       "Tier": 1,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
       "X": -17,
       "Z": -23,
       "Rotation": 0,
@@ -109,7 +109,7 @@
     {
       "Id": "Maison_Sud_Est",
       "Tier": 1,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_002",
       "X": 17,
       "Z": 23,
       "Rotation": 0,
@@ -129,7 +129,7 @@
     {
       "Id": "Porte_Du_Monastere",
       "Tier": 1,
-      "Prefab": "Npc/Slothian/Disabled/Gate/Slothian_Disabled_Gate_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Slothian_Disabled_Gate_001",
       "X": -4,
       "Z": 25,
       "Rotation": 0,
@@ -169,7 +169,7 @@
     {
       "Id": "Temple_De_Veille",
       "Tier": 2,
-      "Prefab": "Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001",
+      "Prefab": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001",
       "X": 31,
       "Z": -26,
       "Rotation": 0,
@@ -189,7 +189,7 @@
     {
       "Id": "Grande_Maison_Slothian",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
       "X": -36,
       "Z": 20,
       "Rotation": 0,
@@ -209,7 +209,7 @@
     {
       "Id": "Hutte_Nord",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
       "X": 0,
       "Z": -45,
       "Rotation": 0,
@@ -229,7 +229,7 @@
     {
       "Id": "Monastere",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
       "X": -39,
       "Z": -32,
       "Rotation": 0,
@@ -249,7 +249,7 @@
     {
       "Id": "Porte_Riche",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_001",
       "X": -16,
       "Z": 15,
       "Rotation": 0,
@@ -269,7 +269,7 @@
     {
       "Id": "E1_Scriptorium",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003",
       "X": -6,
       "Z": 45,
       "Rotation": 0,
@@ -284,7 +284,7 @@
     {
       "Id": "E1_Cabane_De_Peche",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
       "X": -6,
       "Z": 44,
       "Rotation": 0,
@@ -299,7 +299,7 @@
     {
       "Id": "E1_Sanctuaire",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
       "X": -7,
       "Z": 42,
       "Rotation": 0,
@@ -314,7 +314,7 @@
     {
       "Id": "E1_Puits_De_Basalte",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
       "X": -7,
       "Z": 46,
       "Rotation": 0,
@@ -344,7 +344,7 @@
     {
       "Id": "E1_Conseil",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
       "X": -7,
       "Z": 44,
       "Rotation": 0,
@@ -359,7 +359,7 @@
     {
       "Id": "E1_Caserne",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
       "X": -7,
       "Z": 44,
       "Rotation": 0,
@@ -374,7 +374,7 @@
     {
       "Id": "E1_Halle",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002",
       "X": -7,
       "Z": 44,
       "Rotation": 0,
@@ -389,7 +389,7 @@
     {
       "Id": "E1_Taillerie",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001",
       "X": -7,
       "Z": 44,
       "Rotation": 0,
@@ -404,7 +404,7 @@
     {
       "Id": "E2_Scriptorium",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003",
       "X": 47,
       "Z": 5,
       "Rotation": 0,
@@ -419,7 +419,7 @@
     {
       "Id": "E2_Cabane_De_Peche",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
       "X": 47,
       "Z": 4,
       "Rotation": 0,
@@ -434,7 +434,7 @@
     {
       "Id": "E2_Sanctuaire",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
       "X": 46,
       "Z": 2,
       "Rotation": 0,
@@ -449,7 +449,7 @@
     {
       "Id": "E2_Puits_De_Basalte",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
       "X": 46,
       "Z": 6,
       "Rotation": 0,
@@ -479,7 +479,7 @@
     {
       "Id": "E2_Conseil",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
       "X": 46,
       "Z": 4,
       "Rotation": 0,
@@ -494,7 +494,7 @@
     {
       "Id": "E2_Caserne",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
       "X": 46,
       "Z": 4,
       "Rotation": 0,
@@ -509,7 +509,7 @@
     {
       "Id": "E2_Halle",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002",
       "X": 46,
       "Z": 4,
       "Rotation": 0,
@@ -524,7 +524,7 @@
     {
       "Id": "E2_Taillerie",
       "Tier": 3,
-      "Prefab": "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001",
       "X": 46,
       "Z": 4,
       "Rotation": 0,
@@ -539,7 +539,7 @@
     {
       "Id": "E3_Scriptorium",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003",
       "X": -44,
       "Z": -2,
       "Rotation": 0,
@@ -554,7 +554,7 @@
     {
       "Id": "E3_Cabane_De_Peche",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
       "X": -44,
       "Z": -3,
       "Rotation": 0,
@@ -569,7 +569,7 @@
     {
       "Id": "E3_Sanctuaire",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
       "X": -45,
       "Z": -5,
       "Rotation": 0,
@@ -584,7 +584,7 @@
     {
       "Id": "E3_Puits_De_Basalte",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
       "X": -45,
       "Z": -1,
       "Rotation": 0,
@@ -614,7 +614,7 @@
     {
       "Id": "E3_Conseil",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
       "X": -45,
       "Z": -3,
       "Rotation": 0,
@@ -629,7 +629,7 @@
     {
       "Id": "E3_Caserne",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
       "X": -45,
       "Z": -3,
       "Rotation": 0,
@@ -644,7 +644,7 @@
     {
       "Id": "E3_Halle",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002",
       "X": -45,
       "Z": -3,
       "Rotation": 0,
@@ -659,7 +659,7 @@
     {
       "Id": "E3_Taillerie",
       "Tier": 2,
-      "Prefab": "Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001",
+      "Prefab": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001",
       "X": -45,
       "Z": -3,
       "Rotation": 0,
@@ -1921,7 +1921,7 @@
         "Tier": 0,
         "Pieces": [
           {
-            "Prefab": "Monuments/Incidental/Slothian/Land/Shrine/Incidental_Slothian_Shrine_Slothian_Shrine_001",
+            "Prefab": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Shrine/Incidental_Slothian_Shrine_Slothian_Shrine_001",
             "X": 0,
             "Y": 0,
             "Z": -4,

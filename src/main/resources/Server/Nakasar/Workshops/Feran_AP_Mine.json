@@ -58,9 +58,9 @@
     "Item": "Nakasar_Peuples_Annex_Mine",
     "Rule": "ROCK",
     "Prefabs": [
-      "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001 0 -8 0",
-      "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_002 7 -7 0",
-      "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_004 -8 -7 0"
+      "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001 0 -8 0",
+      "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_002 7 -7 0",
+      "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_004 -8 -7 0"
     ],
     "Rect": [
       -9,

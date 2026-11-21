@@ -36,8 +36,8 @@ MATERIALS = {
     "Slothian": [("Wood_Jungle_Trunk", 32), ("Rock_Volcanic", 32), ("Furniture_Jungle_Candle", 4)],
 }
 
-NPC = "Npc/"
-MON = "Monuments/Incidental/Slothian/Land/"
+NPC = "Nakasar/Peuples/Npc/"
+MON = "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/"
 PEN = "Nakasar/Peuples/Pens/"
 
 # Un projet : id, prefab, rotation, métier (id, genre de rôle comme dans les plans : « @Rôle » vanilla ou rôle du mod

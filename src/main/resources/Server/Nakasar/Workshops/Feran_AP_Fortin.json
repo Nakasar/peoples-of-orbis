@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Fortin",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Feran/Tier3/Walls/Feran_Tier3_Walls_001 -2 -6 0",
-      "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001 -12 -9 0"
+      "Nakasar/Peuples/Npc/Feran/Tier3/Walls/Feran_Tier3_Walls_001 -2 -6 0",
+      "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001 -12 -9 0"
     ],
     "Rect": [
       -18,

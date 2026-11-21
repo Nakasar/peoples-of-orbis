@@ -88,12 +88,14 @@ val validateAssets = tasks.register<Exec>("validateAssets") {
     val refs = file("tools/vanilla-refs-0.7.2.txt")
     val stereo = file("tools/vanilla-stereo-sounds-0.7.2.txt")
     val items = file("tools/vanilla-item-ids-0.7.2.txt")
-    val prefabs = file("tools/vanilla-prefabs-0.7.2.txt")
+    val prefabPaths = file("tools/vanilla-prefab-paths-0.7.2.txt")
+    val modSources = listOf(file("src/main/java"), file("src/main/resources"))
     val uiTextures = file("tools/vanilla-ui-textures-0.7.7.txt")
     inputs.dir(serverAssets)
     inputs.dir(file("src/main/resources/Common/UI"))
     inputs.file("tools/ValidateAssets.java")
-    inputs.files(blocks, gradients, refs, stereo, items, prefabs, uiTextures)
+    inputs.files(blocks, gradients, refs, stereo, items, prefabPaths, uiTextures)
+    inputs.dir(file("src/main/java"))
     inputs.files(hytaleServer)
     // Les classes du plugin : types d'assets écrits en Java (dialogues).
     val pluginClasses = sourceSets.main.get().output.classesDirs
@@ -107,10 +109,12 @@ val validateAssets = tasks.register<Exec>("validateAssets") {
         // -Drefs : listes de butin et rôles vanilla cités par le mod (un id inconnu fait échouer le mod en jeu).
         // -Dstereo : sons vanilla stéréo, refusés en WorldSoundEventId (l'interaction entière est rejetée en jeu).
         // -Ditems : objets vanilla, pour les ItemId des dialogues.
-        // -Dprefabs : prefabs vanilla (chemins et emprises relevés dans Assets.zip), pour les plans de village.
+        // -DvanillaPrefabPaths / -DmodSources : chemins de tous les prefabs vanilla, refusés dans les sources et
+        //   ressources du mod (il ne colle que ses copies Nakasar/Peuples/..., tools/mod_prefabs.py).
         // -Duitextures : textures vanilla des pages, pour les .ui du mod (tableau du village, dialogue).
         args("-Dstdout.encoding=UTF-8", "--sun-misc-unsafe-memory-access=allow", "-Dblocks=" + blocks.absolutePath, "-Dgradients=" + gradients.absolutePath,
-            "-Drefs=" + refs.absolutePath, "-Dstereo=" + stereo.absolutePath, "-Ditems=" + items.absolutePath, "-Dprefabs=" + prefabs.absolutePath,
+            "-Drefs=" + refs.absolutePath, "-Dstereo=" + stereo.absolutePath, "-Ditems=" + items.absolutePath,
+            "-DvanillaPrefabPaths=" + prefabPaths.absolutePath, "-DmodSources=" + modSources.joinToString(File.pathSeparator) { it.absolutePath },
             "-Duitextures=" + uiTextures.absolutePath,
             "-cp", (hytaleServer + pluginClasses).asPath, file("tools/ValidateAssets.java").absolutePath, file(serverAssets).absolutePath)
     }

@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Ferme",
     "Rule": "FERTILE",
     "Prefabs": [
-      "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_004 0 -11 0",
-      "Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001 8 -11 0"
+      "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_004 0 -11 0",
+      "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001 8 -11 0"
     ],
     "Rect": [
       -5,

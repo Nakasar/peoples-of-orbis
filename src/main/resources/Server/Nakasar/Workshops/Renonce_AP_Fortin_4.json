@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Fortin",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Outlander/Forts/Tier1/Outlander_Forts_Tier1_006 0 -10 0",
-      "Npc/Outlander/Towers/Tier1/Outlander_Towers_Tier1_001 -13 -11 0"
+      "Nakasar/Peuples/Npc/Outlander/Forts/Tier1/Outlander_Forts_Tier1_006 0 -10 0",
+      "Nakasar/Peuples/Npc/Outlander/Towers/Tier1/Outlander_Towers_Tier1_001 -13 -11 0"
     ],
     "Rect": [
       -16,

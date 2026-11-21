@@ -8,9 +8,9 @@
   "Rule": "TREES",
   "Weight": 3,
   "Buildings": [
-    "Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001 0 -7 0 M 1 -4 4 -12 -4 8",
-    "Npc/Trork/Resource/Lumber/Forest_Autumn/Trork_Resource_Lumber_Forest_Autumn_001 10 -7 0 E 1 7 12 -11 -4 3",
-    "Npc/Trork/Resource/Lumber/Forest_Autumn/Trork_Resource_Lumber_Forest_Autumn_003 -8 -8 0 W 1 -11 -7 -11 -5 3"
+    "Nakasar/Peuples/Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001 0 -7 0 M 1 -4 4 -12 -4 8",
+    "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Autumn/Trork_Resource_Lumber_Forest_Autumn_001 10 -7 0 E 1 7 12 -11 -4 3",
+    "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Autumn/Trork_Resource_Lumber_Forest_Autumn_003 -8 -8 0 W 1 -11 -7 -11 -5 3"
   ],
   "Decor": [],
   "Residents": [
