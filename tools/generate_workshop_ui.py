@@ -421,7 +421,7 @@ def plot_page(theme_id):
     w("    #Content {")
     w("      LayoutMode: Top;")
     w("      Padding: (Full: 17, Top: 12);")
-    tab_strip(w, acc, "Plots")
+    tab_strip(w, acc, "Build")
     w(f'      {label("Intro", "@Body", anchor="Height: 40, Bottom: 10")}')
     w("      Group #Plots {")
     w("        LayoutMode: Left;")
@@ -542,7 +542,7 @@ def annex_page(theme_id):
     w("    #Content {")
     w("      LayoutMode: Top;")
     w("      Padding: (Full: 17, Top: 12);")
-    tab_strip(w, acc, "Annexes")
+    tab_strip(w, acc, "Build")
     w(f'      {label("Intro", "@Body", anchor="Height: 40, Bottom: 10")}')
     rows = (ANNEX_CARDS + ANNEX_COLUMNS - 1) // ANNEX_COLUMNS
     for r in range(rows):
@@ -656,7 +656,7 @@ def works_page(theme_id):
     w("    #Content {")
     w("      LayoutMode: Top;")
     w("      Padding: (Full: 17, Top: 12);")
-    tab_strip(w, acc, "Works")
+    tab_strip(w, acc, "Build")
     w(f'      {label("Intro", "@Body", anchor="Height: 40, Bottom: 8")}')
     w("      Group #WorkTypes {")
     w("        LayoutMode: Left;")

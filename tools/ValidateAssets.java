@@ -1880,6 +1880,7 @@ public class ValidateAssets {
                 {"workshop/WorkshopSpecialtyPage.java", "WorkshopSpecialtyPage"}, {"village/PlotPage.java", "PlotPage"},
                 {"annex/AnnexPage.java", "AnnexPage"}, {"world/WorldPage.java", "WorldPage"},
                 {"world/DomainPage.java", "DomainPage"}, {"population/PeoplePage.java", "PeoplePage"},
+                {"batir/BuildPage.java", "BuildPage"}, {"request/BoardTabs.java", "BuildPage"},
                 // Barre des onglets du panneau : mêmes ids dans les six pages.
                 {"request/BoardTabs.java", "BoardPage"}, {"request/BoardTabs.java", "PlotPage"},
                 {"request/BoardTabs.java", "AnnexPage"}, {"request/BoardTabs.java", "WorldPage"},

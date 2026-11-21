@@ -81,6 +81,22 @@ public final class PlotPage extends InteractiveCustomUIPage<PlotPage.Event> {
         player.getPageManager().openCustomPage(ref, store, new PlotPage(playerRef, village));
     }
 
+    /** Ouvre la page des emplacements sur le terrain `plotId` (carte d'un projet de l'onglet Bâtir). */
+    public static void open(Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef playerRef, Village village, String plotId) {
+        Player player = ref.isValid() ? store.getComponent(ref, Player.getComponentType()) : null;
+        if (player == null) {
+            return;
+        }
+        PlotPage page = new PlotPage(playerRef, village);
+        VillageLayout.Plot[] plots = Plots.plots(village);
+        for (int i = 0; i < plots.length && i < CARDS; i++) {
+            if (plots[i].id().equals(plotId)) {
+                page.selected = i;
+            }
+        }
+        player.getPageManager().openCustomPage(ref, store, page);
+    }
+
     static String layout(People people) {
         return people != null && THEMED.contains(people.id()) ? "Pages/Nakasar/Peuples/PlotPage_" + people.id() + ".ui" : LAYOUT;
     }
