@@ -559,6 +559,7 @@ LANG = {
     "annex.deposit.large": ("{village} grandit : son dépôt devient un grand coffre (36 places).",
                             "{village} grows: its deposit becomes a large chest (36 slots)."),
     "annex.done": ("{building} de {village} est debout !", "{building} of {village} stands!"),
+    "annex.grown": ("{building} de {village} s'agrandit pour son nouveau niveau.", "{building} of {village} grows for its new level."),
     "annex.doneTitle": ("{building} est debout", "{building} stands"),
     # Familles (doc « Structurer les types de bâtiments », Kevin 2026-11-16) : Production, Ouvrages.
     "annex.limit": ("{building} : le village en a déjà {limit} (limite de construction). Un ouvrage pris à un rival ne compte pas.",

@@ -60,31 +60,26 @@
     "Ingredient_Crystal_Purple"
   ],
   "RequiresLuxuries": 2,
-  "Specialties": [
-    {
-      "Id": "Protection",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E1_Temple.Protection",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E1_Temple.Protection",
-      "Icon": "Potion_Health_Small",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E1_Temple_Protection_2",
-        "Nakasar_Peuples_W_Trork_E1_Temple_Protection_3"
-      ],
-      "ShareItem": "Potion_Health_Small",
-      "ShareQuantity": 2
-    },
-    {
-      "Id": "Benediction",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E1_Temple.Benediction",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E1_Temple.Benediction",
-      "Icon": "Food_Kebab_Meat",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E1_Temple_Benediction_2",
-        "Nakasar_Peuples_W_Trork_E1_Temple_Benediction_3"
-      ],
-      "ShareItem": "Food_Kebab_Meat",
-      "ShareQuantity": 2
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Trork_E1_Temple_Base_1"
+  "Shop": "Nakasar_Peuples_W_Trork_E1_Temple_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Furniture_Crude_Candle",
+    "Includes": [
+      "Protection",
+      "Benediction"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Trork_E1_Temple_Full_2",
+      "Nakasar_Peuples_W_Trork_E1_Temple_Full_3"
+    ],
+    "ShareItem": "Potion_Health_Small",
+    "ShareQuantity": 2,
+    "Shares": [
+      {
+        "ItemId": "Food_Kebab_Meat",
+        "Quantity": 2
+      }
+    ]
+  }
 }

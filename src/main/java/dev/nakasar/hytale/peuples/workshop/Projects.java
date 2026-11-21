@@ -27,6 +27,8 @@ import java.util.List;
  *   <li>{@value #COMMERCE} (Halle marchande) : une place de route commerciale de plus par niveau ; spécialités
  *   {@value #BROKERS} (crédit de route) et {@value #WAREHOUSES} (accès plus long).</li>
  * </ul>
+ * Les projets n'ont plus de spécialité à choisir (Kevin, 2026-11-21) : dès le niveau II, un projet a les effets de
+ * toutes les « spécialités » de son catalogue ({@link Workshop#full()}), par exemple Milice et Garnison à la fois.
  */
 public final class Projects {
 
@@ -79,14 +81,18 @@ public final class Projects {
         return w == null ? 0 : village.workshop(w.getId()).level();
     }
 
-    /** Vrai si le projet ouvert de la catégorie a cette spécialité (niveau II et plus). */
+    /** Vrai si le projet ouvert de la catégorie a cette spécialité (niveau II et plus ; toutes pour un bâtiment de projet). */
     public static boolean specialty(Village village, String category, String specialty) {
         Workshop w = opened(village, category);
         if (w == null) {
             return false;
         }
         WorkshopState s = village.workshop(w.getId());
-        return s.level() >= Workshops.SPECIALTY_LEVEL && specialty.equals(s.specialty());
+        if (s.level() < Workshops.SPECIALTY_LEVEL) {
+            return false;
+        }
+        // Bâtiment de projet sans spécialité à choisir : il a tous les effets de son catalogue dès le niveau II.
+        return w.isFull() ? w.full().covers(specialty) : specialty.equals(s.specialty());
     }
 
     /** Gardes de plus de la Caserne en raid : 1 + son niveau. */

@@ -56,34 +56,29 @@
     }
   ],
   "Category": "Elevage",
-  "Specialties": [
-    {
-      "Id": "Loups_Garde",
-      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_E1_Chenil.Loups_Garde",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_E1_Chenil.Loups_Garde",
-      "Icon": "Ingredient_Hide_Heavy",
-      "Raid": {
-        "Guards": 1
-      },
-      "Shops": [
-        "Nakasar_Peuples_W_Renonce_E1_Chenil_Loups_Garde_2",
-        "Nakasar_Peuples_W_Renonce_E1_Chenil_Loups_Garde_3"
-      ],
-      "ShareItem": "Ingredient_Hide_Heavy",
-      "ShareQuantity": 2
-    },
-    {
-      "Id": "Traineaux",
-      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_E1_Chenil.Traineaux",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_E1_Chenil.Traineaux",
-      "Icon": "Ingredient_Strap_Leather",
-      "Shops": [
-        "Nakasar_Peuples_W_Renonce_E1_Chenil_Traineaux_2",
-        "Nakasar_Peuples_W_Renonce_E1_Chenil_Traineaux_3"
-      ],
-      "ShareItem": "Ingredient_Strap_Leather",
-      "ShareQuantity": 4
+  "Shop": "Nakasar_Peuples_W_Renonce_E1_Chenil_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Ingredient_Bone_Fragment",
+    "Includes": [
+      "Loups_Garde",
+      "Traineaux"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Renonce_E1_Chenil_Full_2",
+      "Nakasar_Peuples_W_Renonce_E1_Chenil_Full_3"
+    ],
+    "ShareItem": "Ingredient_Hide_Heavy",
+    "ShareQuantity": 2,
+    "Shares": [
+      {
+        "ItemId": "Ingredient_Strap_Leather",
+        "Quantity": 4
+      }
+    ],
+    "Raid": {
+      "Guards": 1
     }
-  ],
-  "Shop": "Nakasar_Peuples_W_Renonce_E1_Chenil_Base_1"
+  }
 }

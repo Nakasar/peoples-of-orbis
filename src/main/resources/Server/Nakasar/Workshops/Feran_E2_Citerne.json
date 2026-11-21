@@ -56,31 +56,26 @@
     }
   ],
   "Legacy": true,
-  "Specialties": [
-    {
-      "Id": "Reserve",
-      "NameKey": "nakasar_peuples.workshop.specialty.Feran_E2_Citerne.Reserve",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Feran_E2_Citerne.Reserve",
-      "Icon": "Container_Bucket",
-      "Shops": [
-        "Nakasar_Peuples_W_Feran_E2_Citerne_Reserve_2",
-        "Nakasar_Peuples_W_Feran_E2_Citerne_Reserve_3"
-      ],
-      "ShareItem": "Ingredient_Water_Essence",
-      "ShareQuantity": 4
-    },
-    {
-      "Id": "Essence",
-      "NameKey": "nakasar_peuples.workshop.specialty.Feran_E2_Citerne.Essence",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Feran_E2_Citerne.Essence",
-      "Icon": "Ingredient_Ice_Essence",
-      "Shops": [
-        "Nakasar_Peuples_W_Feran_E2_Citerne_Essence_2",
-        "Nakasar_Peuples_W_Feran_E2_Citerne_Essence_3"
-      ],
-      "ShareItem": "Ingredient_Water_Essence",
-      "ShareQuantity": 6
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Feran_E2_Citerne_Base_1"
+  "Shop": "Nakasar_Peuples_W_Feran_E2_Citerne_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Ingredient_Water_Essence",
+    "Includes": [
+      "Reserve",
+      "Essence"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Feran_E2_Citerne_Full_2",
+      "Nakasar_Peuples_W_Feran_E2_Citerne_Full_3"
+    ],
+    "ShareItem": "Ingredient_Water_Essence",
+    "ShareQuantity": 4,
+    "Shares": [
+      {
+        "ItemId": "Ingredient_Water_Essence",
+        "Quantity": 6
+      }
+    ]
+  }
 }

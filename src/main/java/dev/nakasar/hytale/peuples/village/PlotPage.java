@@ -270,13 +270,14 @@ public final class PlotPage extends InteractiveCustomUIPage<PlotPage.Event> {
         if (w == null) {
             return Message.empty();
         }
+        // Ce que fabrique le projet : toutes les offres de son catalogue (plus de spécialité à choisir, Kevin 2026-11-21).
         Message specs = Message.empty();
-        Workshop.Specialty[] all = w.specialties();
-        for (int i = 0; i < all.length; i++) {
+        List<String> all = w.craftKeys();
+        for (int i = 0; i < all.size(); i++) {
             if (i > 0) {
                 specs.insert(" / ");
             }
-            specs.insert(Message.translation(all[i].nameKey()));
+            specs.insert(Message.translation(all.get(i)));
         }
         Message keeper = Message.translation("nakasar_peuples.job." + w.job());
         Message line = Message.translation(KEYS + "page.projectLine").param("category", category).param("job", keeper).param("specialties", specs);

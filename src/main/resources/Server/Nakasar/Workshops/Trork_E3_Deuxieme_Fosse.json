@@ -72,54 +72,38 @@
     17,
     25
   ],
-  "Specialties": [
-    {
-      "Id": "Loups",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E3_Deuxieme_Fosse.Loups",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E3_Deuxieme_Fosse.Loups",
-      "Icon": "Ingredient_Bone_Fragment",
-      "Animals": [
-        "Nakasar_Peuples_Pen_Wolf_Trork"
-      ],
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Loups_2",
-        "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Loups_3"
-      ],
-      "ShareItem": "Ingredient_Bone_Fragment",
-      "ShareQuantity": 10
-    },
-    {
-      "Id": "Porcs_Sauvages",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E3_Deuxieme_Fosse.Porcs_Sauvages",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E3_Deuxieme_Fosse.Porcs_Sauvages",
-      "Icon": "Food_Pork_Raw",
-      "Animals": [
-        "Tamed_Pig_Wild",
-        "Tamed_Pig_Wild_Piglet"
-      ],
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Porcs_Sauvages_2",
-        "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Porcs_Sauvages_3"
-      ],
-      "ShareItem": "Food_Pork_Raw",
-      "ShareQuantity": 4
-    },
-    {
-      "Id": "Chevres",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E3_Deuxieme_Fosse.Chevres",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E3_Deuxieme_Fosse.Chevres",
-      "Icon": "Ingredient_Hide_Medium",
-      "Animals": [
-        "Tamed_Goat",
-        "Tamed_Goat_Kid"
-      ],
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Chevres_2",
-        "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Chevres_3"
-      ],
-      "ShareItem": "Ingredient_Hide_Medium",
-      "ShareQuantity": 3
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Base_1"
+  "Shop": "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Food_Wildmeat_Raw",
+    "Includes": [
+      "Loups",
+      "Porcs_Sauvages",
+      "Chevres"
+    ],
+    "Animals": [
+      "Nakasar_Peuples_Pen_Wolf_Trork",
+      "Tamed_Pig_Wild",
+      "Tamed_Pig_Wild_Piglet",
+      "Tamed_Goat",
+      "Tamed_Goat_Kid"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Full_2",
+      "Nakasar_Peuples_W_Trork_E3_Deuxieme_Fosse_Full_3"
+    ],
+    "ShareItem": "Ingredient_Bone_Fragment",
+    "ShareQuantity": 10,
+    "Shares": [
+      {
+        "ItemId": "Food_Pork_Raw",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Hide_Medium",
+        "Quantity": 3
+      }
+    ]
+  }
 }

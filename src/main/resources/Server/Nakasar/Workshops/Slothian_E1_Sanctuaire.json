@@ -56,31 +56,26 @@
     }
   ],
   "Category": "Culte",
-  "Specialties": [
-    {
-      "Id": "Protection",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E1_Sanctuaire.Protection",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E1_Sanctuaire.Protection",
-      "Icon": "Potion_Purify",
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E1_Sanctuaire_Protection_2",
-        "Nakasar_Peuples_W_Slothian_E1_Sanctuaire_Protection_3"
-      ],
-      "ShareItem": "Potion_Purify",
-      "ShareQuantity": 2
-    },
-    {
-      "Id": "Offrandes",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E1_Sanctuaire.Offrandes",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E1_Sanctuaire.Offrandes",
-      "Icon": "Furniture_Jungle_Brazier",
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E1_Sanctuaire_Offrandes_2",
-        "Nakasar_Peuples_W_Slothian_E1_Sanctuaire_Offrandes_3"
-      ],
-      "ShareItem": "Furniture_Jungle_Brazier",
-      "ShareQuantity": 1
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Slothian_E1_Sanctuaire_Base_1"
+  "Shop": "Nakasar_Peuples_W_Slothian_E1_Sanctuaire_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Potion_Purify",
+    "Includes": [
+      "Protection",
+      "Offrandes"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Slothian_E1_Sanctuaire_Full_2",
+      "Nakasar_Peuples_W_Slothian_E1_Sanctuaire_Full_3"
+    ],
+    "ShareItem": "Potion_Purify",
+    "ShareQuantity": 2,
+    "Shares": [
+      {
+        "ItemId": "Furniture_Jungle_Brazier",
+        "Quantity": 1
+      }
+    ]
+  }
 }

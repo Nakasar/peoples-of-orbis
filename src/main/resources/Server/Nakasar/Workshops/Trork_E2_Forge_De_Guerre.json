@@ -69,31 +69,26 @@
   "Requires": [
     "Ingredient_Bar_Iron"
   ],
-  "Specialties": [
-    {
-      "Id": "Armes_Os",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E2_Forge_De_Guerre.Armes_Os",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E2_Forge_De_Guerre.Armes_Os",
-      "Icon": "Weapon_Sword_Bone",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E2_Forge_De_Guerre_Armes_Os_2",
-        "Nakasar_Peuples_W_Trork_E2_Forge_De_Guerre_Armes_Os_3"
-      ],
-      "ShareItem": "Weapon_Sword_Bone",
-      "ShareQuantity": 1
-    },
-    {
-      "Id": "Armures_Peau",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E2_Forge_De_Guerre.Armures_Peau",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E2_Forge_De_Guerre.Armures_Peau",
-      "Icon": "Armor_Trork_Chest",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E2_Forge_De_Guerre_Armures_Peau_2",
-        "Nakasar_Peuples_W_Trork_E2_Forge_De_Guerre_Armures_Peau_3"
-      ],
-      "ShareItem": "Armor_Leather_Light_Head",
-      "ShareQuantity": 1
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Trork_E2_Forge_De_Guerre_Base_1"
+  "Shop": "Nakasar_Peuples_W_Trork_E2_Forge_De_Guerre_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Weapon_Club_Crude",
+    "Includes": [
+      "Armes_Os",
+      "Armures_Peau"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Trork_E2_Forge_De_Guerre_Full_2",
+      "Nakasar_Peuples_W_Trork_E2_Forge_De_Guerre_Full_3"
+    ],
+    "ShareItem": "Weapon_Sword_Bone",
+    "ShareQuantity": 1,
+    "Shares": [
+      {
+        "ItemId": "Armor_Leather_Light_Head",
+        "Quantity": 1
+      }
+    ]
+  }
 }

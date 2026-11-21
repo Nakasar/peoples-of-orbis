@@ -56,34 +56,29 @@
     }
   ],
   "Category": "Defense",
-  "Specialties": [
-    {
-      "Id": "Milice",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E1_Caserne.Milice",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E1_Caserne.Milice",
-      "Icon": "Weapon_Spear_Crude",
-      "Raid": {
-        "Guards": 2
-      },
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E1_Caserne_Milice_2",
-        "Nakasar_Peuples_W_Slothian_E1_Caserne_Milice_3"
-      ],
-      "ShareItem": "Weapon_Spear_Crude",
-      "ShareQuantity": 2
-    },
-    {
-      "Id": "Garnison",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E1_Caserne.Garnison",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E1_Caserne.Garnison",
-      "Icon": "Weapon_Shield_Wood",
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E1_Caserne_Garnison_2",
-        "Nakasar_Peuples_W_Slothian_E1_Caserne_Garnison_3"
-      ],
-      "ShareItem": "Weapon_Shield_Wood",
-      "ShareQuantity": 2
+  "Shop": "Nakasar_Peuples_W_Slothian_E1_Caserne_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Weapon_Shield_Wood",
+    "Includes": [
+      "Milice",
+      "Garnison"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Slothian_E1_Caserne_Full_2",
+      "Nakasar_Peuples_W_Slothian_E1_Caserne_Full_3"
+    ],
+    "ShareItem": "Weapon_Spear_Crude",
+    "ShareQuantity": 2,
+    "Shares": [
+      {
+        "ItemId": "Weapon_Shield_Wood",
+        "Quantity": 2
+      }
+    ],
+    "Raid": {
+      "Guards": 2
     }
-  ],
-  "Shop": "Nakasar_Peuples_W_Slothian_E1_Caserne_Base_1"
+  }
 }

@@ -56,31 +56,26 @@
     }
   ],
   "Category": "Savoir",
-  "Specialties": [
-    {
-      "Id": "Recettes",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E3_Scriptorium.Recettes",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E3_Scriptorium.Recettes",
-      "Icon": "Recipe_Food_Pie_Apple",
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E3_Scriptorium_Recettes_2",
-        "Nakasar_Peuples_W_Slothian_E3_Scriptorium_Recettes_3"
-      ],
-      "ShareItem": "Recipe_Food_Pie_Apple",
-      "ShareQuantity": 1
-    },
-    {
-      "Id": "Souvenirs",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E3_Scriptorium.Souvenirs",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E3_Scriptorium.Souvenirs",
-      "Icon": "Furniture_Jungle_Bookshelf",
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E3_Scriptorium_Souvenirs_2",
-        "Nakasar_Peuples_W_Slothian_E3_Scriptorium_Souvenirs_3"
-      ],
-      "ShareItem": "Furniture_Jungle_Bookshelf",
-      "ShareQuantity": 1
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Slothian_E3_Scriptorium_Base_1"
+  "Shop": "Nakasar_Peuples_W_Slothian_E3_Scriptorium_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Recipe_Page",
+    "Includes": [
+      "Recettes",
+      "Souvenirs"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Slothian_E3_Scriptorium_Full_2",
+      "Nakasar_Peuples_W_Slothian_E3_Scriptorium_Full_3"
+    ],
+    "ShareItem": "Recipe_Food_Pie_Apple",
+    "ShareQuantity": 1,
+    "Shares": [
+      {
+        "ItemId": "Furniture_Jungle_Bookshelf",
+        "Quantity": 1
+      }
+    ]
+  }
 }

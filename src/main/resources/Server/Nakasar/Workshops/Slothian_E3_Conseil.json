@@ -57,31 +57,26 @@
   ],
   "Category": "Diplomatie",
   "RequiresRoutes": 2,
-  "Specialties": [
-    {
-      "Id": "Diplomatie",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E3_Conseil.Diplomatie",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E3_Conseil.Diplomatie",
-      "Icon": "Recipe_Page",
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E3_Conseil_Diplomatie_2",
-        "Nakasar_Peuples_W_Slothian_E3_Conseil_Diplomatie_3"
-      ],
-      "ShareItem": "Ingredient_Bolt_Cotton",
-      "ShareQuantity": 4
-    },
-    {
-      "Id": "Herauts",
-      "NameKey": "nakasar_peuples.workshop.specialty.Slothian_E3_Conseil.Herauts",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Slothian_E3_Conseil.Herauts",
-      "Icon": "Deco_Scroll",
-      "Shops": [
-        "Nakasar_Peuples_W_Slothian_E3_Conseil_Herauts_2",
-        "Nakasar_Peuples_W_Slothian_E3_Conseil_Herauts_3"
-      ],
-      "ShareItem": "Deco_Scroll",
-      "ShareQuantity": 2
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Slothian_E3_Conseil_Base_1"
+  "Shop": "Nakasar_Peuples_W_Slothian_E3_Conseil_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Recipe_Page",
+    "Includes": [
+      "Diplomatie",
+      "Herauts"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Slothian_E3_Conseil_Full_2",
+      "Nakasar_Peuples_W_Slothian_E3_Conseil_Full_3"
+    ],
+    "ShareItem": "Ingredient_Bolt_Cotton",
+    "ShareQuantity": 4,
+    "Shares": [
+      {
+        "ItemId": "Deco_Scroll",
+        "Quantity": 2
+      }
+    ]
+  }
 }

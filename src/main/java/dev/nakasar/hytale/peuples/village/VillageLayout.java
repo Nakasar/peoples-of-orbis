@@ -209,6 +209,14 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
         String itemId;
         int quantity = 1;
 
+        /** Un lot `quantity` × `itemId` (hors asset). */
+        public static Material of(String itemId, int quantity) {
+            Material m = new Material();
+            m.itemId = itemId;
+            m.quantity = Math.max(1, quantity);
+            return m;
+        }
+
         public String itemId() {
             return itemId;
         }
