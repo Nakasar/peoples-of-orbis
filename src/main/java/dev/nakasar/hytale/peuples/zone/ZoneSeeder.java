@@ -123,7 +123,7 @@ public final class ZoneSeeder extends TickingSystem<EntityStore> {
     private static List<int[]> sites(World world, VillageLayout layout, People people, int[] spawn, Vector3i found) {
         double heading = Math.atan2(found.z() - spawn[1], found.x() - spawn[0]);
         Random random = new Random(world.getWorldConfig().getSeed() * 37L + people.ordinal() * 104729L + System.nanoTime() % 997);
-        int r = layout.radiusUpTo(0);
+        int r = layout.campRadius();
         List<int[]> out = new ArrayList<>();
         for (int ring = 0; ring < RINGS; ring++) {
             double depth = MIN_DEPTH + (MAX_DEPTH - MIN_DEPTH) * ring / (double) (RINGS - 1);
@@ -186,7 +186,7 @@ public final class ZoneSeeder extends TickingSystem<EntityStore> {
     /** Vrai si le site convient au campement : sol du peuple, pas d'eau, relief modéré. */
     static boolean suitable(World world, VillageLayout layout, People people, int cx, int cz, boolean wetOk) {
         Terrain terrain = new Terrain(world);
-        int r = layout.radiusUpTo(0);
+        int r = layout.campRadius();
         int samples = 0;
         int ground = 0;
         int min = Integer.MAX_VALUE;
