@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Poste",
     "Rule": "ROAD",
     "Prefabs": [
-      "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_003 1 -13 0",
-      "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_002 14 -12 0"
+      "Nakasar/Peuples/Batiments/Feran/AP_Poste/AP_Poste_1_P1 1 -13 0",
+      "Nakasar/Peuples/Batiments/Feran/AP_Poste/AP_Poste_2_P1 14 -12 0"
     ],
     "Rect": [
       -11,

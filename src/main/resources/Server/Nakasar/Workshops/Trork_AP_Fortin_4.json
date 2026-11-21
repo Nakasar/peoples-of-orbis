@@ -58,9 +58,9 @@
     "Item": "Nakasar_Peuples_Annex_Fortin",
     "Rule": "NONE",
     "Prefabs": [
-      "Nakasar/Peuples/Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001 0 -6 0",
-      "Nakasar/Peuples/Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001 -8 -7 0",
-      "Nakasar/Peuples/Npc/Trork/Tier_2/Watchtower/Trork_Tier_2_Watchtower_002 10 -7 0"
+      "Nakasar/Peuples/Batiments/Trork/AP_Fortin/AP_Fortin_1_P1 0 -6 0",
+      "Nakasar/Peuples/Batiments/Trork/AP_Fortin/AP_Fortin_2_P1 -8 -7 0",
+      "Nakasar/Peuples/Batiments/Trork/AP_Fortin/AP_Fortin_3_P1 10 -7 0"
     ],
     "Rect": [
       -12,

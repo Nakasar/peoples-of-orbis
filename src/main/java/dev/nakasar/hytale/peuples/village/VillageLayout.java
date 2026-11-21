@@ -45,7 +45,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
                 .documentation("Palier du village à partir duquel le bâtiment existe (0 campement ... 3 bourg).")
                 .add()
                 .append(new KeyedCodec<>("Prefab", Codec.STRING), (b, v) -> b.prefab = v, b -> b.prefab)
-                .documentation("Prefab vanilla, chemin sous Server/Prefabs/ sans .prefab.json.")
+                .documentation("Prefab propre au bâtiment (Nakasar/Peuples/Batiments/<Peuple>/<Bâtiment>/..., tools/building_prefabs.py), chemin sous Server/Prefabs/ sans .prefab.json.")
                 .add()
                 .append(new KeyedCodec<>("X", Codec.INTEGER), (b, v) -> b.x = v == null ? 0 : v, b -> b.x).add()
                 .append(new KeyedCodec<>("Z", Codec.INTEGER), (b, v) -> b.z = v == null ? 0 : v, b -> b.z).add()
@@ -68,11 +68,15 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
                 .append(new KeyedCodec<>("Zone", Codec.INT_ARRAY), (b, v) -> b.zone = v == null || v.length < 4 ? null : v, b -> b.zone)
                 .documentation("Zone maximale x0, x1, z0, z1 relative au cœur : tous les paliers du bâtiment y tiennent.")
                 .add()
+                .append(new KeyedCodec<>("Garden", Codec.BOOLEAN), (b, v) -> b.garden = v != null && v, b -> b.garden)
+                .documentation("Potager (prefab d'origine Garden) : collé sans échafaudage, ses récoltes restent libres.")
+                .add()
                 .build();
 
         String id;
         String plot;
         int[] zone;
+        boolean garden;
         int tier;
         String prefab;
         int x;
@@ -134,7 +138,12 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
 
         /** Petit décor (lanterne, banc) ou potager : collé sans échafaudage. */
         public boolean small() {
-            return maxY < 4 || prefab == null || prefab.contains("/Garden") || prefab.contains("/Lampposts/") || prefab.contains("/Seats/");
+            return maxY < 4 || prefab == null || garden() || prefab.contains("/Lampposts/") || prefab.contains("/Seats/");
+        }
+
+        /** Potager : champ « Garden » du plan (prefab propre au bâtiment), ou prefab d'un dossier Garden. */
+        public boolean garden() {
+            return garden || (prefab != null && prefab.contains("/Garden"));
         }
 
         /** Emprise au sol relative au cœur : {x0, x1, z0, z1}. */
@@ -160,6 +169,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             b.id = id;
             b.plot = plot;
             b.zone = zone;
+            b.garden = garden;
             b.tier = tier;
             b.rotation = rotation;
             b.prefab = variantPrefab;
@@ -179,6 +189,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             Building b = new Building();
             b.id = id;
             b.plot = plot;
+            b.garden = garden;
             b.tier = tier;
             b.prefab = prefab;
             int[] at = t.point(x, z);

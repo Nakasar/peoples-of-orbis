@@ -59,9 +59,9 @@
     "Item": "Nakasar_Peuples_Annex_Chasse",
     "Rule": "NONE",
     "Prefabs": [
-      "Nakasar/Peuples/Npc/Kweebec/Redwood/Small_Plot/House/Kweebec_Redwood_Small_Plot_House_001 1 -6 0",
-      "Nakasar/Peuples/Npc/Kweebec/Oak/Seats/Small/Kweebec_Oak_Seats_Small_001 8 -7 0",
-      "Nakasar/Peuples/Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_008 -6 -7 0"
+      "Nakasar/Peuples/Batiments/Kweebec/AP_Chasse/AP_Chasse_1_P1 1 -6 0",
+      "Nakasar/Peuples/Batiments/Kweebec/AP_Chasse/AP_Chasse_2_P1 8 -7 0",
+      "Nakasar/Peuples/Batiments/Kweebec/AP_Chasse/AP_Chasse_3_P1 -6 -7 0"
     ],
     "Rect": [
       -8,

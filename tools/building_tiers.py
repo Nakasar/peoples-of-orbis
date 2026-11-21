@@ -32,7 +32,7 @@ import json
 import re
 from pathlib import Path
 
-from mod_prefabs import mod
+from mod_prefabs import mod, source, sourced
 
 ROOT = Path(__file__).resolve().parent.parent
 TOOLS = Path(__file__).resolve().parent
@@ -214,6 +214,7 @@ def rot_rect(path, x, z, rot):
 
 def ladder(path):
     """Versions de plus en plus grandes de `path` (sans lui), d'abord CHAINS, puis le même dossier par volume."""
+    path = source(path)  # prefab propre à un bâtiment (tools/building_prefabs.py) : échelle de son origine
     for pattern, fn in CHAINS:
         m = re.match(pattern, path)
         if m:
@@ -240,7 +241,7 @@ def overlaps(a, b):
 
 def layout_of(people):
     for f in (NAK / "VillageLayouts").glob("*.json"):
-        d = json.loads(f.read_text(encoding="utf-8"))
+        d = sourced(json.loads(f.read_text(encoding="utf-8")))
         if d["People"] == people:
             return d
     raise SystemExit(f"plan de village introuvable : {people}")
@@ -269,7 +270,7 @@ def heart_entry(people):
 
 def layout_file(people):
     for f in (NAK / "VillageLayouts").glob("*.json"):
-        if json.loads(f.read_text(encoding="utf-8"))["People"] == people:
+        if sourced(json.loads(f.read_text(encoding="utf-8")))["People"] == people:
             return f
     return ""
 
@@ -287,7 +288,7 @@ def village_entries(people):
                 continue
             seen_projects.add(name_id)
             wid = f"{people}_{bid}"
-            ws = json.loads((NAK / "Workshops" / f"{wid}.json").read_text(encoding="utf-8"))
+            ws = sourced(json.loads((NAK / "Workshops" / f"{wid}.json").read_text(encoding="utf-8")))
             if ws.get("Legacy"):
                 continue  # projet hérité (doublait un avant-poste de production) : plus construit
             cat, bid = "Projet", "Projet_" + name_id
@@ -307,7 +308,7 @@ def village_entries(people):
 def annex_entries(people):
     out = []
     for f in sorted((NAK / "Workshops").glob(f"{people}_AP_*.json")):
-        d = json.loads(f.read_text(encoding="utf-8"))
+        d = sourced(json.loads(f.read_text(encoding="utf-8")))
         if d["Annex"].get("Slot", 1) > 1:
             continue  # place 2, 3... d'un ouvrage : copie du même bâtiment
         pieces = []
@@ -486,7 +487,7 @@ def apply_retouches(people, e, tiers, table):
 
 
 def growth_data():
-    return json.loads(GROWTH.read_text(encoding="utf-8")) if GROWTH.exists() else {}
+    return sourced(json.loads(GROWTH.read_text(encoding="utf-8"))) if GROWTH.exists() else {}
 
 
 def board_block(people):
@@ -548,7 +549,7 @@ def add_zone(people, e, tiers, growth):
     layout = layout_file(people)
     zones = growth.get("Zones", {}).get(layout.stem if layout else "", {})
     # Zones maximales fixées par le plan (Kevin, 18 novembre 2026) : bâtiments à « Zone » et terrains de ce plan.
-    plan = json.loads(layout.read_text(encoding="utf-8")) if layout else {}
+    plan = sourced(json.loads(layout.read_text(encoding="utf-8"))) if layout else {}
     fixed = {b["Id"] for b in plan.get("Buildings", []) if b.get("Zone")}
     if fixed:
         fixed |= {b["Id"] for b in plan.get("Buildings", []) if b.get("Plot")}

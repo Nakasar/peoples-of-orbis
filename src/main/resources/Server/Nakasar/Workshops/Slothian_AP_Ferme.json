@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Ferme",
     "Rule": "FERTILE",
     "Prefabs": [
-      "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001 0 -7 0",
-      "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001 6 -8 0"
+      "Nakasar/Peuples/Batiments/Slothian/AP_Ferme/AP_Ferme_1_P1 0 -7 0",
+      "Nakasar/Peuples/Batiments/Slothian/AP_Ferme/AP_Ferme_2_P1 6 -8 0"
     ],
     "Rect": [
       -4,

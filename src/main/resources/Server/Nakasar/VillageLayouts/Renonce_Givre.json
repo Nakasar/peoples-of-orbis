@@ -9,7 +9,7 @@
     {
       "Id": "Abri_Des_Fuyards",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Abri_Des_Fuyards/Abri_Des_Fuyards_P1",
       "X": 27,
       "Z": 4,
       "Rotation": 0,
@@ -29,7 +29,7 @@
     {
       "Id": "Abri_Du_Guet",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Abri_Du_Guet/Abri_Du_Guet_P1",
       "X": 0,
       "Z": -27,
       "Rotation": 0,
@@ -49,7 +49,7 @@
     {
       "Id": "Tour_De_Guet_Givre",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Towers/Tier1/Outlander_Towers_Tier1_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Tour_De_Guet_Givre/Tour_De_Guet_Givre_P1",
       "X": -19,
       "Z": -1,
       "Rotation": 0,
@@ -69,7 +69,7 @@
     {
       "Id": "Marche",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Markets/Renonce_Marche",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Marche/Marche_P1",
       "X": -19,
       "Z": 55,
       "Rotation": 2,
@@ -89,7 +89,7 @@
     {
       "Id": "Maison_Des_Repentis",
       "Tier": 1,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_002",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Maison_Des_Repentis/Maison_Des_Repentis_P1",
       "X": 32,
       "Z": -29,
       "Rotation": 0,
@@ -109,7 +109,7 @@
     {
       "Id": "Maison_Du_Chasseur",
       "Tier": 1,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Maison_Du_Chasseur/Maison_Du_Chasseur_P1",
       "X": -41,
       "Z": -2,
       "Rotation": 0,
@@ -129,7 +129,7 @@
     {
       "Id": "Petit_Bateau",
       "Tier": 1,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Boats/Small/Outlander_Boats_Small_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Petit_Bateau/Petit_Bateau_P1",
       "X": 53,
       "Z": -20,
       "Rotation": 0,
@@ -149,7 +149,7 @@
     {
       "Id": "Bergerie_Du_Givre",
       "Tier": 1,
-      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Bergerie_Du_Givre/Bergerie_Du_Givre_P1",
       "X": 54,
       "Z": 0,
       "Rotation": 1,
@@ -169,7 +169,7 @@
     {
       "Id": "Grande_Maison_Givre",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Grande_Maison_Givre/Grande_Maison_Givre_P1",
       "X": 0,
       "Z": -57,
       "Rotation": 0,
@@ -189,7 +189,7 @@
     {
       "Id": "Tour_Du_Fort",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Tour_Du_Fort/Tour_Du_Fort_P1",
       "X": 23,
       "Z": -51,
       "Rotation": 0,
@@ -209,7 +209,7 @@
     {
       "Id": "Grand_Bateau",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Boats/Large/Outlander_Boats_Large_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Grand_Bateau/Grand_Bateau_P1",
       "X": -1,
       "Z": 59,
       "Rotation": 0,
@@ -229,7 +229,7 @@
     {
       "Id": "Maison_Du_Sorcier",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_002",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Maison_Du_Sorcier/Maison_Du_Sorcier_P1",
       "X": -36,
       "Z": 31,
       "Rotation": 0,
@@ -249,7 +249,7 @@
     {
       "Id": "Totem_Brise",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Totems/Outlander_Totems_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Totem_Brise/Totem_Brise_P1",
       "X": 55,
       "Z": 21,
       "Rotation": 0,
@@ -269,7 +269,7 @@
     {
       "Id": "E1_Forge",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Forge/Forge_P1",
       "X": -32,
       "Z": -32,
       "Rotation": 0,
@@ -284,7 +284,7 @@
     {
       "Id": "E1_Fumoir",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Fumoir/Fumoir_P1",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -299,7 +299,7 @@
     {
       "Id": "E1_Cabane_De_Peche",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Cabane_De_Peche/Cabane_De_Peche_P1",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -314,7 +314,7 @@
     {
       "Id": "E1_Chenil",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_002",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Chenil/Chenil_P1",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -329,7 +329,7 @@
     {
       "Id": "E1_Deuxieme_Bergerie",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Deuxieme_Bergerie/Deuxieme_Bergerie_P1",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -344,7 +344,7 @@
     {
       "Id": "E1_Conseil",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Conseil/Conseil_P1",
       "X": -29,
       "Z": -34,
       "Rotation": 0,
@@ -359,7 +359,7 @@
     {
       "Id": "E1_Caserne",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Caserne/Caserne_P1",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -374,7 +374,7 @@
     {
       "Id": "E1_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Bibliotheque/Bibliotheque_P1",
       "X": -32,
       "Z": -32,
       "Rotation": 0,
@@ -389,7 +389,7 @@
     {
       "Id": "E1_Temple",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Temple/Temple_P1",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -404,7 +404,7 @@
     {
       "Id": "E1_Halle",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Halle/Halle_P1",
       "X": -32,
       "Z": -33,
       "Rotation": 0,
@@ -419,7 +419,7 @@
     {
       "Id": "E2_Forge",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Forge/Forge_P1",
       "X": -4,
       "Z": 30,
       "Rotation": 0,
@@ -434,7 +434,7 @@
     {
       "Id": "E2_Fumoir",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Fumoir/Fumoir_P1",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -449,7 +449,7 @@
     {
       "Id": "E2_Cabane_De_Peche",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Cabane_De_Peche/Cabane_De_Peche_P1",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -464,7 +464,7 @@
     {
       "Id": "E2_Chenil",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_002",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Chenil/Chenil_P1",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -479,7 +479,7 @@
     {
       "Id": "E2_Deuxieme_Bergerie",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Deuxieme_Bergerie/Deuxieme_Bergerie_P1",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -494,7 +494,7 @@
     {
       "Id": "E2_Conseil",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Conseil/Conseil_P1",
       "X": -1,
       "Z": 28,
       "Rotation": 0,
@@ -509,7 +509,7 @@
     {
       "Id": "E2_Caserne",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Caserne/Caserne_P1",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -524,7 +524,7 @@
     {
       "Id": "E2_Bibliotheque",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Bibliotheque/Bibliotheque_P1",
       "X": -4,
       "Z": 30,
       "Rotation": 0,
@@ -539,7 +539,7 @@
     {
       "Id": "E2_Temple",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Temple/Temple_P1",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -554,7 +554,7 @@
     {
       "Id": "E2_Halle",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Halle/Halle_P1",
       "X": -4,
       "Z": 29,
       "Rotation": 0,
@@ -569,7 +569,7 @@
     {
       "Id": "E3_Forge",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Forge/Forge_P1",
       "X": 29,
       "Z": 39,
       "Rotation": 0,
@@ -584,7 +584,7 @@
     {
       "Id": "E3_Fumoir",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Fumoir/Fumoir_P1",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -599,7 +599,7 @@
     {
       "Id": "E3_Cabane_De_Peche",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Cabane_De_Peche/Cabane_De_Peche_P1",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -614,7 +614,7 @@
     {
       "Id": "E3_Chenil",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_002",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Chenil/Chenil_P1",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -629,7 +629,7 @@
     {
       "Id": "E3_Deuxieme_Bergerie",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Pens/Renonce_Pen",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Deuxieme_Bergerie/Deuxieme_Bergerie_P1",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -644,7 +644,7 @@
     {
       "Id": "E3_Conseil",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Conseil/Conseil_P1",
       "X": 32,
       "Z": 37,
       "Rotation": 0,
@@ -659,7 +659,7 @@
     {
       "Id": "E3_Caserne",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Caserne/Caserne_P1",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -674,7 +674,7 @@
     {
       "Id": "E3_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Bibliotheque/Bibliotheque_P1",
       "X": 29,
       "Z": 39,
       "Rotation": 0,
@@ -689,7 +689,7 @@
     {
       "Id": "E3_Temple",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Temple/Temple_P1",
       "X": 29,
       "Z": 38,
       "Rotation": 0,
@@ -704,7 +704,7 @@
     {
       "Id": "E3_Halle",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Renonce/Halle/Halle_P1",
       "X": 29,
       "Z": 38,
       "Rotation": 0,

@@ -58,7 +58,7 @@
     "Item": "Nakasar_Peuples_Annex_Chasse",
     "Rule": "NONE",
     "Prefabs": [
-      "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001 0 -6 0"
+      "Nakasar/Peuples/Batiments/Slothian/AP_Chasse/AP_Chasse_P1 0 -6 0"
     ],
     "Rect": [
       -5,

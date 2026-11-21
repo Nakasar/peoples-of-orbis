@@ -9,7 +9,7 @@
     {
       "Id": "Abri_Ouest",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Abri_Ouest/Abri_Ouest_P1",
       "X": -26,
       "Z": 0,
       "Rotation": 0,
@@ -29,7 +29,7 @@
     {
       "Id": "Abri_Est",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Abri_Est/Abri_Est_P1",
       "X": 26,
       "Z": -1,
       "Rotation": 2,
@@ -49,7 +49,7 @@
     {
       "Id": "Tour_De_Guet",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Tour_De_Guet/Tour_De_Guet_P1",
       "X": 13,
       "Z": 21,
       "Rotation": 0,
@@ -69,7 +69,7 @@
     {
       "Id": "Potager",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Medium/Kweebec_Oak_Garden_Medium_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Potager/Potager_P1",
       "X": 0,
       "Z": -16,
       "Rotation": 0,
@@ -84,12 +84,13 @@
         6,
         -20,
         -12
-      ]
+      ],
+      "Garden": true
     },
     {
       "Id": "Marche",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Markets/Kweebec_Marche",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Marche/Marche_P1",
       "X": 4,
       "Z": 51,
       "Rotation": 2,
@@ -109,7 +110,7 @@
     {
       "Id": "Grand_Pere",
       "Tier": 0,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Grandfather/Kweebec_Oak_Grandfather_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Grand_Pere/Grand_Pere_P1",
       "X": 31,
       "Z": -23,
       "Rotation": 0,
@@ -129,7 +130,7 @@
     {
       "Id": "Puits",
       "Tier": 1,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Well/Kweebec_Oak_Well_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Puits/Puits_P1",
       "X": 0,
       "Z": 16,
       "Rotation": 0,
@@ -149,7 +150,7 @@
     {
       "Id": "Echoppe",
       "Tier": 1,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_002",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Echoppe/Echoppe_P1",
       "X": -13,
       "Z": -20,
       "Rotation": 0,
@@ -169,7 +170,7 @@
     {
       "Id": "Maison_Sud_Ouest",
       "Tier": 1,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Maison_Sud_Ouest/Maison_Sud_Ouest_P1",
       "X": -21,
       "Z": 29,
       "Rotation": 0,
@@ -189,7 +190,7 @@
     {
       "Id": "Enclos",
       "Tier": 1,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Enclos/Enclos_P1",
       "X": 16,
       "Z": -23,
       "Rotation": 0,
@@ -209,7 +210,7 @@
     {
       "Id": "Grande_Maison",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Grande_Maison/Grande_Maison_P1",
       "X": 60,
       "Z": 0,
       "Rotation": 0,
@@ -229,7 +230,7 @@
     {
       "Id": "Maison_Des_Gardes",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Maison_Des_Gardes/Maison_Des_Gardes_P1",
       "X": -36,
       "Z": -35,
       "Rotation": 0,
@@ -249,7 +250,7 @@
     {
       "Id": "Tour_Est",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Tour_Est/Tour_Est_P1",
       "X": 2,
       "Z": -28,
       "Rotation": 0,
@@ -269,7 +270,7 @@
     {
       "Id": "Echoppe_Ouest",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Echoppe_Ouest/Echoppe_Ouest_P1",
       "X": -10,
       "Z": -31,
       "Rotation": 0,
@@ -289,7 +290,7 @@
     {
       "Id": "Grand_Potager",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Grand_Potager/Grand_Potager_P1",
       "X": 4,
       "Z": 34,
       "Rotation": 0,
@@ -304,12 +305,13 @@
         14,
         30,
         42
-      ]
+      ],
+      "Garden": true
     },
     {
       "Id": "E1_Archerie",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Archerie/Archerie_P1",
       "X": 0,
       "Z": -51,
       "Rotation": 0,
@@ -324,7 +326,7 @@
     {
       "Id": "E1_Herboristerie",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Herboristerie/Herboristerie_P1",
       "X": 0,
       "Z": -52,
       "Rotation": 0,
@@ -339,7 +341,7 @@
     {
       "Id": "E1_Grand_Bassin",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Grand_Bassin/Grand_Bassin_P1",
       "X": 0,
       "Z": -52,
       "Rotation": 0,
@@ -354,7 +356,7 @@
     {
       "Id": "E1_Menuiserie",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Menuiserie/Menuiserie_P1",
       "X": 1,
       "Z": -52,
       "Rotation": 0,
@@ -369,7 +371,7 @@
     {
       "Id": "E1_Deuxieme_Enclos",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Deuxieme_Enclos/Deuxieme_Enclos_P1",
       "X": 0,
       "Z": -52,
       "Rotation": 0,
@@ -384,7 +386,7 @@
     {
       "Id": "E1_Conseil",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Conseil/Conseil_P1",
       "X": 0,
       "Z": -52,
       "Rotation": 0,
@@ -399,7 +401,7 @@
     {
       "Id": "E1_Caserne",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Caserne/Caserne_P1",
       "X": 0,
       "Z": -51,
       "Rotation": 0,
@@ -414,7 +416,7 @@
     {
       "Id": "E1_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_006",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Bibliotheque/Bibliotheque_P1",
       "X": 0,
       "Z": -52,
       "Rotation": 0,
@@ -429,7 +431,7 @@
     {
       "Id": "E1_Temple",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Temple/Temple_P1",
       "X": 0,
       "Z": -52,
       "Rotation": 0,
@@ -444,7 +446,7 @@
     {
       "Id": "E1_Halle",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Halle/Halle_P1",
       "X": -1,
       "Z": -52,
       "Rotation": 0,
@@ -459,7 +461,7 @@
     {
       "Id": "E2_Archerie",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Archerie/Archerie_P1",
       "X": -59,
       "Z": 2,
       "Rotation": 0,
@@ -474,7 +476,7 @@
     {
       "Id": "E2_Herboristerie",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Herboristerie/Herboristerie_P1",
       "X": -59,
       "Z": 1,
       "Rotation": 0,
@@ -489,7 +491,7 @@
     {
       "Id": "E2_Grand_Bassin",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Grand_Bassin/Grand_Bassin_P1",
       "X": -59,
       "Z": 1,
       "Rotation": 0,
@@ -504,7 +506,7 @@
     {
       "Id": "E2_Menuiserie",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Menuiserie/Menuiserie_P1",
       "X": -58,
       "Z": 1,
       "Rotation": 0,
@@ -519,7 +521,7 @@
     {
       "Id": "E2_Deuxieme_Enclos",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Deuxieme_Enclos/Deuxieme_Enclos_P1",
       "X": -59,
       "Z": 1,
       "Rotation": 0,
@@ -534,7 +536,7 @@
     {
       "Id": "E2_Conseil",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Conseil/Conseil_P1",
       "X": -59,
       "Z": 1,
       "Rotation": 0,
@@ -549,7 +551,7 @@
     {
       "Id": "E2_Caserne",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Caserne/Caserne_P1",
       "X": -59,
       "Z": 2,
       "Rotation": 0,
@@ -564,7 +566,7 @@
     {
       "Id": "E2_Bibliotheque",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_006",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Bibliotheque/Bibliotheque_P1",
       "X": -59,
       "Z": 1,
       "Rotation": 0,
@@ -579,7 +581,7 @@
     {
       "Id": "E2_Temple",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Temple/Temple_P1",
       "X": -59,
       "Z": 1,
       "Rotation": 0,
@@ -594,7 +596,7 @@
     {
       "Id": "E2_Halle",
       "Tier": 3,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Halle/Halle_P1",
       "X": -60,
       "Z": 1,
       "Rotation": 0,
@@ -609,7 +611,7 @@
     {
       "Id": "E3_Archerie",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Archerie/Archerie_P1",
       "X": 36,
       "Z": 32,
       "Rotation": 0,
@@ -624,7 +626,7 @@
     {
       "Id": "E3_Herboristerie",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Herboristerie/Herboristerie_P1",
       "X": 36,
       "Z": 31,
       "Rotation": 0,
@@ -639,7 +641,7 @@
     {
       "Id": "E3_Grand_Bassin",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Grand_Bassin/Grand_Bassin_P1",
       "X": 36,
       "Z": 31,
       "Rotation": 0,
@@ -654,7 +656,7 @@
     {
       "Id": "E3_Menuiserie",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Menuiserie/Menuiserie_P1",
       "X": 37,
       "Z": 31,
       "Rotation": 0,
@@ -669,7 +671,7 @@
     {
       "Id": "E3_Deuxieme_Enclos",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_005",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Deuxieme_Enclos/Deuxieme_Enclos_P1",
       "X": 36,
       "Z": 31,
       "Rotation": 0,
@@ -684,7 +686,7 @@
     {
       "Id": "E3_Conseil",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Conseil/Conseil_P1",
       "X": 36,
       "Z": 31,
       "Rotation": 0,
@@ -699,7 +701,7 @@
     {
       "Id": "E3_Caserne",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Caserne/Caserne_P1",
       "X": 36,
       "Z": 32,
       "Rotation": 0,
@@ -714,7 +716,7 @@
     {
       "Id": "E3_Bibliotheque",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_006",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Bibliotheque/Bibliotheque_P1",
       "X": 36,
       "Z": 31,
       "Rotation": 0,
@@ -729,7 +731,7 @@
     {
       "Id": "E3_Temple",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Temple/Temple_P1",
       "X": 36,
       "Z": 31,
       "Rotation": 0,
@@ -744,7 +746,7 @@
     {
       "Id": "E3_Halle",
       "Tier": 2,
-      "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008",
+      "Prefab": "Nakasar/Peuples/Batiments/Kweebec/Halle/Halle_P1",
       "X": 35,
       "Z": 31,
       "Rotation": 0,

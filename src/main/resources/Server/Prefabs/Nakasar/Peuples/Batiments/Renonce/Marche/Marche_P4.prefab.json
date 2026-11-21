@@ -1,0 +1,1101 @@
+{
+  "version": 8,
+  "blockIdVersion": 11,
+  "anchorX": 0,
+  "anchorY": 0,
+  "anchorZ": 0,
+  "blocks": [
+    {
+      "x": -6,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -6,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -6,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -6,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -6,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -6,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -6,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -6,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -6,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -5,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -4,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Gravel"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "z": -4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "z": 4,
+      "name": "Soil_Snow"
+    },
+    {
+      "x": -6,
+      "y": 1,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -6,
+      "y": 2,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -6,
+      "y": 3,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -6,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -6,
+      "y": 2,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -6,
+      "y": 3,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -5,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": -4,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": -5,
+      "y": 2,
+      "z": -1,
+      "name": "Deco_Tankard"
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": -1,
+      "name": "Deco_Mug"
+    },
+    {
+      "x": -5,
+      "y": 1,
+      "z": -3,
+      "name": "Plant_Hay_Bundle"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": -3,
+      "name": "Deco_Bucket"
+    },
+    {
+      "x": -6,
+      "y": 4,
+      "z": -3,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -6,
+      "y": 4,
+      "z": -2,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -6,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -5,
+      "y": 4,
+      "z": -3,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -5,
+      "y": 4,
+      "z": -2,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -5,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -4,
+      "y": 4,
+      "z": -3,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -4,
+      "y": 4,
+      "z": -2,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -4,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": -3,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": -2,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": -3,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": -2,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": -1,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "z": -3,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "z": -1,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -6,
+      "y": 1,
+      "z": -4,
+      "name": "Furniture_Lumberjack_Lantern"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "z": -4,
+      "name": "Furniture_Lumberjack_Lantern"
+    },
+    {
+      "x": -6,
+      "y": 1,
+      "z": 4,
+      "name": "Furniture_Lumberjack_Lantern"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "z": 4,
+      "name": "Furniture_Lumberjack_Lantern"
+    },
+    {
+      "x": -6,
+      "y": 1,
+      "z": 0,
+      "name": "Furniture_Lumberjack_Lantern"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "z": 0,
+      "name": "Furniture_Lumberjack_Lantern"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -4,
+      "name": "Deco_Rope"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -4,
+      "name": "Plant_Hay_Bundle"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -4,
+      "name": "Plant_Hay_Bundle"
+    },
+    {
+      "x": -5,
+      "y": 1,
+      "z": -4,
+      "name": "Plant_Hay_Bundle"
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "z": -4,
+      "name": "Deco_Bucket"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": -3,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": -2,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": -3,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": -2,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": -3,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": -2,
+      "name": "Cloth_Roof_Blue_Flat"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -3,
+      "name": "Deco_Tankard"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -3,
+      "name": "Deco_Mug"
+    }
+  ]
+}

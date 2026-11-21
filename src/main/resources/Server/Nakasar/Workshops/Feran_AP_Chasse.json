@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Chasse",
     "Rule": "NONE",
     "Prefabs": [
-      "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001 0 -8 0",
-      "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001 8 -8 0"
+      "Nakasar/Peuples/Batiments/Feran/AP_Chasse/AP_Chasse_1_P1 0 -8 0",
+      "Nakasar/Peuples/Batiments/Feran/AP_Chasse/AP_Chasse_2_P1 8 -8 0"
     ],
     "Rect": [
       -6,
