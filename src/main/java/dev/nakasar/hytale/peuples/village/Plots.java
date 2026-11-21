@@ -311,6 +311,53 @@ public final class Plots {
             player.sendMessage(Chantiers.obstacleLine(b, o));
             return false;
         }
+        begin(world, store, village, plot, s, layout, b, h);
+        Chantiers.announce(world, village, Message.translation(KEYS + "started").param("player", player.getUsername())
+                .param("building", Message.translation(Chantiers.buildingKey(b.id()))).param("hours", plot.hours()), null,
+                NotificationStyle.Success);
+        LOGGER.atInfo().log("Nakasar Peuples : chantier de %s lancé sur le terrain %s (%s)", b.id(), plot.id(), village.name());
+        return true;
+    }
+
+    /**
+     * Le conseil lance seul le chantier du projet réservé (échanges nés des besoins, world/TradeNeeds ; Kevin,
+     * 2026-11-21) : mêmes conditions que pour un joueur (matériaux au dépôt, emprise libre), sans rang.
+     */
+    public static boolean startByVillage(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot) {
+        PlotState s = village.plot(plot.id());
+        VillageLayout layout = Chantiers.layout(village);
+        VillageLayout.Building b = s.project() == null || layout == null ? null : layout.building(s.project());
+        if (b == null || s.working() || village.isBuilt(b.id()) || !isOpen(village, plot)) {
+            return false;
+        }
+        Map<String, Integer> missing = missing(world, village, plot);
+        if (missing == null || !missing.isEmpty()) {
+            return false;
+        }
+        removeStakes(world, village, plot, s);
+        int h = Chantiers.siteHeight(world, village, b);
+        if (Chantiers.obstacles(world, village, b, h).any()) {
+            return false;
+        }
+        begin(world, store, village, plot, s, layout, b, h);
+        Chantiers.announce(world, village, Message.translation(KEYS + "startedByVillage").param("village", village.name())
+                .param("building", Message.translation(Chantiers.buildingKey(b.id()))).param("hours", plot.hours()), null,
+                NotificationStyle.Success);
+        LOGGER.atInfo().log("Nakasar Peuples : le conseil lance le chantier de %s sur le terrain %s (%s)", b.id(), plot.id(), village.name());
+        return true;
+    }
+
+    /** Le conseil réserve (ou rend, `buildingId` null) le terrain pour un projet, sans joueur (world/TradeNeeds). */
+    public static void reserveByVillage(Village village, VillageLayout.Plot plot, String buildingId) {
+        PlotState s = village.plot(plot.id());
+        if (!s.working() && (s.project() == null || !village.isBuilt(s.project()))) {
+            s.setProject(buildingId);
+        }
+    }
+
+    /** Matériaux pris au dépôt, terrain aplani, échafaudage, {@code Hours} h de travaux. */
+    private static void begin(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot, PlotState s,
+                              VillageLayout layout, VillageLayout.Building b, int h) {
         ItemContainer chest = Requests.depositContainer(world, village);
         for (VillageLayout.Material m : plot.materials()) {
             Requests.take(chest, m.itemId(), m.quantity());
@@ -321,11 +368,6 @@ public final class Plots {
         PHASE.put(key(village, plot), 1);
         long now = GameClock.seconds(store);
         s.startWorks(now, now + plot.hours() * 3600L);
-        Chantiers.announce(world, village, Message.translation(KEYS + "started").param("player", player.getUsername())
-                .param("building", Message.translation(Chantiers.buildingKey(b.id()))).param("hours", plot.hours()), null,
-                NotificationStyle.Success);
-        LOGGER.atInfo().log("Nakasar Peuples : chantier de %s lancé sur le terrain %s (%s)", b.id(), plot.id(), village.name());
-        return true;
     }
 
     /**

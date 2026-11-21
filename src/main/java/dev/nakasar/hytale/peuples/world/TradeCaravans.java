@@ -168,6 +168,7 @@ public final class TradeCaravans {
 
     static void drop(World world, Store<EntityStore> store, Caravan c) {
         WorldLife.registry(world).put(WorldLifeRegistry.Part.TRADE_CARAVANS, c.id, null);
+        TradeNeeds.discard(world, c.walkKey());
         Walk.end(store, c.walkKey());
         Ambushes.cancel(store, c.walkKey());
         Ambushes.repelled(c.walkKey());
@@ -207,13 +208,14 @@ public final class TradeCaravans {
                 return null;
             }
         }
-        List<String> cases = TradeRoutes.cleared(r, to.id());
+        List<String> cases = TradeRoutes.cleared(world, r, to.id());
         if (cases.isEmpty()) {
             return null;
         }
         long day = GameClock.day(store);
         Map<String, TradeCatalogue.Source> catalogue = TradeCatalogue.of(world, from, r.key(), day);
         ItemContainer chest = Villages.depositChest(world, from);
+        java.util.Set<String> orders = TradeNeeds.ordered(world, from.id(), to.id());
         Caravan c = new Caravan(Long.toString(System.currentTimeMillis(), 36) + Integer.toString(new Random().nextInt(1296), 36));
         c.route = r.key();
         c.from = from.id();
@@ -226,7 +228,8 @@ public final class TradeCaravans {
             }
             int load = TradeGoods.grade(item).load(r.level());
             int n;
-            if (source == TradeCatalogue.Source.TERROIR) {
+            if (source == TradeCatalogue.Source.TERROIR || (source.produced() && orders.contains(item))) {
+                // Terroir, et commande d'un besoin (TradeNeeds) : le bâtiment qui la produit remplit la case.
                 n = load;
             } else if (chest != null) {
                 n = Requests.take(chest, item, load);
@@ -241,8 +244,9 @@ public final class TradeCaravans {
             TradeRoutes.announce(world, from, Message.translation(TradeRoutes.KEYS + "empty").param("to", TradeRoutes.name(world, to)), NotificationStyle.Warning);
             return null;
         }
-        TradeRoutes.spendCredit(r, to.id(), new ArrayList<>(c.cargo.keySet()));
+        TradeRoutes.spendCredit(world, r, to.id(), new ArrayList<>(c.cargo.keySet()));
         save(world, c);
+        TradeNeeds.pack(world, c.walkKey(), from, day);
         PeuplesPlugin.get().getLogger().atInfo().log("Peuples (commerce) : caravane %s → %s (%s)", from.id(), to.id(), c.format());
         return c;
     }
@@ -351,6 +355,8 @@ public final class TradeCaravans {
             Links.pass(world, Links.key(from.id(), to.id()), day, Math.max(1, c.walkers));
         }
         Villages.addEssor(to, 1);
+        TradeNeeds.delivered(world, from, to, c.cargo, day);
+        TradeNeeds.unpack(world, store, c.walkKey(), to, day, "caravan");
         escortArrived(world, store, c, from, to);
         TradeRoutes.announce(world, to, Message.translation(TradeRoutes.KEYS + "arrived").param("from", TradeRoutes.name(world, from))
                 .param("goods", goodsLine(c.cargo)), NotificationStyle.Success);

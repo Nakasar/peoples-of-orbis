@@ -208,6 +208,7 @@ public final class HamletTrips {
             Sieges.forget(t.hamlet); // sinon le lieu-dit resterait « assiégé » (gardes sans laisse) jusqu'au redémarrage
         }
         WorldLife.registry(world).put(WorldLifeRegistry.Part.HAMLET_TRIPS, t.id, null);
+        TradeNeeds.discard(world, t.walkKey());
         Walk.end(store, t.walkKey());
         PATHS.remove(t.id + ":0");
         PATHS.remove(t.id + ":2");
@@ -305,6 +306,7 @@ public final class HamletTrips {
         t.leg = OUT;
         t.walkers = caravan ? 3 : 1;
         save(world, t);
+        TradeNeeds.pack(world, t.walkKey(), from, GameClock.day(world.getEntityStore().getStore()));
         PeuplesPlugin.get().getLogger().atInfo().log("Peuples (monde vivant) : %s de %s vers le lieu-dit %s", caravan ? "caravane" : "marchand",
                 from.name(), h.id());
         return t;
@@ -484,6 +486,12 @@ public final class HamletTrips {
         Links.pass(world, h.trafficKey(), day, Math.max(1, t.walkers));
         Allegiance.merchantArrived(world, store, h, v, t.caravan());
         WorldLife.registry(world).put(WorldLifeRegistry.Part.HAMLET_TRIPS, LAST + h.id(), v.id());
+        // Le lieu-dit est un relais : il apprend ce que porte le marchand, qui repart avec ce que le lieu-dit sait.
+        Village place = Hamlets.state(world, h);
+        if (t.trade() && place != null) {
+            TradeNeeds.unpack(world, store, t.walkKey(), place, day, "hamletTrip");
+            TradeNeeds.pack(world, t.walkKey(), place, day);
+        }
         if (before < Hamlets.LIVELY && Hamlets.visits(world, h, day) >= Hamlets.LIVELY) {
             Hamlets.announceLively(world, store, h);
         }
@@ -501,6 +509,7 @@ public final class HamletTrips {
             drop(world, store, t);
             return;
         }
+        TradeNeeds.unpack(world, store, t.walkKey(), v, GameClock.day(store), "hamletTrip");
         int essor = t.caravan() ? Math.min(CARAVAN_ESSOR, t.walkers) : MERCHANT_ESSOR;
         Villages.addEssor(v, essor);
         Chantiers.announce(world, v, Message.translation(KEYS + "home").param("hamlet", h.name()).param("essor", essor), null,

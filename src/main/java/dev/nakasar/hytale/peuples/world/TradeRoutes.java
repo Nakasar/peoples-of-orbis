@@ -497,6 +497,7 @@ public final class TradeRoutes {
 
     static void drop(World world, Store<EntityStore> store, Route r, String reason) {
         remove(world, r);
+        TradeNeeds.routeDropped(world, r.a, r.b);
         TradeCaravans.dropRoute(world, store, r.key);
         Message m = Message.translation(KEYS + reason).param("a", name(world, village(world, r.a)))
                 .param("b", name(world, village(world, r.b)));
@@ -524,19 +525,28 @@ public final class TradeRoutes {
      * retirant d'abord la case la plus lourde. Le crédit n'est pas débité ici : {@link #spendCredit} le fait une fois la
      * cargaison chargée.
      */
-    static List<String> cleared(Route r, String receiver) {
-        List<String> cases = new ArrayList<>(r.importsOf(receiver));
+    static List<String> cleared(World world, Route r, String receiver) {
+        // Les commandes (échanges nés des besoins, TradeNeeds) passent toujours, hors de l'équilibre.
+        java.util.Set<String> orders = TradeNeeds.ordered(world, r.other(receiver), receiver);
+        List<String> cases = new ArrayList<>();
+        List<String> out = new ArrayList<>();
+        for (String item : r.importsOf(receiver)) {
+            (orders.contains(item) ? out : cases).add(item);
+        }
         int budget = weight(r.exportsOf(receiver)) + r.credit(receiver);
         cases.sort((x, y) -> TradeGoods.grade(y).weight() - TradeGoods.grade(x).weight());
         while (!cases.isEmpty() && weight(cases) > budget) {
             cases.remove(0);
         }
-        return cases;
+        out.addAll(cases);
+        return out;
     }
 
     /** Débite le crédit de `receiver` du manque de poids de ce que la caravane porte vraiment. */
-    static void spendCredit(Route r, String receiver, List<String> loaded) {
-        int used = weight(loaded) - weight(r.exportsOf(receiver));
+    static void spendCredit(World world, Route r, String receiver, List<String> loaded) {
+        List<String> counted = new ArrayList<>(loaded);
+        counted.removeAll(TradeNeeds.ordered(world, r.other(receiver), receiver));
+        int used = weight(counted) - weight(r.exportsOf(receiver));
         if (used > 0) {
             r.addCredit(receiver, -Math.min(used, r.credit(receiver)));
         }
@@ -575,7 +585,7 @@ public final class TradeRoutes {
             }
             if (r.auto) {
                 autoCases(world, r, x, y, day);
-                if (r.exportsA.isEmpty()) {
+                if (r.exportsA.isEmpty() && r.exportsB.isEmpty()) {
                     // Plus rien à échanger dans les deux sens : la route autonome libère ses places.
                     drop(world, store, r, "idle");
                     continue;
@@ -654,8 +664,21 @@ public final class TradeRoutes {
         List<String> outY = r.exportsOf(y.id());
         outX.clear();
         outY.clear();
+        // Les commandes d'abord (échanges nés des besoins) : elles gardent leur case, sans paire.
+        for (String item : TradeNeeds.ordered(world, x.id(), y.id())) {
+            if (outX.size() < r.level) {
+                outX.add(item);
+                fromX.remove(item);
+            }
+        }
+        for (String item : TradeNeeds.ordered(world, y.id(), x.id())) {
+            if (outY.size() < r.level) {
+                outY.add(item);
+                fromY.remove(item);
+            }
+        }
         for (TradeGoods.Grade g : new TradeGoods.Grade[] {TradeGoods.Grade.LUXURY, TradeGoods.Grade.FINE, TradeGoods.Grade.COMMON}) {
-            while (outX.size() < r.level) {
+            while (outX.size() < r.level && outY.size() < r.level) {
                 String a = first(fromX, g);
                 String b = first(fromY, g);
                 if (a == null || b == null) {

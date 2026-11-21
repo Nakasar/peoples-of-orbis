@@ -58,7 +58,9 @@ public final class WorldLifeRegistry implements Resource<EntityStore> {
         /** Caravanes de commerce en route : id = état ({@link TradeCaravans}). */
         TRADE_CARAVANS("TradeCaravans"),
         /** Accès aux ressources : « village|objet » = dernier jour d'accès ({@link TradeAccess}). */
-        TRADE_ACCESS("TradeAccess");
+        TRADE_ACCESS("TradeAccess"),
+        /** Besoins, nouvelles portées, engagements des échanges nés des besoins ({@link TradeNeeds}). */
+        TRADE_NEEDS("TradeNeeds");
 
         final String key;
 
@@ -120,6 +122,9 @@ public final class WorldLifeRegistry implements Resource<EntityStore> {
             .documentation("Monde vivant : « clé=valeur », lu par le Java du mod.")
             .add()
             .append(new KeyedCodec<>(Part.TRADE_ACCESS.key, Codec.STRING_ARRAY), (r, a) -> r.read(Part.TRADE_ACCESS, a), r -> r.write(Part.TRADE_ACCESS))
+            .documentation("Monde vivant : « clé=valeur », lu par le Java du mod.")
+            .add()
+            .append(new KeyedCodec<>(Part.TRADE_NEEDS.key, Codec.STRING_ARRAY), (r, a) -> r.read(Part.TRADE_NEEDS, a), r -> r.write(Part.TRADE_NEEDS))
             .documentation("Monde vivant : « clé=valeur », lu par le Java du mod.")
             .add()
             .build();
