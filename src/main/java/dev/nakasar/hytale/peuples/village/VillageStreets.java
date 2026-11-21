@@ -278,7 +278,7 @@ public final class VillageStreets {
         return true;
     }
 
-    /** Vrai si (x, z) tombe dans l'emprise d'un bâtiment du plan ou d'un terrain E1/E2 (garde-fou du générateur). */
+    /** Vrai si (x, z) tombe dans l'emprise d'un bâtiment du plan ou d'un terrain E1, E2, E3… (garde-fou du générateur). */
     private static boolean insideBuilding(Village village, VillageLayout layout, int x, int z) {
         int lx = x - village.x();
         int lz = z - village.z();

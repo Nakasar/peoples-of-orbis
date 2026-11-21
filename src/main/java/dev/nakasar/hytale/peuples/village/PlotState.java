@@ -5,7 +5,7 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 
 /**
- * L'état d'un terrain libre (E1, E2) d'un village (étape 6 des bâtiments de métier), sauvegardé avec le village :
+ * L'état d'un terrain libre (E1, E2, E3…) d'un village (étape 6 des bâtiments de métier), sauvegardé avec le village :
  * projet choisi (bâtiment du plan), chantier en cours, dernière démolition, piquets posés. Modifiable sur le thread du
  * monde ({@link Plots}).
  */
@@ -13,7 +13,7 @@ public final class PlotState {
 
     public static final BuilderCodec<PlotState> CODEC = BuilderCodec.builder(PlotState.class, PlotState::new)
             .append(new KeyedCodec<>("Id", Codec.STRING), (p, v) -> p.id = v == null ? "" : v, p -> p.id)
-            .documentation("Terrain du plan (E1, E2).")
+            .documentation("Terrain du plan (E1, E2, E3…).")
             .add()
             .append(new KeyedCodec<>("Project", Codec.STRING), (p, v) -> p.project = v == null || v.isBlank() ? null : v, p -> p.project)
             .documentation("Bâtiment du plan choisi pour le terrain (E1_<Projet>), ou absent.")

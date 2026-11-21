@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Les terrains libres E1, E2 et E3 des villages (GDD des bâtiments de métier, étape 6). Kevin (2026-11-15) : E1 s'ouvre au
+ * Les terrains libres (E1, E2, E3…) des villages (GDD des bâtiments de métier, étape 6). Kevin (2026-11-15) : E1 s'ouvre au
  * palier 2, E2 au palier 3 ; les piquets du terrain réservé apparaissent un palier plus tôt. Au panneau du village
  * (page {@link PlotPage}), un joueur de rang {@link #CHOOSE_RANK Ami} choisit un des 5 projets du peuple ; tant que le
  * chantier n'est pas lancé, on peut en changer sans frais. Lancer le chantier prend ses matériaux au dépôt ;
@@ -139,6 +139,36 @@ public final class Plots {
     /** Id du projet d'un bâtiment d'emplacement ({@code E1_Archerie} → {@code Archerie}). */
     public static String projectId(VillageLayout.Building b) {
         return b.plot() != null && b.id().startsWith(b.plot() + "_") ? b.id().substring(b.plot().length() + 1) : b.id();
+    }
+
+    /**
+     * Bâtiments du plan qui portent le projet `projectId` ({@code Conseil}, {@code Caserne}…), sur TOUS les terrains du
+     * plan (E1, E2, E3 et ceux à venir). Seule façon de retrouver un bâtiment de projet : ne jamais écrire la liste des
+     * terrains à la main (l'Ambassade n'était cherchée que sur E1 et E2, Kevin 2026-11-21 ; {@code checkPlotLookups}).
+     */
+    public static List<VillageLayout.Building> projectBuildings(Village village, String projectId) {
+        List<VillageLayout.Building> out = new ArrayList<>();
+        VillageLayout layout = village == null ? null : Chantiers.layout(village);
+        if (layout != null) {
+            for (VillageLayout.Building b : layout.buildings()) {
+                if (b.plot() != null && projectId.equals(projectId(b))) {
+                    out.add(b);
+                }
+            }
+        }
+        return out;
+    }
+
+    /** Bâtiments de métier du projet `projectId` bâtis sur un terrain du village, quel que soit le terrain. */
+    public static List<Workshop> builtProjects(Village village, String projectId) {
+        List<Workshop> out = new ArrayList<>();
+        for (VillageLayout.Building b : projectBuildings(village, projectId)) {
+            Workshop w = village.isBuilt(b.id()) ? workshop(village, b.id()) : null;
+            if (w != null) {
+                out.add(w);
+            }
+        }
+        return out;
     }
 
     public static boolean isOpen(Village village, VillageLayout.Plot plot) {

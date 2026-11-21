@@ -39,6 +39,10 @@ Consignes de Kevin (25 octobre 2026), à respecter pour chaque mob, boss, élite
 
 ## Vérifications
 
-`./gradlew build` (compile, `validateJson`, `checkSystemRegistrations`, `validateRoles`, `validateAssets`) ; le wiki :
+`./gradlew build` (compile, `validateJson`, `checkSystemRegistrations`, `checkPlotLookups`, `validateRoles`, `validateAssets`) ; le wiki :
 `cd wiki && npm ci && npm run build` (liens cassés refusés). Un id vanilla que le validateur ne
 connaît pas s'ajoute dans `tools/vanilla-refs-0.7.2.txt`, uniquement après l'avoir vu dans les fichiers du jeu.
+
+Un bâtiment de projet (Ambassade, Caserne…) se cherche sur **tous** les terrains du plan, quel que soit son
+emplacement (Kevin, 21 novembre 2026) : `village.Plots.projectBuildings` / `Plots.builtProjects`, ou une boucle sur
+`Plots.plots(village)`. Jamais de liste de terrains écrite à la main (`"E1"`, `"E2"`…) : `checkPlotLookups` la refuse.

@@ -631,7 +631,7 @@ public final class Chantiers {
 
     /**
      * Colonnes où un demi-bloc d'adoucissement peut aller : ni sur la place (et son pourtour), ni dans l'emprise d'un
-     * bâtiment du plan (même à venir), ni sur un terrain E1/E2. Kevin 2026-11-16 : les demi-dalles gênaient les chantiers.
+     * bâtiment du plan (même à venir), ni sur un terrain (E1, E2, E3…). Kevin 2026-11-16 : les demi-dalles gênaient les chantiers.
      */
     static BiPredicate<Integer, Integer> slabAllowed(Village village, VillageLayout layout) {
         int p = layout.plazaRadius() + 1;
