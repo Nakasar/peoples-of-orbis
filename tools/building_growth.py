@@ -33,6 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import building_tiers as bt  # noqa: E402
 import generate_village_layouts as gvl  # noqa: E402
+from mod_prefabs import sourced  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 NAK = ROOT / "src/main/resources/Server/Nakasar"
@@ -463,7 +464,7 @@ def annex_entries(workshops, incompatible):
 def main():
     workshops = {}
     for f in sorted((NAK / "Workshops").glob("*.json")):
-        workshops[f.stem] = json.loads(f.read_text(encoding="utf-8"))
+        workshops[f.stem] = sourced(json.loads(f.read_text(encoding="utf-8")))
     doc = {
         "$Comment": "Paliers d'apparence des bâtiments en jeu, générés par tools/building_growth.py (ne pas modifier à "
                     "la main) ; lus par dev.nakasar.hytale.peuples.village.BuildingPaliers. Layouts : plan -> bâtiment "
@@ -479,7 +480,7 @@ def main():
     incompatible = doc["Incompatibles"]
     total = {"grown": 0, "blocked": 0}
     for f in sorted((NAK / "VillageLayouts").glob("*.json")):
-        layout = json.loads(f.read_text(encoding="utf-8"))
+        layout = sourced(json.loads(f.read_text(encoding="utf-8")))
         entries, rep = layout_entries(layout, workshops, f.stem, incompatible, doc["Review"].setdefault(f.stem, {}),
                                       doc["Zones"].setdefault(f.stem, {}))
         doc["Layouts"][f.stem] = entries

@@ -1656,6 +1656,22 @@ public class ValidateAssets {
      * bâtiment et avant-poste existe, chaque prefab est un prefab du mod présent dans le pack, et le palier 1 est encore
      * le bâtiment du plan (sinon le fichier date d'avant un changement des plans : relancer le générateur).
      */
+    /**
+     * Prefab propre au bâtiment (Kevin, 21 novembre 2026 : « organise les prefabs par bâtiment, pas de réutilisation ») :
+     * chaque bâtiment colle ses propres fichiers, {@code Nakasar/Peuples/Batiments/<Peuple>/<Bâtiment>/} (le même
+     * projet sur E1 à E3 partage les siens) ; seuls les petits décors (lanternes, bancs) restent partagés.
+     */
+    private static void ownPrefab(String where, String prefab, String people, String building, List<String> problems) {
+        if (prefab.contains("/Lampposts/") || prefab.contains("/Seats/")) {
+            return;
+        }
+        String folder = "Nakasar/Peuples/Batiments/" + people + "/" + building + "/";
+        if (!prefab.startsWith(folder)) {
+            problems.add(where + " : prefab " + prefab + " hors du dossier du bâtiment " + folder
+                    + " (relancer tools/building_prefabs.py)");
+        }
+    }
+
     private static int checkBuildingPaliers(Path root) throws Exception {
         Path file = root.getParent().resolve("nakasar-peuples/paliers-batiments.json");
         if (!Files.isRegularFile(file)) {
@@ -1672,10 +1688,18 @@ public class ValidateAssets {
                 continue;
             }
             Map<String, BsonDocument> buildings = new HashMap<>();
-            for (BsonValue b : BsonDocument.parse(Files.readString(lf)).getArray("Buildings")) {
+            BsonDocument layoutDoc = BsonDocument.parse(Files.readString(lf));
+            String people = layoutDoc.getString("People").getValue();
+            for (BsonValue b : layoutDoc.getArray("Buildings")) {
                 buildings.put(b.asDocument().getString("Id").getValue(), b.asDocument());
             }
             BsonDocument entries = layouts.getDocument(layoutId);
+            for (BsonDocument b : buildings.values()) {
+                if (b.containsKey("Prefab")) {
+                    String id = b.getString("Id").getValue();
+                    ownPrefab(layoutId + "/" + id, b.getString("Prefab").getValue(), people, id.replaceFirst("^E\\d_", ""), problems);
+                }
+            }
             for (String id : entries.keySet()) {
                 BsonDocument b = buildings.get(id);
                 if (b == null) {
@@ -1688,6 +1712,8 @@ public class ValidateAssets {
                     if (!knownPrefab.test(prefab)) {
                         problems.add(layoutId + "/" + id + " : prefab inconnu " + prefab);
                     }
+                    ownPrefab(layoutId + "/" + id + " palier " + tier.getInt32("Palier").getValue(), prefab, people,
+                            id.replaceFirst("^E\\d_", ""), problems);
                     // Palier 1 retouché à la main sur la carte de revue (tools/retouches-prefabs.json) : permis.
                     if (tier.getInt32("Palier").getValue() == 1 && !prefab.startsWith("Nakasar/Peuples/Retouches/")
                             && (!prefab.equals(b.getString("Prefab").getValue())
@@ -1718,6 +1744,8 @@ public class ValidateAssets {
                     if (!knownPrefab.test(line.split("\\s+")[0])) {
                         problems.add(id + " : prefab inconnu " + line);
                     }
+                    ownPrefab(id, line.split("\\s+")[0], w.getString("People").getValue(),
+                            "AP_" + w.getDocument("Annex").getString("Type").getValue(), problems);
                 }
                 if (tier.getInt32("Palier").getValue() == 1 && !lines.equals(plan)) {
                     problems.add(id + " : le palier 1 n'est plus l'avant-poste (relancer tools/building_growth.py)");

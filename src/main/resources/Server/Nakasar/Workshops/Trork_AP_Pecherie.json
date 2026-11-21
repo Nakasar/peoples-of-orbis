@@ -58,9 +58,9 @@
     "Item": "Nakasar_Peuples_Annex_Pecherie",
     "Rule": "WATER",
     "Prefabs": [
-      "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001 0 -8 0",
-      "Nakasar/Peuples/Npc/Trork/Fireplace/Trork_Fireplace_001 7 -8 0",
-      "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_005 -9 -8 0"
+      "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_1_P1 0 -8 0",
+      "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_2_P1 7 -8 0",
+      "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_3_P1 -9 -8 0"
     ],
     "Rect": [
       -13,

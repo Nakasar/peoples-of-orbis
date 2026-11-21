@@ -45,6 +45,15 @@ Consignes de Kevin (25 octobre 2026), à respecter pour chaque mob, boss, élite
    `python3 tools/copy_vanilla_prefabs.py Assets.zip` sur le PC du jeu. `validateAssets` refuse tout chemin de prefab
    vanilla (`tools/vanilla-prefab-paths-0.7.2.txt`) cité dans `src/main` et toute copie absente. Le Java lit un
    chemin vanilla resté dans un monde sauvé comme sa copie (`VillageBuilder.modPrefab`).
+6. **Chaque bâtiment a ses propres prefabs, sans réutilisation** (Kevin, 21 novembre 2026 : « organise les prefabs
+   par bâtiment ; les halles marchandes doivent avoir leurs propres prefabs, comme tous les autres bâtiments »). Les
+   bâtiments des villages (plan, artisans, place du marché, projets d'emplacement, avant-postes) collent uniquement
+   `Nakasar/Peuples/Batiments/<Peuple>/<Bâtiment>/<Bâtiment>_P<n>` (premier palier qui montre ce prefab ; avant-poste :
+   `AP_<Type>_<pièce>_P<n>`), copiés de leur prefab d'origine par `tools/building_prefabs.py`, à lancer EN DERNIER
+   après les générateurs de plans, `building_tiers.py`, `building_growth.py` puis `building_tiers.py`. Le même projet
+   sur E1 à E3 garde les mêmes fichiers ; seuls les petits décors (lanternes, bancs) restent partagés. Un fichier
+   propre retouché à la main n'est jamais écrasé (`tools/prefabs-batiments.json`) ; `validateAssets` refuse un
+   bâtiment qui colle un prefab hors de son dossier.
 
 ## Vérifications
 
