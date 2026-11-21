@@ -103,13 +103,13 @@ def items():
                   "marchand. Modèle, texture et icône du fragment d'os vanilla (Ingredient_Bone_Fragment).",
            ("Dent de trophée", "Trophy tooth", "La faveur des Trorks : un Trork ne la donne qu'à qui a mérité son respect.",
             "The Trorks' favour: a Trork only gives it to someone who earned their respect."),
-           "Icons/ItemsGenerated/Ingredient_Bone_Fragment.png", "Resources/Materials/Bone_Fragment.blockymodel",
+           "Icons/ItemsGenerated/Nakasar_Peuples_Favor_Trork.png", "Resources/Materials/Bone_Fragment.blockymodel",
            "Resources/Materials/Bone_Fragment_Texture.png", "Uncommon", "ISS_Items_Bones")
     simple(COG, "Rouage klops (étape 7) : la monnaie du Klops errant, gagnée en livrant ses colis ou en troquant des faveurs. "
                 "Modèle, texture et icône du tas de ferraille brillant vanilla (Deco_Scrap_Pile_Shiny).",
            ("Rouage klops", "Klops cog", "Les Klops comptent en rouages. Leur marchand errant les accepte partout.",
             "Klops count in cogs. Their wandering trader takes them anywhere."),
-           "Icons/ItemsGenerated/Deco_Scrap_Pile_Shiny.png", "Blocks/Dungeons/Scrap_Pile_Shiny.blockymodel",
+           "Icons/ItemsGenerated/Nakasar_Peuples_Favor_Klops.png", "Blocks/Dungeons/Scrap_Pile_Shiny.blockymodel",
            "Blocks/Dungeons/Scrap_Pile_Shiny.png", "Uncommon", "ISS_Items_Metal")
     simple(PARCEL, "Colis du Klops errant (étape 7) : à porter jusqu'au cœur du village qu'il a nommé (drapeau Klops_Parcel:<id>). "
                    "Modèle, texture et icône du rouleau de lin vanilla (Ingredient_Bolt_Linen).",
@@ -266,7 +266,12 @@ def merchant():
                     FailKey=f"nakasar_peuples.dialogue.fail.rank.{r}", Effects=[{"Type": "OpenShop", "Shop": f"{PFX}Trork_{r}"}])
 
     bye = resp(d, "aurevoir", "À plus.", "Later.")
-    trades = [trade(*s) for s in shops]
+    # Refonte des écrans de commerce (21 novembre 2026) : une seule réponse ouvre l'échoppe du mod, au meilleur étal du
+    # rang du joueur ; les étals Ami et Hôte y sont des onglets (grisés sous le rang). Les deux autres répliques gardent
+    # leurs textes (langue), sans réponse.
+    trades = [trade(*s) for s in shops][:1]
+    trades[0]["HintKey"] = "nakasar_peuples.dialogue.hint.shop.market"
+    trades[0]["Effects"] = [{"Type": "OpenShop"}]
     doc = dlg(d, P, "La marchande trork (étape 7) : troc par rang contre des dents de trophée, échoppes grisées sous le "
                     "rang. Généré par tools/generate_trorks.py.",
               "Mère-Os", "Bone-Mother", "Marchande du camp", "Camp trader",

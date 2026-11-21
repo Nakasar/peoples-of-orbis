@@ -27,6 +27,14 @@ ROUTES = 3       # world/TradePage.ROUTES (trois places au palier 3 ; la Halle m
 CANDIDATES = 3   # world/TradePage.CANDIDATES
 STALL = 4        # world/TradePage.STALL
 CASES = 3        # niveau III : trois cases de chaque côté
+NEEDS = 3        # world/TradePage.NEEDS : manques du village
+ORDERS = 2       # world/TradePage.ORDERS : commandes d'autres villages
+LOG = 11         # world/TradePage.LOG : lignes du registre
+LOG_FILTERS = ("All", "Caravans", "Needs", "Orders", "Purchases", "Routes")   # world/TradeLog.Kind.filter
+PICK = 12        # world/TradePickerPage.PICK : marchandises proposées pour une case
+PICK_COLUMNS = 3
+PICK_FILTERS = ("All", "Common", "Fine", "Luxury")
+PICK_WIDTH, PICK_HEIGHT = 760, 560
 
 PEOPLES = ("Kweebec", "Trork", "Feran", "Renonce", "Slothian")
 
@@ -57,11 +65,70 @@ def t(key, fr, en):
 
 # ---- Onglet Commerce ----
 
+def tile(w, i, id_, extra_icon=False):
+    w(f"{i}Group #{id_} {{")
+    w(f"{i}  LayoutMode: Left;")
+    w(f"{i}  FlexWeight: 1;")
+    w(f"{i}  Anchor: (Right: 8);")
+    w(f"{i}  Padding: (Horizontal: 10, Vertical: 4);")
+    w(f"{i}  Background: (Color: #1a231d);")
+    if extra_icon:
+        w(f"{i}  ItemIcon #{id_}Icon {{ Anchor: (Width: 30, Height: 30, Top: 13, Right: 8); ShowItemTooltip: true; }}")
+    w(f"{i}  Group {{")
+    w(f"{i}    LayoutMode: Top;")
+    w(f"{i}    FlexWeight: 1;")
+    w(f'{i}    {label(id_ + "Label", "@Caps", anchor="Height: 16")}')
+    w(f'{i}    {label(id_ + "Value", "LabelStyle(FontSize: 19, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center)", anchor="Height: 24")}')
+    w(f'{i}    {label(id_ + "Sub", "@Small", anchor="Height: 16")}')
+    w(f"{i}  }}")
+    w(f"{i}}}")
+
+
+def case_button(w, i, id_, width=172):
+    """Case d'une route : bouton avec l'icône de la marchandise, son nom et « 16 · commune »."""
+    w(f"{i}Button #{id_} {{")
+    w(f"{i}  Anchor: (Width: {width}, Height: 36, Right: 6);")
+    w(f"{i}  Style: $C.@SecondaryButtonStyle;")
+    w(f"{i}  LayoutMode: Left;")
+    w(f"{i}  Padding: (Horizontal: 6);")
+    w(f"{i}  ItemIcon #{id_}Icon {{ Anchor: (Width: 26, Height: 26, Top: 5, Right: 6); ShowItemTooltip: false; }}")
+    w(f"{i}  Group {{")
+    w(f"{i}    LayoutMode: Top;")
+    w(f"{i}    FlexWeight: 1;")
+    w(f'{i}    {label(id_ + "Name", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center)", anchor="Height: 17, Top: 1")}')
+    w(f'{i}    {label(id_ + "Sub", "LabelStyle(FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center)", anchor="Height: 15")}')
+    w(f"{i}  }}")
+    w(f"{i}}}")
+
+
+def item_line(w, i, id_, height=44, button=None):
+    """Ligne d'objet de la colonne de droite : icône, nom, détail, état (ou bouton)."""
+    w(f"{i}Group #{id_} {{")
+    w(f"{i}  LayoutMode: Left;")
+    w(f"{i}  Anchor: (Height: {height}, Bottom: 4);")
+    w(f"{i}  Padding: (Horizontal: 8);")
+    w(f"{i}  Background: (Color: #1a231d);")
+    w(f"{i}  ItemIcon #{id_}Icon {{ Anchor: (Width: 30, Height: 30, Top: {(height - 30) // 2}, Right: 8); ShowItemTooltip: true; }}")
+    w(f"{i}  Group {{")
+    w(f"{i}    LayoutMode: Top;")
+    w(f"{i}    FlexWeight: 1;")
+    w(f'{i}    {label(id_ + "Name", "LabelStyle(FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center)", anchor=f"Height: 18, Top: {(height - 36) // 2}")}')
+    w(f'{i}    {label(id_ + "Sub", "@Small", anchor="Height: 18")}')
+    w(f"{i}  }}")
+    if button:
+        w(f'{i}  $C.@SmallSecondaryTextButton #{id_}Buy {{ @Text = ""; @Anchor = Anchor(Width: {button}, Height: 30, Top: {(height - 30) // 2}); }}')
+    else:
+        w(f'{i}  {label(id_ + "State", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #9ed36a, HorizontalAlignment: End, VerticalAlignment: Center, Wrap: true)", anchor="Width: 150")}')
+    w(f"{i}}}")
+
+
 def trade_page(theme_id):
     th = THEMES[theme_id]
     acc, band, title = th["accent"], th["band"], th["title"]
     emblem = (f'Background: (TexturePath: "{MEMORIES}{th["emblem"]}.png", Color: {acc});' if th["emblem"]
               else "Visible: false;")
+    bar = f"Board/Bar_{theme_id}.png" if theme_id else "Board/Bar_Default.png"
+    slot = f'Background: (TexturePath: "{COMMON}IngredientSlot.png", Border: 24);'
     L = []
     w = L.append
     w('$C = "../../../Common.ui";')
@@ -69,11 +136,18 @@ def trade_page(theme_id):
     w(f"// Généré par tools/generate_trade.py (thème {theme_id or 'neutre'}) : ne pas modifier à la main.")
     w("")
     w(f"@Accent = {acc};")
-    w(f"@Section = LabelStyle(FontSize: 15, RenderBold: true, RenderUppercase: true, TextColor: {title}, VerticalAlignment: Center);")
+    w(f"@Section = LabelStyle(FontSize: 14, RenderBold: true, RenderUppercase: true, TextColor: {title}, VerticalAlignment: Center);")
+    w("@Caps = LabelStyle(FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #96a9be, VerticalAlignment: Center);")
     w("@Body = LabelStyle(FontSize: 14, TextColor: #c9d1d9, Wrap: true);")
-    w("@Small = LabelStyle(FontSize: 13, TextColor: #96a9be, VerticalAlignment: Center);")
-    w("@SmallWrap = LabelStyle(FontSize: 13, TextColor: #96a9be, Wrap: true);")
+    w("@Small = LabelStyle(FontSize: 12, TextColor: #96a9be, VerticalAlignment: Center);")
+    w("@SmallWrap = LabelStyle(FontSize: 12, TextColor: #96a9be, Wrap: true);")
     w("@Mark = LabelStyle(FontSize: 11, RenderBold: true, TextColor: #7f93a8, HorizontalAlignment: Center, VerticalAlignment: Center);")
+    w("")
+    w("@Bar = ProgressBar {")
+    w(f'  Background: "{COMMON}ProgressBar.png";')
+    w(f'  BarTexturePath: "{bar}";')
+    w("  Value: 0;")
+    w("};")
     w("")
     w("$C.@PageOverlay {")
     w("  LayoutMode: Middle;")
@@ -93,117 +167,300 @@ def trade_page(theme_id):
     w("      LayoutMode: Top;")
     w("      Padding: (Full: 17, Top: 12);")
     tab_strip(w, acc, "Trade")
-    # Luxes
+    # Résumé : quatre tuiles, le porte-monnaie, et le choix vue d'ensemble / registre.
     w("      Group {")
     w("        LayoutMode: Left;")
-    w("        Anchor: (Height: 96);")
-    w("        Padding: (Horizontal: 14, Vertical: 6);")
-    w(f"        Background: (Color: {band}(0.75));")
+    w("        Anchor: (Height: 62, Bottom: 10);")
+    for t in ("SumRoutes", "SumCaravan", "SumNeeds", "SumLux"):
+        tile(w, "        ", t)
+    tile(w, "        ", "SumWallet", extra_icon=True)
     w("        Group {")
     w("          LayoutMode: Top;")
-    w("          Anchor: (Width: 300, Right: 10);")
-    w(f'          {label("LuxHeader", "@Section", anchor="Height: 22")}')
-    w(f'          {label("LuxLine", "@SmallWrap", anchor="Top: 4", extra=" FlexWeight: 1;")}')
-    w("        }")
-    for i in range(len(LUXURIES)):
-        w("        Group {")
-        w("          LayoutMode: Top;")
-        w("          Anchor: (Width: 70, Right: 2);")
-        w("          Group {")
+    w("          Anchor: (Width: 150);")
+    for v in ("ViewMain", "ViewLog"):
+        w(f"          Group #{v} {{")
         w("            LayoutMode: Full;")
-        w("            Anchor: (Width: 56, Height: 56, Left: 7);")
-        w(f'            Background: (TexturePath: "{COMMON}IngredientSlot.png", Border: 24);')
-        w(f"            ItemIcon #LuxIcon{i} {{ Anchor: (Full: 7); ShowItemTooltip: true; }}")
-        w("          }")
-        w(f'          {label(f"LuxMark{i}", "@Mark", anchor="Height: 22, Top: 2")}')
-        w("        }")
-    w("      }")
-    # Routes
-    w(f'      {label("RoutesHeader", "@Section", anchor="Height: 24, Top: 10, Bottom: 4")}')
-    w(f'      {label("NoRoute", "@Body", anchor="Height: 36")}')
-    w("      Group #Routes {")
-    w("        LayoutMode: Top;")
-    for i in range(ROUTES):
-        w(f"        Group #Route{i} {{")
-        w("          LayoutMode: Left;")
-        w(f"          Anchor: (Height: 100, Bottom: {4 if i < ROUTES - 1 else 0});")
-        w("          Padding: (Horizontal: 12, Vertical: 4);")
-        w(f"          Background: (Color: {band}(0.55));")
-        w("          Group {")
-        w("            LayoutMode: Top;")
-        w("            FlexWeight: 1;")
-        w(f'            {label(f"RouteName{i}", f"LabelStyle(FontSize: 15, RenderBold: true, TextColor: {acc}, VerticalAlignment: Center)", anchor="Height: 20")}')
-        w(f'            {label(f"RouteState{i}", "@Small", anchor="Height: 18")}')
-        for side in ("Out", "In"):
-            w("            Group {")
-            w("              LayoutMode: Left;")
-            w("              Anchor: (Height: 26, Top: 4);")
-            w(f'              {label(f"Route{side}Label{i}", "@Small", anchor="Width: 90")}')
-            for j in range(CASES):
-                w(f'              $C.@SmallSecondaryTextButton #Route{side}{i}C{j} {{ @Text = ""; @Anchor = Anchor(Width: 190, Height: 26, Right: 6); }}')
-            w("            }")
-        w("          }")
-        w("          Group {")
-        w("            LayoutMode: Top;")
-        w("            Anchor: (Width: 190, Left: 10);")
-        w(f'            $C.@SmallSecondaryTextButton #RouteRaise{i} {{ @Text = ""; @Anchor = Anchor(Height: 28, Bottom: 3); }}')
-        w(f'            $C.@SmallSecondaryTextButton #RoutePay{i} {{ @Text = ""; @Anchor = Anchor(Height: 28, Bottom: 3); }}')
-        w(f'            $C.@SmallSecondaryTextButton #RouteClose{i} {{ @Text = ""; @Anchor = Anchor(Height: 28); }}')
-        w("          }")
-        w("        }")
-    w("      }")
-    w("      Group { FlexWeight: 1; }")
-    # Partenaires et étal
-    w("      Group {")
-    w("        LayoutMode: Left;")
-    w("        Anchor: (Height: 150, Top: 8);")
-    w("        Group {")
-    w("          LayoutMode: Top;")
-    w("          FlexWeight: 1;")
-    w("          Anchor: (Right: 12);")
-    w("          Padding: (Horizontal: 12, Vertical: 6);")
-    w(f"          Background: (Color: {band}(0.75));")
-    w(f'          {label("CandHeader", "@Section", anchor="Height: 22")}')
-    w(f'          {label("NoCand", "@SmallWrap", anchor="Height: 36")}')
-    for i in range(CANDIDATES):
-        w(f"          Group #Cand{i} {{")
-        w("            LayoutMode: Left;")
-        w("            Anchor: (Height: 32, Top: 4);")
-        w(f'            {label(f"CandName{i}", "@Small", extra=" FlexWeight: 1;")}')
-        w(f'            $C.@SmallSecondaryTextButton #CandOpen{i} {{ @Text = ""; @Anchor = Anchor(Width: 200, Height: 30); }}')
+        w(f"            Anchor: (Height: 29, Bottom: {4 if v == 'ViewMain' else 0});")
+        w(f'            $C.@SmallSecondaryTextButton #{v}Button {{ @Text = ""; @Anchor = Anchor(Full: 0); }}')
+        w(f"            Group #{v}On {{")
+        w("              LayoutMode: Full;")
+        w("              Anchor: (Full: 0);")
+        w(f"              Background: (Color: {acc});")
+        w("              Visible: false;")
+        w(f'              {label(v + "Label", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center)", anchor="Full: 0")}')
+        w("            }")
         w("          }")
     w("        }")
+    w("      }")
+    # ---- Vue d'ensemble ----
+    w("      Group #MainView {")
+    w("        LayoutMode: Top;")
+    w("        FlexWeight: 1;")
     w("        Group {")
-    w("          LayoutMode: Top;")
-    w("          Anchor: (Width: 420);")
-    w("          Padding: (Horizontal: 12, Vertical: 6);")
-    w(f"          Background: (Color: {band}(0.75));")
-    w(f'          {label("StallHeader", "@Section", anchor="Height: 22")}')
-    w(f'          {label("NoStall", "@SmallWrap", anchor="Height: 36")}')
+    w("          LayoutMode: Left;")
+    w("          FlexWeight: 1;")
+    # Colonne des routes.
     w("          Group {")
-    w("            LayoutMode: Left;")
-    w("            Anchor: (Height: 96, Top: 4);")
-    for i in range(STALL):
-        w(f"            Group #Stall{i} {{")
+    w("            LayoutMode: Top;")
+    w("            Anchor: (Width: 600, Right: 14);")
+    w("            Group {")
+    w("              LayoutMode: Left;")
+    w("              Anchor: (Height: 22, Bottom: 6);")
+    w(f'              {label("RoutesHeader", "@Section", extra=" FlexWeight: 1;")}')
+    w(f'              {label("RoutesHint", "LabelStyle(FontSize: 12, TextColor: #96a9be, HorizontalAlignment: End, VerticalAlignment: Center)", anchor="Width: 300")}')
+    w("            }")
+    w(f'            {label("NoRoute", "@Body", anchor="Height: 40", extra=" Visible: false;")}')
+    for i in range(ROUTES):
+        w(f"            Group #Route{i} {{")
         w("              LayoutMode: Top;")
-        w("              Anchor: (Width: 96, Right: 2);")
+        w("              Anchor: (Bottom: 6);")
+        w("              Padding: (Horizontal: 10, Vertical: 6);")
+        w(f"              Background: (Color: {band}(0.55));")
+        # Ligne du nom : partenaire, peuple, niveau (pastilles), équilibre, actions.
         w("              Group {")
-        w("                LayoutMode: Full;")
-        w("                Anchor: (Width: 56, Height: 56, Left: 20);")
-        w(f'                Background: (TexturePath: "{COMMON}IngredientSlot.png", Border: 24);')
-        w(f"                ItemIcon #StallIcon{i} {{ Anchor: (Full: 7); ShowItemTooltip: true; }}")
+        w("                LayoutMode: Left;")
+        w("                Anchor: (Height: 26);")
+        w(f'                {label(f"RouteName{i}", f"LabelStyle(FontSize: 15, RenderBold: true, TextColor: {acc}, VerticalAlignment: Center)", anchor="Right: 8")}')
+        for j in range(CASES):
+            w(f"                Group #RoutePip{i}{'abc'[j]} {{ Anchor: (Width: 16, Height: 6, Top: 10, Right: 3); Background: (Color: {acc}); }}")
+            w(f"                Group #RoutePipOff{i}{'abc'[j]} {{ Anchor: (Width: 16, Height: 6, Top: 10, Right: 3); Background: (Color: #2f3a30); Visible: false; }}")
+        w(f'                {label(f"RouteBalance{i}", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #9ed36a, VerticalAlignment: Center)", anchor="Left: 8", extra=" FlexWeight: 1;")}')
+        w(f'                $C.@SmallSecondaryTextButton #RouteRaise{i} {{ @Text = ""; @Anchor = Anchor(Width: 150, Height: 26, Left: 4); }}')
+        w(f'                $C.@SmallSecondaryTextButton #RoutePay{i} {{ @Text = ""; @Anchor = Anchor(Width: 120, Height: 26, Left: 4); }}')
+        w(f'                $C.@SmallSecondaryTextButton #RouteMore{i} {{ @Text = "..."; @Anchor = Anchor(Width: 30, Height: 26, Left: 4); }}')
         w("              }")
-        w(f'              $C.@SmallSecondaryTextButton #StallBuy{i} {{ @Text = ""; @Anchor = Anchor(Height: 28, Top: 4); }}')
+        # Ligne de la caravane : départ, jauge, arrivée, état.
+        w(f"              Group #RouteTrack{i} {{")
+        w("                LayoutMode: Left;")
+        w("                Anchor: (Height: 20, Top: 2);")
+        w(f'                {label(f"RouteFrom{i}", "@Small", anchor="Right: 6")}')
+        w(f"                @Bar #RouteBar{i} {{ Anchor: (Height: 8, Top: 6); FlexWeight: 1; }}")
+        w(f'                {label(f"RouteTo{i}", "@Small", anchor="Left: 6")}')
+        w(f'                {label(f"RouteState{i}", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #e6edf3, HorizontalAlignment: End, VerticalAlignment: Center)", anchor="Width: 170")}')
+        w("              }")
+        for side in ("Out", "In"):
+            w("              Group {")
+            w("                LayoutMode: Left;")
+            w("                Anchor: (Height: 36, Top: 4);")
+            w(f'                {label(f"Route{side}Label{i}", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #96a9be, VerticalAlignment: Center)", anchor="Width: 60")}')
+            for j in range(CASES):
+                case_button(w, "                ", f"Case{side}{i}{'abc'[j]}")
+            w("              }")
+        # Actions de la route (le bouton « ... ») : fermer, avec la raison.
+        w(f"              Group #RouteMenu{i} {{")
+        w("                LayoutMode: Left;")
+        w("                Anchor: (Height: 22, Top: 2);")
+        w("                Visible: false;")
+        w(f'                {label(f"RouteMenuLine{i}", "@Small", extra=" FlexWeight: 1;")}')
+        w(f'                $C.@SmallSecondaryTextButton #RouteClose{i} {{ @Text = ""; @Anchor = Anchor(Width: 150, Height: 22); }}')
+        w("              }")
         w("            }")
+    # Ouvrir une route.
+    w("            Group #Open {")
+    w("              LayoutMode: Top;")
+    w("              Padding: (Horizontal: 10, Vertical: 6);")
+    w("              Background: (Color: #000000(0.2));")
+    w(f'              {label("OpenLine", "LabelStyle(FontSize: 13, RenderBold: true, TextColor: #c9d1d9, VerticalAlignment: Center, Wrap: true)", anchor="Height: 20")}')
+    w("              Group #OpenButtons {")
+    w("                LayoutMode: Left;")
+    w("                Anchor: (Height: 30, Top: 4);")
+    for i in range(CANDIDATES):
+        w(f'                $C.@SmallSecondaryTextButton #CandOpen{i} {{ @Text = ""; @Anchor = Anchor(Width: 190, Height: 30, Right: 6); }}')
+    w("              }")
+    w("            }")
+    w("          }")
+    # Colonne de droite : manques, commandes, étal.
+    w("          Group {")
+    w("            LayoutMode: Top;")
+    w("            FlexWeight: 1;")
+    w(f'            {label("NeedsHeader", "@Section", anchor="Height: 22, Bottom: 4")}')
+    w(f'            {label("NoNeeds", "@SmallWrap", anchor="Height: 32", extra=" Visible: false;")}')
+    for i in range(NEEDS):
+        item_line(w, "            ", f"Need{i}")
+    w(f'            {label("OrdersHeader", "@Section", anchor="Height: 22, Top: 6, Bottom: 4")}')
+    w(f'            {label("NoOrders", "@SmallWrap", anchor="Height: 32", extra=" Visible: false;")}')
+    for i in range(ORDERS):
+        item_line(w, "            ", f"Order{i}")
+    w(f'            {label("StallHeader", "@Section", anchor="Height: 22, Top: 6, Bottom: 4")}')
+    w(f'            {label("NoStall", "@SmallWrap", anchor="Height: 32", extra=" Visible: false;")}')
+    for i in range(STALL):
+        item_line(w, "            ", f"Stall{i}", height=40, button=150)
     w("          }")
     w("        }")
+    # Bandeau des luxes.
+    w("        Group {")
+    w("          LayoutMode: Left;")
+    w("          Anchor: (Height: 72, Top: 8);")
+    w("          Padding: (Horizontal: 12, Vertical: 4);")
+    w(f"          Background: (Color: {band}(0.6));")
+    w("          Group {")
+    w("            LayoutMode: Top;")
+    w("            Anchor: (Width: 250, Right: 8);")
+    w(f'            {label("LuxHeader", "@Section", anchor="Height: 22")}')
+    w(f'            {label("LuxLine", "@SmallWrap", extra=" FlexWeight: 1;")}')
+    w("          }")
+    for i in range(len(LUXURIES)):
+        w("          Group {")
+        w("            LayoutMode: Top;")
+        w("            Anchor: (Width: 78);")
+        w("            Group {")
+        w("              LayoutMode: Full;")
+        w("              Anchor: (Width: 46, Height: 46, Left: 16);")
+        w(f"              {slot}")
+        w(f"              ItemIcon #LuxIcon{i} {{ Anchor: (Full: 6); ShowItemTooltip: true; }}")
+        w("            }")
+        w(f'            {label(f"LuxMark{i}", "@Mark", anchor="Height: 16, Top: 2")}')
+        w("          }")
+    w("        }")
+    w("      }")
+    # ---- Registre ----
+    w("      Group #LogView {")
+    w("        LayoutMode: Top;")
+    w("        FlexWeight: 1;")
+    w("        Visible: false;")
+    w("        Group {")
+    w("          LayoutMode: Left;")
+    w("          Anchor: (Height: 30, Bottom: 8);")
+    for f in LOG_FILTERS:
+        w(f"          Group #Filter{f} {{")
+        w("            LayoutMode: Full;")
+        w("            Anchor: (Width: 120, Height: 30, Right: 6);")
+        w(f'            $C.@SmallSecondaryTextButton #Filter{f}Button {{ @Text = ""; @Anchor = Anchor(Full: 0); }}')
+        w(f"            Group #Filter{f}On {{")
+        w("              LayoutMode: Full;")
+        w("              Anchor: (Full: 0);")
+        w(f"              Background: (Color: {acc});")
+        w("              Visible: false;")
+        w(f'              {label(f"Filter{f}Label", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center)", anchor="Full: 0")}')
+        w("            }")
+        w("          }")
+    w("          Group { FlexWeight: 1; }")
+    w(f'          {label("LogHint", "LabelStyle(FontSize: 12, TextColor: #96a9be, HorizontalAlignment: End, VerticalAlignment: Center)", anchor="Width: 260")}')
+    w("        }")
+    w(f'        {label("NoLog", "@Body", anchor="Height: 40", extra=" Visible: false;")}')
+    for i in range(LOG):
+        w(f"        Group #Log{i} {{")
+        w("          LayoutMode: Left;")
+        w("          Anchor: (Height: 46, Bottom: 5);")
+        w("          Padding: (Horizontal: 10);")
+        w("          Background: (Color: #1a231d);")
+        w(f'          {label(f"LogWhen{i}", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #96a9be, VerticalAlignment: Center)", anchor="Width: 80")}')
+        w("          Group {")
+        w("            LayoutMode: Full;")
+        w("            Anchor: (Width: 36, Height: 36, Top: 5, Right: 10);")
+        w(f"            {slot}")
+        w(f"            ItemIcon #LogIcon{i} {{ Anchor: (Full: 4); ShowItemTooltip: true; }}")
+        w("          }")
+        w(f'          {label(f"LogText{i}", "LabelStyle(FontSize: 13, TextColor: #e6edf3, VerticalAlignment: Center, Wrap: true)", extra=" FlexWeight: 1;")}')
+        w(f'          {label(f"LogTag{i}", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #9ed36a, HorizontalAlignment: End, VerticalAlignment: Center)", anchor="Width: 130")}')
+        w("        }")
+    w("      }")
+    w("    }")
+    w("  }")
+    w("}")
+    w("")
+    w("$C.@BackButton {}")
+    return "\n".join(L).replace("Style: LabelStyle(", "Style: (") + "\n"
+
+
+# ---- Choix d'une case de route ----
+
+def picker_page(theme_id):
+    th = THEMES[theme_id]
+    acc, band, title = th["accent"], th["band"], th["title"]
+    bar = f"Board/Bar_{theme_id}.png" if theme_id else "Board/Bar_Default.png"
+    L = []
+    w = L.append
+    w('$C = "../../../Common.ui";')
+    w("")
+    w(f"// Généré par tools/generate_trade.py (thème {theme_id or 'neutre'}) : ne pas modifier à la main.")
+    w("")
+    w("@Small = LabelStyle(FontSize: 12, TextColor: #96a9be, VerticalAlignment: Center);")
+    w("")
+    w("@Bar = ProgressBar {")
+    w(f'  Background: "{COMMON}ProgressBar.png";')
+    w(f'  BarTexturePath: "{bar}";')
+    w("  Value: 0;")
+    w("};")
+    w("")
+    w("$C.@PageOverlay {")
+    w("  LayoutMode: Middle;")
+    w("")
+    w("  $C.@DecoratedContainer {")
+    w(f"    Anchor: (Width: {PICK_WIDTH}, Height: {PICK_HEIGHT});")
+    w("")
+    w("    #Title {")
+    w("      Group {")
+    w("        LayoutMode: Center;")
+    w(f'        Label #PageTitle {{ Style: (...$C.@TitleStyle, FontSize: 15, TextColor: {title}); }}')
+    w("      }")
+    w("    }")
+    w("")
+    w("    #Content {")
+    w("      LayoutMode: Top;")
+    w("      Padding: (Full: 14, Top: 10);")
+    w("      Group {")
+    w("        LayoutMode: Left;")
+    w("        Anchor: (Height: 30, Bottom: 10);")
+    for f in PICK_FILTERS:
+        w(f"        Group #Grade{f} {{")
+        w("          LayoutMode: Full;")
+        w("          Anchor: (Width: 110, Height: 30, Right: 6);")
+        w(f'          $C.@SmallSecondaryTextButton #Grade{f}Button {{ @Text = ""; @Anchor = Anchor(Full: 0); }}')
+        w(f"          Group #Grade{f}On {{")
+        w("            LayoutMode: Full;")
+        w("            Anchor: (Full: 0);")
+        w(f"            Background: (Color: {acc});")
+        w("            Visible: false;")
+        w(f'            {label(f"Grade{f}Label", "LabelStyle(FontSize: 12, RenderBold: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center)", anchor="Full: 0")}')
+        w("          }")
+        w("        }")
+    w(f'        {label("PickHint", "LabelStyle(FontSize: 12, TextColor: #96a9be, HorizontalAlignment: End, VerticalAlignment: Center)", extra=" FlexWeight: 1;")}')
+    w("      }")
+    w(f'      {label("NoPick", "LabelStyle(FontSize: 14, TextColor: #96a9be, Wrap: true)", anchor="Height: 40", extra=" Visible: false;")}')
+    for r in range(PICK // PICK_COLUMNS):
+        w("      Group {")
+        w("        LayoutMode: Left;")
+        w("        Anchor: (Height: 52, Bottom: 6);")
+        for c in range(PICK_COLUMNS):
+            i = r * PICK_COLUMNS + c
+            w(f"        Button #Pick{i} {{")
+            w("          FlexWeight: 1;")
+            w(f"          Anchor: (Right: {6 if c < PICK_COLUMNS - 1 else 0});")
+            w("          Style: $C.@SecondaryButtonStyle;")
+            w("          LayoutMode: Left;")
+            w("          Padding: (Horizontal: 8);")
+            w(f"          ItemIcon #Pick{i}Icon {{ Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }}")
+            w("          Group {")
+            w("            LayoutMode: Top;")
+            w("            FlexWeight: 1;")
+            w(f'            {label(f"Pick{i}Name", "LabelStyle(FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center)", anchor="Height: 20, Top: 6")}')
+            w(f'            {label(f"Pick{i}Sub", "LabelStyle(FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center)", anchor="Height: 16")}')
+            w("          }")
+            w(f'          {label(f"Pick{i}Grade", "LabelStyle(FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center)", anchor="Width: 34")}')
+            w("        }")
+        w("      }")
+    w("      Group { FlexWeight: 1; }")
+    w("      Group {")
+    w("        LayoutMode: Top;")
+    w("        Anchor: (Height: 92, Top: 4);")
+    w("        Padding: (Horizontal: 12, Vertical: 6);")
+    w(f"        Background: (Color: {band}(0.55));")
+    w("        Group {")
+    w("          LayoutMode: Left;")
+    w("          Anchor: (Height: 20);")
+    w(f'          {label("WeightOut", "LabelStyle(FontSize: 13, TextColor: #e6edf3, VerticalAlignment: Center)", extra=" FlexWeight: 1;")}')
+    w(f'          {label("WeightIn", "LabelStyle(FontSize: 13, RenderBold: true, TextColor: #9ed36a, HorizontalAlignment: End, VerticalAlignment: Center)", extra=" FlexWeight: 1;")}')
+    w("        }")
+    w("        @Bar #WeightBar { Anchor: (Height: 10, Top: 4, Bottom: 4); }")
+    w(f'        {label("PickRule", "LabelStyle(FontSize: 12, TextColor: #96a9be, Wrap: true)", extra=" FlexWeight: 1;")}')
     w("      }")
     w("      Group {")
     w("        LayoutMode: Left;")
-    w("        Anchor: (Height: 48, Top: 8);")
-    # Besoins et commandes du village (world/TradeNeeds), à côté de la règle.
-    w(f'        {label("Needs", "@SmallWrap", extra=" FlexWeight: 1; Visible: false;")}')
-    w(f'        {label("Rule", "@SmallWrap", extra=" FlexWeight: 1;")}')
+    w("        Anchor: (Height: 34, Top: 10);")
+    w("        Group { FlexWeight: 1; }")
+    w('        $C.@SmallSecondaryTextButton #PickBack { @Text = ""; @Anchor = Anchor(Width: 150, Height: 34, Right: 8); }')
+    w('        $C.@SmallSecondaryTextButton #PickClear { @Text = ""; @Anchor = Anchor(Width: 170, Height: 34); }')
     w("      }")
     w("    }")
     w("  }")
@@ -411,6 +668,101 @@ TEXTS = [
     ("cmd.access", "{village} : accès aux neuf luxes pour 7 jours ({count} comptés, essor +{bonus} %).",
      "{village}: access to all nine luxuries for 7 days ({count} counted, growth +{bonus}%)."),
     ("cmd.noRoute", "Aucune route de ce village ne correspond.", "No route of this village matches."),
+    # Onglet Commerce refait (Kevin, 21 novembre 2026, maquette « Commerce repensé »).
+    ("page.sum.routes", "Routes", "Routes"),
+    ("page.sum.routesValue", "{used} / {slots}", "{used} / {slots}"),
+    ("page.sum.routesFree", "partenaires possibles : {count}", "possible partners: {count}"),
+    ("page.sum.routesFull", "toutes les places sont prises", "every place is taken"),
+    ("page.sum.caravan", "Prochaine caravane", "Next caravan"),
+    ("page.sum.caravanDays", "{days} j", "{days} d"),
+    ("page.sum.caravanToday", "aujourd'hui", "today"),
+    ("page.sum.caravanRoad", "en route", "on the road"),
+    ("page.sum.caravanTo", "vers {partner}", "to {partner}"),
+    ("page.sum.caravanNone", "-", "-"),
+    ("page.sum.caravanNoneSub", "aucune route ouverte", "no open route"),
+    ("page.sum.needs", "Manques", "Shortages"),
+    ("page.sum.needsSub", "{covered} déjà couverts", "{covered} already covered"),
+    ("page.sum.lux", "Luxes", "Luxuries"),
+    ("page.sum.luxValue", "{count} / {need}", "{count} / {need}"),
+    ("page.sum.luxTier", "pour le palier {tier}", "for tier {tier}"),
+    ("page.sum.luxSettler", "pour envoyer un colon", "to send a settler"),
+    ("page.sum.wallet", "Porte-monnaie", "Purse"),
+    ("page.view.main", "Vue d'ensemble", "Overview"),
+    ("page.view.log", "Registre", "Ledger"),
+    ("page.routesHint", "clique une case pour choisir la marchandise", "click a slot to pick the goods"),
+    ("page.balance.ok", "équilibrée", "balanced"),
+    ("page.balance.short", "manque {deficit} de poids · crédit {credit}", "{deficit} weight short · credit {credit}"),
+    ("page.balance.credit", "équilibrée par le crédit ({credit})", "balanced by credit ({credit})"),
+    ("page.state.days", "caravane dans {days} j", "caravan in {days} d"),
+    ("page.state.today", "caravane aujourd'hui", "caravan today"),
+    ("page.state.road", "caravane en route", "caravan on the road"),
+    ("page.route.outShort", "Envoie", "Sends"),
+    ("page.route.inShort", "Reçoit", "Gets"),
+    ("page.case.choose", "+ Choisir", "+ Choose"),
+    ("page.case.free", "case libre", "free slot"),
+    ("page.case.locked", "Niveau {level}", "Level {level}"),
+    ("page.case.lockedSub", "case fermée", "closed slot"),
+    ("page.case.sub", "{count} · {grade}", "{count} · {grade}"),
+    ("page.grade.common", "commune", "common"),
+    ("page.grade.fine", "fine", "fine"),
+    ("page.grade.luxury", "luxe", "luxury"),
+    ("page.button.raiseShort", "Niveau {level} · {count} faveurs", "Level {level} · {count} favours"),
+    ("page.button.payShort", "+{credit} crédit · 1 faveur", "+{credit} credit · 1 favour"),
+    ("page.menu.line", "{arrivals} arrivées, {lost} pertes · la rouvrir coûtera des faveurs", "{arrivals} arrivals, {lost} losses · reopening costs favours"),
+    ("page.open.line", "Ouvrir une route ({used} sur {slots}) : Ami du village, Toléré du partenaire, {offering} faveurs.",
+     "Open a route ({used} of {slots}): Friend of the village, Tolerated by the partner, {offering} favours."),
+    ("page.open.full", "Toutes les routes sont prises ({used} sur {slots}) : un palier de plus ou la Halle marchande en ouvrent d'autres.",
+     "Every route is taken ({used} of {slots}): another tier or the Market hall opens more."),
+    ("page.open.with", "Ouvrir avec {partner}", "Open with {partner}"),
+    ("page.needs.header", "Le village manque de", "The village lacks"),
+    ("page.needs.none", "Rien ne manque pour l'instant.", "Nothing is lacking for now."),
+    ("page.needs.covered", "{supplier} en envoie", "{supplier} sends some"),
+    ("page.needs.waiting", "personne pour l'instant", "nobody yet"),
+    ("page.orders.header", "On nous commande", "Orders for us"),
+    ("page.orders.none", "Aucune commande d'un autre village.", "No order from another village."),
+    ("page.orders.for", "pour {buyer}", "for {buyer}"),
+    ("page.orders.build", "chantier en cours", "building under way"),
+    ("page.orders.active", "par la route", "by the route"),
+    ("page.orders.wait", "attend une case", "waits for a slot"),
+    ("page.stall.sub", "{count} au dépôt", "{count} in the deposit"),
+    ("page.button.buyShort", "{count} pour 1 faveur", "{count} for 1 favour"),
+    ("page.log.All", "Tout", "All"),
+    ("page.log.Caravans", "Caravanes", "Caravans"),
+    ("page.log.Needs", "Manques", "Shortages"),
+    ("page.log.Orders", "Commandes", "Orders"),
+    ("page.log.Purchases", "Achats", "Purchases"),
+    ("page.log.Routes", "Routes", "Routes"),
+    ("page.log.hint", "les {count} derniers événements", "the last {count} events"),
+    ("page.log.none", "Rien encore : arrivées, pertes, manques, commandes et achats s'inscriront ici.",
+     "Nothing yet: arrivals, losses, shortages, orders and purchases will be written here."),
+    ("page.log.today", "auj. {hour} h", "today {hour}:00"),
+    ("page.log.yesterday", "hier", "yesterday"),
+    ("page.log.days", "il y a {days} j", "{days} d ago"),
+    ("page.log.tag.ARRIVAL", "arrivée", "arrival"),
+    ("page.log.tag.LOSS", "perte", "loss"),
+    ("page.log.tag.NEED", "manque", "shortage"),
+    ("page.log.tag.COVER", "manque couvert", "shortage covered"),
+    ("page.log.tag.ORDER", "commande", "order"),
+    ("page.log.tag.PURCHASE", "achat", "purchase"),
+    ("page.log.tag.ROUTE", "route", "route"),
+    ("picker.titleOut", "Envoie vers {partner} · case {case}", "Sends to {partner} · slot {case}"),
+    ("picker.titleIn", "Reçoit de {partner} · case {case}", "Gets from {partner} · slot {case}"),
+    ("picker.All", "Tout · {count}", "All · {count}"),
+    ("picker.Common", "Communes", "Common"),
+    ("picker.Fine", "Fines", "Fine"),
+    ("picker.Luxury", "Luxes", "Luxuries"),
+    ("picker.hint", "ce que {village} peut envoyer", "what {village} can send"),
+    ("picker.none", "{village} n'a rien à envoyer pour l'instant.", "{village} has nothing to send for now."),
+    ("picker.sub", "{count} par caravane", "{count} per caravan"),
+    ("picker.used", "déjà dans une case", "already in a slot"),
+    ("picker.current", "dans cette case", "in this slot"),
+    ("picker.out", "On envoie : poids {weight}", "We send: weight {weight}"),
+    ("picker.inOk", "On reçoit : poids {weight}, c'est équilibré", "We get: weight {weight}, balanced"),
+    ("picker.inShort", "On reçoit : poids {weight}, il manque {deficit}", "We get: weight {weight}, {deficit} short"),
+    ("picker.rule", "Commune 1 point, fine 2, luxe 3. Un écart se comble avec du crédit : 1 faveur versée = {credit} de crédit.",
+     "Common 1 point, fine 2, luxury 3. A gap is filled with credit: 1 favour paid = {credit} credit."),
+    ("picker.back", "Retour", "Back"),
+    ("picker.clear", "Laisser vide", "Leave empty"),
 ]
 
 
@@ -446,6 +798,9 @@ def main():
     for theme_id in THEMES:
         name = f"TradePage_{theme_id}.ui" if theme_id else "TradePage.ui"
         (OUT / name).write_text(trade_page(theme_id), encoding="utf-8")
+        print("écrit", name)
+        name = f"TradePickerPage_{theme_id}.ui" if theme_id else "TradePickerPage.ui"
+        (OUT / name).write_text(picker_page(theme_id), encoding="utf-8")
         print("écrit", name)
     requests()
     dialogue()

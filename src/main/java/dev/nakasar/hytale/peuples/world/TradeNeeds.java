@@ -565,7 +565,7 @@ public final class TradeNeeds {
         if (canSupply(world, holder, n.item(), day)) {
             save(world, p);
             announce(world, holder, Message.translation(KEYS + "pledge.supply").param("carrier", from).param("buyer", buyer.name())
-                    .param("item", item));
+                    .param("item", item), TradeLog.Kind.ORDER, n.item());
             log("%s fournira %s à %s (nouvelle portée par %s)", holder.id(), n.item(), buyer.id(), kind);
             return;
         }
@@ -589,7 +589,7 @@ public final class TradeNeeds {
                 save(world, p);
                 announce(world, holder, Message.translation(KEYS + "pledge.specialty").param("carrier", from).param("buyer", buyer.name())
                         .param("item", item).param("building", Message.translation(w.nameKey()))
-                        .param("specialty", Message.translation(s.nameKey())));
+                        .param("specialty", Message.translation(s.nameKey())), TradeLog.Kind.ORDER, n.item());
                 log("%s spécialise %s en %s pour fournir %s à %s", holder.id(), w.getId(), s.id(), n.item(), buyer.id());
                 return;
             }
@@ -631,7 +631,8 @@ public final class TradeNeeds {
         p.building = chosen.id();
         save(world, p);
         announce(world, holder, Message.translation(KEYS + "pledge.build").param("carrier", from).param("buyer", buyer.name())
-                .param("item", item).param("building", Message.translation(Chantiers.buildingKey(chosen.id()))).param("plot", where.id()));
+                .param("item", item).param("building", Message.translation(Chantiers.buildingKey(chosen.id()))).param("plot", where.id()),
+                TradeLog.Kind.ORDER, n.item());
         log("%s réserve le terrain %s pour %s afin de fournir %s à %s", holder.id(), where.id(), chosen.id(), n.item(), buyer.id());
     }
 
@@ -700,7 +701,8 @@ public final class TradeNeeds {
             if (out.contains(p.item) && p.state != State.ACTIVE) {
                 p.state = State.ACTIVE;
                 save(world, p);
-                announce(world, supplier, Message.translation(KEYS + "active").param("buyer", buyer.name()).param("item", item));
+                announce(world, supplier, Message.translation(KEYS + "active").param("buyer", buyer.name()).param("item", item),
+                        TradeLog.Kind.ORDER, p.item);
             }
         }
     }
@@ -752,7 +754,8 @@ public final class TradeNeeds {
 
     private static void end(World world, Pledge p, Village supplier, Village buyer, String why) {
         release(world, p);
-        announce(world, supplier, Message.translation(KEYS + why).param("buyer", buyer.name()).param("item", VillageBoard.itemName(p.item)));
+        announce(world, supplier, Message.translation(KEYS + why).param("buyer", buyer.name()).param("item", VillageBoard.itemName(p.item)),
+                TradeLog.Kind.ORDER, p.item);
         log("%s → %s (%s) : engagement fini (%s)", supplier.id(), buyer.id(), p.item, why);
     }
 
@@ -765,7 +768,7 @@ public final class TradeNeeds {
             }
             if (p.delivered == Long.MIN_VALUE) {
                 TradeRoutes.announce(world, to, Message.translation(KEYS + "firstDelivery").param("supplier", TradeRoutes.name(world, from))
-                        .param("item", VillageBoard.itemName(p.item)), NotificationStyle.Success);
+                        .param("item", VillageBoard.itemName(p.item)), NotificationStyle.Success, TradeLog.Kind.COVER, p.item);
             }
             p.delivered = day;
             save(world, p);
@@ -975,7 +978,11 @@ public final class TradeNeeds {
     }
 
     private static void announce(World world, Village v, Message m) {
-        TradeRoutes.announce(world, v, m, NotificationStyle.Default);
+        announce(world, v, m, TradeLog.Kind.NEED, null);
+    }
+
+    private static void announce(World world, Village v, Message m, TradeLog.Kind kind, String item) {
+        TradeRoutes.announce(world, v, m, NotificationStyle.Default, kind, item);
     }
 
     private static void log(String format, Object... args) {

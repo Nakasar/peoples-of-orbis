@@ -359,7 +359,8 @@ public final class TradeCaravans {
         TradeNeeds.unpack(world, store, c.walkKey(), to, day, "caravan");
         escortArrived(world, store, c, from, to);
         TradeRoutes.announce(world, to, Message.translation(TradeRoutes.KEYS + "arrived").param("from", TradeRoutes.name(world, from))
-                .param("goods", goodsLine(c.cargo)), NotificationStyle.Success);
+                .param("goods", goodsLine(c.cargo)), NotificationStyle.Success, TradeLog.Kind.ARRIVAL,
+                c.cargo.isEmpty() ? null : c.cargo.keySet().iterator().next());
         drop(world, store, c);
     }
 

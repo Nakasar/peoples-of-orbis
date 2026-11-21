@@ -402,6 +402,72 @@ $C.@PageOverlay {
             Label #OffersLine { Style: @Body; Text: ""; }
             Group {
               LayoutMode: Left;
+              Anchor: (Height: 104, Top: 8);
+              Group #OfferLevel0 {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Anchor: (Right: 6);
+                Padding: (Horizontal: 8, Vertical: 6);
+                Background: (Color: #000000(0.22));
+                Label #OfferLevelName0 { Anchor: (Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #e6b552, VerticalAlignment: Center); Text: ""; }
+                Label #OfferLevelState0 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #9ed36a, VerticalAlignment: Center); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 34, Top: 4);
+                  ItemIcon #OfferItem0a { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                  ItemIcon #OfferItem0b { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                  ItemIcon #OfferItem0c { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                  ItemIcon #OfferItem0d { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                }
+                Label #OfferLevelNote0 { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+              }
+              Group #OfferLevel1 {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Anchor: (Right: 6);
+                Padding: (Horizontal: 8, Vertical: 6);
+                Background: (Color: #000000(0.22));
+                Label #OfferLevelName1 { Anchor: (Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #e6b552, VerticalAlignment: Center); Text: ""; }
+                Label #OfferLevelState1 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #9ed36a, VerticalAlignment: Center); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 34, Top: 4);
+                  ItemIcon #OfferItem1a { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                  ItemIcon #OfferItem1b { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                  ItemIcon #OfferItem1c { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                  ItemIcon #OfferItem1d { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                }
+                Label #OfferLevelNote1 { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+              }
+              Group #OfferLevel2 {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Anchor: (Right: 0);
+                Padding: (Horizontal: 8, Vertical: 6);
+                Background: (Color: #000000(0.22));
+                Label #OfferLevelName2 { Anchor: (Height: 18); Style: (FontSize: 13, RenderBold: true, TextColor: #e6b552, VerticalAlignment: Center); Text: ""; }
+                Label #OfferLevelState2 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #9ed36a, VerticalAlignment: Center); Text: ""; }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 34, Top: 4);
+                  ItemIcon #OfferItem2a { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                  ItemIcon #OfferItem2b { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                  ItemIcon #OfferItem2c { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                  ItemIcon #OfferItem2d { Anchor: (Width: 30, Height: 30, Right: 3); ShowItemTooltip: true; }
+                }
+                Label #OfferLevelNote2 { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+              }
+            }
+            Group #OffersWarn {
+              LayoutMode: Left;
+              Anchor: (Top: 6);
+              Padding: (Horizontal: 10, Vertical: 5);
+              Background: (Color: #2a2216);
+              Visible: false;
+              Label #OffersWarnLine { Style: (FontSize: 12, TextColor: #e8a65a, Wrap: true); Text: ""; FlexWeight: 1; }
+            }
+            Group {
+              LayoutMode: Left;
               Anchor: (Height: 32, Top: 8);
               $C.@SmallSecondaryTextButton #ShopAction { @Text = ""; @Anchor = Anchor(Width: 200, Height: 32, Right: 10); }
               $C.@SmallSecondaryTextButton #ShareAction { @Text = ""; @Anchor = Anchor(Width: 220, Height: 32); }
