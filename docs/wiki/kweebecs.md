@@ -17,10 +17,12 @@ Tous les bâtiments en images, sous trois angles : [Bâtiments des Kweebecs](bat
 
 | Palier | Bâtiments |
 | --- | --- |
-| 0, campement | deux abris, tour de guet, potager, lanternes, bancs |
+| 0, campement | deux abris, tour de guet, potager, le Grand-Père, place du marché, lanternes, bancs |
 | 1, hameau | puits, échoppe, une maison, enclos des lapins |
 | 2, village | grande maison, maison des gardes, deuxième tour, deuxième échoppe |
-| 3, bourg | le Grand-Père, grand potager |
+| 3, bourg | grand potager |
+
+Le Grand-Père est bâti dès la fondation (palier 0 depuis le 21 novembre 2026). Un village fondé avant le bâtit à son prochain chantier de palier.
 
 Matériaux des chantiers : troncs de chêne, pavés et fibres (palier 1) ; troncs, planches, briques d'argile et lanternes kweebecs (palier 2) ; troncs, feuilles et pousses de chêne, essences de vie (palier 3).
 

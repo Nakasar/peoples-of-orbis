@@ -170,10 +170,10 @@ autres attendent les chantiers (étape 5).
 
 | Palier | Bâtiments du plan `Kweebec_Oak` (rayon 65) |
 | --- | --- |
-| 0, campement | deux abris, tour de guet, potager (lanternes et bancs : dans le cœur) |
+| 0, campement | deux abris, tour de guet, potager, le Grand-Père, place du marché (lanternes et bancs : dans le cœur) |
 | 1, hameau | puits, échoppe, une maison, enclos des lapins |
 | 2, village | grande maison, maison des gardes, deuxième tour, deuxième échoppe |
-| 3, bourg | le Grand-Père, grand potager |
+| 3, bourg | grand potager |
 
 Les prefabs vanilla gardent leurs marqueurs d'apparition : des Kweebecs (villageois, marchand, patrouilles de
 Razorleaf et de Sproutlings, lapins) apparaissent dans le campement.

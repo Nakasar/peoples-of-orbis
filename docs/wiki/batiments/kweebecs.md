@@ -42,6 +42,12 @@ La place centrale grandit à chaque palier. Première image : le cœur au palier
 
 Même bâtiment que « Abri ouest ».
 
+#### Grand-Père
+
+**Habitation.** Bâti dès la fondation ; l'Ancien n'y arrive qu'au palier 3 (bourg). Poste de travail : Ancien du Grand-Père. Logement : Ancien du Grand-Père.
+
+![Grand-Père](../images/batiments/kweebec_0_grand_pere.jpg)
+
 ### Palier 1
 
 #### Échoppe
@@ -95,12 +101,6 @@ Même bâtiment que « Abri ouest ».
 ![Tour de la garde](../images/batiments/kweebec_2_tour_est.jpg)
 
 ### Palier 3
-
-#### Grand-Père
-
-**Habitation.** Poste de travail : Ancien du Grand-Père. Logement : Ancien du Grand-Père.
-
-![Grand-Père](../images/batiments/kweebec_3_grand_pere.jpg)
 
 #### Grand potager
 

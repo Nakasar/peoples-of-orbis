@@ -61,6 +61,8 @@ LAYOUTS = {
             ("Potager", 0, OAK + "Garden/Medium/Kweebec_Oak_Garden_Medium_001", 0, -16, 0),
             # Place du marché (Kevin, 21 novembre 2026) : le marchand du village et l'étal de passage.
             ("Marche", 0, MARKET + "Kweebec_Marche", 4, 51, 2),
+            # Le Grand-Père, cœur sacré du bosquet, dès la fondation (Kevin, 21 novembre 2026 ; palier 3 avant).
+            ("Grand_Pere", 0, OAK + "Grandfather/Kweebec_Oak_Grandfather_001", 31, -23, 0),
             # Palier 1, hameau : puits, échoppe, une maison de plus, l'enclos des lapins.
             ("Puits", 1, OAK + "Well/Kweebec_Oak_Well_001", 0, 16, 0),
             ("Echoppe", 1, OAK + "Shops/Kweebec_Oak_Shops_002", -13, -20, 0),
@@ -71,8 +73,7 @@ LAYOUTS = {
             ("Maison_Des_Gardes", 2, OAK + "Houses_Guard/Kweebec_Oak_Houses_Guard_001", -36, -35, 0),
             ("Tour_Est", 2, OAK + "Guard_Towers/Kweebec_Oak_Guard_Towers_002", 2, -28, 0),
             ("Echoppe_Ouest", 2, OAK + "Shops/Kweebec_Oak_Shops_005", -10, -31, 0),
-            # Palier 3, bourg : le Grand-Père, cœur sacré du bosquet, et le grand potager.
-            ("Grand_Pere", 3, OAK + "Grandfather/Kweebec_Oak_Grandfather_001", 31, -23, 0),
+            # Palier 3, bourg : le grand potager.
             ("Grand_Potager", 3, OAK + "Garden/Large/Kweebec_Oak_Garden_Large_001", 4, 34, 0),
         ],
         # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
