@@ -1068,6 +1068,7 @@ public final class Hamlets {
 
     public static void clearAll() {
         HamletMarkers.clearAll();
+        WorldWaypoints.clearAll();
         ENTERED.clear();
         RESIDENTS.clear();
         RESIDENT_OF.clear();

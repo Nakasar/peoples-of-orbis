@@ -1648,26 +1648,34 @@ ce village, à 2400 blocs au plus. Sans `--vers`, vers le voisin le plus proche.
 
 ### Onglet Monde du panneau (`world/WorldPage`)
 
-Kevin (2026-11-16), refait d'après la maquette Claude Design « Panneau du village — refonte »
-(https://claude.ai/artifact/6bQjMFFoWYHqx5HJmsNeFj). Page `WorldPage_<Peuple>.ui` (`tools/generate_workshop_ui.py`,
-`world_page`), en deux colonnes :
+Refait par Kevin le 21 novembre 2026 d'après la maquette Claude Design « Onglet Monde — refonte »
+(https://claude.ai/artifact/LAQ1qPd4sBDPsY4Vviafoa), qui remplace celle du 16 novembre. Page `WorldPage_<Peuple>.ui`,
+générée avec ses textures `Board/World_*.png` et le bloc de textes `world.tab.*` par `tools/generate_world_tab.py`
+(constantes de placement partagées avec le Java : carte 540 × 300, rayon 120, anneaux 500 / 1000 / 2400).
 
-- **Voisins** : boussole `Board/Compass.png` (230 px, anneaux 500 et 1000 blocs, 1000 blocs aux 3/4 du rayon, bord à
-  `Links.MAX_LENGTH`), le village au centre, 8 marqueurs `#Mark<i>` placés par `setObject("#Mark<i>.Anchor", Anchor)`
-  (comme `MemoriesPage` vanilla) : les 5 voisins les plus proches (une couleur par relation : allié, ami, neutre,
-  tendu, rival), le troupeau en migration, 2 campements du village. Puis une fiche par voisin (liseré à la couleur de
-  la relation) : peuple, distance, direction, valeur ; route balisée (`Routes.gap`), auberge ouverte, trêve, dernière
-  escarmouche de la semaine gagnée / perdue / nulle (clé `~last:<liaison>` « jour|vainqueur »).
-  Ligne « Voyages d'ici » (Kevin, 2026-11-16) : voyages partis du village vers ce voisin, tentés / réussis / échoués,
-  depuis toujours (`Links.trip`/`trips`, clé `~trips:<de>><vers>` « t|r|é » dans la partie TRAFFIC) : tenté au
-  départ (`Travellers.start`), réussi à l'arrivée ou quand le messager confie sa lettre, échoué quand le dernier
-  marcheur meurt. Les fiches (16 au plus, triées par distance) sont dans une liste qui défile (`#NbList`, TopScrolling) ; la boussole garde 5 voisins, `#NbMore` dit le reste.
-- **En ce moment** (masqué s'il n'y a rien) : raid en cours, escarmouche (`Relations.fighting`), fête ici, fêtes
-  ailleurs, foire en cours, migration (`Calendar.herdAt`).
-- **Agenda** (5 lignes, triées par jour puis heure) : escarmouche attendue (`pendingHour`), raid annoncé (`RaidRecord.night`),
-  fête des moissons (`Calendar.upcoming`), foire (`Calendar.nextFair`, liseré si elle se tient ici), migration ; en
-  dernier ce qui manque (ferme de niveau II, village de palier 2).
-- **Sur les routes** (4 lignes) : voyageurs partis du village puis arrivants, genre coloré, jauge `at / longueur`.
+- **Bandeau** (4 tuiles) : voisins par relation, prochain événement (rouge s'il est hostile), voyageurs sur les
+  routes, ce qui est autour (camps, troupeau, auberges).
+- **Alentours** : carte cliquable, **tous** les voisins jusqu'à `Links.MAX_LENGTH` (10 points au plus). Une forme par
+  relation (allié double anneau, ami disque, neutre anneau, tendu triangle, rival losange) pour ne pas dépendre de la
+  couleur. Le nom est toujours posé vers l'extérieur (le serveur choisit le côté gauche ou droit). La liaison choisie
+  a un halo et une traînée de 7 points. Les points d'intérêt (12 au plus) : campements, troupeau, auberges,
+  voyageurs (une pastille par genre), escarmouche. Un clic sur un point choisit ce voisin.
+- **Voisins** : liste qui défile (16 lignes, `#NbList`), triée par distance, cliquable, avec des pictos : route
+  balisée, auberge ouverte, trêve, voyageur en route, escarmouche en cours.
+- **Fiche** du voisin choisi (sinon celui d'une escarmouche en cours, sinon le plus proche) : jauge de relation en 20
+  segments sur 5 zones (−100 / −50 / −20 / 20 / 50 / 100) et ligne de tendance ; 4 pastilles (route, auberge ouverte
+  ou en chantier x/6, trêve et jours restants `Relations.truceUntil`, dernière escarmouche) ; voyages partis / arrivés
+  / perdus (`Links.trips`) ; 2 voyageurs suivis avec jauge et temps restant (blocs ÷ `Walk.SPEED` ou
+  `Walk.ROUTE_SPEED`) ; une ligne « ce que vous pouvez faire » (dans l'ordre : rejoindre l'escarmouche, escarmouche
+  attendue, trêve, lettre de paix si rival, escorte si des voyageurs sont sur la liaison, renfort d'allié, auberge,
+  auberge à venir, route à baliser).
+- **Marquer sur la carte** (`world/WorldWaypoints`) : un repère par joueur sur la carte du monde et la boussole, à
+  l'icône du peuple du village ; le même bouton le retire, un nouveau remplace l'ancien. En mémoire seulement (perdu
+  au redémarrage).
+- **Ce qui vient** : « En ce moment » et l'agenda fusionnés (6 lignes), ce qui se passe maintenant en premier, puis
+  par jour et heure ; une pastille de lieu (ici, route, autre village). Ce qui manque (fête sans ferme de niveau II,
+  foire sans palier 2) va dans une ligne bloquante en bas, avec un bouton **Bâtir** qui ouvre l'onglet Bâtir.
+- **Rumeurs** : le pied de page montre une rumeur de `Rumours.all`, la même pour un village toute la journée.
 
 ### Trajets à pied sec (`annex/LandPath`)
 
