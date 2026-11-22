@@ -31,6 +31,11 @@ public final class TradeAccess {
     public static final int CONSUME = 2;
     public static final int CONSUME_DAYS = 3;
     public static final int TIER2 = 1;
+    /**
+     * Palier dès lequel un village exporte le luxe de son terroir (Kevin, 22 novembre 2026 : sans quoi aucun village ne
+     * trouve seul le luxe du palier 2). Il ne compte pour lui-même qu'au palier 2.
+     */
+    public static final int TERROIR_EXPORT = 1;
     public static final int TIER3 = 3;
     public static final int SETTLER = 4;
     public static final int BONUS_STEP = 5;
@@ -102,7 +107,8 @@ public final class TradeAccess {
             sources = catalogue[0];
         }
         TradeCatalogue.Source source = sources.get(item);
-        if (source != null && source != TradeCatalogue.Source.REEXPORT) {
+        // Le terroir s'exporte dès le palier 1 mais ne compte pour le village qu'au palier 2 (dernière ligne).
+        if (source != null && source != TradeCatalogue.Source.REEXPORT && source != TradeCatalogue.Source.TERROIR) {
             return true;
         }
         TradeGoods.Luxury own = TradeGoods.terroir(v.people());

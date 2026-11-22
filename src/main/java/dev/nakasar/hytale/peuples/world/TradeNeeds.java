@@ -297,7 +297,18 @@ public final class TradeNeeds {
                 pool.add(l);
             }
         }
-        return pool.isEmpty() ? null : pool.get(Math.floorMod(v.id().hashCode(), pool.size())).item();
+        // D'abord les luxes qu'un village d'un autre peuple exporte déjà (terroir dès le palier 1) : la demande a un vendeur.
+        List<TradeGoods.Luxury> sold = new ArrayList<>();
+        for (TradeGoods.Luxury l : pool) {
+            for (Village o : Villages.registry(world).all()) {
+                if (o != v && !o.isHamlet() && o.people() == l.terroir() && o.tier() >= TradeAccess.TERROIR_EXPORT) {
+                    sold.add(l);
+                    break;
+                }
+            }
+        }
+        List<TradeGoods.Luxury> from = sold.isEmpty() ? pool : sold;
+        return from.isEmpty() ? null : from.get(Math.floorMod(v.id().hashCode(), from.size())).item();
     }
 
     // ------------------------------------------------------------------------------------------------ nouvelles

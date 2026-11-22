@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Ce qu'un village peut exporter (routes commerciales, Kevin, 16 novembre 2026) : sa propre production, quelle que soit
  * la ressource. Sources : les lots et livraisons de ses avant-postes debout, les spécialités de ses ateliers au niveau
- * II et plus, le tribut des lieux-dits qu'il tient, le luxe de son terroir dès le palier 2, et la réexportation de toute
+ * II et plus, le tribut des lieux-dits qu'il tient, le luxe de son terroir dès le palier 1 ({@link TradeAccess#TERROIR_EXPORT}), et la réexportation de toute
  * ressource importée par une autre route active. Un lieu-dit exporte ce que vend son bâtiment de métier.
  */
 public final class TradeCatalogue {
@@ -65,7 +65,7 @@ public final class TradeCatalogue {
             return out;
         }
         TradeGoods.Luxury own = TradeGoods.terroir(v.people());
-        if (own != null && v.tier() >= 2) {
+        if (own != null && v.tier() >= TradeAccess.TERROIR_EXPORT) {
             out.put(own.item(), Source.TERROIR);
         }
         for (AnnexState a : v.annexes()) {
