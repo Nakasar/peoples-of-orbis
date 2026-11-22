@@ -32,6 +32,7 @@ import dev.nakasar.hytale.peuples.village.Villages;
 
 import java.util.ArrayList;
 import java.util.List;
+import dev.nakasar.hytale.peuples.ui.ButtonText;
 import java.util.Map;
 
 /**
@@ -187,12 +188,12 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
         cmd.set("#SumWalletSub.TextSpans", VillageBoard.itemName(favour));
     }
 
-    private static void toggle(UICommandBuilder cmd, UIEventBuilder events, String id, Message text, boolean on, String action) {
+    private void toggle(UICommandBuilder cmd, UIEventBuilder events, String id, Message text, boolean on, String action) {
         cmd.set("#" + id + "On.Visible", on);
         cmd.set("#" + id + "Button.Visible", !on);
         cmd.set("#" + id + "Label.TextSpans", text);
         if (!on) {
-            cmd.set("#" + id + "Button.Text", text);
+            cmd.set("#" + id + "Button.Text", ButtonText.of(playerRef, text));
             events.addEventBinding(CustomUIEventBindingType.Activating, "#" + id + "Button", EventData.of("Action", action));
         }
     }
@@ -321,14 +322,14 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
             boolean raise = r.level() < TradeRoutes.MAX_LEVEL;
             cmd.set("#RouteRaise" + n + ".Visible", raise);
             if (raise) {
-                cmd.set("#RouteRaise" + n + ".Text", Message.translation(KEYS + "button.raiseShort")
-                        .param("level", Message.translation(KEYS + "level." + (r.level() + 1))).param("count", TradeRoutes.RAISE_OFFERING));
+                cmd.set("#RouteRaise" + n + ".Text", ButtonText.of(playerRef, Message.translation(KEYS + "button.raiseShort")
+                        .param("level", Message.translation(KEYS + "level." + (r.level() + 1))).param("count", TradeRoutes.RAISE_OFFERING)));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#RouteRaise" + n, EventData.of("Action", "Raise" + n));
             }
             boolean pay = deficit > 0 && credit < deficit;
             cmd.set("#RoutePay" + n + ".Visible", pay);
             if (pay) {
-                cmd.set("#RoutePay" + n + ".Text", Message.translation(KEYS + "button.payShort").param("credit", dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(v)));
+                cmd.set("#RoutePay" + n + ".Text", ButtonText.of(playerRef, Message.translation(KEYS + "button.payShort").param("credit", dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(v))));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#RoutePay" + n, EventData.of("Action", "Pay" + n));
             }
             events.addEventBinding(CustomUIEventBindingType.Activating, "#RouteMore" + n, EventData.of("Action", "Menu" + n));
@@ -395,7 +396,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
             }
             Village o = list.get(i);
             candidates.add(o.id());
-            cmd.set("#CandOpen" + n + ".Text", Message.translation(KEYS + "open.with").param("partner", TradeRoutes.name(world, o)));
+            cmd.set("#CandOpen" + n + ".Text", ButtonText.of(playerRef, Message.translation(KEYS + "open.with").param("partner", TradeRoutes.name(world, o))));
             events.addEventBinding(CustomUIEventBindingType.Activating, "#CandOpen" + n, EventData.of("Action", "Open" + n));
         }
     }
@@ -497,7 +498,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
             cmd.set("#Stall" + n + "Icon.ItemId", item);
             cmd.set("#Stall" + n + "Name.TextSpans", itemName(item));
             cmd.set("#Stall" + n + "Sub.TextSpans", Message.translation(KEYS + "stall.sub").param("count", deposit.getOrDefault(item, 0)));
-            cmd.set("#Stall" + n + "Buy.Text", Message.translation(KEYS + "button.buyShort").param("count", stallLot(item)));
+            cmd.set("#Stall" + n + "Buy.Text", ButtonText.of(playerRef, Message.translation(KEYS + "button.buyShort").param("count", stallLot(item))));
             events.addEventBinding(CustomUIEventBindingType.Activating, "#Stall" + n + "Buy", EventData.of("Action", "Buy" + n));
         }
     }

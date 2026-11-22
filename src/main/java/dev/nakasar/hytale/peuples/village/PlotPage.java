@@ -22,6 +22,7 @@ import dev.nakasar.hytale.peuples.workshop.Workshop;
 import dev.nakasar.hytale.peuples.workshop.Workshops;
 
 import java.util.List;
+import dev.nakasar.hytale.peuples.ui.ButtonText;
 import java.util.Map;
 
 /**
@@ -151,7 +152,7 @@ public final class PlotPage extends InteractiveCustomUIPage<PlotPage.Event> {
         cmd.set("#PlotAction" + n + ".Disabled", busy);
         if (busy) {
             long left = Math.max(0, s.end() - GameClock.seconds(store));
-            cmd.set("#PlotAction" + n + ".Text", Message.translation(KEYS + "page.busy").param("hours", (int) Math.ceil(left / 3600.0)));
+            cmd.set("#PlotAction" + n + ".Text", ButtonText.of(playerRef, Message.translation(KEYS + "page.busy").param("hours", (int) Math.ceil(left / 3600.0))));
         }
         if (action != null) {
             cmd.set("#PlotAction" + n + ".Text", Message.translation(KEYS + action));

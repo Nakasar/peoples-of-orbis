@@ -33,6 +33,7 @@ import dev.nakasar.hytale.peuples.village.Villages;
 
 import java.util.ArrayList;
 import java.util.List;
+import dev.nakasar.hytale.peuples.ui.ButtonText;
 import java.util.Map;
 
 /**
@@ -221,7 +222,7 @@ public final class BoardPage extends InteractiveCustomUIPage<BoardPage.Event> {
             }
             cmd.set("#Action" + n + ".Visible", action != null);
             if (action != null) {
-                cmd.set("#Action" + n + ".Text", action);
+                cmd.set("#Action" + n + ".Text", ButtonText.of(playerRef, action));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#Action" + n, EventData.of("Action", event));
             }
         }

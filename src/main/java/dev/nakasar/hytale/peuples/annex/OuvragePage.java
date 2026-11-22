@@ -29,6 +29,7 @@ import dev.nakasar.hytale.peuples.workshop.Workshops;
 
 import java.util.ArrayList;
 import java.util.List;
+import dev.nakasar.hytale.peuples.ui.ButtonText;
 import java.util.Map;
 
 /**
@@ -224,7 +225,7 @@ public final class OuvragePage extends InteractiveCustomUIPage<OuvragePage.Event
         };
         cmd.set("#RowAction" + n + ".Visible", button != null);
         if (button != null) {
-            cmd.set("#RowAction" + n + ".Text", Message.translation(KEYS + button).param("offering", Ouvrages.OFFERING));
+            cmd.set("#RowAction" + n + ".Text", ButtonText.of(playerRef, Message.translation(KEYS + button).param("offering", Ouvrages.OFFERING)));
             events.addEventBinding(CustomUIEventBindingType.Activating, "#RowAction" + n, EventData.of("Action", "Row" + n));
         }
     }

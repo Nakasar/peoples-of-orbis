@@ -27,6 +27,7 @@ import dev.nakasar.hytale.peuples.village.Villages;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import dev.nakasar.hytale.peuples.ui.ButtonText;
 import java.util.List;
 
 /**
@@ -200,13 +201,13 @@ public final class DomainPage extends InteractiveCustomUIPage<DomainPage.Event> 
             boolean embassy = !mine && Embassies.blocked(world, h, v, day) == null;
             cmd.set("#RowEmbassy" + n + ".Visible", embassy);
             if (embassy) {
-                cmd.set("#RowEmbassy" + n + ".Text", Message.translation(KEYS + "button.embassy").param("count", Embassies.OFFERING));
+                cmd.set("#RowEmbassy" + n + ".Text", ButtonText.of(playerRef, Message.translation(KEYS + "button.embassy").param("count", Embassies.OFFERING)));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#RowEmbassy" + n, EventData.of("Action", "Embassy" + n));
             }
             boolean expedition = !mine && Sieges.blocked(world, h, v, day) == null;
             cmd.set("#RowExpedition" + n + ".Visible", expedition);
             if (expedition) {
-                cmd.set("#RowExpedition" + n + ".Text", Message.translation(KEYS + "button.expedition").param("count", Sieges.OFFERING));
+                cmd.set("#RowExpedition" + n + ".Text", ButtonText.of(playerRef, Message.translation(KEYS + "button.expedition").param("count", Sieges.OFFERING)));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#RowExpedition" + n, EventData.of("Action", "Expedition" + n));
             }
         }

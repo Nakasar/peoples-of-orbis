@@ -36,6 +36,7 @@ import dev.nakasar.hytale.peuples.village.Villages;
 import dev.nakasar.hytale.peuples.village.WorkshopState;
 
 import java.util.ArrayList;
+import dev.nakasar.hytale.peuples.ui.ButtonText;
 import java.util.List;
 
 /**
@@ -293,7 +294,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
             }
             cmd.set("#Action" + n + ".Visible", action != null);
             if (action != null) {
-                cmd.set("#Action" + n + ".Text", action);
+                cmd.set("#Action" + n + ".Text", ButtonText.of(playerRef, action));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#Action" + n, EventData.of("Action", event));
             }
         }
@@ -351,7 +352,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
         cmd.set("#NextAction.Disabled", busy);
         if (busy) {
             long left = Math.max(0, state.upgradeEnd() - GameClock.seconds(store));
-            cmd.set("#NextAction.Text", Message.translation(KEYS + "busy").param("hours", (int) Math.ceil(left / 3600.0)));
+            cmd.set("#NextAction.Text", ButtonText.of(playerRef, Message.translation(KEYS + "busy").param("hours", (int) Math.ceil(left / 3600.0))));
         }
         if (action != null) {
             cmd.set("#NextAction.Text", Message.translation(KEYS + (action.equals("Master") ? "takeMaster" : "startUpgrade")));
@@ -365,7 +366,7 @@ public final class WorkshopPage extends InteractiveCustomUIPage<WorkshopPage.Eve
         boolean shop = level > 0 && Workshops.keeperPresent(village, w);
         cmd.set("#ShopAction.Visible", shop);
         if (shop) {
-            cmd.set("#ShopAction.Text", Message.translation(KEYS + "shopButton").param("level", roman(level)));
+            cmd.set("#ShopAction.Text", ButtonText.of(playerRef, Message.translation(KEYS + "shopButton").param("level", roman(level))));
             events.addEventBinding(CustomUIEventBindingType.Activating, "#ShopAction", EventData.of("Action", "Shop"));
         }
         PlayerRef player = store.getComponent(ref, PlayerRef.getComponentType());

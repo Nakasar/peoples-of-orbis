@@ -43,6 +43,7 @@ import dev.nakasar.hytale.peuples.world.WorldLife;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import dev.nakasar.hytale.peuples.ui.ButtonText;
 import java.util.List;
 
 /**
@@ -445,7 +446,7 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
             cmd.set("#TabButton" + i + ".Visible", !on);
             cmd.set("#TabOnLabel" + i + ".TextSpans", text);
             if (!on) {
-                cmd.set("#TabButton" + i + ".Text", text);
+                cmd.set("#TabButton" + i + ".Text", ButtonText.of(playerRef, text));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#TabButton" + i, EventData.of("Action", "Tab" + i));
             }
         }
