@@ -79,6 +79,10 @@ public final class Autonomy {
     public static final int KNOWLEDGE_PER_DAY = 10;
     /** Jours d'attente de la commande de maître avant que le conseil la tienne pour faite. */
     public static final int MASTER_DAYS = 5;
+    /** Jours pendant lesquels une commande de maître prise par un joueur lui reste (le conseil ne la tient pas pour faite). */
+    public static final int MASTER_TAKEN_DAYS = 10;
+    /** Jours d'échec du chantier d'un terrain du conseil avant qu'il le rende. */
+    public static final int PLOT_FAIL_DAYS = 3;
     /** Jours laissés aux joueurs pour choisir une spécialité ou un projet avant le conseil. */
     public static final int PLAYER_DAYS = 3;
     /** Jours entre deux terrains réservés par le conseil. */
@@ -143,6 +147,12 @@ public final class Autonomy {
         return reg(world).getLong(WorldLifeRegistry.Part.AUTONOMY, key, Long.MIN_VALUE);
     }
 
+    /** Jours écoulés depuis le jour noté sous `key` ; {@link Long#MAX_VALUE} si rien n'est noté (jamais arrivé). */
+    private static long elapsed(World world, String key, long day) {
+        long d = getLong(world, key);
+        return d == Long.MIN_VALUE ? Long.MAX_VALUE : day - d;
+    }
+
     /** Jour noté sous `key`, noté à `day` s'il ne l'était pas. */
     private static long since(World world, String key, long day) {
         long d = getLong(world, key);
@@ -190,11 +200,11 @@ public final class Autonomy {
         if (ours.isEmpty()) {
             return out;
         }
-        Map<String, Integer> have = new HashMap<>();
         Map<String, Integer> deposit = Villages.depositContents(world, v);
-        if (deposit != null) {
-            have.putAll(deposit);
+        if (deposit == null) {
+            return out; // dépôt pas chargé : on ne sait pas ce qu'il a, on ne récolte pas (sinon il déborderait)
         }
+        Map<String, Integer> have = new HashMap<>(deposit);
         TradeRoutes.inbox(world, v).forEach((k, q) -> have.merge(k, q, Integer::sum));
         int days = days(v.tier());
         Map<String, Integer> target = new LinkedHashMap<>();
@@ -258,12 +268,49 @@ public final class Autonomy {
                 out.addAll(List.of(plot.materials()));
             }
         }
-        String plan = get(world, "A:" + v.id());
-        Workshop annex = plan == null ? null : Workshop.get(plan.split("\\|")[0]);
-        if (annex != null && annex.isAnnex()) {
+        // Terrains réservés par un engagement des échanges nés des besoins (TradeNeeds, état BUILD).
+        for (TradeNeeds.Pledge pl : TradeNeeds.pledgesOf(world, v)) {
+            if (pl.state != TradeNeeds.State.BUILD) {
+                continue;
+            }
+            for (VillageLayout.Plot plot : Plots.plots(v)) {
+                PlotState s = v.plot(plot.id());
+                if (pl.building.equals(s.project()) && !s.working() && get(world, "P:" + v.id() + "|" + plot.id()) == null) {
+                    out.addAll(List.of(plot.materials()));
+                }
+            }
+        }
+        AnnexPlan plan = AnnexPlan.of(get(world, "A:" + v.id()));
+        Workshop annex = plan == null ? null : Workshop.get(plan.workshop);
+        if (annex != null && annex.isAnnex() && !plan.paid) {
             out.addAll(List.of(annex.annex().materials()));
         }
         return out;
+    }
+
+    /** Avant-poste prévu : atelier, essais faits, matériaux déjà pris au dépôt. Sauvé « atelier|essai|payé ». */
+    static final class AnnexPlan {
+        final String workshop;
+        int attempt;
+        boolean paid;
+
+        AnnexPlan(String workshop, int attempt, boolean paid) {
+            this.workshop = workshop;
+            this.attempt = attempt;
+            this.paid = paid;
+        }
+
+        static AnnexPlan of(String value) {
+            if (value == null) {
+                return null;
+            }
+            String[] p = value.split("\\|");
+            return new AnnexPlan(p[0], p.length > 1 ? parse(p[1]) : 0, p.length > 2 && "1".equals(p[2]));
+        }
+
+        String encode() {
+            return workshop + "|" + attempt + "|" + (paid ? "1" : "0");
+        }
     }
 
     /** Matériaux de construction du peuple du village : chantiers, terrains, montées d'ateliers, avant-postes ; sans luxe. */
@@ -349,7 +396,8 @@ public final class Autonomy {
             }
             Workshops.Next next = Workshops.next(v, ws);
             if (next == Workshops.Next.MASTER) {
-                if (day - since(world, "M:" + key, day) >= MASTER_DAYS) {
+                // Un joueur a pris la commande de maître : elle est à lui ({@value #MASTER_TAKEN_DAYS} jours).
+                if (day - since(world, "M:" + key, day) >= MASTER_DAYS && elapsed(world, "MT:" + key, day) >= MASTER_TAKEN_DAYS) {
                     ws.setMasterDone(true);
                     put(world, "M:" + key, null);
                     note(world, v, Message.translation(KEYS + "master").param("building", Message.translation(w.nameKey())), null);
@@ -372,6 +420,11 @@ public final class Autonomy {
     }
 
     /** Lance la montée de niveau si les matériaux sont au dépôt (comme un joueur, sans rang). */
+    /** Un joueur prend la commande de maître de l'atelier (Workshops.takeMaster) : le conseil ne la validera pas à sa place. */
+    public static void masterTaken(World world, Store<EntityStore> store, Village v, Workshop w) {
+        put(world, "MT:" + v.id() + "|" + w.getId(), Long.toString(GameClock.day(store)));
+    }
+
     private static void upgrade(World world, Store<EntityStore> store, Village v, Workshop w, WorkshopState ws) {
         Workshop.Upgrade up = w.upgrade(ws.level() + 1);
         if (up == null) {
@@ -484,7 +537,7 @@ public final class Autonomy {
                 continue;
             }
             long opened = since(world, "O:" + key, day);
-            if (day - opened < PLAYER_DAYS || day - getLong(world, "PL:" + v.id()) < PLOT_EVERY) {
+            if (day - opened < PLAYER_DAYS || elapsed(world, "PL:" + v.id(), day) < PLOT_EVERY) {
                 continue;
             }
             List<VillageLayout.Building> valid = new ArrayList<>();
@@ -527,7 +580,7 @@ public final class Autonomy {
         }
     }
 
-    /** Avant-postes fondés seuls par le conseil. */
+    /** Avant-postes fondés seuls par le conseil, ruines comprises (le plafond tient même s'ils sont détruits). */
     static int annexCount(Village v) {
         int n = 0;
         for (AnnexState a : v.annexes()) {
@@ -535,19 +588,48 @@ public final class Autonomy {
                 n++;
             }
         }
+        for (AnnexState a : v.ruins()) {
+            if (OWNER.equals(a.owner())) {
+                n++;
+            }
+        }
         return n;
     }
 
-    /** Au bourg, le conseil prévoit un avant-poste de production (selon les besoins) quand ses matériaux sont là. */
+    /**
+     * Au bourg, le conseil prévoit un avant-poste de production (selon les besoins) ; quand ses matériaux sont au dépôt
+     * (chargé ce matin), il les prend : la place peut alors se chercher sans que le dépôt soit chargé.
+     */
     private static void annexPlan(World world, Store<EntityStore> store, Village v, long day) {
-        if (v.tier() < ANNEX_TIER || get(world, "A:" + v.id()) != null || annexCount(v) >= ANNEX_MAX
-                || day - getLong(world, "AL:" + v.id()) < ANNEX_EVERY) {
+        AnnexPlan plan = AnnexPlan.of(get(world, "A:" + v.id()));
+        if (plan != null) {
+            Workshop w = Workshop.get(plan.workshop);
+            if (!plan.paid && (w == null || !w.isAnnex() || v.annex(w.getId()) != null)) {
+                put(world, "A:" + v.id(), null); // type disparu ou place déjà prise : plan oublié
+                return;
+            }
+            if (!plan.paid) {
+                Map<String, Integer> missing = Annexes.missing(world, v, w);
+                ItemContainer chest = Villages.depositChest(world, v);
+                if (missing != null && missing.isEmpty() && chest != null) {
+                    for (VillageLayout.Material m : w.annex().materials()) {
+                        Requests.take(chest, m.itemId(), m.quantity());
+                    }
+                    plan.paid = true;
+                    put(world, "A:" + v.id(), plan.encode());
+                    log("%s : matériaux de l'avant-poste %s mis de côté", v.id(), w.getId());
+                }
+            }
+            return;
+        }
+        if (v.tier() < ANNEX_TIER || annexCount(v) >= ANNEX_MAX || elapsed(world, "AL:" + v.id(), day) < ANNEX_EVERY) {
             return;
         }
         List<Workshop> types = new ArrayList<>();
-        for (Workshop w : Annexes.catalog(v)) {
-            if (v.annex(w.getId()) == null && v.tier() >= w.annex().tier()) {
-                types.add(w);
+        for (Workshop type : Annexes.catalog(v)) {
+            Workshop slot = Annexes.freeSlot(v, type);
+            if (slot != null && v.tier() >= slot.annex().tier()) {
+                types.add(slot);
             }
         }
         if (types.isEmpty()) {
@@ -568,7 +650,7 @@ public final class Autonomy {
         if (chosen == null) {
             chosen = types.get(Math.floorMod(v.id().hashCode() + (int) day, types.size()));
         }
-        put(world, "A:" + v.id(), chosen.getId() + "|0");
+        put(world, "A:" + v.id(), new AnnexPlan(chosen.getId(), 0, false).encode());
         log("%s prévoit l'avant-poste %s", v.id(), chosen.getId());
     }
 
@@ -611,17 +693,40 @@ public final class Autonomy {
             if (missing == null) {
                 continue;
             }
-            if (!missing.isEmpty() || Projects.projectMissing(world, v, Plots.workshop(v, reserved)) != null) {
+            String fail = "F:" + v.id() + "|" + plot.id();
+            if (Projects.projectMissing(world, v, Plots.workshop(v, reserved)) != null) {
+                // Les ressources du projet manquent (route perdue...) : le terrain est rendu au bout de quelques jours.
                 SHORT.put(v.id(), day);
+                giveBack(world, v, plot, fail, day);
                 continue;
             }
-            if (Plots.startByVillage(world, store, v, plot)) {
-                put(world, "P:" + v.id() + "|" + plot.id(), null);
-                TradeLog.add(world, v, TradeLog.Kind.COUNCIL, null, Message.translation("nakasar_peuples.plot.startedByVillage")
-                        .param("village", v.name()).param("building", Message.translation(Chantiers.buildingKey(reserved)))
-                        .param("hours", plot.hours()));
+            if (!missing.isEmpty()) {
+                SHORT.put(v.id(), day); // la récolte met ses matériaux de côté
+                continue;
             }
+            if (!Plots.startByVillage(world, store, v, plot)) {
+                // Emprise encombrée (bloc de joueur...) : plus de tenue pour ça aujourd'hui, terrain rendu s'il dure.
+                SHORT.put(v.id(), day);
+                giveBack(world, v, plot, fail, day);
+                continue;
+            }
+            put(world, fail, null);
+            put(world, "P:" + v.id() + "|" + plot.id(), null);
+            TradeLog.add(world, v, TradeLog.Kind.COUNCIL, null, Message.translation("nakasar_peuples.plot.startedByVillage")
+                    .param("village", v.name()).param("building", Message.translation(Chantiers.buildingKey(reserved)))
+                    .param("hours", plot.hours()));
         }
+    }
+
+    /** Le chantier du terrain du conseil échoue depuis {@value #PLOT_FAIL_DAYS} jours : le terrain est rendu. */
+    private static void giveBack(World world, Village v, VillageLayout.Plot plot, String fail, long day) {
+        if (day - since(world, fail, day) < PLOT_FAIL_DAYS) {
+            return;
+        }
+        Plots.reserveByVillage(v, plot, null);
+        put(world, "P:" + v.id() + "|" + plot.id(), null);
+        put(world, fail, null);
+        log("%s rend le terrain %s (chantier impossible depuis %d jours)", v.id(), plot.id(), PLOT_FAIL_DAYS);
     }
 
     /** Vrai si le village a un terrain du conseil à lancer (la veille le tient alors). */
@@ -652,29 +757,32 @@ public final class Autonomy {
      * {@value #ANNEX_TRIES} essais le conseil renonce pour {@value #ANNEX_EVERY} jours. Thread du monde.
      */
     public static void stepAnnex(World world, Store<EntityStore> store, Village v, List<Vector3d> players) {
-        String plan = on(world) ? get(world, "A:" + v.id()) : null;
-        if (plan == null) {
-            return;
+        AnnexPlan plan = on(world) ? AnnexPlan.of(get(world, "A:" + v.id())) : null;
+        if (plan == null || !plan.paid) {
+            return; // matériaux pas encore pris au dépôt (conseil du matin)
         }
-        String[] p = plan.split("\\|");
-        Workshop w = Workshop.get(p[0]);
-        int attempt = p.length > 1 ? parse(p[1]) : 0;
+        Workshop w = Workshop.get(plan.workshop);
         long day = GameClock.day(store);
-        if (w == null || !w.isAnnex() || v.annex(w.getId()) != null || attempt >= ANNEX_TRIES) {
+        if (w == null || !w.isAnnex() || v.annex(w.getId()) != null || plan.attempt >= ANNEX_TRIES) {
+            // Aucune place ne convient : les matériaux reviennent au dépôt, nouvel essai dans quelques jours.
+            if (w != null && w.isAnnex()) {
+                List<ItemStack> back = new ArrayList<>();
+                for (VillageLayout.Material m : w.annex().materials()) {
+                    back.add(new ItemStack(m.itemId(), m.quantity()));
+                }
+                TradeRoutes.deliver(world, v, back);
+            }
             put(world, "A:" + v.id(), null);
             put(world, "AL:" + v.id(), Long.toString(day));
+            log("%s renonce à l'avant-poste %s", v.id(), plan.workshop);
             return;
-        }
-        Map<String, Integer> missing = Annexes.missing(world, v, w);
-        if (missing != null && !missing.isEmpty()) {
-            return; // la récolte met les matériaux de côté
         }
         Workshop.Annex spec = w.annex();
         int distance = Math.min(spec.maxDistance(), Annexes.minDistance(v, spec) + 10);
-        double angle = 2 * Math.PI * attempt / ANNEX_TRIES + Math.floorMod(v.id().hashCode(), 360) * Math.PI / 180;
+        double angle = 2 * Math.PI * plan.attempt / ANNEX_TRIES + Math.floorMod(v.id().hashCode(), 360) * Math.PI / 180;
         int x = v.x() + (int) Math.round(Math.cos(angle) * distance);
         int z = v.z() + (int) Math.round(Math.sin(angle) * distance);
-        String key = "site:" + v.id() + ":" + attempt;
+        String key = "site:" + v.id() + ":" + plan.attempt;
         boolean seen = Veille.held(world, key);
         for (Vector3d pl : players) {
             double dx = pl.x() - x;
@@ -684,23 +792,21 @@ public final class Autonomy {
             }
         }
         if (!seen) {
-            if (Veille.free(world, key) && !Veille.isShort(v, day)) {
+            if (Veille.free(world, key)) {
                 Veille.offer(world, key, x - 40, x + 40, z - 40, z + 40, () -> false);
             }
             return;
         }
-        if (missing == null) {
-            return; // dépôt pas chargé : on réessaie au prochain pas
-        }
         int rotation = Annexes.rotationFacing(v.x() - (x + 0.5), v.z() - (z + 0.5));
         int surface = new Terrain(world).surface(x, z);
         if (surface == Terrain.NONE) {
-            return;
+            return; // pas encore chargé
         }
         Message refusal = Annexes.check(world, store, null, v, w, x, surface + 1, z, rotation);
         if (refusal != null) {
-            put(world, "A:" + v.id(), w.getId() + "|" + (attempt + 1));
-            log("%s : place %d pour %s refusée en %d %d", v.id(), attempt, w.getId(), x, z);
+            plan.attempt++;
+            put(world, "A:" + v.id(), plan.encode());
+            log("%s : place %d pour %s refusée en %d %d", v.id(), plan.attempt - 1, w.getId(), x, z);
             return;
         }
         Annexes.startByVillage(world, store, v, w, x, surface + 1, z, rotation, OWNER);
@@ -710,7 +816,7 @@ public final class Autonomy {
                 .param("building", Message.translation(w.nameKey())));
     }
 
-    private static int parse(String s) {
+    static int parse(String s) {
         try {
             return Integer.parseInt(s);
         } catch (NumberFormatException e) {
@@ -726,8 +832,8 @@ public final class Autonomy {
         if (!on(world) || !grows(v)) {
             return out;
         }
-        String plan = get(world, "A:" + v.id());
-        Workshop annex = plan == null ? null : Workshop.get(plan.split("\\|")[0]);
+        AnnexPlan plan = AnnexPlan.of(get(world, "A:" + v.id()));
+        Workshop annex = plan == null ? null : Workshop.get(plan.workshop);
         if (annex != null) {
             out.add(Message.translation(KEYS + "plan.annex").param("building", Message.translation(annex.nameKey())));
         }

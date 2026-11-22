@@ -561,6 +561,33 @@ public final class TradeRoutes {
         return n;
     }
 
+    /**
+     * Plus de route autonome possible entre `v` et `o` : plafond de {@value Autonomy#ROUTES_PER_VILLAGE} par village
+     * (lieux-dits à part) quand les villages sont autonomes, sinon plafond du monde {@value #AUTO_MAX}. Même règle pour
+     * le conseil et pour les engagements des échanges nés des besoins.
+     */
+    static boolean autoFull(World world, Village v, Village o) {
+        if (!Autonomy.on(world)) {
+            return autoCount(world) >= AUTO_MAX;
+        }
+        return autoCountOf(world, v) >= Autonomy.ROUTES_PER_VILLAGE
+                || o != null && !o.isHamlet() && autoCountOf(world, o) >= Autonomy.ROUTES_PER_VILLAGE;
+    }
+
+    /** Routes autonomes d'un village (lieu-dit : 0, ses places suffisent). */
+    static int autoCountOf(World world, Village v) {
+        if (v == null || v.isHamlet()) {
+            return 0;
+        }
+        int n = 0;
+        for (Route r : of(world, v)) {
+            if (r.auto) {
+                n++;
+            }
+        }
+        return n;
+    }
+
     /** Débite le crédit de `receiver` du manque de poids de ce que la caravane porte vraiment. */
     static void spendCredit(World world, Route r, String receiver, List<String> loaded) {
         List<String> counted = new ArrayList<>(loaded);

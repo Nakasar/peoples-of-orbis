@@ -742,16 +742,12 @@ public final class Annexes {
 
     /**
      * Le conseil d'un village autonome fonde seul l'avant-poste `w` en (x, y, z) (world/Autonomy ; Kevin, 22 novembre
-     * 2026) : place déjà vérifiée par {@link #check}, matériaux pris au dépôt, fondation posée, puis comme
-     * {@link #start} sans joueur. Thread du monde, terrain chargé.
+     * 2026) : place déjà vérifiée par {@link #check}, matériaux déjà pris au dépôt par le conseil du matin, fondation
+     * posée, puis comme {@link #start} sans joueur. Thread du monde, terrain chargé.
      */
     public static void startByVillage(World world, Store<EntityStore> store, Village village, Workshop w, int x, int y, int z,
                                       int rotation, String owner) {
         Workshop.Annex spec = w.annex();
-        ItemContainer chest = Requests.depositContainer(world, village);
-        for (VillageLayout.Material m : spec.materials()) {
-            Requests.take(chest, m.itemId(), m.quantity());
-        }
         long day = GameClock.day(store);
         AnnexState a = village.ensureAnnex(w.getId());
         a.grant(day, owner, village.name());
