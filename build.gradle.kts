@@ -166,6 +166,26 @@ val checkPlotLookups = tasks.register<Exec>("checkPlotLookups") {
     }
 }
 
+// Refuse les textes de bouton (.Text) à paramètres : le client les affiche bruts (« OUVRIR AVEC {PARTNER} »).
+val checkButtonText = tasks.register<Exec>("checkButtonText") {
+    group = "verification"
+    description = "Refuse les textes de bouton dont les paramètres de Message ne seraient pas remplacés (ui.ButtonText)."
+    val launcher = javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(25)) }
+    val tool = file("tools/CheckButtonText.java")
+    val sources = file("src/main/java")
+    inputs.file(tool)
+    inputs.dir(sources)
+    val marker = layout.buildDirectory.file("checkButtonText.ok")
+    outputs.file(marker)
+    doFirst {
+        executable = launcher.get().executablePath.asFile.absolutePath
+        args(listOf("-Dstdout.encoding=UTF-8", "-Dstderr.encoding=UTF-8", tool.absolutePath, sources.absolutePath))
+    }
+    doLast {
+        marker.get().asFile.writeText("ok")
+    }
+}
+
 // Vérifie que chaque fichier JSON d'assets est syntaxiquement valide.
 // Les assets Hytale sont lus par un parseur strict : une virgule en trop fait échouer le chargement.
 val validateJson = tasks.register("validateJson") {
@@ -193,7 +213,7 @@ val validateJson = tasks.register("validateJson") {
 }
 
 tasks.named("check") {
-    dependsOn(validateJson, checkSystemRegistrations, checkPlotLookups, validateRoles, validateAssets)
+    dependsOn(validateJson, checkSystemRegistrations, checkPlotLookups, checkButtonText, validateRoles, validateAssets)
 }
 
 // Lit hytale.modsDir depuis -P, gradle.properties ou gradle-local.properties (non versionné).

@@ -28,6 +28,7 @@ import dev.nakasar.hytale.peuples.village.Villages;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import dev.nakasar.hytale.peuples.ui.ButtonText;
 import java.util.Map;
 
 /**
@@ -120,7 +121,7 @@ public final class MarketPickerPage extends InteractiveCustomUIPage<MarketPicker
             cmd.set("#Grade" + grade + "Button.Visible", !on);
             cmd.set("#Grade" + grade + "Label.TextSpans", text);
             if (!on) {
-                cmd.set("#Grade" + grade + "Button.Text", text);
+                cmd.set("#Grade" + grade + "Button.Text", ButtonText.of(playerRef, text));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#Grade" + grade + "Button", EventData.of("Action", "Grade" + grade));
             }
         }
