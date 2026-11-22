@@ -435,9 +435,12 @@ public final class Raids {
                 r.schedule(day, r.cause());
             }
             boolean due = r.scheduled() && r.night() <= day && night && hour >= 0 && !(hour >= LAST_START_HOUR && hour < GameClock.MORNING);
-            if (due && near(village, players, START_RADIUS) && Villages.heartPresent(world, village)) {
+            boolean witness = near(village, players, START_RADIUS);
+            if (due && witness && Villages.heartPresent(world, village)) {
                 begin(world, store, village);
-            } else if (due && dev.nakasar.hytale.peuples.world.Veille.raids(world) && !ALONE.contains(village.id())) {
+            } else if (due && !witness && (players.isEmpty() || hour == LAST_START_HOUR - 1)
+                    && dev.nakasar.hytale.peuples.world.Veille.raids(world) && !ALONE.contains(village.id())) {
+                // Des joueurs connectés ailleurs ont jusqu'à la dernière heure de départ pour venir défendre.
                 // Veille (Kevin, 22 novembre 2026) : sans témoin, le raid se joue quand même, bilan tiré au sort.
                 alone(world, village);
             }
@@ -482,27 +485,37 @@ public final class Raids {
     }
 
     /**
-     * Raid sans témoin (veille, world/Veille) : les chunks du village sont chargés (un bâtiment peut brûler), puis le
-     * bilan est tiré au sort selon les gardes et la vague, sans PNJ. Même bilan qu'un raid joué : essor gagné, ou
+     * Raid sans témoin (veille, world/Veille) : la nuit prévue, sans joueur à {@value #START_RADIUS} blocs, quand le
+     * monde n'a aucun joueur ou à la dernière heure de départ. Les chunks du village sont chargés (un bâtiment peut
+     * brûler), puis le bilan est tiré au sort selon les gardes et la vague, sans PNJ ; un raid sur quatre vise un
+     * ouvrage, comme {@link #begin}. Même bilan qu'un raid joué : essor gagné, ou
      * bâtiment brûlé ou qui perd un niveau, palier perdu, habitants au refuge ; les gardes tombés sont blessés.
      */
     private static void alone(World world, Village village) {
         ALONE.add(village.id());
+        int r = Chantiers.reach(village);
         try {
-            Chantiers.loadThen(world, village, () -> {
-                try {
-                    synchronized (Raids.class) {
-                        Store<EntityStore> store = world.getEntityStore().getStore();
-                        RaidRecord r = village.raid();
-                        if (ACTIVE.containsKey(village.id()) || !r.scheduled() || Villages.registry(world).byId(village.id()) == null) {
-                            return;
+            Terrain.load(world, village.x() - r, village.x() + r, village.z() - r, village.z() + r)
+                    .orTimeout(60, java.util.concurrent.TimeUnit.SECONDS)
+                    .whenComplete((ignored, error) -> world.execute(() -> {
+                        try {
+                            if (error != null) {
+                                PeuplesPlugin.get().getLogger().atWarning().log("Peuples (veille) : chunks de %s non chargés pour le raid (%s)",
+                                        village.name(), error.getMessage());
+                                return;
+                            }
+                            synchronized (Raids.class) {
+                                Store<EntityStore> store = world.getEntityStore().getStore();
+                                RaidRecord rec = village.raid();
+                                if (ACTIVE.containsKey(village.id()) || !rec.scheduled() || Villages.registry(world).byId(village.id()) == null) {
+                                    return;
+                                }
+                                resolveAlone(world, store, village);
+                            }
+                        } finally {
+                            ALONE.remove(village.id());
                         }
-                        resolveAlone(world, store, village);
-                    }
-                } finally {
-                    ALONE.remove(village.id());
-                }
-            });
+                    }));
         } catch (RuntimeException e) {
             ALONE.remove(village.id());
             throw e;
@@ -533,6 +546,12 @@ public final class Raids {
         double chance = Math.max(ALONE_MIN, Math.min(ALONE_MAX, defence / (defence + attack * ALONE_ATTACK)));
         boolean victory = random.nextDouble() < chance;
         a.total = wave.size();
+        // Comme un raid joué : un sur quatre vise un ouvrage du village (perdu, l'ouvrage est rasé et le village épargné).
+        List<dev.nakasar.hytale.peuples.annex.Infrastructures.Work> targets =
+                dev.nakasar.hytale.peuples.annex.Infrastructures.raidTargets(world, village);
+        if (!targets.isEmpty() && random.nextInt(4) == 0) {
+            a.ouvrage = targets.get(random.nextInt(targets.size())).workshop().getId();
+        }
         if (victory) {
             a.byGuards = a.total;
             a.fallen = random.nextInt(guards / 3 + 1);

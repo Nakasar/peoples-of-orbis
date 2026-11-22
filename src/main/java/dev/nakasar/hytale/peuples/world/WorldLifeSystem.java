@@ -82,6 +82,9 @@ public final class WorldLifeSystem extends TickingSystem<EntityStore> {
                     } else {
                         daily(world, s);
                     }
+                    if (Veille.morningPending(world)) {
+                        return; // le reste du pas attend le matin (départs et routes du jour d'abord)
+                    }
                     Travellers.step(world, s, players, slowDt);
                     Travellers.letters(world, s);
                     Surroundings.step(world, s, players);

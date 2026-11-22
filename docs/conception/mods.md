@@ -1743,7 +1743,9 @@ joueurs sont déchargés (`ChunkUnloadingSystem`, `WorldConfig.canUnloadChunks`)
   les joueurs étaient loin : voyageurs, caravanes et convois virtuels, commerce, besoins, relations, calendrier.
 - **Dépôts du matin** (`Veille.withDeposits`) : au changement de jour, le chunk du dépôt de chaque village est chargé et
   gardé le temps de `daily` (prélèvements des ateliers, besoins, commandes) et de la remise des livraisons en attente
-  (`TradeRoutes.flushInboxes`), puis relâché. Aussi avec des joueurs connectés : les dépôts lointains comptent.
+  (`TradeRoutes.flushInboxes`), puis relâché. Aussi avec des joueurs connectés : les dépôts lointains comptent. Le
+  reste du pas attend la fin du matin ; un chargement qui ne répond pas est abandonné après 60 s et le matin se fait
+  avec les dépôts chargés.
 - **Lieux tenus** (`Veille.offer` / `held`) : un village sans joueur proche qui a des blocs à poser
   (`VillageLifeSystem.workDue` : grand dépôt, sentiers, recollages, chantier à ouvrir, à faire changer de phase ou à
   finir, terrains via `Plots.workDue`) ou un avant-poste (`Annexes.workDue` : rasé à déblayer, apparence en retard,
@@ -1751,15 +1753,17 @@ joueurs sont déchargés (`ChunkUnloadingSystem`, `WorldConfig.canUnloadChunks`)
   gardés chargés, et il travaille comme sous les yeux d'un joueur. Un seul lieu tenu par monde ; il est relâché après
   `HOLD_MILLIS` (10 s) une fois son collage fini (`Chantiers.busy`, `VillageStreets.busy`, `Rebuilds.busy`), au plus
   `MAX_HOLD_MILLIS` (90 s). Un même lieu n'est pas retenu plus d'une fois toutes les 10 min (`COOLDOWN_MILLIS`) : un
-  chantier qui manque de matériaux ne recharge pas son village en boucle.
+  chantier qui manque de matériaux ne recharge pas son village en boucle (`Veille.markShort` : plus de tenue pour ça
+  avant le jour de jeu suivant). La durée minimale de 10 s part de la fin du chargement.
 - **Pas de PNJ** sans joueur : villageois, bétail, gardes, voyageurs et caravanes ne sont créés qu'à `REAL_RANGE` d'un
   joueur, comme avant.
-- **Raids sans témoin** (`Veille.raids`, `Raids.alone` / `resolveAlone`) : la nuit prévue, sans joueur à 80 blocs, les
-  chunks du village sont chargés puis le bilan est tiré : défense = gardes (palier, spécialités, postes, renforts
+- **Raids sans témoin** (`Veille.raids`, `Raids.alone` / `resolveAlone`) : la nuit prévue, sans joueur à 80 blocs, quand
+  le monde n'a aucun joueur ou à la dernière heure de départ (3 h : les joueurs connectés ailleurs ont la nuit pour
+  venir), les chunks du village sont chargés puis le bilan est tiré : défense = gardes (palier, spécialités, postes, renforts
   d'alliés) × bonus de vie, attaque = vague pondérée (guerrier 1, cogneur 1,5, brute 2, chef 3) × `ALONE_ATTACK`
   (0,35), chance de victoire entre 20 et 80 % (palier 0 : un tiers environ, palier 3 : une sur deux). Même bilan qu'un
-  raid joué (essor, bâtiment brûlé ou qui perd un niveau, palier perdu, refuge), gardes tombés blessés ; pas d'ouvrage
-  visé. Les joueurs connectés ailleurs voient leurs demandes de défense de ce village échouer si le raid est perdu.
+  raid joué (essor, bâtiment brûlé ou qui perd un niveau, palier perdu, refuge, un raid sur quatre sur un ouvrage),
+  gardes tombés blessés. Les joueurs connectés ailleurs voient leurs demandes de défense de ce village échouer si le raid est perdu.
 - **Pas de rattrapage** : rien n'est rejoué au démarrage. Serveur éteint, l'heure du jeu ne passe pas. (Le rattrapage
   des générations, `Population.CATCH_UP`, ne sert plus qu'avec la veille coupée.)
 

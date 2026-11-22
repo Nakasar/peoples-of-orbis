@@ -94,8 +94,11 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
                 continue;
             }
             if (village.chantier() == null) {
-                if (village.tier() < Tiers.MAX && village.essor() >= Tiers.threshold(village.tier())) {
-                    Chantiers.start(world, village, false, state -> Villagers.forgetGround());
+                if (village.tier() < Tiers.MAX && village.essor() >= Tiers.threshold(village.tier())
+                        && Chantiers.start(world, village, false, state -> Villagers.forgetGround()) == Chantiers.Block.MATERIALS
+                        && !watched(village, players)) {
+                    // Tenu sans joueur, matériaux absents : pas de nouvelle tenue pour ça avant demain.
+                    dev.nakasar.hytale.peuples.world.Veille.markShort(village, dev.nakasar.hytale.peuples.request.GameClock.day(store));
                 }
             } else if (Chantiers.due(store, village)) {
                 Chantiers.finish(world, village, Villagers::forgetGround);
@@ -130,7 +133,8 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
         if (village.chantier() == null) {
             // Dépôt pas chargé : on ne sait pas encore s'il a les matériaux, la tenue le dira.
             Chantiers.Block b = Chantiers.blocker(world, village, false);
-            if (b == Chantiers.Block.NONE || b == Chantiers.Block.DEPOSIT) {
+            if (b == Chantiers.Block.NONE || b == Chantiers.Block.DEPOSIT
+                    && !dev.nakasar.hytale.peuples.world.Veille.isShort(village, dev.nakasar.hytale.peuples.request.GameClock.day(store))) {
                 return true;
             }
         } else if (Chantiers.workDue(store, village)) {

@@ -428,11 +428,6 @@ public final class WorldCommand extends AbstractCommandCollection {
         }
     }
 
-    /**
-     * {@code /monde besoins [--faire liste|matin|dire] [--vers village]} : besoins, nouvelles apprises et engagements du
-     * village le plus proche ; « matin » refait tout de suite les besoins et les engagements ; « dire » : le village
-     * `vers` apprend sur-le-champ les besoins du village le plus proche (comme si un voyageur venait d'arriver).
-     */
     /** {@code /monde veille [--etat on|off] [--raids on|off]} : le monde qui vit sans joueur ({@link Veille}). */
     private static final class VeilleCommand extends AdminCommand {
         private final OptionalArg<String> state = withOptionalArg("etat", Veille.KEYS + "cmd.state.arg", ArgTypes.STRING);
@@ -475,6 +470,11 @@ public final class WorldCommand extends AbstractCommandCollection {
         }
     }
 
+    /**
+     * {@code /monde besoins [--faire liste|matin|dire] [--vers village]} : besoins, nouvelles apprises et engagements du
+     * village le plus proche ; « matin » refait tout de suite les besoins et les engagements ; « dire » : le village
+     * `vers` apprend sur-le-champ les besoins du village le plus proche (comme si un voyageur venait d'arriver).
+     */
     private static final class NeedsCommand extends AdminCommand {
         private final OptionalArg<String> what = withOptionalArg("faire", TradeNeeds.KEYS + "cmd.what.arg", ArgTypes.STRING);
         private final OptionalArg<String> to = withOptionalArg("vers", KEYS + "to.arg", ArgTypes.STRING);

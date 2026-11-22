@@ -68,6 +68,8 @@ public final class Veille {
         final BooleanSupplier busy;
         final List<WorldChunk> kept = new ArrayList<>();
         boolean ready;
+        /** Instant où les chunks ont fini de charger : la durée minimale de la tenue part de là. */
+        long readyAt;
 
         Hold(String key, long[] chunks, BooleanSupplier busy) {
             this.key = key;
@@ -80,6 +82,10 @@ public final class Veille {
     private static final Map<String, Long> LAST = Collections.synchronizedMap(new HashMap<>());
     /** Mondes dont les dépôts se chargent pour le matin. */
     private static final Set<World> MORNING = Collections.synchronizedSet(Collections.newSetFromMap(new WeakHashMap<>()));
+    /** Chargement qui ne répond pas : abandonné passé ce délai (le matin se fait alors avec les dépôts déjà chargés). */
+    static final long LOAD_TIMEOUT_MILLIS = 60_000L;
+    /** Villages sans assez de matériaux au dépôt pour leur chantier, par jour de jeu (pas de nouvelle tenue ce jour). */
+    private static final Map<String, Long> SHORT = Collections.synchronizedMap(new HashMap<>());
 
     // ---- Réglages ----
 
@@ -173,9 +179,25 @@ public final class Veille {
             }
             keep(world, chunks, h.kept);
             h.ready = true;
+            h.readyAt = System.currentTimeMillis();
         }));
         PeuplesPlugin.get().getLogger().atInfo().log("Peuples (veille) : %s tenu sans joueur (%d chunks)", key, chunks.length);
         return true;
+    }
+
+    /** Vrai pendant que les dépôts se chargent pour le matin : le reste du pas attend le matin. */
+    public static boolean morningPending(World world) {
+        return MORNING.contains(world);
+    }
+
+    /** Le village tenu n'a pas les matériaux de son chantier ce jour de jeu : il n'est plus tenu pour ça avant demain. */
+    public static void markShort(Village village, long day) {
+        SHORT.put(village.id(), day);
+    }
+
+    public static boolean isShort(Village village, long day) {
+        Long d = SHORT.get(village.id());
+        return d != null && d == day;
     }
 
     /** Fin des tenues finies (à chaque pas de la vie des villages). Thread du monde. */
@@ -184,9 +206,9 @@ public final class Veille {
         if (h == null) {
             return;
         }
-        long age = System.currentTimeMillis() - h.since;
+        long now = System.currentTimeMillis();
         boolean busy = h.busy != null && h.busy.getAsBoolean();
-        if (age >= MAX_HOLD_MILLIS || (h.ready && age >= HOLD_MILLIS && !busy)) {
+        if (now - h.since >= MAX_HOLD_MILLIS || (h.ready && now - h.readyAt >= HOLD_MILLIS && !busy)) {
             release(world);
         }
     }
@@ -257,7 +279,8 @@ public final class Veille {
         for (long index : chunks) {
             futures.add(store.getChunkReferenceAsync(index));
         }
-        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new))
+                .orTimeout(LOAD_TIMEOUT_MILLIS, java.util.concurrent.TimeUnit.MILLISECONDS);
     }
 
     private static void keep(World world, long[] chunks, List<WorldChunk> kept) {
