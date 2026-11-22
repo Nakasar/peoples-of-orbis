@@ -70,31 +70,26 @@
   "Requires": [
     "Ingredient_Leather_Medium"
   ],
-  "Specialties": [
-    {
-      "Id": "Potions_Vie",
-      "NameKey": "nakasar_peuples.workshop.specialty.Kweebec_E3_Herboristerie.Potions_Vie",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Kweebec_E3_Herboristerie.Potions_Vie",
-      "Icon": "Potion_Health_Small",
-      "Shops": [
-        "Nakasar_Peuples_W_Kweebec_E3_Herboristerie_Potions_Vie_2",
-        "Nakasar_Peuples_W_Kweebec_E3_Herboristerie_Potions_Vie_3"
-      ],
-      "ShareItem": "Potion_Health_Small",
-      "ShareQuantity": 2
-    },
-    {
-      "Id": "Poisons",
-      "NameKey": "nakasar_peuples.workshop.specialty.Kweebec_E3_Herboristerie.Poisons",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Kweebec_E3_Herboristerie.Poisons",
-      "Icon": "Potion_Antidote",
-      "Shops": [
-        "Nakasar_Peuples_W_Kweebec_E3_Herboristerie_Poisons_2",
-        "Nakasar_Peuples_W_Kweebec_E3_Herboristerie_Poisons_3"
-      ],
-      "ShareItem": "Potion_Antidote",
-      "ShareQuantity": 1
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Kweebec_E3_Herboristerie_Base_1"
+  "Shop": "Nakasar_Peuples_W_Kweebec_E3_Herboristerie_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Potion_Health_Lesser",
+    "Includes": [
+      "Potions_Vie",
+      "Poisons"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Kweebec_E3_Herboristerie_Full_2",
+      "Nakasar_Peuples_W_Kweebec_E3_Herboristerie_Full_3"
+    ],
+    "ShareItem": "Potion_Health_Small",
+    "ShareQuantity": 2,
+    "Shares": [
+      {
+        "ItemId": "Potion_Antidote",
+        "Quantity": 1
+      }
+    ]
+  }
 }

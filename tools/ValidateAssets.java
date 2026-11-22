@@ -1412,6 +1412,31 @@ public class ValidateAssets {
                     }
                 }
             }
+            // Bâtiment de projet (Kevin, 2026-11-21) : pas de spécialité à choisir, un seul « Full » avec tout le métier.
+            if (doc.containsKey("Full")) {
+                BsonDocument full = doc.getDocument("Full");
+                if (doc.containsKey("Specialties") && !doc.getArray("Specialties").isEmpty()) {
+                    problems.add("Full et Specialties à la fois : un projet n'a pas de spécialité à choisir");
+                }
+                if (!full.containsKey("Includes") || full.getArray("Includes").isEmpty()) {
+                    problems.add("Full : Includes (spécialités du catalogue fondues) vide");
+                }
+                if (full.containsKey("Animals")) {
+                    full.getArray("Animals").forEach(a -> animals.add(a.asString().getValue()));
+                }
+                if (!full.containsKey("Shops") || full.getArray("Shops").size() != 2) {
+                    problems.add("Full : il faut Shops [niveau II, niveau III]");
+                } else {
+                    for (BsonValue shop : full.getArray("Shops")) {
+                        if (!Files.isRegularFile(root.resolve("BarterShops/" + shop.asString().getValue() + ".json"))) {
+                            problems.add("Full : boutique absente " + shop.asString().getValue());
+                        }
+                    }
+                }
+                if (!full.containsKey("ShareItem")) {
+                    problems.add("Full : pas de lot de Part de l'Hôte (ShareItem)");
+                }
+            }
             String baseShop = doc.containsKey("Shop") ? doc.getString("Shop").getValue() : null;
             if (baseShop == null || !Files.isRegularFile(root.resolve("BarterShops/" + baseShop + ".json"))) {
                 problems.add("boutique du niveau I absente : " + baseShop);

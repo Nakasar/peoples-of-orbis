@@ -56,31 +56,26 @@
     }
   ],
   "Legacy": true,
-  "Specialties": [
-    {
-      "Id": "Poissons_Froids",
-      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_E1_Cabane_De_Peche.Poissons_Froids",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_E1_Cabane_De_Peche.Poissons_Froids",
-      "Icon": "Food_Fish_Raw",
-      "Shops": [
-        "Nakasar_Peuples_W_Renonce_E1_Cabane_De_Peche_Poissons_Froids_2",
-        "Nakasar_Peuples_W_Renonce_E1_Cabane_De_Peche_Poissons_Froids_3"
-      ],
-      "ShareItem": "Food_Fish_Raw",
-      "ShareQuantity": 4
-    },
-    {
-      "Id": "Nasses",
-      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_E1_Cabane_De_Peche.Nasses",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_E1_Cabane_De_Peche.Nasses",
-      "Icon": "Tool_Fishing_Trap",
-      "Shops": [
-        "Nakasar_Peuples_W_Renonce_E1_Cabane_De_Peche_Nasses_2",
-        "Nakasar_Peuples_W_Renonce_E1_Cabane_De_Peche_Nasses_3"
-      ],
-      "ShareItem": "Tool_Fishing_Trap",
-      "ShareQuantity": 2
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Renonce_E1_Cabane_De_Peche_Base_1"
+  "Shop": "Nakasar_Peuples_W_Renonce_E1_Cabane_De_Peche_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Food_Fish_Raw",
+    "Includes": [
+      "Poissons_Froids",
+      "Nasses"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Renonce_E1_Cabane_De_Peche_Full_2",
+      "Nakasar_Peuples_W_Renonce_E1_Cabane_De_Peche_Full_3"
+    ],
+    "ShareItem": "Food_Fish_Raw",
+    "ShareQuantity": 4,
+    "Shares": [
+      {
+        "ItemId": "Tool_Fishing_Trap",
+        "Quantity": 2
+      }
+    ]
+  }
 }

@@ -3,11 +3,11 @@
 <Infobox pending title="Bâtiment de métier" kind="Lieu">
 <Info label="Niveaux">I Ouvert, II Établi, III Renommé</Info>
 <Info label="Commandes">2 par jour (3 au niveau III), à 6 h</Info>
-<Info label="Spécialités">2 par bâtiment, 3 par enclos</Info>
+<Info label="Spécialités">2 par bâtiment, 3 par enclos ; aucune pour un projet</Info>
 <Info label="Boutique">payée en faveurs du peuple</Info>
 </Infobox>
 
-Les bâtiments où un villageois produit quelque chose (enclos, potager, puits, maison de soins, tour de la garde...) ont leur propre **panneau**, posé devant eux, à côté de l'entrée. Le panneau du bâtiment est le même que le tableau du village. Accroupi, il s'ouvre en version texte. Chaque bâtiment a son niveau, sa jauge de savoir-faire, ses commandes, sa spécialité et sa boutique. Il ouvre quand il est debout et que son villageois est arrivé au palier du village.
+Les bâtiments où un villageois produit quelque chose (enclos, potager, puits, maison de soins, tour de la garde...) ont leur propre **panneau**, posé devant eux, à côté de l'entrée. Le panneau du bâtiment est le même que le tableau du village. Accroupi, il s'ouvre en version texte. Chaque bâtiment a son niveau, sa jauge de savoir-faire, ses commandes, sa spécialité (sauf les [projets](emplacements.md)) et sa boutique. Il ouvre quand il est debout et que son villageois est arrivé au palier du village.
 
 ## Commandes et savoir-faire
 
@@ -33,11 +33,13 @@ Le bâtiment change aussi d'allure à son nouveau niveau, et seulement là (le p
 
 Au niveau II, le bouton **Choisir la spécialité** ouvre le choix, au rang **Ami**. La spécialité vaut pour tout le village. Elle change les commandes, la boutique et, dans un enclos, les bêtes. En changer est une **reconversion** : une fois tous les 7 jours de jeu, et le savoir-faire du niveau repart de zéro.
 
+Les **projets** bâtis sur les terrains du village (voir [Projets du village](emplacements.md)) n'ont **pas de spécialité** : dès le niveau II, ils font tout ce que leur ligne liste plus bas, à la fois. Leur boutique réunit les offres de toutes leurs spécialités, un enclos de projet mêle toutes leurs bêtes, leur Part de l'Hôte donne un lot de chacune, et leurs effets sur le village s'additionnent (la Caserne a la Milice et la Garnison, la Bibliothèque les Cartographes et les Maîtres...).
+
 Les bâtiments de garde renforcent aussi les **raids** (au niveau II ou plus) : gardes en plus autour du cœur, gardes postés à la tour, ou gardes plus solides. Au niveau III, il y a un garde en plus de chaque sorte.
 
 ## Enclos et bêtes
 
-Chaque peuple a son enclos au palier 1. Il abrite 3 bêtes au niveau I, 5 au II et 7 au III : celles de base, puis celles de la spécialité. Les bêtes ne donnent **aucun butin** : leurs produits s'achètent à la boutique de l'enclos. Une bête tuée manque jusqu'au matin, et la tuer coûte **5 de réputation** au village.
+Chaque peuple a son enclos au palier 1. Il abrite 3 bêtes au niveau I, 5 au II et 7 au III : celles de base, puis celles de la spécialité (toutes celles du catalogue pour un enclos de projet). Les bêtes ne donnent **aucun butin** : leurs produits s'achètent à la boutique de l'enclos. Une bête tuée manque jusqu'au matin, et la tuer coûte **5 de réputation** au village.
 
 ## Boutique et Part de l'Hôte
 
@@ -46,7 +48,7 @@ Le bouton **Boutique** ouvre un troc payé en **faveurs** du peuple. Son stock r
 | Rang | Boutique |
 | --- | --- |
 | Toléré | niveau I : la base du bâtiment |
-| Ami | niveau II : la base et les produits de la spécialité |
+| Ami | niveau II : la base et les produits de la spécialité (de toutes pour un projet) |
 | Hôte | niveau III : tout, avec les meilleurs produits |
 
 La carte **Offres** du panneau montre, pour chaque niveau, ce qu'il vend en icônes et ce qui l'ouvre (votre rang, le
@@ -58,13 +60,13 @@ Au **niveau III**, le bâtiment met de côté chaque matin un petit lot de sa pr
 
 ## Les bâtiments par peuple {#les-batiments-par-peuple}
 
-Les bâtiments d'**emplacement libre** se choisissent et se bâtissent au panneau du village (voir [Emplacements libres](emplacements.md)).
+Les bâtiments d'**emplacement libre** se choisissent et se bâtissent au panneau du village (voir [Emplacements libres](emplacements.md)). La dernière colonne donne les spécialités au choix d'un bâtiment de production ; un bâtiment d'emplacement libre fait tout ce qu'elle liste, sans choisir.
 
 Chaque peuple peut aussi bâtir une **Halle marchande** (catégorie Commerce) sur un emplacement libre : voir [Emplacements](emplacements.md#les-categories).
 
 ### Kweebecs
 
-| Bâtiment | Ouvre | Spécialités (niveau II) |
+| Bâtiment | Ouvre | Au niveau II |
 |---|---|---|
 | Potager | palier 0 (campement) | **Maraîcher** : Graines, légumes et salades.<br/>**Verger à baies** : Baies, baies d'hiver et tartes. |
 | Enclos des lapins | palier 1 (hameau) | **Basse-cour** : Poules et dindons : œufs, plumes, volaille.<br/>**Mousse-cornes** : Mousse-cornes : fibre, écorce et essence de vie.<br/>**Bergerie** : Moutons : laine, rouleaux de laine. |
@@ -73,13 +75,13 @@ Chaque peuple peut aussi bâtir une **Halle marchande** (catégorie Commerce) su
 | Tour de la garde | palier 2 (village) | **Archers** : Arcs et flèches ; en raid, 2 gardes de plus postés à la tour.<br/>**Vigiles** : Armure kweebec ; en raid, +1 garde et des gardes plus solides. |
 | Atelier d'archerie | emplacement libre | **Arcs légers** : Arcs courts de cuivre et de fer.<br/>**Flèches de chasse** : Flèches de fer et de précision. |
 | Atelier du menuisier | emplacement libre | **Mobilier kweebec** : Tabourets, tables, armoires.<br/>**Lanternes** : Lanternes, bougies et statues. |
-| Deuxième enclos | emplacement libre | celles du bâtiment « Enclos des lapins », jamais la même que lui |
+| Deuxième enclos | emplacement libre | tout ce que fait le bâtiment « Enclos des lapins », toutes ses bêtes ensemble |
 | Grand bassin | emplacement libre | **Poissons** : Poissons frais et grillés.<br/>**Essence d'eau** : Essence d'eau et potions claires. |
 | Herboristerie | emplacement libre | **Potions de vie** : Potions de vie et de régénération.<br/>**Poisons et antidotes** : Antidotes et fioles de poison. |
 
 ### Trorks
 
-| Bâtiment | Ouvre | Spécialités (niveau II) |
+| Bâtiment | Ouvre | Au niveau II |
 |---|---|---|
 | Feu de camp | palier 0 (campement) | **Rôtisserie** : Viandes cuites.<br/>**Fosse de combat** : Armes en os et armure trork. |
 | Fosse aux bêtes | palier 1 (hameau) | **Loups de chasse** : Loups dressés : crocs, os, peaux.<br/>**Porcs sauvages** : Porcs sauvages : viande et cuir.<br/>**Chèvres des cimes** : Chèvres : peaux moyennes et lait caillé. |
@@ -87,13 +89,13 @@ Chaque peuple peut aussi bâtir une **Halle marchande** (catégorie Commerce) su
 | Entrepôt | palier 2 (village) | **Pillards** : Lingots de cuivre et de fer récupérés.<br/>**Bûcherons** : Rondins, bâtons et écorce. |
 | Camp de bûcherons | emplacement libre | **Bois** : Rondins de chêne, de bouleau et de séquoia.<br/>**Écorce et sève** : Écorce, sève et outils pour les récolter. |
 | Carrière | emplacement libre | **Pierre** : Pierre, basalte et poudre.<br/>**Minerai** : Lingots de cuivre, de fer et d'argent. |
-| Deuxième fosse | emplacement libre | celles du bâtiment « Fosse aux bêtes », jamais la même que lui |
+| Deuxième fosse | emplacement libre | tout ce que fait le bâtiment « Fosse aux bêtes », toutes ses bêtes ensemble |
 | Forge de guerre | emplacement libre | **Armes en os** : Épées, dagues et haches d'os.<br/>**Armures de peau** : Armures trorks et de cuir. |
 | Tannerie | emplacement libre | **Cuirs** : Cuirs légers, moyens et lourds.<br/>**Sangles et sacs** : Sangles, musettes et caisses. |
 
 ### Feran
 
-| Bâtiment | Ouvre | Spécialités (niveau II) |
+| Bâtiment | Ouvre | Au niveau II |
 |---|---|---|
 | Enclos de l'oasis | palier 1 (hameau) | **Chameaux** : Chameaux : cuir et eau des caravanes.<br/>**Béliers du plateau** : Béliers : laine et cornes.<br/>**Tortues de l'oasis** : Tortues : écailles et essence d'eau. |
 | Entrée de l'oasis | palier 1 (hameau) | **Citerne** : Essence d'eau ; la soif s'apaise au village.<br/>**Jardin d'oasis** : Cactus, épices et sel. |
@@ -101,12 +103,12 @@ Chaque peuple peut aussi bâtir une **Halle marchande** (catégorie Commerce) su
 | Atelier de tissage | emplacement libre | **Lin et coton** : Rouleaux et vêtements de lin et de coton.<br/>**Voiles contre le soleil** : Voiles de tête et tuniques légères. |
 | Caravansérail | emplacement libre | **Épices et sel** : Épices, sel et brochettes.<br/>**Objets d'ailleurs** : Étoffes et fruits d'autres peuples. |
 | Citerne | emplacement libre | **Réserve d'eau** : Eau, seaux et potions d'endurance.<br/>**Essence d'eau** : Essences d'eau et de glace. |
-| Deuxième enclos | emplacement libre | celles du bâtiment « Enclos de l'oasis », jamais la même que lui |
+| Deuxième enclos | emplacement libre | tout ce que fait le bâtiment « Enclos de l'oasis », toutes ses bêtes ensemble |
 | Volerie des plumes | emplacement libre | **Plumes** : Plumes bleues, rouges et sombres.<br/>**Flèches** : Flèches de fer et de précision. |
 
 ### Renoncés
 
-| Bâtiment | Ouvre | Spécialités (niveau II) |
+| Bâtiment | Ouvre | Au niveau II |
 |---|---|---|
 | Bergerie du givre | palier 1 (hameau) | **Bisons** : Bisons : bœuf et peaux lourdes.<br/>**Sangliers des neiges** : Sangliers : viande et défenses.<br/>**Loups blancs des repentis** : Loups blancs : fourrures épaisses.<br/>**Laiterie du givre** : Chèvres laitières : fromage du givre et peaux. |
 | Maison du chasseur | palier 1 (hameau) | **Trappeur des neiges** : Peaux lourdes et fourrures.<br/>**Pêcheur des glaces** : Poissons des eaux froides. |
@@ -114,20 +116,20 @@ Chaque peuple peut aussi bâtir une **Halle marchande** (catégorie Commerce) su
 | Cabane de pêche | emplacement libre | **Poissons froids** : Poissons des eaux froides.<br/>**Filets et nasses** : Nasses, appâts et belles prises. |
 | Chenil | emplacement libre | **Loups de garde** : Peaux et harnais ; en raid, +1 garde.<br/>**Traîneaux** : Sangles, bois et cartes du givre. |
 | Garnison du givre | emplacement libre (Défense) | **Milice** : encore 2 gardes en raid.<br/>**Garnison** : +1 garde dans chaque lieu-dit tenu, chaque ouvrage et chaque expédition. |
-| Deuxième bergerie | emplacement libre | celles du bâtiment « Bergerie du givre », jamais la même que lui |
+| Deuxième bergerie | emplacement libre | tout ce que fait le bâtiment « Bergerie du givre », toutes ses bêtes ensemble |
 | Forge des repentis | emplacement libre | **Armes** : Masses, lances et arbalètes de fer.<br/>**Armures lourdes** : Armures de cuir lourd. |
 | Fumoir et tannerie | emplacement libre | **Viandes fumées** : Viandes fumées, brochettes, tourtes.<br/>**Fourrures** : Peaux lourdes et manteaux. |
 
 ### Slothians
 
-| Bâtiment | Ouvre | Spécialités (niveau II) |
+| Bâtiment | Ouvre | Au niveau II |
 |---|---|---|
 | Étal des cendres | palier 0 (campement) | **Braises** : Essence de feu et charbon.<br/>**Encens de veille** : Objets contre la corruption du Vide. |
 | Bauge de veille | palier 1 (hameau) | **Archéoptéryx** : Archéoptéryx : plumes sombres.<br/>**Trillodons** : Trillodons : cuir épais et cornes.<br/>**Escargots de magme** : Escargots de magme : coquilles et essence de feu. |
 | Porte du monastère | palier 1 (hameau) | **Lances de basalte** : Lances ; en raid, des gardes bien plus solides.<br/>**Veilleurs** : Torches ; en raid, +1 garde. |
 | Temple de veille | palier 2 (village) | **Méditation** : Potions de régénération.<br/>**Chroniques** : Recettes et objets de mémoire. |
 | Cabane de pêche | emplacement libre | **Poissons** : Poissons frais et grillés.<br/>**Coquillages** : Coquilles et cristaux du lac. |
-| Deuxième bauge | emplacement libre | celles du bâtiment « Bauge de veille », jamais la même que lui |
+| Deuxième bauge | emplacement libre | tout ce que fait le bâtiment « Bauge de veille », toutes ses bêtes ensemble |
 | Puits de basalte | emplacement libre | **Eau** : Eau et potions de régénération.<br/>**Essence de feu** : Essence de feu, charbon, arc de flamme. |
 | Sanctuaire | emplacement libre | **Protection contre le Vide** : Potions qui purifient et soignent.<br/>**Offrandes** : Braseros, pots et essences rares. |
 | Scriptorium | emplacement libre | **Recettes** : Recettes de cuisine et de graines.<br/>**Souvenirs de la veille** : Livres, tableaux et grimoires. |

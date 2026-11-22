@@ -70,31 +70,26 @@
   "Requires": [
     "Ingredient_Leather_Medium"
   ],
-  "Specialties": [
-    {
-      "Id": "Arcs_Legers",
-      "NameKey": "nakasar_peuples.workshop.specialty.Kweebec_E3_Archerie.Arcs_Legers",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Kweebec_E3_Archerie.Arcs_Legers",
-      "Icon": "Weapon_Shortbow_Copper",
-      "Shops": [
-        "Nakasar_Peuples_W_Kweebec_E3_Archerie_Arcs_Legers_2",
-        "Nakasar_Peuples_W_Kweebec_E3_Archerie_Arcs_Legers_3"
-      ],
-      "ShareItem": "Weapon_Shortbow_Copper",
-      "ShareQuantity": 1
-    },
-    {
-      "Id": "Fleches_Chasse",
-      "NameKey": "nakasar_peuples.workshop.specialty.Kweebec_E3_Archerie.Fleches_Chasse",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Kweebec_E3_Archerie.Fleches_Chasse",
-      "Icon": "Weapon_Arrow_Iron",
-      "Shops": [
-        "Nakasar_Peuples_W_Kweebec_E3_Archerie_Fleches_Chasse_2",
-        "Nakasar_Peuples_W_Kweebec_E3_Archerie_Fleches_Chasse_3"
-      ],
-      "ShareItem": "Weapon_Arrow_Iron",
-      "ShareQuantity": 16
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Kweebec_E3_Archerie_Base_1"
+  "Shop": "Nakasar_Peuples_W_Kweebec_E3_Archerie_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Weapon_Shortbow_Crude",
+    "Includes": [
+      "Arcs_Legers",
+      "Fleches_Chasse"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Kweebec_E3_Archerie_Full_2",
+      "Nakasar_Peuples_W_Kweebec_E3_Archerie_Full_3"
+    ],
+    "ShareItem": "Weapon_Shortbow_Copper",
+    "ShareQuantity": 1,
+    "Shares": [
+      {
+        "ItemId": "Weapon_Arrow_Iron",
+        "Quantity": 16
+      }
+    ]
+  }
 }

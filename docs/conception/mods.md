@@ -1253,8 +1253,8 @@ pour le terrain sélectionné. Toute la logique est dans `village/Plots.java`, l
   ne peut être que sur un terrain, sauf le deuxième élevage.
 - **Lancer le chantier** (rang Ami) : les 3 matériaux du terrain sont pris au dépôt du village (`MATERIALS`), le
   terrain est aplani, l'échafaudage du peuple monte en 4 phases pendant 24 h de jeu, puis le prefab vanilla est collé
-  et le villageois du projet arrive. C'est alors un bâtiment de métier complet : panneau, niveaux I à III, deux
-  spécialités, boutiques, Part de l'Hôte.
+  et le villageois du projet arrive. C'est alors un bâtiment de métier complet : panneau, niveaux I à III,
+  boutiques, Part de l'Hôte, mais sans spécialité à choisir (voir plus bas).
 - **Démolir** (rang Ami) : retire les blocs au-dessus du sol de l'emprise (sauf les coffres et autres conteneurs),
   rend un quart des matériaux au dépôt, et le bâtiment repart au niveau I. Une démolition tous les 7 jours de jeu
   par terrain.
@@ -1271,9 +1271,31 @@ raid perdu. `tools/generate_workshops.py` en fait 50 bâtiments de métier `<Peu
 | Renoncés | Forge, Fumoir, Cabane de pêche, Chenil (Loups de garde : +1 garde en raid), Deuxième bergerie |
 | Slothians | Scriptorium, Cabane de pêche, Sanctuaire, Puits de basalte, Deuxième bauge |
 
-Le deuxième élevage reprend les commandes, les bêtes, les spécialités et les boutiques de l'enclos de base (champ
-`Twin` du bâtiment de métier). Deux élevages du même genre ne peuvent pas avoir la même spécialité
-(`Workshops.twinWith`, ligne d'état sur la page des spécialités).
+Le deuxième élevage reprend les commandes, les bêtes et les boutiques de l'enclos de base (champ `Twin` du bâtiment
+de métier) ; comme tout projet, il fait toutes ses spécialités à la fois et ne compte plus pour `Workshops.twinWith`.
+
+### Projets sans spécialité (Kevin, 21 novembre 2026)
+
+« On va retirer les spécialités pour les bâtiments de projet (ceux sur les emplacements au village). Ces bâtiments
+peuvent directement tout fabriquer sans spécialisation. » Les spécialités du catalogue des projets (`specs` de
+`tools/plots.py`) restent la source des offres, mais `tools/generate_workshops.py` (`full_craft`) les fond dans un seul
+champ `Full` de l'asset `Workshop` au lieu de `Specialties` :
+
+- `Shops` : boutiques `Nakasar_Peuples_W_<Bâtiment>_Full_<2|3>` = la base + les échanges de toutes les spécialités
+  (un objet n'est vendu qu'une fois) ; jusqu'à 14 échanges (à vérifier en jeu dans la page de troc) ;
+- `Animals` : toutes les bêtes des spécialités (deuxièmes élevages) ;
+- `ShareItem` + `Shares` : la Part de l'Hôte donne au niveau III un lot de chaque spécialité ;
+- `Raid` : le plus fort de chaque champ des spécialités (Milice : +2 gardes) ;
+- `Requires` : seulement si toutes les spécialités en demandent, et une ressource de l'une suffit ;
+- `Includes` : ids des spécialités fondues ; dès le niveau II, `Projects.specialty` et `Allegiance.councilSpecialty`
+  les tiennent toutes pour vraies (Caserne : Milice et Garnison ; Bibliothèque : Cartographes et Maîtres ; Temple :
+  Protection et Bénédiction ; Ambassade : Négociants et Hérauts ; Halle : Courtiers et Entrepôts).
+
+Côté Java, `Workshop.current(choisie)` rend `Full` pour un projet (le choix enregistré dans `WorkshopState` est
+ignoré, puis effacé au pas du village), sinon la spécialité choisie. Le panneau n'a pas de bouton « Choisir la
+spécialité » (le bâtiment n'a pas de `Specialties`) ; sa ligne dit « Sans spécialité : fait tout (…) ».
+`ValidateAssets` refuse un bâtiment qui aurait `Full` et `Specialties`. Les bâtiments de production, avant-postes et
+lieux-dits gardent leurs spécialités au choix.
 
 Les villageois des projets réutilisent les rôles et les dialogues du peuple (garde, soigneuse, puisatière, marchand,
 guetteur…) : noms et répliques peuvent donc se répéter avec ceux du village. Les prefabs viennent tous du jeu (règle

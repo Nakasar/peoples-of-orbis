@@ -469,20 +469,18 @@ public final class BuildCatalog {
 
     /** Phrase de la fiche : spécialités, villageois logés, ou effet. */
     private static Message line(Workshop w, int homes, String fx) {
-        if (w != null && w.specialties().length > 0) {
+        if (w != null && !w.craftKeys().isEmpty()) {
+            // Spécialités au choix, ou tout ce que fait un bâtiment de projet (sans spécialité, Kevin 2026-11-21).
             Message list = Message.empty();
             boolean first = true;
-            for (Workshop.Specialty s : w.specialties()) {
-                if (s == null || s.nameKey() == null) {
-                    continue;
-                }
+            for (String key : w.craftKeys()) {
                 if (!first) {
                     list.insert(", ");
                 }
                 first = false;
-                list.insert(Message.translation(s.nameKey()));
+                list.insert(Message.translation(key));
             }
-            return Message.translation(KEYS + "line.specialties").param("list", list);
+            return Message.translation(KEYS + (w.isFull() ? "line.full" : "line.specialties")).param("list", list);
         }
         if (homes > 0) {
             return Message.translation(KEYS + "line.home").param("count", homes);
@@ -507,14 +505,18 @@ public final class BuildCatalog {
             return List.of();
         }
         shop(out, w.baseShop());
-        for (Workshop.Specialty s : w.specialties()) {
+        List<Workshop.Specialty> specs = new ArrayList<>(java.util.Arrays.asList(w.specialties()));
+        if (w.isFull()) {
+            specs.add(w.full());
+        }
+        for (Workshop.Specialty s : specs) {
             if (s == null) {
                 continue;
             }
             shop(out, s.shop(2));
             shop(out, s.shop(3));
-            if (s.shareItem() != null) {
-                out.add(s.shareItem());
+            for (VillageLayout.Material lot : s.shareLots()) {
+                out.add(lot.itemId());
             }
         }
         if (w.annex() != null) {

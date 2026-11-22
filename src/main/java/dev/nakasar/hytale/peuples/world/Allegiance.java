@@ -306,7 +306,15 @@ public final class Allegiance {
             return true; // la Garnison est passée à la Caserne (Kevin, 2026-11-16)
         }
         WorkshopState s = v == null ? null : council(v);
-        return s != null && specialty.equals(s.specialty());
+        if (s == null) {
+            return false;
+        }
+        // L'Ambassade est un bâtiment de projet : sans spécialité à choisir, elle a toutes les siennes dès le niveau II.
+        dev.nakasar.hytale.peuples.workshop.Workshop w = dev.nakasar.hytale.peuples.workshop.Workshop.get(s.id());
+        if (w != null && w.isFull()) {
+            return s.level() >= dev.nakasar.hytale.peuples.workshop.Workshops.SPECIALTY_LEVEL && w.full().covers(specialty);
+        }
+        return specialty.equals(s.specialty());
     }
 
     /**

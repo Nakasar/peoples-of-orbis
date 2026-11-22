@@ -961,6 +961,10 @@ public final class Workshops {
     public static boolean chooseSpecialty(World world, Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef player, Village village,
                                           Workshop w, String specialtyId) {
         WorkshopState ws = village.workshop(w.getId());
+        if (w.isFull()) {
+            player.sendMessage(Message.translation(KEYS + "fullNoChoice"));
+            return false;
+        }
         Workshop.Specialty spec = w.specialty(specialtyId);
         if (spec == null) {
             player.sendMessage(Message.translation(KEYS + "specialtyUnknown").param("id", String.valueOf(specialtyId)));
@@ -1013,8 +1017,8 @@ public final class Workshops {
             if (other == w || !(root.equals(other.getId()) || root.equals(other.twin()))) {
                 continue;
             }
-            if (!village.isBuilt(other.building())) {
-                continue;
+            if (!village.isBuilt(other.building()) || other.isFull()) {
+                continue; // un élevage de projet n'a pas de spécialité : il ne prend la place d'aucune
             }
             if (specialtyId.equals(village.workshop(other.getId()).specialty())) {
                 return other;
@@ -1044,12 +1048,15 @@ public final class Workshops {
         return Math.min(ws.level(), rankLevel(Reputations.rank(store, ref, village)));
     }
 
-    /** Boutique du niveau `level` du bâtiment : celle de la spécialité aux niveaux II et III, sinon la base. */
+    /**
+     * Boutique du niveau `level` du bâtiment : celle de la spécialité aux niveaux II et III (tout le métier pour un
+     * bâtiment de projet), sinon la base.
+     */
     public static String shop(Workshop w, WorkshopState ws, int level) {
         if (level <= 0) {
             return null;
         }
-        Workshop.Specialty spec = level >= 2 ? w.specialty(ws.specialty()) : null;
+        Workshop.Specialty spec = level >= 2 ? w.current(ws.specialty()) : null;
         String id = spec == null ? null : spec.shop(level);
         return id != null ? id : w.baseShop();
     }
@@ -1082,7 +1089,7 @@ public final class Workshops {
             return false;
         }
         int level = shopLevel(store, ref, village, ws);
-        Message lacking = level >= 2 ? Projects.specialtyMissing(store.getExternalData().getWorld(), village, w.specialty(ws.specialty())) : null;
+        Message lacking = level >= 2 ? Projects.specialtyMissing(store.getExternalData().getWorld(), village, w.current(ws.specialty())) : null;
         if (lacking != null) {
             // La ressource de la spécialité manque (accès perdu) : seule la boutique de base reste ouverte.
             player.sendMessage(Message.translation(KEYS + "shopRequires").param("list", lacking));
@@ -1098,7 +1105,7 @@ public final class Workshops {
 
     /** Lot du jour de la Part de l'Hôte, ou null (niveau III avec une spécialité qui en a un). */
     public static Workshop.Specialty shareSpecialty(Workshop w, WorkshopState ws) {
-        Workshop.Specialty spec = ws.level() >= 3 ? w.specialty(ws.specialty()) : null;
+        Workshop.Specialty spec = ws.level() >= 3 ? w.current(ws.specialty()) : null;
         return spec != null && spec.shareItem() != null ? spec : null;
     }
 
@@ -1111,7 +1118,7 @@ public final class Workshops {
         if (!Inputs.running(village, w)) {
             return Message.translation(KEYS + "shopStopped").param("list", Inputs.list(Inputs.needs(village, w)));
         }
-        Message lacking = Projects.specialtyMissing(store.getExternalData().getWorld(), village, w.specialty(ws.specialty()));
+        Message lacking = Projects.specialtyMissing(store.getExternalData().getWorld(), village, w.current(ws.specialty()));
         if (lacking != null) {
             return Message.translation(KEYS + "shopRequires").param("list", lacking);
         }
@@ -1138,9 +1145,12 @@ public final class Workshops {
         WorkshopState ws = village.workshop(w.getId());
         Workshop.Specialty spec = shareSpecialty(w, ws);
         ws.takeShare(GameClock.day(store), player.getUuid().toString());
-        Requests.give(store, ref, new com.hypixel.hytale.server.core.inventory.ItemStack(spec.shareItem(), spec.shareQuantity()));
-        notify(player, Message.translation(KEYS + "shareGiven").param("quantity", spec.shareQuantity())
-                .param("item", dev.nakasar.hytale.peuples.village.VillageBoard.itemName(spec.shareItem())), NotificationStyle.Success);
+        // Un bâtiment de projet fait tout son métier : un lot de chacune de ses spécialités du catalogue.
+        for (VillageLayout.Material lot : spec.shareLots()) {
+            Requests.give(store, ref, new com.hypixel.hytale.server.core.inventory.ItemStack(lot.itemId(), lot.quantity()));
+            notify(player, Message.translation(KEYS + "shareGiven").param("quantity", lot.quantity())
+                    .param("item", dev.nakasar.hytale.peuples.village.VillageBoard.itemName(lot.itemId())), NotificationStyle.Success);
+        }
         return true;
     }
 
@@ -1163,7 +1173,7 @@ public final class Workshops {
         VillageLayout layout = Chantiers.layout(village);
         for (Workshop w : opened(village)) {
             WorkshopState ws = village.workshop(w.getId());
-            Workshop.Specialty spec = ws.level() >= SPECIALTY_LEVEL ? w.specialty(ws.specialty()) : null;
+            Workshop.Specialty spec = ws.level() >= SPECIALTY_LEVEL ? w.current(ws.specialty()) : null;
             Workshop.Raid raid = spec == null ? null : spec.raid();
             if (raid == null) {
                 continue;

@@ -284,6 +284,9 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
                 .append(new KeyedCodec<>("ShareQuantity", Codec.INTEGER), (s, v) -> s.shareQuantity = v == null ? 1 : Math.max(1, v), s -> s.shareQuantity).add()
                 .append(new KeyedCodec<>("Raid", Raid.CODEC), (s, v) -> s.raid = v, s -> s.raid).add()
                 .append(new KeyedCodec<>("Requires", Codec.STRING_ARRAY), (s, v) -> s.requires = v == null ? new String[0] : v, s -> s.requires).add()
+                .append(new KeyedCodec<>("Includes", Codec.STRING_ARRAY), (s, v) -> s.includes = v == null ? new String[0] : v, s -> s.includes).add()
+                .append(new KeyedCodec<>("Shares", new ArrayCodec<>(VillageLayout.Material.CODEC, VillageLayout.Material[]::new)),
+                        (s, v) -> s.shares = v == null ? new VillageLayout.Material[0] : v, s -> s.shares).add()
                 .build();
 
         String id;
@@ -299,6 +302,41 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
         Raid raid;
         /** Ressources dont le village doit disposer (une au moins) pour choisir et faire tourner la spécialité. */
         String[] requires = new String[0];
+        /** Bâtiment de projet ({@code Full}) : ids des spécialités du catalogue qu'il fait toutes à la fois. */
+        String[] includes = new String[0];
+        /** Bâtiment de projet : lots de la Part de l'Hôte en plus de {@code ShareItem}. */
+        VillageLayout.Material[] shares = new VillageLayout.Material[0];
+
+        /** Ids des spécialités fondues dans ce métier complet (vide pour une spécialité ordinaire). */
+        public String[] includes() {
+            return includes;
+        }
+
+        /** Vrai si ce métier complet (ou cette spécialité) vaut la spécialité `specialty`. */
+        public boolean covers(String specialty) {
+            if (specialty == null) {
+                return false;
+            }
+            if (specialty.equals(id)) {
+                return true;
+            }
+            for (String s : includes) {
+                if (specialty.equals(s)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /** Tous les lots de la Part de l'Hôte : {@code ShareItem} puis {@code Shares}. */
+        public List<VillageLayout.Material> shareLots() {
+            List<VillageLayout.Material> out = new ArrayList<>();
+            if (shareItem != null) {
+                out.add(VillageLayout.Material.of(shareItem, shareQuantity));
+            }
+            out.addAll(List.of(shares));
+            return out;
+        }
 
         /** Ressources demandées (une au moins suffit), vide : aucune. */
         public String[] requires() {
@@ -379,6 +417,9 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
                     (w, v) -> w.specialties = v == null ? new Specialty[0] : v, w -> w.specialties)
             .documentation("Spécialités au choix au niveau II.")
             .add()
+            .append(new KeyedCodec<>("Full", Specialty.CODEC), (w, v) -> w.full = v, w -> w.full)
+            .documentation("Bâtiment de projet (terrain) : pas de spécialité à choisir, tout le métier dès le niveau II.")
+            .add()
             .append(new KeyedCodec<>("Livestock", Codec.STRING_ARRAY), (w, v) -> w.livestock = v == null ? new String[0] : v, w -> w.livestock)
             .documentation("Bêtes de base d'un enclos (niveau I, ou sans spécialité).")
             .add()
@@ -439,6 +480,7 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
     int[] board;
     Upgrade[] upgrades = new Upgrade[0];
     Specialty[] specialties = new Specialty[0];
+    Specialty full;
     String[] livestock = new String[0];
     int[] livestockCount;
     int[] pen;
@@ -641,6 +683,41 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
         return specialties;
     }
 
+    /** Métier complet d'un bâtiment de projet (sans spécialité à choisir), ou null. */
+    public Specialty full() {
+        return full;
+    }
+
+    /** Vrai si le bâtiment fait tout son métier sans choix de spécialité (bâtiment de projet). */
+    public boolean isFull() {
+        return full != null;
+    }
+
+    /**
+     * Ce que fait le bâtiment avec la spécialité choisie `chosen` : son métier complet pour un bâtiment de projet (le
+     * choix enregistré est ignoré), sinon la spécialité choisie, ou null. Le niveau n'est pas vérifié ici.
+     */
+    public Specialty current(String chosen) {
+        return full != null ? full : specialty(chosen);
+    }
+
+    /** Clés des noms de ce que fabrique le bâtiment : ses spécialités au choix, ou celles de son métier complet. */
+    public List<String> craftKeys() {
+        List<String> out = new ArrayList<>();
+        if (full != null) {
+            for (String s : full.includes) {
+                out.add("nakasar_peuples.workshop.specialty." + id + "." + s);
+            }
+        } else {
+            for (Specialty s : specialties) {
+                if (s != null) {
+                    out.add(s.nameKey());
+                }
+            }
+        }
+        return out;
+    }
+
     /** Spécialité `id` du bâtiment, ou null. */
     public Specialty specialty(String id) {
         if (id == null) {
@@ -671,7 +748,7 @@ public final class Workshop implements JsonAssetWithMap<String, DefaultAssetMap<
 
     /** Bêtes de l'enclos au niveau `level` avec la spécialité `specialty` (null : celles de base). */
     public String[] animals(int level, String specialty) {
-        Specialty s = level >= 2 ? specialty(specialty) : null;
+        Specialty s = level >= 2 ? current(specialty) : null;
         return s != null && s.animals.length > 0 ? s.animals : livestock;
     }
 

@@ -69,34 +69,26 @@
   "Requires": [
     "Ingredient_Leather_Medium"
   ],
-  "Specialties": [
-    {
-      "Id": "Armes",
-      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_E3_Forge.Armes",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_E3_Forge.Armes",
-      "Icon": "Weapon_Spear_Iron",
-      "Requires": [
-        "Ingredient_Bar_Iron"
-      ],
-      "Shops": [
-        "Nakasar_Peuples_W_Renonce_E3_Forge_Armes_2",
-        "Nakasar_Peuples_W_Renonce_E3_Forge_Armes_3"
-      ],
-      "ShareItem": "Weapon_Club_Iron",
-      "ShareQuantity": 1
-    },
-    {
-      "Id": "Armures_Lourdes",
-      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_E3_Forge.Armures_Lourdes",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_E3_Forge.Armures_Lourdes",
-      "Icon": "Armor_Leather_Heavy_Chest",
-      "Shops": [
-        "Nakasar_Peuples_W_Renonce_E3_Forge_Armures_Lourdes_2",
-        "Nakasar_Peuples_W_Renonce_E3_Forge_Armures_Lourdes_3"
-      ],
-      "ShareItem": "Armor_Leather_Heavy_Head",
-      "ShareQuantity": 1
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Renonce_E3_Forge_Base_1"
+  "Shop": "Nakasar_Peuples_W_Renonce_E3_Forge_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Ingredient_Bar_Iron",
+    "Includes": [
+      "Armes",
+      "Armures_Lourdes"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Renonce_E3_Forge_Full_2",
+      "Nakasar_Peuples_W_Renonce_E3_Forge_Full_3"
+    ],
+    "ShareItem": "Weapon_Club_Iron",
+    "ShareQuantity": 1,
+    "Shares": [
+      {
+        "ItemId": "Armor_Leather_Heavy_Head",
+        "Quantity": 1
+      }
+    ]
+  }
 }

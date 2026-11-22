@@ -56,31 +56,26 @@
     }
   ],
   "Legacy": true,
-  "Specialties": [
-    {
-      "Id": "Pierre",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E1_Carriere.Pierre",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E1_Carriere.Pierre",
-      "Icon": "Rock_Volcanic",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E1_Carriere_Pierre_2",
-        "Nakasar_Peuples_W_Trork_E1_Carriere_Pierre_3"
-      ],
-      "ShareItem": "Rock_Stone_Cobble",
-      "ShareQuantity": 48
-    },
-    {
-      "Id": "Minerai",
-      "NameKey": "nakasar_peuples.workshop.specialty.Trork_E1_Carriere.Minerai",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_E1_Carriere.Minerai",
-      "Icon": "Ingredient_Bar_Iron",
-      "Shops": [
-        "Nakasar_Peuples_W_Trork_E1_Carriere_Minerai_2",
-        "Nakasar_Peuples_W_Trork_E1_Carriere_Minerai_3"
-      ],
-      "ShareItem": "Ingredient_Bar_Copper",
-      "ShareQuantity": 3
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Trork_E1_Carriere_Base_1"
+  "Shop": "Nakasar_Peuples_W_Trork_E1_Carriere_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Rock_Stone_Cobble",
+    "Includes": [
+      "Pierre",
+      "Minerai"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Trork_E1_Carriere_Full_2",
+      "Nakasar_Peuples_W_Trork_E1_Carriere_Full_3"
+    ],
+    "ShareItem": "Rock_Stone_Cobble",
+    "ShareQuantity": 48,
+    "Shares": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 3
+      }
+    ]
+  }
 }

@@ -208,7 +208,7 @@ public final class ShopPage extends InteractiveCustomUIPage<ShopPage.Event> {
         } else {
             sub = null;
         }
-        Workshop.Specialty spec = w.specialty(ws.specialty());
+        Workshop.Specialty spec = w.current(ws.specialty()); // tout le métier pour un bâtiment de projet
         Message lacking = spec == null ? null : Projects.specialtyMissing(world, v, spec);
         List<Tab> tabs = new ArrayList<>();
         int offers = 0;

@@ -65,34 +65,26 @@
   "Requires": [
     "Ingredient_Bar_Iron"
   ],
-  "Specialties": [
-    {
-      "Id": "Plumes",
-      "NameKey": "nakasar_peuples.workshop.specialty.Feran_E3_Volerie.Plumes",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Feran_E3_Volerie.Plumes",
-      "Icon": "Ingredient_Feathers_Blue",
-      "Shops": [
-        "Nakasar_Peuples_W_Feran_E3_Volerie_Plumes_2",
-        "Nakasar_Peuples_W_Feran_E3_Volerie_Plumes_3"
-      ],
-      "ShareItem": "Ingredient_Feathers_Blue",
-      "ShareQuantity": 4
-    },
-    {
-      "Id": "Fleches",
-      "NameKey": "nakasar_peuples.workshop.specialty.Feran_E3_Volerie.Fleches",
-      "LineKey": "nakasar_peuples.workshop.specialtyLine.Feran_E3_Volerie.Fleches",
-      "Icon": "Weapon_Arrow_Iron",
-      "Requires": [
-        "Ingredient_Bar_Iron"
-      ],
-      "Shops": [
-        "Nakasar_Peuples_W_Feran_E3_Volerie_Fleches_2",
-        "Nakasar_Peuples_W_Feran_E3_Volerie_Fleches_3"
-      ],
-      "ShareItem": "Weapon_Arrow_Iron",
-      "ShareQuantity": 16
-    }
-  ],
-  "Shop": "Nakasar_Peuples_W_Feran_E3_Volerie_Base_1"
+  "Shop": "Nakasar_Peuples_W_Feran_E3_Volerie_Base_1",
+  "Full": {
+    "Id": "Full",
+    "NameKey": "nakasar_peuples.workshop.full",
+    "Icon": "Ingredient_Feathers_Light",
+    "Includes": [
+      "Plumes",
+      "Fleches"
+    ],
+    "Shops": [
+      "Nakasar_Peuples_W_Feran_E3_Volerie_Full_2",
+      "Nakasar_Peuples_W_Feran_E3_Volerie_Full_3"
+    ],
+    "ShareItem": "Ingredient_Feathers_Blue",
+    "ShareQuantity": 4,
+    "Shares": [
+      {
+        "ItemId": "Weapon_Arrow_Iron",
+        "Quantity": 16
+      }
+    ]
+  }
 }

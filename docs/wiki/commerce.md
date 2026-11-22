@@ -41,7 +41,7 @@ Trois caravanes perdues d'affilée font redescendre la route d'un niveau. Si les
 Toute ressource s'échange, pas seulement les luxes. Cliquez sur une case **Envoie** ou **Reçoit** d'une route : une grille montre ce que l'expéditeur peut envoyer (avec le chargement par caravane et sa classe, filtrable par classe) et le poids envoyé et reçu par la route. Un clic pose la marchandise, **Laisser vide** vide la case. L'expéditeur peut envoyer :
 
 - les lots et livraisons de ses [avant-postes de métier](avant-postes-de-metier.md) ;
-- les spécialités de ses ateliers au niveau II et plus ;
+- les spécialités de ses ateliers au niveau II et plus (tout ce que font ses projets) ;
 - le tribut des lieux-dits qu'il tient ;
 - le luxe de son terroir, dès le palier 2 ;
 - tout ce qu'il importe déjà par une autre route (réexportation).
