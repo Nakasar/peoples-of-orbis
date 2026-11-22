@@ -20,6 +20,7 @@ import dev.nakasar.hytale.peuples.village.Villages;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -560,6 +561,33 @@ public final class TradeRoutes {
         return n;
     }
 
+    /**
+     * Plus de route autonome possible entre `v` et `o` : plafond de {@value Autonomy#ROUTES_PER_VILLAGE} par village
+     * (lieux-dits à part) quand les villages sont autonomes, sinon plafond du monde {@value #AUTO_MAX}. Même règle pour
+     * le conseil et pour les engagements des échanges nés des besoins.
+     */
+    static boolean autoFull(World world, Village v, Village o) {
+        if (!Autonomy.on(world)) {
+            return autoCount(world) >= AUTO_MAX;
+        }
+        return autoCountOf(world, v) >= Autonomy.ROUTES_PER_VILLAGE
+                || o != null && !o.isHamlet() && autoCountOf(world, o) >= Autonomy.ROUTES_PER_VILLAGE;
+    }
+
+    /** Routes autonomes d'un village (lieu-dit : 0, ses places suffisent). */
+    static int autoCountOf(World world, Village v) {
+        if (v == null || v.isHamlet()) {
+            return 0;
+        }
+        int n = 0;
+        for (Route r : of(world, v)) {
+            if (r.auto) {
+                n++;
+            }
+        }
+        return n;
+    }
+
     /** Débite le crédit de `receiver` du manque de poids de ce que la caravane porte vraiment. */
     static void spendCredit(World world, Route r, String receiver, List<String> loaded) {
         List<String> counted = new ArrayList<>(loaded);
@@ -635,25 +663,47 @@ public final class TradeRoutes {
         return false;
     }
 
-    /** Conseil du matin : un village avec une place libre ouvre une route seul (une chance sur {@value #AUTO_ODDS}). */
+    /**
+     * Conseil du matin : un village avec une place libre ouvre une route seul (une chance sur {@value #AUTO_ODDS},
+     * {@value #AUTO_MAX} routes autonomes au plus dans le monde). Village autonome ({@link Autonomy}) : sans tirage dès
+     * qu'il a un besoin, {@value Autonomy#ROUTES_PER_VILLAGE} routes autonomes au plus par village au lieu du plafond du
+     * monde, et vers le partenaire qui a le plus à échanger avec lui (puis le plus ami).
+     */
     private static void council(World world, long day, Random random) {
+        boolean autonomy = Autonomy.on(world);
         int autos = 0;
+        Map<String, Integer> perVillage = new HashMap<>();
         for (Route r : all(world)) {
             if (r.auto) {
                 autos++;
+                perVillage.merge(r.a, 1, Integer::sum);
+                perVillage.merge(r.b, 1, Integer::sum);
             }
         }
         List<Village> villages = new ArrayList<>(Villages.registry(world).all());
         Collections.shuffle(villages, random);
         for (Village v : villages) {
-            if (autos >= AUTO_MAX) {
+            if (!autonomy && autos >= AUTO_MAX) {
                 return;
             }
-            if (v.isHamlet() || used(world, v) >= slots(world, v, day) || random.nextInt(AUTO_ODDS) != 0) {
+            if (v.isHamlet() || used(world, v) >= slots(world, v, day)) {
                 continue;
             }
+            if (autonomy) {
+                if (perVillage.getOrDefault(v.id(), 0) >= Autonomy.ROUTES_PER_VILLAGE
+                        || TradeNeeds.needs(world, v).isEmpty() && random.nextInt(AUTO_ODDS) != 0) {
+                    continue;
+                }
+            } else if (random.nextInt(AUTO_ODDS) != 0) {
+                continue;
+            }
+            Route best = null;
+            Village bestOther = null;
+            int bestCases = 0;
+            int bestRelation = Integer.MIN_VALUE;
             for (Village o : candidates(world, v)) {
-                if (used(world, o) >= slots(world, o, day)) {
+                if (used(world, o) >= slots(world, o, day)
+                        || autonomy && !o.isHamlet() && perVillage.getOrDefault(o.id(), 0) >= Autonomy.ROUTES_PER_VILLAGE) {
                     continue;
                 }
                 Route trial = new Route(v.id(), o.id());
@@ -661,13 +711,30 @@ public final class TradeRoutes {
                 if (trial.exportsA.isEmpty()) {
                     continue; // rien à échanger : pas de route morte qui occuperait les places
                 }
-                Route r = create(world, v, o, true, day);
-                r.exportsA.addAll(trial.exportsA);
-                r.exportsB.addAll(trial.exportsB);
-                save(world, r);
-                autos++;
-                break;
+                if (!autonomy) {
+                    best = trial;
+                    bestOther = o;
+                    break;
+                }
+                int cases = trial.exportsA.size() + trial.exportsB.size();
+                int relation = o.isHamlet() ? 0 : Relations.value(world, v, o);
+                if (cases > bestCases || cases == bestCases && relation > bestRelation) {
+                    best = trial;
+                    bestOther = o;
+                    bestCases = cases;
+                    bestRelation = relation;
+                }
             }
+            if (best == null) {
+                continue;
+            }
+            Route r = create(world, v, bestOther, true, day);
+            r.exportsA.addAll(best.exportsA);
+            r.exportsB.addAll(best.exportsB);
+            save(world, r);
+            autos++;
+            perVillage.merge(v.id(), 1, Integer::sum);
+            perVillage.merge(bestOther.id(), 1, Integer::sum);
         }
     }
 

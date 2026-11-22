@@ -18,6 +18,7 @@ import dev.nakasar.hytale.peuples.village.Village;
 import dev.nakasar.hytale.peuples.village.Villages;
 import org.joml.Vector3d;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -428,10 +429,14 @@ public final class WorldCommand extends AbstractCommandCollection {
         }
     }
 
-    /** {@code /monde veille [--etat on|off] [--raids on|off]} : le monde qui vit sans joueur ({@link Veille}). */
+    /**
+     * {@code /monde veille [--etat on|off] [--raids on|off] [--autonomie on|off]} : le monde qui vit sans joueur
+     * ({@link Veille}) et les villages qui grandissent seuls ({@link Autonomy}).
+     */
     private static final class VeilleCommand extends AdminCommand {
         private final OptionalArg<String> state = withOptionalArg("etat", Veille.KEYS + "cmd.state.arg", ArgTypes.STRING);
         private final OptionalArg<String> raids = withOptionalArg("raids", Veille.KEYS + "cmd.raids.arg", ArgTypes.STRING);
+        private final OptionalArg<String> autonomy = withOptionalArg("autonomie", Veille.KEYS + "cmd.autonomy.arg", ArgTypes.STRING);
 
         VeilleCommand() {
             super("veille", Veille.KEYS + "cmd.desc");
@@ -441,7 +446,9 @@ public final class WorldCommand extends AbstractCommandCollection {
         protected void execute(CommandContext context, Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef player, World world) {
             Boolean on = parse(state.get(context));
             Boolean withRaids = parse(raids.get(context));
-            if ((state.get(context) != null && on == null) || (raids.get(context) != null && withRaids == null)) {
+            Boolean alone = parse(autonomy.get(context));
+            if ((state.get(context) != null && on == null) || (raids.get(context) != null && withRaids == null)
+                    || (autonomy.get(context) != null && alone == null)) {
                 player.sendMessage(Message.translation(Veille.KEYS + "cmd.usage"));
                 return;
             }
@@ -451,10 +458,14 @@ public final class WorldCommand extends AbstractCommandCollection {
             if (withRaids != null) {
                 Veille.setRaids(world, withRaids);
             }
+            if (alone != null) {
+                Autonomy.setOn(world, alone);
+            }
             String held = Veille.current(world);
             player.sendMessage(Message.translation(Veille.KEYS + "cmd.state")
                     .param("on", Message.translation(Veille.KEYS + (Veille.on(world) ? "yes" : "no")))
                     .param("raids", Message.translation(Veille.KEYS + (Veille.raids(world) ? "yes" : "no")))
+                    .param("autonomy", Message.translation(Veille.KEYS + (Autonomy.on(world) ? "yes" : "no")))
                     .param("held", held == null ? Message.translation(Veille.KEYS + "none") : Message.raw(held)));
         }
 
@@ -508,7 +519,8 @@ public final class WorldCommand extends AbstractCommandCollection {
                     TradeNeeds.tell(world, store, o, v, n.item(), day);
                 }
             }
-            List<Message> lines = TradeNeeds.describe(world, v, day);
+            List<Message> lines = new ArrayList<>(TradeNeeds.describe(world, v, day));
+            lines.addAll(Autonomy.describe(world, v));
             player.sendMessage(Message.translation(TradeNeeds.KEYS + "cmd.header").param("village", v.name()).param("count", lines.size()));
             for (Message m : lines) {
                 player.sendMessage(m);

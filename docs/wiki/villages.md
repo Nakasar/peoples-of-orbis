@@ -58,6 +58,16 @@ Quand la jauge d'essor est pleine et que le dépôt contient les matériaux du p
 - Aux paliers 2 et 3, les terrains E1 et E2 accueillent un bâtiment choisi par les joueurs : voir [Emplacements libres](emplacements.md).
 - **Les bâtiments grandissent avec le village.** À chaque palier, les bâtiments déjà debout du village (maisons, tours, échoppes...) sont rebâtis sur place dans une version plus grande de la même famille, s'il y a la place : tente, puis terrier, puis réserve chez les Trorks ; petite maison-arbre puis grande maison-arbre chez les Kweebecs. Les joueurs et les villageois qui sont dedans sont sortis du côté de la place, et les coffres qui contiennent quelque chose restent. Les bâtiments de métier, les projets, les bâtiments de production et les ouvrages, eux, ne grandissent qu'avec leur propre niveau (voir [Bâtiments de métier](batiments-de-metier.md)).
 
+## Un village qui grandit seul
+
+Un village n'attend pas les joueurs pour grandir, il va seulement beaucoup moins vite. Chaque matin :
+
+- **Ses habitants récoltent** les matériaux de construction de leur peuple (troncs, pierre, viande, peaux, briques...) et les rangent au dépôt : ceux du prochain chantier, d'un agrandissement d'atelier, d'un projet de terrain ou d'un avant-poste prévu. Jamais de luxe : les luxes arrivent par les routes commerciales.
+- **Son essor monte un peu.** Seul, un village passe du campement au hameau en 6 jours de jeu environ, au village en 14 jours, au bourg en 30 jours. Vos demandes, les caravanes et les lieux-dits le font aller bien plus vite.
+- **Son conseil décide** : ses ateliers gagnent du savoir-faire tant qu'ils tournent, prennent leur niveau suivant quand les matériaux sont là, choisissent une spécialité ; ses terrains libres reçoivent un projet ; au bourg, il fonde jusqu'à 2 avant-postes ; il ouvre ses routes commerciales vers les partenaires qui ont le plus à échanger avec lui. Ses choix suivent ses besoins, ceux qu'il a appris des voyageurs et ceux de ses partenaires.
+
+Vous gardez toujours la main : une spécialité ou un projet de terrain attend 3 jours votre choix avant que le conseil ne décide, une commande de maître attend 5 jours, et le conseil ne défait jamais un choix de joueur. Ses décisions s'inscrivent au registre de l'onglet Commerce.
+
 ## Les raids
 
 Une nuit, les ennemis du peuple marchent sur le village : après avoir gagné un palier, au tirage du matin (10 à 40 % selon le palier), ou pour une demande de défense. Le raid commence quand un joueur est à moins de 80 blocs du cœur. Sur un serveur allumé sans personne autour, il peut aussi se jouer sans vous : les gardes se défendent seuls (voir [Le monde vivant](monde-vivant.md)).

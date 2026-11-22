@@ -785,7 +785,12 @@ public final class Workshops {
             return false;
         }
         // Comme une étape de chaîne : elle n'expire pas et ne compte pas dans les 3 suivies.
-        return Requests.start(world, store, ref, player, state, village, t, id, Long.MAX_VALUE);
+        boolean started = Requests.start(world, store, ref, player, state, village, t, id, Long.MAX_VALUE);
+        if (started) {
+            // Village autonome : le conseil ne la tiendra pas pour faite à la place du joueur.
+            dev.nakasar.hytale.peuples.world.Autonomy.masterTaken(world, store, village, w);
+        }
+        return started;
     }
 
     /** Matériaux qui manquent au dépôt pour le chantier d'amélioration (id → quantité), ou null si le dépôt manque. */

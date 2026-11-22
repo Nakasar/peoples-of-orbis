@@ -740,6 +740,36 @@ public final class Annexes {
                 rotation, player.getUsername(), village.name());
     }
 
+    /**
+     * Le conseil d'un village autonome fonde seul l'avant-poste `w` en (x, y, z) (world/Autonomy ; Kevin, 22 novembre
+     * 2026) : place déjà vérifiée par {@link #check}, matériaux déjà pris au dépôt par le conseil du matin, fondation
+     * posée, puis comme {@link #start} sans joueur. Thread du monde, terrain chargé.
+     */
+    public static void startByVillage(World world, Store<EntityStore> store, Village village, Workshop w, int x, int y, int z,
+                                      int rotation, String owner) {
+        Workshop.Annex spec = w.annex();
+        long day = GameClock.day(store);
+        AnnexState a = village.ensureAnnex(w.getId());
+        a.grant(day, owner, village.name());
+        Blocks.set(world.getChunkStore(), x, y, z, spec.item(), 0);
+        int[] rect = worldRect(spec, x, z, rotation);
+        Terrain terrain = new Terrain(world);
+        int ground = terrain.medianSurface(rect[0], rect[1], rect[2], rect[3], 2);
+        if (ground == Terrain.NONE) {
+            ground = y - 1;
+        }
+        long now = GameClock.seconds(store);
+        a.startWorks(x, y, z, rotation, ground, now, now + spec.hours() * 3600L);
+        a.setYield(deposit(world, terrain, village, spec, rect, ground));
+        prepare(world, village, w, a);
+        site(world, village, w, a, 1);
+        PHASE.put(key(village, w), 1);
+        Chantiers.announce(world, village, Message.translation(KEYS + "startedByVillage").param("village", village.name())
+                .param("building", Message.translation(w.nameKey())).param("hours", spec.hours()), null, NotificationStyle.Success);
+        LOGGER.atInfo().log("Nakasar Peuples : avant-poste %s fondé par le conseil de %s en %d %d %d (rotation %d)", w.getId(),
+                village.name(), x, y, z, rotation);
+    }
+
     /** Aplanit l'emprise de l'avant-poste (talus doux, arbres retirés en entier) sans toucher à la colonne de la fondation. */
     static void prepare(World world, Village village, Workshop w, AnnexState a) {
         int[] rect = worldRect(w, a);

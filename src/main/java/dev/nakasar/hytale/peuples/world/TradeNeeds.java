@@ -675,8 +675,8 @@ public final class TradeNeeds {
             if (r == null) {
                 Message why = supplier.isHamlet() ? TradeRoutes.blocked(world, buyer, supplier, day)
                         : TradeRoutes.blocked(world, supplier, buyer, day);
-                if (why == null && TradeRoutes.autoCount(world) >= TradeRoutes.AUTO_MAX) {
-                    why = Message.raw("auto"); // plafond des routes autonomes du monde : on attend qu'une se libère
+                if (why == null && TradeRoutes.autoFull(world, supplier, buyer)) {
+                    why = Message.raw("auto"); // plafond des routes autonomes : on attend qu'une se libère
                 }
                 if (why != null) {
                     if (day - p.since > WAIT_DAYS) {
