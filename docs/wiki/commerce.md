@@ -43,7 +43,7 @@ Toute ressource s'échange, pas seulement les luxes. Cliquez sur une case **Envo
 - les lots et livraisons de ses [avant-postes de métier](avant-postes-de-metier.md) ;
 - les spécialités de ses ateliers au niveau II et plus ;
 - le tribut des lieux-dits qu'il tient ;
-- le luxe de son terroir, dès le palier 2 ;
+- le luxe de son terroir, dès le palier 1 ;
 - tout ce qu'il importe déjà par une autre route (réexportation).
 
 Les Kweebecs n'échangent aucun métal.
@@ -67,7 +67,7 @@ Neuf ressources sont des **luxes** :
 | Cristaux pourpres | Slothians |
 | Or, soie, poisson rare, tartes | aucun peuple |
 
-Un luxe compte tant que le village y a accès ; celui de son terroir compte dès le palier 2. Il en faut **1** pour le chantier du palier 2, **3** pour celui du palier 3 et **4** pour qu'un colon vienne. Chaque luxe en plus donne **+5 % d'essor** (+25 % au plus). Un village ne perd jamais son palier faute de luxes.
+Un luxe compte tant que le village y a accès ; celui de son terroir compte pour lui dès le palier 2 (il l'exporte dès le palier 1, ce qui permet au premier village d'un monde de trouver son luxe). Il en faut **1** pour le chantier du palier 2, **3** pour celui du palier 3 et **4** pour qu'un colon vienne. Chaque luxe en plus donne **+5 % d'essor** (+25 % au plus). Un village ne perd jamais son palier faute de luxes.
 
 Deux luxes posés au dépôt prolongent l'accès de 3 jours quand il touche à sa fin. Les demandes **Luxe d'ailleurs** du tableau (à partir du palier 2) vous demandent un luxe qui manque au village : une fois remplie, le village y a accès 3 jours.
 
