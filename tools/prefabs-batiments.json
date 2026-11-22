@@ -1,0 +1,1889 @@
+{
+ "$Comment": "Prefabs propres à chaque bâtiment, écrits par tools/building_prefabs.py : id -> origine copiée et empreinte SHA-256 de la copie. Un fichier dont l'empreinte a changé a été retouché à la main : le script le garde tel quel.",
+ "Prefabs": {
+  "Nakasar/Peuples/Batiments/Feran/AP_Chasse/AP_Chasse_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+   "Sha": "8315d1ffc3b6093853eff7f1c053230c7e5d72d9b380b49c206cec6d64a36d6a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Chasse/AP_Chasse_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Chasse/AP_Chasse_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001",
+   "Sha": "291acfca53ad408d081a57c56acef00dc591e1ffb223a48911f2637bbe6009ca"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Ferme/AP_Ferme_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+   "Sha": "8315d1ffc3b6093853eff7f1c053230c7e5d72d9b380b49c206cec6d64a36d6a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Ferme/AP_Ferme_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Ferme/AP_Ferme_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_002",
+   "Sha": "f3715dfe37a71bdd64dfe739584340adc04324a9f3068d352dbdfbc16d75d52b"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Forteresse/AP_Forteresse_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Chieftain/Feran_Tier2_Chieftain_001",
+   "Sha": "be47d5918e254e5c06c413b370a17161b8abf78a6403be3dbfaf4151a8381807"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Forteresse/AP_Forteresse_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_004",
+   "Sha": "3aff43c29bad2acd3e3a81ab8cd0091438911028ae337e58e44a86e0552be334"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Forteresse/AP_Forteresse_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_003",
+   "Sha": "a60d8cc304290ad03a3bf614f90e4b3ef29e89e0d170b27fd7891e2b2d4a9b5c"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Fortin/AP_Fortin_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Walls/Feran_Tier3_Walls_001",
+   "Sha": "6c5dfbae99202b8c9345d2dc4658b88eeabd8d284a5872c207c65f58e5111948"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Fortin/AP_Fortin_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Mine/AP_Mine_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+   "Sha": "8315d1ffc3b6093853eff7f1c053230c7e5d72d9b380b49c206cec6d64a36d6a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Mine/AP_Mine_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Mine/AP_Mine_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_002",
+   "Sha": "4ad2535a3ae2e11682877abf26998ae4d177587b90286095c12e2b5f0b8669a3"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Mine/AP_Mine_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_003",
+   "Sha": "f50fbeda808bffe01a326ffe0f1ef97a81cd2a617236fa19bba1f492c3b3a634"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Mine/AP_Mine_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_004",
+   "Sha": "ebb078e9cc1ccc8cfc7fcb587dba0095e80d04a45042a0dc4c74bd5f9ee7d488"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Mine/AP_Mine_3_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
+   "Sha": "397573deec109500e9c06d361a8ff655fcdcbacecedaf6e69e41521c54a4ac73"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Pecherie/AP_Pecherie_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+   "Sha": "8315d1ffc3b6093853eff7f1c053230c7e5d72d9b380b49c206cec6d64a36d6a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Pecherie/AP_Pecherie_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Pecherie/AP_Pecherie_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_002",
+   "Sha": "f3715dfe37a71bdd64dfe739584340adc04324a9f3068d352dbdfbc16d75d52b"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Poste/AP_Poste_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_003",
+   "Sha": "05365f09958ed163d6060e75916f652df2f2278c97a19b6d8a517498dc9f93a0"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Poste/AP_Poste_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004",
+   "Sha": "ebfb2d0d9ee5345eefe8d0a590302ec0e47ca8f4821c5a87d1c090a3509d28a1"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Poste/AP_Poste_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Wall/Feran_Tier2_Wall_002",
+   "Sha": "f3715dfe37a71bdd64dfe739584340adc04324a9f3068d352dbdfbc16d75d52b"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Scierie/AP_Scierie_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+   "Sha": "8315d1ffc3b6093853eff7f1c053230c7e5d72d9b380b49c206cec6d64a36d6a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Scierie/AP_Scierie_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Scierie/AP_Scierie_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_001",
+   "Sha": "b5d0a5c493e3583acd5a0c388bf093e9e95a1fdcaad57282103d59430fe88895"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Scierie/AP_Scierie_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_002",
+   "Sha": "5229d47006c92892e5ea511c6a898c98827a3e634bdd7d0fb18281d4b2f512a5"
+  },
+  "Nakasar/Peuples/Batiments/Feran/AP_Tour/AP_Tour_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Bibliotheque/Bibliotheque_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
+   "Sha": "77a9c5bcb7befd575817c3c224e7911f54128f01ffea579a4425f59ebfa67a6d"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Caravanserail/Caravanserail_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_002",
+   "Sha": "07c202070c4abb803cd3748950be34b9695b0c62c07649d9cb7c520f4e25cec6"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Caravanserail/Caravanserail_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004",
+   "Sha": "ebfb2d0d9ee5345eefe8d0a590302ec0e47ca8f4821c5a87d1c090a3509d28a1"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Caravanserail/Caravanserail_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005",
+   "Sha": "e52e1cef03f0f03428563a283cdd7b280b32a14ecb096d68d9668a596f80d55a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Caserne/Caserne_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+   "Sha": "8315d1ffc3b6093853eff7f1c053230c7e5d72d9b380b49c206cec6d64a36d6a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Caserne/Caserne_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Caserne/Caserne_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+   "Sha": "65b8dcdf9f85fcda64403621052899c4b3bceb0262fa1da3b5b026bc29d5755e"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Caserne/Caserne_P4": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
+   "Sha": "de16076d9090c2c0cfffba4e412df185088741281ad82478e4f2071832089acd"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Citerne/Citerne_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Wall/Feran_Tier2_Wall_005",
+   "Sha": "13a330a2db363bc890371f6c0bd8cdb64836312aeae1a40040b67d3c5c285aed"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Conseil/Conseil_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_003",
+   "Sha": "05365f09958ed163d6060e75916f652df2f2278c97a19b6d8a517498dc9f93a0"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Conseil/Conseil_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004",
+   "Sha": "ebfb2d0d9ee5345eefe8d0a590302ec0e47ca8f4821c5a87d1c090a3509d28a1"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Conseil/Conseil_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005",
+   "Sha": "e52e1cef03f0f03428563a283cdd7b280b32a14ecb096d68d9668a596f80d55a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Deuxieme_Enclos/Deuxieme_Enclos_P1": {
+   "Source": "Nakasar/Peuples/Pens/Feran_Pen",
+   "Sha": "3cce1cc93ae9101fbd67656920265014e5828739bfc9527455c7a1b48b77ef08"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Deuxieme_Enclos/Deuxieme_Enclos_P2": {
+   "Source": "Nakasar/Peuples/Pens/Feran_Pen_T2",
+   "Sha": "b87aae21aedce447508a9b409375d2515ccebb91c713bafca9f07a6e1f577c2b"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Deuxieme_Enclos/Deuxieme_Enclos_P3": {
+   "Source": "Nakasar/Peuples/Pens/Feran_Pen_T3",
+   "Sha": "3b64650231577560ad0b348f598b41192a5ec7970638c76d7e9cdf8b7675b1f5"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Deuxieme_Enclos/Deuxieme_Enclos_P4": {
+   "Source": "Nakasar/Peuples/Pens/Feran_Pen_T4",
+   "Sha": "ac7ab4cf1fa3a11f4c80172d3074dfd8673384d063d86f794b596166189d9885"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Enclos_Oasis/Enclos_Oasis_P1": {
+   "Source": "Nakasar/Peuples/Pens/Feran_Pen",
+   "Sha": "3cce1cc93ae9101fbd67656920265014e5828739bfc9527455c7a1b48b77ef08"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Enclos_Oasis/Enclos_Oasis_P2": {
+   "Source": "Nakasar/Peuples/Pens/Feran_Pen_T2",
+   "Sha": "b87aae21aedce447508a9b409375d2515ccebb91c713bafca9f07a6e1f577c2b"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Enclos_Oasis/Enclos_Oasis_P3": {
+   "Source": "Nakasar/Peuples/Pens/Feran_Pen_T3",
+   "Sha": "3b64650231577560ad0b348f598b41192a5ec7970638c76d7e9cdf8b7675b1f5"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Enclos_Oasis/Enclos_Oasis_P4": {
+   "Source": "Nakasar/Peuples/Pens/Feran_Pen_T4",
+   "Sha": "ac7ab4cf1fa3a11f4c80172d3074dfd8673384d063d86f794b596166189d9885"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Entree_Oasis/Entree_Oasis_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Entrance/Feran_Tier2_Entrance_001",
+   "Sha": "14e85d7e1fe76b39c1842ef494894922825e3283a04c746798799b40cc04e975"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Grande_Hutte/Grande_Hutte_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
+   "Sha": "de16076d9090c2c0cfffba4e412df185088741281ad82478e4f2071832089acd"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Grande_Hutte/Grande_Hutte_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004",
+   "Sha": "ebfb2d0d9ee5345eefe8d0a590302ec0e47ca8f4821c5a87d1c090a3509d28a1"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Grande_Hutte/Grande_Hutte_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005",
+   "Sha": "e52e1cef03f0f03428563a283cdd7b280b32a14ecb096d68d9668a596f80d55a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Halle/Halle_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+   "Sha": "65b8dcdf9f85fcda64403621052899c4b3bceb0262fa1da3b5b026bc29d5755e"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Halle/Halle_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004",
+   "Sha": "ebfb2d0d9ee5345eefe8d0a590302ec0e47ca8f4821c5a87d1c090a3509d28a1"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Halle/Halle_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005",
+   "Sha": "e52e1cef03f0f03428563a283cdd7b280b32a14ecb096d68d9668a596f80d55a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Du_Chef/Hutte_Du_Chef_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
+   "Sha": "1e8d6fefeb706848246e918fada6ecae9ca139133257234e4c2c62cc3f42c49d"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Du_Windwalker/Hutte_Du_Windwalker_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Chieftain/Feran_Tier3_Chieftain_001",
+   "Sha": "77a9c5bcb7befd575817c3c224e7911f54128f01ffea579a4425f59ebfa67a6d"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Est/Hutte_Est_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+   "Sha": "8315d1ffc3b6093853eff7f1c053230c7e5d72d9b380b49c206cec6d64a36d6a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Est/Hutte_Est_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Est/Hutte_Est_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+   "Sha": "65b8dcdf9f85fcda64403621052899c4b3bceb0262fa1da3b5b026bc29d5755e"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Est/Hutte_Est_P4": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
+   "Sha": "de16076d9090c2c0cfffba4e412df185088741281ad82478e4f2071832089acd"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Nord_Ouest/Hutte_Nord_Ouest_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+   "Sha": "65b8dcdf9f85fcda64403621052899c4b3bceb0262fa1da3b5b026bc29d5755e"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Nord_Ouest/Hutte_Nord_Ouest_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004",
+   "Sha": "ebfb2d0d9ee5345eefe8d0a590302ec0e47ca8f4821c5a87d1c090a3509d28a1"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Nord_Ouest/Hutte_Nord_Ouest_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005",
+   "Sha": "e52e1cef03f0f03428563a283cdd7b280b32a14ecb096d68d9668a596f80d55a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Ouest/Hutte_Ouest_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+   "Sha": "8315d1ffc3b6093853eff7f1c053230c7e5d72d9b380b49c206cec6d64a36d6a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Ouest/Hutte_Ouest_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Ouest/Hutte_Ouest_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+   "Sha": "65b8dcdf9f85fcda64403621052899c4b3bceb0262fa1da3b5b026bc29d5755e"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Ouest/Hutte_Ouest_P4": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
+   "Sha": "de16076d9090c2c0cfffba4e412df185088741281ad82478e4f2071832089acd"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Pilier/Hutte_Pilier_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Sud/Hutte_Sud_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001",
+   "Sha": "8315d1ffc3b6093853eff7f1c053230c7e5d72d9b380b49c206cec6d64a36d6a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Sud/Hutte_Sud_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Sud/Hutte_Sud_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_002",
+   "Sha": "65b8dcdf9f85fcda64403621052899c4b3bceb0262fa1da3b5b026bc29d5755e"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Sud/Hutte_Sud_P4": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_001",
+   "Sha": "de16076d9090c2c0cfffba4e412df185088741281ad82478e4f2071832089acd"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Sud_Est/Hutte_Sud_Est_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_003",
+   "Sha": "05365f09958ed163d6060e75916f652df2f2278c97a19b6d8a517498dc9f93a0"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Sud_Est/Hutte_Sud_Est_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004",
+   "Sha": "ebfb2d0d9ee5345eefe8d0a590302ec0e47ca8f4821c5a87d1c090a3509d28a1"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Hutte_Sud_Est/Hutte_Sud_Est_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005",
+   "Sha": "e52e1cef03f0f03428563a283cdd7b280b32a14ecb096d68d9668a596f80d55a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Marche/Marche_P1": {
+   "Source": "Nakasar/Peuples/Markets/Feran_Marche",
+   "Sha": "b99ddf4b77aa7753bb95c99d960e949e4fdbeb18371a4a5c1d1b2ec2f2518614"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Marche/Marche_P2": {
+   "Source": "Nakasar/Peuples/Markets/Feran_Marche_T2",
+   "Sha": "23095ac9befc9c07f0611c3d1e69ceb36c2f777e94b065529bfc88e807fb9a34"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Marche/Marche_P3": {
+   "Source": "Nakasar/Peuples/Markets/Feran_Marche_T3",
+   "Sha": "6e55156e64d5d82dfae77288cb147a037d273365f66e812dcc7e80399922bbdf"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Marche/Marche_P4": {
+   "Source": "Nakasar/Peuples/Markets/Feran_Marche_T4",
+   "Sha": "be073b0875b99b2bd57957b40a03a9daa96430fb1a2e50439bf9c62ad967442d"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Muret_Du_Vent/Muret_Du_Vent_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier3/Walls/Feran_Tier3_Walls_001",
+   "Sha": "6c5dfbae99202b8c9345d2dc4658b88eeabd8d284a5872c207c65f58e5111948"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Temple/Temple_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Tier2/Chieftain/Feran_Tier2_Chieftain_001",
+   "Sha": "1e8d6fefeb706848246e918fada6ecae9ca139133257234e4c2c62cc3f42c49d"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Tissage/Tissage_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_001",
+   "Sha": "ba173131a2bb659dabf8baf14ba265f942cd55c9b796bc960f4b198f0b6d7092"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Tissage/Tissage_P2": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004",
+   "Sha": "ebfb2d0d9ee5345eefe8d0a590302ec0e47ca8f4821c5a87d1c090a3509d28a1"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Tissage/Tissage_P3": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005",
+   "Sha": "e52e1cef03f0f03428563a283cdd7b280b32a14ecb096d68d9668a596f80d55a"
+  },
+  "Nakasar/Peuples/Batiments/Feran/Volerie/Volerie_P1": {
+   "Source": "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001",
+   "Sha": "42d8cf391c0ebea70386842771fdbde148554a8038f1fb01232e6681c6f26dd7"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Bosquet/AP_Bosquet_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_003",
+   "Sha": "8be90193b0925482acaddae30bdbd15dc57d8835bf71ae0929022d419036322d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Bosquet/AP_Bosquet_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005",
+   "Sha": "13015cd9d206a8fcf0dba742f8b08ef1226a0c1ebcaf5196905258d34dfc4509"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Bosquet/AP_Bosquet_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_004",
+   "Sha": "4880d6c3625a7391b285504bb52e3efb4364b2cf84a25d19ca3b1a84e7bda76a"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Chasse/AP_Chasse_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Redwood/Small_Plot/House/Kweebec_Redwood_Small_Plot_House_001",
+   "Sha": "e0189e74d30a7eb3dbfd505a348272df81dc04b02d4cd9a74c87f4cc3476420a"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Chasse/AP_Chasse_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Seats/Small/Kweebec_Oak_Seats_Small_001",
+   "Sha": "8878605a89322abbaa10b52f1a500ac980d8cb77a4cae2daa5431f863f5acac9"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Chasse/AP_Chasse_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_008",
+   "Sha": "d941c8cfaf81bdeccaa185309f63b73b6cc273a1111727b0e1deaf647e4490e1"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Ferme/AP_Ferme_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Redwood/Normal_Plot/Farm/Kweebec_Redwood_Normal_Plot_Farm_001",
+   "Sha": "840fbc28b5c7fd523aff25299689460679eb1191666d49733495cd48c714fc6a"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Ferme/AP_Ferme_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Redwood/Small_Plot/House/Kweebec_Redwood_Small_Plot_House_001",
+   "Sha": "e0189e74d30a7eb3dbfd505a348272df81dc04b02d4cd9a74c87f4cc3476420a"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Ferme/AP_Ferme_P2_Revue": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Redwood/Normal_Plot/Farm/Kweebec_Redwood_Normal_Plot_Farm_002",
+   "Sha": "4be5e2eca0b221f87baf11f3df705876df3b3ad24ab57a4fe5237f29522984b0"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Forteresse/AP_Forteresse_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_001",
+   "Sha": "58a5a8c962ebbc01ce7a4ff6f4dae27ea48eb9e38428291fb0a27c85da1e8722"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Forteresse/AP_Forteresse_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_004",
+   "Sha": "7f315f83cb251607e3f2c7fe9244854fd3b4982df8cf5d612be57e61ab56a637"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Forteresse/AP_Forteresse_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
+   "Sha": "808f539780e21797d18e5373ca2992f1b09e9a1cab6860b2c2e1f8d0ce314a0d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Forteresse/AP_Forteresse_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_005",
+   "Sha": "800a2bebe2c30a39d6d6fb6caf476cd66e80fee9686d96e0f1834d080ec202aa"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Forteresse/AP_Forteresse_3_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004",
+   "Sha": "cd6d023914139e174d4062b011a80072c717b8f6a94f0fa5de0ffca84e88385d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Fortin/AP_Fortin_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Swamp/Guards/Kweebec_Swamp_Guards_002",
+   "Sha": "ee1d780a2a8e28b2d4f11a8c1e0aad9b52fe63404c8fd12410503ab219ce8625"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Fortin/AP_Fortin_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_003",
+   "Sha": "fd0d0d0aea91342d26a8d2d287baf357affdbadc5ff4d90394c1880d7cd25d33"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Fortin/AP_Fortin_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_001",
+   "Sha": "80ec9f3691de0d4e11b8d2541b960e2de2fc77ee5290e4751143e438401401b1"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Fortin/AP_Fortin_2_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_005",
+   "Sha": "800a2bebe2c30a39d6d6fb6caf476cd66e80fee9686d96e0f1834d080ec202aa"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Fortin/AP_Fortin_2_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004",
+   "Sha": "cd6d023914139e174d4062b011a80072c717b8f6a94f0fa5de0ffca84e88385d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Pecherie/AP_Pecherie_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Redwood/Small_Plot/House/Kweebec_Redwood_Small_Plot_House_002",
+   "Sha": "901a3902ea47b7712763e251da673875d016254dc0b9cd551d5109ec65535904"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Pecherie/AP_Pecherie_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Seats/Small/Kweebec_Oak_Seats_Small_002",
+   "Sha": "766d26e02f186323ea551e6aa41fba1bb2050ab56e9efda5e8e6f66bcc0be4e0"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Poste/AP_Poste_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_001",
+   "Sha": "80ec9f3691de0d4e11b8d2541b960e2de2fc77ee5290e4751143e438401401b1"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Poste/AP_Poste_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_005",
+   "Sha": "800a2bebe2c30a39d6d6fb6caf476cd66e80fee9686d96e0f1834d080ec202aa"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Poste/AP_Poste_1_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004",
+   "Sha": "cd6d023914139e174d4062b011a80072c717b8f6a94f0fa5de0ffca84e88385d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Poste/AP_Poste_1_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
+   "Sha": "808f539780e21797d18e5373ca2992f1b09e9a1cab6860b2c2e1f8d0ce314a0d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Poste/AP_Poste_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_004",
+   "Sha": "4880d6c3625a7391b285504bb52e3efb4364b2cf84a25d19ca3b1a84e7bda76a"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Scierie/AP_Scierie_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Redwood/Normal_Plot/House/Kweebec_Redwood_Normal_Plot_House_001",
+   "Sha": "90fb5f1e2d3162281dacbfe6027d60c3413a12c1dfbca54a5cd75bf6f6eef6db"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Scierie/AP_Scierie_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Redwood/Normal_Plot/House/Kweebec_Redwood_Normal_Plot_House_002",
+   "Sha": "0f6186452c2be75038fa67c6aee36add9eaf3300752fa2466207a150c4dc2f9c"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Scierie/AP_Scierie_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001",
+   "Sha": "08428d18aa1d1c8eb580f4bb88d490cd5e6cd832f13ca0b7229d593127fe6fec"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Scierie/AP_Scierie_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_002",
+   "Sha": "d8e979242b931c5bc486d8dc0773b59d9caabe238e7004c528251c43e4d48cca"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Tour/AP_Tour_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004",
+   "Sha": "cd6d023914139e174d4062b011a80072c717b8f6a94f0fa5de0ffca84e88385d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Tour/AP_Tour_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
+   "Sha": "808f539780e21797d18e5373ca2992f1b09e9a1cab6860b2c2e1f8d0ce314a0d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/AP_Tour/AP_Tour_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Lampposts/Kweebec_Oak_Lampposts_005",
+   "Sha": "971ea5aee620c40d490183bb4fa6e3539cca4a3b9fda64d6890e62ba98b1bd0c"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Abri_Est/Abri_Est_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+   "Sha": "578c8d9753e24a29883655b19e0f1f6879c401fc852b96eca1d0cffa21211111"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Abri_Est/Abri_Est_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002",
+   "Sha": "fc4b0157bcf0b75d153924887960437d145fe97ac85e1952e99c622e6b0185e3"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Abri_Est/Abri_Est_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001",
+   "Sha": "27c61f2a68d981714cd986c9728c82a53dcf6583e689077c4a2f55dcfc32203c"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Abri_Est/Abri_Est_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002",
+   "Sha": "d1d7fb694ad6d89564ad09f5113b23e6f9198d810b62b9dbd9a9037b7cde48ca"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Abri_Ouest/Abri_Ouest_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+   "Sha": "578c8d9753e24a29883655b19e0f1f6879c401fc852b96eca1d0cffa21211111"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Abri_Ouest/Abri_Ouest_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002",
+   "Sha": "fc4b0157bcf0b75d153924887960437d145fe97ac85e1952e99c622e6b0185e3"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Abri_Ouest/Abri_Ouest_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001",
+   "Sha": "27c61f2a68d981714cd986c9728c82a53dcf6583e689077c4a2f55dcfc32203c"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Abri_Ouest/Abri_Ouest_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002",
+   "Sha": "d1d7fb694ad6d89564ad09f5113b23e6f9198d810b62b9dbd9a9037b7cde48ca"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Archerie/Archerie_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001",
+   "Sha": "ed5ea0e6d59e145cfcc45917ba7ddebe9f076ed3f1b76c9b491db319a2148851"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Archerie/Archerie_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004",
+   "Sha": "b3872013d07777674e7513eeec3ab9aeac1a7a7716a67a3f65b40884ff2aba3b"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Archerie/Archerie_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005",
+   "Sha": "93e05205ea0d1bde5d92dc6cf0eb555ed5e1ebb06c7b3dd4c2e82a572cda6fd6"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Bibliotheque/Bibliotheque_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_006",
+   "Sha": "1b6788aa6725f63c6bc95a1b2f028809ef70fab31b00d05b9d1d5181733856ee"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Bibliotheque/Bibliotheque_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001",
+   "Sha": "ed5ea0e6d59e145cfcc45917ba7ddebe9f076ed3f1b76c9b491db319a2148851"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Bibliotheque/Bibliotheque_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003",
+   "Sha": "c11dc1712ae588469f48454ee5f3e6cd9f158c9c90a1f79e74cadad135df0f26"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Bibliotheque/Bibliotheque_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007",
+   "Sha": "e80b7c44a9ee4becdb2d7c8a75e69889fd7af83aa48d9aa94efdf4dbdcfd088f"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Caserne/Caserne_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004",
+   "Sha": "cd6d023914139e174d4062b011a80072c717b8f6a94f0fa5de0ffca84e88385d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Caserne/Caserne_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
+   "Sha": "808f539780e21797d18e5373ca2992f1b09e9a1cab6860b2c2e1f8d0ce314a0d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Conseil/Conseil_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+   "Sha": "578c8d9753e24a29883655b19e0f1f6879c401fc852b96eca1d0cffa21211111"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Conseil/Conseil_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002",
+   "Sha": "fc4b0157bcf0b75d153924887960437d145fe97ac85e1952e99c622e6b0185e3"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Conseil/Conseil_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001",
+   "Sha": "27c61f2a68d981714cd986c9728c82a53dcf6583e689077c4a2f55dcfc32203c"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Conseil/Conseil_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002",
+   "Sha": "d1d7fb694ad6d89564ad09f5113b23e6f9198d810b62b9dbd9a9037b7cde48ca"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Deuxieme_Enclos/Deuxieme_Enclos_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_005",
+   "Sha": "c391ec700b189b06ab97ca8ee695e215effe7331424eaf95de0d76cd1636cf3f"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Deuxieme_Enclos/Deuxieme_Enclos_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_002",
+   "Sha": "e6772595d97d441b81c722fc09e7d269d1ed19354bcf3b81ddc73d7fa61cdc96"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Deuxieme_Enclos/Deuxieme_Enclos_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_004",
+   "Sha": "f682c7e42efa0952ed21a31bc0df7a7b1ad52a3cbcc092bb649b163104715fb8"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Deuxieme_Enclos/Deuxieme_Enclos_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_001",
+   "Sha": "1b8a906c9aa1277190a809c5da64833fcdaae0f87e1f81239850b2c4918e7570"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Echoppe/Echoppe_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_002",
+   "Sha": "928e66759feaa9a904d8e6bb29c4212c77753d0c7ad0dc7c7d875422143bb9a5"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Echoppe/Echoppe_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001",
+   "Sha": "ed5ea0e6d59e145cfcc45917ba7ddebe9f076ed3f1b76c9b491db319a2148851"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Echoppe/Echoppe_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003",
+   "Sha": "c11dc1712ae588469f48454ee5f3e6cd9f158c9c90a1f79e74cadad135df0f26"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Echoppe/Echoppe_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007",
+   "Sha": "e80b7c44a9ee4becdb2d7c8a75e69889fd7af83aa48d9aa94efdf4dbdcfd088f"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Echoppe_Ouest/Echoppe_Ouest_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005",
+   "Sha": "93e05205ea0d1bde5d92dc6cf0eb555ed5e1ebb06c7b3dd4c2e82a572cda6fd6"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Enclos/Enclos_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_003",
+   "Sha": "819e991a03b26b58964a0ba58e23337966eae60ff489ce031700ea6344393525"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Enclos/Enclos_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_005",
+   "Sha": "c391ec700b189b06ab97ca8ee695e215effe7331424eaf95de0d76cd1636cf3f"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Enclos/Enclos_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_002",
+   "Sha": "e6772595d97d441b81c722fc09e7d269d1ed19354bcf3b81ddc73d7fa61cdc96"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Enclos/Enclos_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Bunny_Area/Kweebec_Oak_Bunny_Area_004",
+   "Sha": "f682c7e42efa0952ed21a31bc0df7a7b1ad52a3cbcc092bb649b163104715fb8"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Grand_Bassin/Grand_Bassin_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Water_Pool/Kweebec_Oak_Water_Pool_005",
+   "Sha": "13015cd9d206a8fcf0dba742f8b08ef1226a0c1ebcaf5196905258d34dfc4509"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Grand_Pere/Grand_Pere_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Grandfather/Kweebec_Oak_Grandfather_001",
+   "Sha": "b44b2d4584fc4076f85db1c61592230bb5e3d602744b63a6ca13412ad1247897"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Grand_Potager/Grand_Potager_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_001",
+   "Sha": "b4e00fe3c706cfcbf672cdf1ebfb2b3bad9f891bf2508bf5fe49a1f1e9103a8a"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Grand_Potager/Grand_Potager_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_003",
+   "Sha": "8be90193b0925482acaddae30bdbd15dc57d8835bf71ae0929022d419036322d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Grande_Maison/Grande_Maison_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001",
+   "Sha": "27c61f2a68d981714cd986c9728c82a53dcf6583e689077c4a2f55dcfc32203c"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Grande_Maison/Grande_Maison_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002",
+   "Sha": "d1d7fb694ad6d89564ad09f5113b23e6f9198d810b62b9dbd9a9037b7cde48ca"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Halle/Halle_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_008",
+   "Sha": "11e43f08f7cda6a66b6c10d7c138c0f5af6600a37ce8332172fe9f4247495bab"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Halle/Halle_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_001",
+   "Sha": "ed5ea0e6d59e145cfcc45917ba7ddebe9f076ed3f1b76c9b491db319a2148851"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Halle/Halle_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003",
+   "Sha": "c11dc1712ae588469f48454ee5f3e6cd9f158c9c90a1f79e74cadad135df0f26"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Halle/Halle_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007",
+   "Sha": "e80b7c44a9ee4becdb2d7c8a75e69889fd7af83aa48d9aa94efdf4dbdcfd088f"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Herboristerie/Herboristerie_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_003",
+   "Sha": "c11dc1712ae588469f48454ee5f3e6cd9f158c9c90a1f79e74cadad135df0f26"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Herboristerie/Herboristerie_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004",
+   "Sha": "b3872013d07777674e7513eeec3ab9aeac1a7a7716a67a3f65b40884ff2aba3b"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Herboristerie/Herboristerie_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005",
+   "Sha": "93e05205ea0d1bde5d92dc6cf0eb555ed5e1ebb06c7b3dd4c2e82a572cda6fd6"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Maison_Des_Gardes/Maison_Des_Gardes_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_001",
+   "Sha": "58a5a8c962ebbc01ce7a4ff6f4dae27ea48eb9e38428291fb0a27c85da1e8722"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Maison_Des_Gardes/Maison_Des_Gardes_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_004",
+   "Sha": "7f315f83cb251607e3f2c7fe9244854fd3b4982df8cf5d612be57e61ab56a637"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Maison_Des_Gardes/Maison_Des_Gardes_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_002",
+   "Sha": "191673d06722997130756db91f888e96795fe2fe240592628012212a0ffbbe4f"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Maison_Des_Gardes/Maison_Des_Gardes_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_003",
+   "Sha": "0ea930479488cf8dfb307bdf7cb2433a44cfb8010fbf6410eea2a8e05fc407f8"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Maison_Sud_Ouest/Maison_Sud_Ouest_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002",
+   "Sha": "fc4b0157bcf0b75d153924887960437d145fe97ac85e1952e99c622e6b0185e3"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Maison_Sud_Ouest/Maison_Sud_Ouest_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001",
+   "Sha": "27c61f2a68d981714cd986c9728c82a53dcf6583e689077c4a2f55dcfc32203c"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Maison_Sud_Ouest/Maison_Sud_Ouest_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002",
+   "Sha": "d1d7fb694ad6d89564ad09f5113b23e6f9198d810b62b9dbd9a9037b7cde48ca"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Marche/Marche_P1": {
+   "Source": "Nakasar/Peuples/Markets/Kweebec_Marche",
+   "Sha": "3ea9fa5f9c6a11bec873ef7dc4c44b396ddf783a34af905edee0d46a287e1154"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Marche/Marche_P2": {
+   "Source": "Nakasar/Peuples/Markets/Kweebec_Marche_T2",
+   "Sha": "fca7f8824779c268690f44f955795dc48741a4b8a0e23977c5e53cb2eca90a53"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Marche/Marche_P3": {
+   "Source": "Nakasar/Peuples/Markets/Kweebec_Marche_T3",
+   "Sha": "4620bc57fdb92836da0c4386a4a4c9e3906a849155b309c9afe167a40ea1e96b"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Marche/Marche_P4": {
+   "Source": "Nakasar/Peuples/Markets/Kweebec_Marche_T4",
+   "Sha": "3d8a5658f6773e750bc1cc7174c90793039ad78212d1c1b1b7d01d5912e210a9"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Menuiserie/Menuiserie_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004",
+   "Sha": "b3872013d07777674e7513eeec3ab9aeac1a7a7716a67a3f65b40884ff2aba3b"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Potager/Potager_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Medium/Kweebec_Oak_Garden_Medium_001",
+   "Sha": "8b56f9cc3d2b3c25091d429e0571a9b4b4d2d9fbec579fc7de05ee3ecc05df10"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Potager/Potager_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_001",
+   "Sha": "b4e00fe3c706cfcbf672cdf1ebfb2b3bad9f891bf2508bf5fe49a1f1e9103a8a"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Potager/Potager_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_003",
+   "Sha": "8be90193b0925482acaddae30bdbd15dc57d8835bf71ae0929022d419036322d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Puits/Puits_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Well/Kweebec_Oak_Well_001",
+   "Sha": "3a9a00f2aa5e399df7ef2b8c36f41852bb5745931a908347333b1d8f7205645c"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Temple/Temple_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_007",
+   "Sha": "e80b7c44a9ee4becdb2d7c8a75e69889fd7af83aa48d9aa94efdf4dbdcfd088f"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Temple/Temple_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_004",
+   "Sha": "b3872013d07777674e7513eeec3ab9aeac1a7a7716a67a3f65b40884ff2aba3b"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Temple/Temple_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Shops/Kweebec_Oak_Shops_005",
+   "Sha": "93e05205ea0d1bde5d92dc6cf0eb555ed5e1ebb06c7b3dd4c2e82a572cda6fd6"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Tour_De_Guet/Tour_De_Guet_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_001",
+   "Sha": "80ec9f3691de0d4e11b8d2541b960e2de2fc77ee5290e4751143e438401401b1"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Tour_De_Guet/Tour_De_Guet_P2": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_005",
+   "Sha": "800a2bebe2c30a39d6d6fb6caf476cd66e80fee9686d96e0f1834d080ec202aa"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Tour_De_Guet/Tour_De_Guet_P3": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_004",
+   "Sha": "cd6d023914139e174d4062b011a80072c717b8f6a94f0fa5de0ffca84e88385d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Tour_De_Guet/Tour_De_Guet_P4": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
+   "Sha": "808f539780e21797d18e5373ca2992f1b09e9a1cab6860b2c2e1f8d0ce314a0d"
+  },
+  "Nakasar/Peuples/Batiments/Kweebec/Tour_Est/Tour_Est_P1": {
+   "Source": "Nakasar/Peuples/Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002",
+   "Sha": "808f539780e21797d18e5373ca2992f1b09e9a1cab6860b2c2e1f8d0ce314a0d"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Chasse/AP_Chasse_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_006",
+   "Sha": "ce6c0c310911d672d971df8d6298691e4b991ad74125c1ae4fc0f00969a95402"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Chasse/AP_Chasse_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001",
+   "Sha": "291acfca53ad408d081a57c56acef00dc591e1ffb223a48911f2637bbe6009ca"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Ferme/AP_Ferme_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_004",
+   "Sha": "85bbbb6d2894b6647b23aa04c35e7bbf7df4206fc0ba6faf6d2993cdd907f26f"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Ferme/AP_Ferme_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001",
+   "Sha": "291acfca53ad408d081a57c56acef00dc591e1ffb223a48911f2637bbe6009ca"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Forteresse/AP_Forteresse_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Forts/Tier2/Outlander_Forts_Tier2_001",
+   "Sha": "873c9d384826a4c47a0acf13f878b294bf9d4fd43e146fa11593b77761d803c2"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Forteresse/AP_Forteresse_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_001",
+   "Sha": "ed940a1e6ccf835731e4aeb827b513329f643664ec753e5f41a8025a9cd05180"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Forteresse/AP_Forteresse_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001",
+   "Sha": "8f66da10e88d2dcd808bcf64bf9bed83ca6b452a04ad6acc355423e156af4867"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Fortin/AP_Fortin_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Forts/Tier1/Outlander_Forts_Tier1_006",
+   "Sha": "9e22d5fb69a2b0c88337eac0822827e155153ce4491056007912b3c094ec1005"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Fortin/AP_Fortin_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Forts/Tier1/Outlander_Forts_Tier1_001",
+   "Sha": "da3f5fca9db2a97adaabdaa6ee1824ff17cf534666ec32b5c642180444c001ab"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Fortin/AP_Fortin_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier1/Outlander_Towers_Tier1_001",
+   "Sha": "17769a02aeed2124ed882ad2223b153800d2ffa10b60fce29b4ca97a5abc7de8"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Fortin/AP_Fortin_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_001",
+   "Sha": "ed940a1e6ccf835731e4aeb827b513329f643664ec753e5f41a8025a9cd05180"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Fortin/AP_Fortin_P3_Revue": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001",
+   "Sha": "8f66da10e88d2dcd808bcf64bf9bed83ca6b452a04ad6acc355423e156af4867"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Mine/AP_Mine_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_002",
+   "Sha": "5b5bb1e10a17cfdc2cc648488c1b66f77b655d834547a091f55d2655fe93ee21"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Mine/AP_Mine_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_002",
+   "Sha": "4ad2535a3ae2e11682877abf26998ae4d177587b90286095c12e2b5f0b8669a3"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Mine/AP_Mine_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_003",
+   "Sha": "f50fbeda808bffe01a326ffe0f1ef97a81cd2a617236fa19bba1f492c3b3a634"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Mine/AP_Mine_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_004",
+   "Sha": "ebb078e9cc1ccc8cfc7fcb587dba0095e80d04a45042a0dc4c74bd5f9ee7d488"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Mine/AP_Mine_3_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
+   "Sha": "397573deec109500e9c06d361a8ff655fcdcbacecedaf6e69e41521c54a4ac73"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Pecherie/AP_Pecherie_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_004",
+   "Sha": "de5a44843267127681aeac55df6ad2aa8ba2c9c3d04b4b6487c61d7393a88348"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Pecherie/AP_Pecherie_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Boats/Small/Outlander_Boats_Small_001",
+   "Sha": "28d39ecccca083e261554a6782211a610fbbac7bb49b6aa20ef4f2c0b9c21bc5"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Poste/AP_Poste_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Gates/Tier1/Outlander_Gates_Tier1_001",
+   "Sha": "1bd2fd277fa6c2bd476db41b97a4ff12e8e7613070935854153bd43dfd07b010"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Poste/AP_Poste_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001",
+   "Sha": "291acfca53ad408d081a57c56acef00dc591e1ffb223a48911f2637bbe6009ca"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Scierie/AP_Scierie_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_007",
+   "Sha": "23d972ab3a73e72e1f9ac74111f241760e61976154f11042e6682e90dffdacb3"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Scierie/AP_Scierie_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_003",
+   "Sha": "cff473057750319d4c28163a2aa11c432ae0d1c5a1e2bccb8f09dfb24559439e"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Scierie/AP_Scierie_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001",
+   "Sha": "08428d18aa1d1c8eb580f4bb88d490cd5e6cd832f13ca0b7229d593127fe6fec"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Scierie/AP_Scierie_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_004",
+   "Sha": "10d5bd3ea0b44f74fd82235ae167695d992f75e6542e813bf08de0b0f5b4fa70"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Scierie/AP_Scierie_3_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_002",
+   "Sha": "d8e979242b931c5bc486d8dc0773b59d9caabe238e7004c528251c43e4d48cca"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Tour/AP_Tour_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_002",
+   "Sha": "f7dc73a6cd69ffc8befbe341867764ac9eb54473f7d212b5c0f728a554a70e44"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/AP_Tour/AP_Tour_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_002",
+   "Sha": "817a8978343eea6cf0cb94c1004b7ec7fbb4692b44600e8e7536a6c1e48a1627"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Abri_Des_Fuyards/Abri_Des_Fuyards_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_001",
+   "Sha": "e02015d30212f4f7d888db4640233d033a8f21145a12b5b220d3647221e07352"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Abri_Des_Fuyards/Abri_Des_Fuyards_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_001",
+   "Sha": "f9636373df4e98e6f85fb02282ab319f531b9ff8a04888be6c1f0779c2b2689d"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Abri_Des_Fuyards/Abri_Des_Fuyards_P3": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
+   "Sha": "5a7fdc3fa0cbebb974d7367edebd1e62fac2b54f615e375105d9c91b4c14382f"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Abri_Des_Fuyards/Abri_Des_Fuyards_P4": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001",
+   "Sha": "1f5fb4d4df51e916ee7088ab6840a22e03581d72e40c34794876c980e3f0b1f7"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Abri_Du_Guet/Abri_Du_Guet_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_003",
+   "Sha": "cf5f3af6d397057c202325ab91f7ac3fdaddf6480469f6b69c3704aa0e974d48"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Abri_Du_Guet/Abri_Du_Guet_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+   "Sha": "51f6c0ed0773aca18e96b2a41db7e9d38c17c7b94060fb715f4d06216fd7ea42"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Abri_Du_Guet/Abri_Du_Guet_P3": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+   "Sha": "6046c1416930cb5522bc8cb64d85af00e69b3fda64d7cffbda42e94a9b19700b"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Abri_Du_Guet/Abri_Du_Guet_P4": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003",
+   "Sha": "b694ed1e78bbce55733c09d603854fe069af6602da8fd7dcd6ff7018993216ce"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Bergerie_Du_Givre/Bergerie_Du_Givre_P1": {
+   "Source": "Nakasar/Peuples/Pens/Renonce_Pen",
+   "Sha": "3a057ae89abffcea0bfb962a9ab73c82c39789652fc40357f84e3f09b9c2c458"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Bergerie_Du_Givre/Bergerie_Du_Givre_P2": {
+   "Source": "Nakasar/Peuples/Pens/Renonce_Pen_T2",
+   "Sha": "2b91e174561c420ead0ac8f06d5ae91338776dc5266f437866defc7e45539163"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Bergerie_Du_Givre/Bergerie_Du_Givre_P3": {
+   "Source": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
+   "Sha": "ac5e4561499c0c242327f00ca5414e8801220b1167650ca57ce30843eba382a3"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Bergerie_Du_Givre/Bergerie_Du_Givre_P4": {
+   "Source": "Nakasar/Peuples/Pens/Renonce_Pen_T4",
+   "Sha": "fac9d990f890b28d84cccace7f1c9ba98fe45a48c5d8651cffda71d641f25fea"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Bibliotheque/Bibliotheque_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_003",
+   "Sha": "51f6c0ed0773aca18e96b2a41db7e9d38c17c7b94060fb715f4d06216fd7ea42"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Bibliotheque/Bibliotheque_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+   "Sha": "6046c1416930cb5522bc8cb64d85af00e69b3fda64d7cffbda42e94a9b19700b"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Bibliotheque/Bibliotheque_P3": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003",
+   "Sha": "b694ed1e78bbce55733c09d603854fe069af6602da8fd7dcd6ff7018993216ce"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Cabane_De_Peche/Cabane_De_Peche_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_003",
+   "Sha": "ad86b5f6d92618a922aa2fc92b448393e56b6173bdb9642957e9469e162f9950"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Cabane_De_Peche/Cabane_De_Peche_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_002",
+   "Sha": "9eb33447d7f2850637a5342376d0296c45bd99cc168bd3460412260eb08cb2c3"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Cabane_De_Peche/Cabane_De_Peche_P3": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_001",
+   "Sha": "73e117f81815c4a6d91c96792ceaee38e02e20f065495a67f73a98a5a87d8375"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Cabane_De_Peche/Cabane_De_Peche_P4": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
+   "Sha": "c811dae541d7714ed95295a2fb4c3cfedce8648ad361e82171a77dc72ca6b32b"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Caserne/Caserne_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
+   "Sha": "c811dae541d7714ed95295a2fb4c3cfedce8648ad361e82171a77dc72ca6b32b"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Caserne/Caserne_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
+   "Sha": "66b5c8ec2da040fca077bb7d335240f5a4b893f981d6ec93bcd1a509c693a84d"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Chenil/Chenil_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_002",
+   "Sha": "9eb33447d7f2850637a5342376d0296c45bd99cc168bd3460412260eb08cb2c3"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Chenil/Chenil_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_001",
+   "Sha": "73e117f81815c4a6d91c96792ceaee38e02e20f065495a67f73a98a5a87d8375"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Chenil/Chenil_P3": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
+   "Sha": "c811dae541d7714ed95295a2fb4c3cfedce8648ad361e82171a77dc72ca6b32b"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Chenil/Chenil_P4": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_005",
+   "Sha": "f4e947d80b7b4e43a23b544532c63b22da750e652e07b7d4b314096aefbda8ef"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Conseil/Conseil_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+   "Sha": "6046c1416930cb5522bc8cb64d85af00e69b3fda64d7cffbda42e94a9b19700b"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Conseil/Conseil_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003",
+   "Sha": "b694ed1e78bbce55733c09d603854fe069af6602da8fd7dcd6ff7018993216ce"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Deuxieme_Bergerie/Deuxieme_Bergerie_P1": {
+   "Source": "Nakasar/Peuples/Pens/Renonce_Pen",
+   "Sha": "3a057ae89abffcea0bfb962a9ab73c82c39789652fc40357f84e3f09b9c2c458"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Deuxieme_Bergerie/Deuxieme_Bergerie_P2": {
+   "Source": "Nakasar/Peuples/Pens/Renonce_Pen_T2",
+   "Sha": "2b91e174561c420ead0ac8f06d5ae91338776dc5266f437866defc7e45539163"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Deuxieme_Bergerie/Deuxieme_Bergerie_P3": {
+   "Source": "Nakasar/Peuples/Pens/Renonce_Pen_T3",
+   "Sha": "ac5e4561499c0c242327f00ca5414e8801220b1167650ca57ce30843eba382a3"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Deuxieme_Bergerie/Deuxieme_Bergerie_P4": {
+   "Source": "Nakasar/Peuples/Pens/Renonce_Pen_T4",
+   "Sha": "fac9d990f890b28d84cccace7f1c9ba98fe45a48c5d8651cffda71d641f25fea"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Forge/Forge_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_001",
+   "Sha": "5a7fdc3fa0cbebb974d7367edebd1e62fac2b54f615e375105d9c91b4c14382f"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Forge/Forge_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_001",
+   "Sha": "1f5fb4d4df51e916ee7088ab6840a22e03581d72e40c34794876c980e3f0b1f7"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Fumoir/Fumoir_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_001",
+   "Sha": "73e117f81815c4a6d91c96792ceaee38e02e20f065495a67f73a98a5a87d8375"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Fumoir/Fumoir_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_004",
+   "Sha": "c811dae541d7714ed95295a2fb4c3cfedce8648ad361e82171a77dc72ca6b32b"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Fumoir/Fumoir_P3": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_005",
+   "Sha": "f4e947d80b7b4e43a23b544532c63b22da750e652e07b7d4b314096aefbda8ef"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Fumoir/Fumoir_P4": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
+   "Sha": "66b5c8ec2da040fca077bb7d335240f5a4b893f981d6ec93bcd1a509c693a84d"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Grand_Bateau/Grand_Bateau_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Boats/Large/Outlander_Boats_Large_001",
+   "Sha": "969596ba7a4f2ba06c909a2dc3c848edbceeacb5efa93d93b9b5a15704d1f606"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Grande_Maison_Givre/Grande_Maison_Givre_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_003",
+   "Sha": "6046c1416930cb5522bc8cb64d85af00e69b3fda64d7cffbda42e94a9b19700b"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Grande_Maison_Givre/Grande_Maison_Givre_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_003",
+   "Sha": "b694ed1e78bbce55733c09d603854fe069af6602da8fd7dcd6ff7018993216ce"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Halle/Halle_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_005",
+   "Sha": "f4e947d80b7b4e43a23b544532c63b22da750e652e07b7d4b314096aefbda8ef"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Halle/Halle_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
+   "Sha": "66b5c8ec2da040fca077bb7d335240f5a4b893f981d6ec93bcd1a509c693a84d"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Maison_Des_Repentis/Maison_Des_Repentis_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_002",
+   "Sha": "6a40b526bf099282abae580b8a91f74fc1d4bcce974763e15cda2e4f6118b1b5"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Maison_Des_Repentis/Maison_Des_Repentis_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier2/Outlander_Houses_Tier2_002",
+   "Sha": "b988d9bd78452ce4721fe3ac5861e9664ccb70f061926d7142c3d54740fbad12"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Maison_Des_Repentis/Maison_Des_Repentis_P3": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_002",
+   "Sha": "66d40bc9e51be99684c029d74294ab1ed666d41c81aa74d462a83d79c16737bd"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Maison_Du_Chasseur/Maison_Du_Chasseur_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_005",
+   "Sha": "d29a091a7957806c9eb697a85086275073a840ddb03e979e8e72a3e527db1fb3"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Maison_Du_Chasseur/Maison_Du_Chasseur_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_005",
+   "Sha": "029a4d5192e2104b72fa53c49c1eee5bc594c8f296dfa23697e25e7a1aafd151"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Maison_Du_Sorcier/Maison_Du_Sorcier_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Houses/Tier3/Outlander_Houses_Tier3_002",
+   "Sha": "66d40bc9e51be99684c029d74294ab1ed666d41c81aa74d462a83d79c16737bd"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Marche/Marche_P1": {
+   "Source": "Nakasar/Peuples/Markets/Renonce_Marche",
+   "Sha": "484fea527568f9942b38627cd5e29af3febf2d8ec972c56923e95028973bdaa7"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Marche/Marche_P2": {
+   "Source": "Nakasar/Peuples/Markets/Renonce_Marche_T2",
+   "Sha": "b7dbd30be9d4580f3dfbf76fec1af23687b5cfc9c204371f4959c1fed11703ae"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Marche/Marche_P3": {
+   "Source": "Nakasar/Peuples/Markets/Renonce_Marche_T3",
+   "Sha": "72be395aa33fd04491343cc93fd6c0a19208492d6d0eb4a7b472fd4255b3f823"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Marche/Marche_P4": {
+   "Source": "Nakasar/Peuples/Markets/Renonce_Marche_T4",
+   "Sha": "2c233d36e0a701c25215ae2d1a98030137d1f1f2349d2b818827239ad4a903cf"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Petit_Bateau/Petit_Bateau_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Boats/Small/Outlander_Boats_Small_001",
+   "Sha": "28d39ecccca083e261554a6782211a610fbbac7bb49b6aa20ef4f2c0b9c21bc5"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Temple/Temple_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Misc/Outlander_Misc_006",
+   "Sha": "66b5c8ec2da040fca077bb7d335240f5a4b893f981d6ec93bcd1a509c693a84d"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Totem_Brise/Totem_Brise_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Totems/Outlander_Totems_001",
+   "Sha": "57bddaac33fde4fe0962dffda4620e690077af54a09eb303572517abcbea17b0"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Totem_Brise/Totem_Brise_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Totems/Outlander_Totems_002",
+   "Sha": "d3c1b226551b47ff61212d4e7ae5dc1da418ca86f6de340a39cf55578d351612"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Tour_De_Guet_Givre/Tour_De_Guet_Givre_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier1/Outlander_Towers_Tier1_001",
+   "Sha": "17769a02aeed2124ed882ad2223b153800d2ffa10b60fce29b4ca97a5abc7de8"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Tour_De_Guet_Givre/Tour_De_Guet_Givre_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_001",
+   "Sha": "ed940a1e6ccf835731e4aeb827b513329f643664ec753e5f41a8025a9cd05180"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Tour_De_Guet_Givre/Tour_De_Guet_Givre_P3": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001",
+   "Sha": "8f66da10e88d2dcd808bcf64bf9bed83ca6b452a04ad6acc355423e156af4867"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Tour_Du_Fort/Tour_Du_Fort_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier2/Outlander_Towers_Tier2_001",
+   "Sha": "ed940a1e6ccf835731e4aeb827b513329f643664ec753e5f41a8025a9cd05180"
+  },
+  "Nakasar/Peuples/Batiments/Renonce/Tour_Du_Fort/Tour_Du_Fort_P2": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Towers/Tier3/Outlander_Towers_Tier3_001",
+   "Sha": "8f66da10e88d2dcd808bcf64bf9bed83ca6b452a04ad6acc355423e156af4867"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Chasse/AP_Chasse_P1": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001",
+   "Sha": "ff146d107c880876fe7db82a795808367feba3a2fc0ceaa39f79d74f618693f7"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Chasse/AP_Chasse_P2": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_002",
+   "Sha": "550afc36b199157c30f3bd442e18a0d1e1a2c3e10ede3ff59f9752eb36d59252"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Ferme/AP_Ferme_1_P1": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001",
+   "Sha": "e6de3566628c96892ff09a6990a5c3fd9779a195463be7f871e3c6803281e259"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Ferme/AP_Ferme_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001",
+   "Sha": "291acfca53ad408d081a57c56acef00dc591e1ffb223a48911f2637bbe6009ca"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Forteresse/AP_Forteresse_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
+   "Sha": "efb207b3d1c3d2533acf490d2c0df2dbaf700e247ecc3bc10e40ee463059e8a4"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Forteresse/AP_Forteresse_2_P1": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001",
+   "Sha": "23570025e14596122fe26e86fa523d763656299fe65439fc4c84216fe3da3fae"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Forteresse/AP_Forteresse_3_P1": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_003",
+   "Sha": "99151495a53be306c2897b5ea5296abe5fcb0b14a7288a10b740d33d2b32a77d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Fortin/AP_Fortin_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+   "Sha": "2cf9faff1097ce886850fb4aa519f4d73872348b7205a5589fb194692aedf74d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Fortin/AP_Fortin_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Fortin/AP_Fortin_2_P1": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_003",
+   "Sha": "99151495a53be306c2897b5ea5296abe5fcb0b14a7288a10b740d33d2b32a77d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Fortin/AP_Fortin_2_P2": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001",
+   "Sha": "23570025e14596122fe26e86fa523d763656299fe65439fc4c84216fe3da3fae"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Mine/AP_Mine_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
+   "Sha": "c515b631c223d40e464b79d92913e444b24e79efa331348fac476332e3d34581"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Mine/AP_Mine_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_003",
+   "Sha": "f50fbeda808bffe01a326ffe0f1ef97a81cd2a617236fa19bba1f492c3b3a634"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Mine/AP_Mine_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
+   "Sha": "397573deec109500e9c06d361a8ff655fcdcbacecedaf6e69e41521c54a4ac73"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Mine/AP_Mine_P2_Revue": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+   "Sha": "2cf9faff1097ce886850fb4aa519f4d73872348b7205a5589fb194692aedf74d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Mine/AP_Mine_P3_Revue": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Pecherie/AP_Pecherie_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_003",
+   "Sha": "a3190d4060eb9ede415bc09d5a14d99b2ce4bcbc9912710b856bcda5c1d01d1e"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Pecherie/AP_Pecherie_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003",
+   "Sha": "cde627e57101e5557d6be46d7bf256df8367c3f8b4bb7f25b0c480aae6695d6e"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Pecherie/AP_Pecherie_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Poste/AP_Poste_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Slothian_Disabled_Gate_002",
+   "Sha": "6534b362ca29b8878d93e4a857844281802596cd463875899d92180225dcbc58"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Poste/AP_Poste_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_001",
+   "Sha": "95788deeef49bc8fc2cad7cbdfd2648ac5ba4c41f7f505f61eebec3893c9b55a"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Poste/AP_Poste_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_002",
+   "Sha": "be9176605a34c3134dc1cd0f6ecaaee3890818c5079af5969d653796b9f4e8df"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Scierie/AP_Scierie_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
+   "Sha": "940691ced11f17c901815ef81b9e0806b6326415c9eae2146f549f1c35033bff"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Scierie/AP_Scierie_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_002",
+   "Sha": "551ebc8733fe182a0216623b42a350d6b8db5d983394ad887e94749ac582f0e9"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Scierie/AP_Scierie_1_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
+   "Sha": "c78be6903245a7f2168d6a133a030ee9b0529e3ba6b4c16f6f539966050ad3e6"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Scierie/AP_Scierie_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_003",
+   "Sha": "edb20638eb8d7feb7c8d2b6d3adad46edadb73a7e9f8f8da2913f8be7d5350f7"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Scierie/AP_Scierie_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_001",
+   "Sha": "b5d0a5c493e3583acd5a0c388bf093e9e95a1fdcaad57282103d59430fe88895"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Tour/AP_Tour_P1": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_003",
+   "Sha": "99151495a53be306c2897b5ea5296abe5fcb0b14a7288a10b740d33d2b32a77d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/AP_Tour/AP_Tour_P2": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001",
+   "Sha": "23570025e14596122fe26e86fa523d763656299fe65439fc4c84216fe3da3fae"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Affut/Affut_P1": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001",
+   "Sha": "ff146d107c880876fe7db82a795808367feba3a2fc0ceaa39f79d74f618693f7"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Affut/Affut_P2_Revue": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_002",
+   "Sha": "550afc36b199157c30f3bd442e18a0d1e1a2c3e10ede3ff59f9752eb36d59252"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Bauge_De_Veille/Bauge_De_Veille_P1": {
+   "Source": "Nakasar/Peuples/Pens/Slothian_Pen",
+   "Sha": "0fb89f650ac7301b4042beaefedd561abf76c9427e96fe453fe14498f1336bf8"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Bauge_De_Veille/Bauge_De_Veille_P2": {
+   "Source": "Nakasar/Peuples/Pens/Slothian_Pen_T2",
+   "Sha": "3b2fcde75a4ca08f9bf82036704058b6bdb27c5ecbde1726200a83dfdc9a6b5f"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Bauge_De_Veille/Bauge_De_Veille_P3": {
+   "Source": "Nakasar/Peuples/Pens/Slothian_Pen_T3",
+   "Sha": "9f65f15098cacec71c212c58daa18cb3e9ce49398111e51db6123ec990be0c13"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Bauge_De_Veille/Bauge_De_Veille_P4": {
+   "Source": "Nakasar/Peuples/Pens/Slothian_Pen_T4",
+   "Sha": "39d9f430462d0f66a0f72e069449370cea5988b7db081753f9021092f84f30c8"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Cabane_De_Peche/Cabane_De_Peche_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
+   "Sha": "940691ced11f17c901815ef81b9e0806b6326415c9eae2146f549f1c35033bff"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Cabane_De_Peche/Cabane_De_Peche_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_002",
+   "Sha": "551ebc8733fe182a0216623b42a350d6b8db5d983394ad887e94749ac582f0e9"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Cabane_De_Peche/Cabane_De_Peche_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
+   "Sha": "c78be6903245a7f2168d6a133a030ee9b0529e3ba6b4c16f6f539966050ad3e6"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Caserne/Caserne_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+   "Sha": "2cf9faff1097ce886850fb4aa519f4d73872348b7205a5589fb194692aedf74d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Caserne/Caserne_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Conseil/Conseil_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
+   "Sha": "c78be6903245a7f2168d6a133a030ee9b0529e3ba6b4c16f6f539966050ad3e6"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Conseil/Conseil_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Deuxieme_Bauge/Deuxieme_Bauge_P1": {
+   "Source": "Nakasar/Peuples/Pens/Slothian_Pen",
+   "Sha": "0fb89f650ac7301b4042beaefedd561abf76c9427e96fe453fe14498f1336bf8"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Deuxieme_Bauge/Deuxieme_Bauge_P2": {
+   "Source": "Nakasar/Peuples/Pens/Slothian_Pen_T2",
+   "Sha": "3b2fcde75a4ca08f9bf82036704058b6bdb27c5ecbde1726200a83dfdc9a6b5f"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Deuxieme_Bauge/Deuxieme_Bauge_P3": {
+   "Source": "Nakasar/Peuples/Pens/Slothian_Pen_T3",
+   "Sha": "9f65f15098cacec71c212c58daa18cb3e9ce49398111e51db6123ec990be0c13"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Deuxieme_Bauge/Deuxieme_Bauge_P4": {
+   "Source": "Nakasar/Peuples/Pens/Slothian_Pen_T4",
+   "Sha": "39d9f430462d0f66a0f72e069449370cea5988b7db081753f9021092f84f30c8"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Etal_Des_Cendres/Etal_Des_Cendres_P1": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001",
+   "Sha": "e6de3566628c96892ff09a6990a5c3fd9779a195463be7f871e3c6803281e259"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Grande_Maison_Slothian/Grande_Maison_Slothian_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Halle/Halle_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002",
+   "Sha": "e3336e5e3e03cd051c2b20306fec8f8c4b6ebcb300e8c03e04cd1ef9bf62945a"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Halle/Halle_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003",
+   "Sha": "b3ce296d66a64c914ed0b28a628ca4e058193e218471abf645f1d78484269e92"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Hutte_Est/Hutte_Est_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_003",
+   "Sha": "a3190d4060eb9ede415bc09d5a14d99b2ce4bcbc9912710b856bcda5c1d01d1e"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Hutte_Est/Hutte_Est_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003",
+   "Sha": "cde627e57101e5557d6be46d7bf256df8367c3f8b4bb7f25b0c480aae6695d6e"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Hutte_Est/Hutte_Est_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Hutte_Nord/Hutte_Nord_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_002",
+   "Sha": "940691ced11f17c901815ef81b9e0806b6326415c9eae2146f549f1c35033bff"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Hutte_Nord/Hutte_Nord_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_002",
+   "Sha": "551ebc8733fe182a0216623b42a350d6b8db5d983394ad887e94749ac582f0e9"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Hutte_Nord/Hutte_Nord_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
+   "Sha": "c78be6903245a7f2168d6a133a030ee9b0529e3ba6b4c16f6f539966050ad3e6"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Hutte_Ouest/Hutte_Ouest_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
+   "Sha": "c515b631c223d40e464b79d92913e444b24e79efa331348fac476332e3d34581"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Hutte_Ouest/Hutte_Ouest_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+   "Sha": "2cf9faff1097ce886850fb4aa519f4d73872348b7205a5589fb194692aedf74d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Hutte_Ouest/Hutte_Ouest_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Maison_Nord_Ouest/Maison_Nord_Ouest_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+   "Sha": "2cf9faff1097ce886850fb4aa519f4d73872348b7205a5589fb194692aedf74d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Maison_Nord_Ouest/Maison_Nord_Ouest_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Maison_Sud_Est/Maison_Sud_Est_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_002",
+   "Sha": "551ebc8733fe182a0216623b42a350d6b8db5d983394ad887e94749ac582f0e9"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Maison_Sud_Est/Maison_Sud_Est_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_002",
+   "Sha": "c78be6903245a7f2168d6a133a030ee9b0529e3ba6b4c16f6f539966050ad3e6"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Marche/Marche_P1": {
+   "Source": "Nakasar/Peuples/Markets/Slothian_Marche",
+   "Sha": "af869e75c8846cf466a9a57cd62ad00709e92a4883b582c33cc0db6a47b573d2"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Marche/Marche_P2": {
+   "Source": "Nakasar/Peuples/Markets/Slothian_Marche_T2",
+   "Sha": "c1c56d5a9045590dc7c4f6965168825b7561aaa0de689d0a6ac6d7946eb03dd9"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Marche/Marche_P3": {
+   "Source": "Nakasar/Peuples/Markets/Slothian_Marche_T3",
+   "Sha": "ebfbe37aa1a2b113a4b7ae2ac1ec8b3a827f17964712885a9c29ff74ad09488d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Marche/Marche_P4": {
+   "Source": "Nakasar/Peuples/Markets/Slothian_Marche_T4",
+   "Sha": "d5e936db542fb4a9eaf50765de7dd639d7471005a7293a631cbf8888b1b62438"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Monastere/Monastere_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
+   "Sha": "efb207b3d1c3d2533acf490d2c0df2dbaf700e247ecc3bc10e40ee463059e8a4"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Porte_Du_Monastere/Porte_Du_Monastere_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Slothian_Disabled_Gate_001",
+   "Sha": "d93f85e968351aeb88c77b28274aa2eb62a174b6609a7bfe193148a3e4384e26"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Porte_Du_Monastere/Porte_Du_Monastere_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_001",
+   "Sha": "95788deeef49bc8fc2cad7cbdfd2648ac5ba4c41f7f505f61eebec3893c9b55a"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Porte_Du_Monastere/Porte_Du_Monastere_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_002",
+   "Sha": "be9176605a34c3134dc1cd0f6ecaaee3890818c5079af5969d653796b9f4e8df"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Porte_Riche/Porte_Riche_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_001",
+   "Sha": "95788deeef49bc8fc2cad7cbdfd2648ac5ba4c41f7f505f61eebec3893c9b55a"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Puits_De_Basalte/Puits_De_Basalte_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001",
+   "Sha": "c515b631c223d40e464b79d92913e444b24e79efa331348fac476332e3d34581"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Puits_De_Basalte/Puits_De_Basalte_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001",
+   "Sha": "2cf9faff1097ce886850fb4aa519f4d73872348b7205a5589fb194692aedf74d"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Puits_De_Basalte/Puits_De_Basalte_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Sanctuaire/Sanctuaire_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001",
+   "Sha": "efb207b3d1c3d2533acf490d2c0df2dbaf700e247ecc3bc10e40ee463059e8a4"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Scriptorium/Scriptorium_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_003",
+   "Sha": "cde627e57101e5557d6be46d7bf256df8367c3f8b4bb7f25b0c480aae6695d6e"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Scriptorium/Scriptorium_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_001",
+   "Sha": "ccc5156a521551184f066969cc57286b68addeaab496c76018b67a706ea92fa5"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Taillerie/Taillerie_P1": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_001",
+   "Sha": "e83d630bd53f28ef9760a3b24ef69e769e0add4a09aa1668e196d4267b8beb1e"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Taillerie/Taillerie_P2": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_002",
+   "Sha": "e3336e5e3e03cd051c2b20306fec8f8c4b6ebcb300e8c03e04cd1ef9bf62945a"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Taillerie/Taillerie_P3": {
+   "Source": "Nakasar/Peuples/Npc/Slothian/Houses/L-Shaped/Slothian_Houses_L-Shaped_003",
+   "Sha": "b3ce296d66a64c914ed0b28a628ca4e058193e218471abf645f1d78484269e92"
+  },
+  "Nakasar/Peuples/Batiments/Slothian/Temple_De_Veille/Temple_De_Veille_P1": {
+   "Source": "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001",
+   "Sha": "23570025e14596122fe26e86fa523d763656299fe65439fc4c84216fe3da3fae"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Chasse/AP_Chasse_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Trap/Trork_Trap_Trork_Trap_001",
+   "Sha": "dd7cd0aa77a2d790c5518ef21c206a6bc54427f2d85ee4043dac88ec64200ade"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Chasse/AP_Chasse_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
+   "Sha": "1381e8a6207527ed6c5fbca2dcbed1ad96eb18355c1aedb5dcd380da0a8feb08"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Chasse/AP_Chasse_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+   "Sha": "5a8001fef6add4989ca6b2b6e506d7d51d7231488a6eb9ac9e3472948f6c8320"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Chasse/AP_Chasse_2_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+   "Sha": "8c4ad543995ec419475d029587b7341e1dc0f6191083470bd01aa7c6e0a30b7a"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Chasse/AP_Chasse_2_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Ferme/AP_Ferme_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
+   "Sha": "1381e8a6207527ed6c5fbca2dcbed1ad96eb18355c1aedb5dcd380da0a8feb08"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Ferme/AP_Ferme_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+   "Sha": "5a8001fef6add4989ca6b2b6e506d7d51d7231488a6eb9ac9e3472948f6c8320"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Ferme/AP_Ferme_1_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+   "Sha": "8c4ad543995ec419475d029587b7341e1dc0f6191083470bd01aa7c6e0a30b7a"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Ferme/AP_Ferme_1_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Ferme/AP_Ferme_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002",
+   "Sha": "c58817e01939f2701ad58606bc27f66f951bf491ef3602d09bec427fcbbc71db"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Ferme/AP_Ferme_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004",
+   "Sha": "5a8e8ce285b55232984195643413e80e8718ee1b7527138da28134ae57dc8ff3"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Ferme/AP_Ferme_3_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_006",
+   "Sha": "ae60f47a7c304eebc98390caec43ab830095e39a1b7174cce55c41b822015b58"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Ferme/AP_Ferme_3_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_003",
+   "Sha": "03685ce0b8c9f47bbad8d93af3585db2bd177697adf68c1e7901484a097f4bd8"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Forteresse/AP_Forteresse_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Watchtower/Trork_Tier_3_Watchtower_001",
+   "Sha": "124a650e128ff5e23ba20ac724c0fc7e1ed4f61c75f66091664ce75e4444179b"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Forteresse/AP_Forteresse_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Watchtower/Trork_Tier_2_Watchtower_001",
+   "Sha": "c11b301be3e6a87d681d81dffbd0b12f91c4bfc8a2e5739f0c088ace44d3b3fd"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Forteresse/AP_Forteresse_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001",
+   "Sha": "4dffad683224b2a46204207d998bbc0fb1a2fc8cf71f06ad1ab9189e5abdbd3e"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Fortin/AP_Fortin_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001",
+   "Sha": "4dffad683224b2a46204207d998bbc0fb1a2fc8cf71f06ad1ab9189e5abdbd3e"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Fortin/AP_Fortin_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001",
+   "Sha": "a0ccf7e3a818ee478a2bc07fe685033cf89b54c375e55a3e06d2c0afcfee7971"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Fortin/AP_Fortin_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Watchtower/Trork_Tier_2_Watchtower_002",
+   "Sha": "002752fe741c3bf09bf6ee9391794cdfc315f6a1963e2a17715396fb698f135e"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Fortin/AP_Fortin_3_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Watchtower/Trork_Tier_3_Watchtower_002",
+   "Sha": "4e105e8a84011e84b4cebb1a782e6605f7c639de8e30d038d85c7d0a4207defc"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Mine/AP_Mine_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_002",
+   "Sha": "0b1812a83050bd6c78e5e6144d9c354cabf781bfdebe4ac10f5632831575f19c"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Mine/AP_Mine_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_001",
+   "Sha": "acc5d43ef6f3dbf3317e3ac8883c5d3fb63d2236626aaab708d168be9354c880"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Mine/AP_Mine_2_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_003",
+   "Sha": "f50fbeda808bffe01a326ffe0f1ef97a81cd2a617236fa19bba1f492c3b3a634"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Mine/AP_Mine_2_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_004",
+   "Sha": "ebb078e9cc1ccc8cfc7fcb587dba0095e80d04a45042a0dc4c74bd5f9ee7d488"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Mine/AP_Mine_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
+   "Sha": "397573deec109500e9c06d361a8ff655fcdcbacecedaf6e69e41521c54a4ac73"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
+   "Sha": "1381e8a6207527ed6c5fbca2dcbed1ad96eb18355c1aedb5dcd380da0a8feb08"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+   "Sha": "5a8001fef6add4989ca6b2b6e506d7d51d7231488a6eb9ac9e3472948f6c8320"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_1_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+   "Sha": "8c4ad543995ec419475d029587b7341e1dc0f6191083470bd01aa7c6e0a30b7a"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_1_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Fireplace/Trork_Fireplace_001",
+   "Sha": "615f880ac50cd5a6aa55795fd7984acc6b4174106fffb5b7d80ebebdc76495d0"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_005",
+   "Sha": "4089360c04dd6e787a86fd9d26006657c051a8ced3d22ab0eeb55e96b14ab0ba"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_3_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_001",
+   "Sha": "4bbcdfce6690e805de6f9f835ba6e05442167c0196b6f136caab5b1fdf80de7f"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_3_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_002",
+   "Sha": "628712a25352f3cd95ce03bdf96f9e8aaa452f7cda89a619b6d45471e1bbff6e"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Pecherie/AP_Pecherie_3_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004",
+   "Sha": "5a8e8ce285b55232984195643413e80e8718ee1b7527138da28134ae57dc8ff3"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Poste/AP_Poste_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
+   "Sha": "1381e8a6207527ed6c5fbca2dcbed1ad96eb18355c1aedb5dcd380da0a8feb08"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Poste/AP_Poste_1_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+   "Sha": "5a8001fef6add4989ca6b2b6e506d7d51d7231488a6eb9ac9e3472948f6c8320"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Poste/AP_Poste_1_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+   "Sha": "8c4ad543995ec419475d029587b7341e1dc0f6191083470bd01aa7c6e0a30b7a"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Poste/AP_Poste_1_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Poste/AP_Poste_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_001",
+   "Sha": "a567165c9022ae181d4ebc080dcb31deeffbd20a2ecdeddfca275e6b52e6fb96"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Scierie/AP_Scierie_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001",
+   "Sha": "4dffad683224b2a46204207d998bbc0fb1a2fc8cf71f06ad1ab9189e5abdbd3e"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Scierie/AP_Scierie_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Autumn/Trork_Resource_Lumber_Forest_Autumn_001",
+   "Sha": "b5d0a5c493e3583acd5a0c388bf093e9e95a1fdcaad57282103d59430fe88895"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Scierie/AP_Scierie_3_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Autumn/Trork_Resource_Lumber_Forest_Autumn_003",
+   "Sha": "edb20638eb8d7feb7c8d2b6d3adad46edadb73a7e9f8f8da2913f8be7d5350f7"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Tour/AP_Tour_1_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001",
+   "Sha": "a0ccf7e3a818ee478a2bc07fe685033cf89b54c375e55a3e06d2c0afcfee7971"
+  },
+  "Nakasar/Peuples/Batiments/Trork/AP_Tour/AP_Tour_2_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
+   "Sha": "1e55bc52384861af6470b4bb9b88374a1b120d828ce0bbbfbc43e8789b368ce3"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Avertissement/Avertissement_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_001",
+   "Sha": "a567165c9022ae181d4ebc080dcb31deeffbd20a2ecdeddfca275e6b52e6fb96"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Bibliotheque/Bibliotheque_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_005",
+   "Sha": "4089360c04dd6e787a86fd9d26006657c051a8ced3d22ab0eeb55e96b14ab0ba"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Bibliotheque/Bibliotheque_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_001",
+   "Sha": "4bbcdfce6690e805de6f9f835ba6e05442167c0196b6f136caab5b1fdf80de7f"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Bibliotheque/Bibliotheque_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_002",
+   "Sha": "628712a25352f3cd95ce03bdf96f9e8aaa452f7cda89a619b6d45471e1bbff6e"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Bibliotheque/Bibliotheque_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004",
+   "Sha": "5a8e8ce285b55232984195643413e80e8718ee1b7527138da28134ae57dc8ff3"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Bric_A_Brac/Bric_A_Brac_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_001",
+   "Sha": "4bbcdfce6690e805de6f9f835ba6e05442167c0196b6f136caab5b1fdf80de7f"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Bric_A_Brac/Bric_A_Brac_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_002",
+   "Sha": "628712a25352f3cd95ce03bdf96f9e8aaa452f7cda89a619b6d45471e1bbff6e"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Bric_A_Brac/Bric_A_Brac_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004",
+   "Sha": "5a8e8ce285b55232984195643413e80e8718ee1b7527138da28134ae57dc8ff3"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Bric_A_Brac/Bric_A_Brac_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_006",
+   "Sha": "ae60f47a7c304eebc98390caec43ab830095e39a1b7174cce55c41b822015b58"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Camp_Bucherons/Camp_Bucherons_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Lumber/Forest_Aspen/Trork_Resource_Lumber_Forest_Aspen_001",
+   "Sha": "08428d18aa1d1c8eb580f4bb88d490cd5e6cd832f13ca0b7229d593127fe6fec"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Carriere/Carriere_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_005",
+   "Sha": "397573deec109500e9c06d361a8ff655fcdcbacecedaf6e69e41521c54a4ac73"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Caserne/Caserne_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004",
+   "Sha": "5a8e8ce285b55232984195643413e80e8718ee1b7527138da28134ae57dc8ff3"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Caserne/Caserne_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_006",
+   "Sha": "ae60f47a7c304eebc98390caec43ab830095e39a1b7174cce55c41b822015b58"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Caserne/Caserne_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_003",
+   "Sha": "03685ce0b8c9f47bbad8d93af3585db2bd177697adf68c1e7901484a097f4bd8"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Conseil/Conseil_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_003",
+   "Sha": "03685ce0b8c9f47bbad8d93af3585db2bd177697adf68c1e7901484a097f4bd8"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Deuxieme_Fosse/Deuxieme_Fosse_P1": {
+   "Source": "Nakasar/Peuples/Pens/Trork_Pen",
+   "Sha": "c8c2d6f4d50a44e9e95a1ca92db4be4211f2aaee83db692142f7a13aeeca80b0"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Deuxieme_Fosse/Deuxieme_Fosse_P2": {
+   "Source": "Nakasar/Peuples/Pens/Trork_Pen_T2",
+   "Sha": "83a42a626415465c9bd4ee031fd018ddde37a5c103853253f1a44aa80fd80182"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Deuxieme_Fosse/Deuxieme_Fosse_P3": {
+   "Source": "Nakasar/Peuples/Pens/Trork_Pen_T3",
+   "Sha": "23fb2ee43d78290eb4faf24227966a89c63741f37658e50a7db808f45ed63292"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Deuxieme_Fosse/Deuxieme_Fosse_P4": {
+   "Source": "Nakasar/Peuples/Pens/Trork_Pen_T4",
+   "Sha": "9cc436a0e3e943712eaf20a02bd841939d19a43af4dac00942ac43195d75a229"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Entrepot/Entrepot_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Warehouse/Trork_Warehouse_Trork_Warehouse_001",
+   "Sha": "4dffad683224b2a46204207d998bbc0fb1a2fc8cf71f06ad1ab9189e5abdbd3e"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Feu_De_Camp/Feu_De_Camp_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_001",
+   "Sha": "53d7a0955b2fa914df730be4a8a5105a7e88c3c1b072218e1c8311e5bc8e2807"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Feu_De_Camp/Feu_De_Camp_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002",
+   "Sha": "c58817e01939f2701ad58606bc27f66f951bf491ef3602d09bec427fcbbc71db"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Forge_De_Guerre/Forge_De_Guerre_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_002",
+   "Sha": "628712a25352f3cd95ce03bdf96f9e8aaa452f7cda89a619b6d45471e1bbff6e"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Forge_De_Guerre/Forge_De_Guerre_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_004",
+   "Sha": "5a8e8ce285b55232984195643413e80e8718ee1b7527138da28134ae57dc8ff3"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Forge_De_Guerre/Forge_De_Guerre_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_006",
+   "Sha": "ae60f47a7c304eebc98390caec43ab830095e39a1b7174cce55c41b822015b58"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Forge_De_Guerre/Forge_De_Guerre_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_003",
+   "Sha": "03685ce0b8c9f47bbad8d93af3585db2bd177697adf68c1e7901484a097f4bd8"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Fosse_Aux_Betes/Fosse_Aux_Betes_P1": {
+   "Source": "Nakasar/Peuples/Pens/Trork_Pen",
+   "Sha": "c8c2d6f4d50a44e9e95a1ca92db4be4211f2aaee83db692142f7a13aeeca80b0"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Fosse_Aux_Betes/Fosse_Aux_Betes_P2": {
+   "Source": "Nakasar/Peuples/Pens/Trork_Pen_T2",
+   "Sha": "83a42a626415465c9bd4ee031fd018ddde37a5c103853253f1a44aa80fd80182"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Fosse_Aux_Betes/Fosse_Aux_Betes_P3": {
+   "Source": "Nakasar/Peuples/Pens/Trork_Pen_T3",
+   "Sha": "23fb2ee43d78290eb4faf24227966a89c63741f37658e50a7db808f45ed63292"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Fosse_Aux_Betes/Fosse_Aux_Betes_P4": {
+   "Source": "Nakasar/Peuples/Pens/Trork_Pen_T4",
+   "Sha": "9cc436a0e3e943712eaf20a02bd841939d19a43af4dac00942ac43195d75a229"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Grand_Feu/Grand_Feu_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Bonfire/Trork_Bonfire_Trork_Bonfire_002",
+   "Sha": "c58817e01939f2701ad58606bc27f66f951bf491ef3602d09bec427fcbbc71db"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Halle/Halle_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_006",
+   "Sha": "ae60f47a7c304eebc98390caec43ab830095e39a1b7174cce55c41b822015b58"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Halle/Halle_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Misc/Large/Trork_Misc_Large_003",
+   "Sha": "03685ce0b8c9f47bbad8d93af3585db2bd177697adf68c1e7901484a097f4bd8"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Marche/Marche_P1": {
+   "Source": "Nakasar/Peuples/Markets/Trork_Marche",
+   "Sha": "4232c877a7633cf945cfe7e766db05caa665c02eafc3e10576f3d8bfbd3950a3"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Marche/Marche_P2": {
+   "Source": "Nakasar/Peuples/Markets/Trork_Marche_T2",
+   "Sha": "d2d0c77ed148e082050aae7c12d6fd4b4ab9345bdcd5e662505f513fd64daea9"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Marche/Marche_P3": {
+   "Source": "Nakasar/Peuples/Markets/Trork_Marche_T3",
+   "Sha": "5d4898e942dd933737b13bbe16ca8701e1e9f302a72371d253c92598c1ee2e1c"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Marche/Marche_P4": {
+   "Source": "Nakasar/Peuples/Markets/Trork_Marche_T4",
+   "Sha": "a5853ec3c95e7cb71081692618e7afd7621320b883317be373cbe1f395960321"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Piege/Piege_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Trap/Trork_Trap_Trork_Trap_001",
+   "Sha": "dd7cd0aa77a2d790c5518ef21c206a6bc54427f2d85ee4043dac88ec64200ade"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Reserve/Reserve_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+   "Sha": "8c4ad543995ec419475d029587b7341e1dc0f6191083470bd01aa7c6e0a30b7a"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Reserve/Reserve_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Reserve/Reserve_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_002",
+   "Sha": "b6000d66d82ad0b786401f3e166c29100430aeb832b980b2ef2cff979870131f"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Reserve_Du_Chef/Reserve_Du_Chef_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tannerie/Tannerie_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
+   "Sha": "1381e8a6207527ed6c5fbca2dcbed1ad96eb18355c1aedb5dcd380da0a8feb08"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tannerie/Tannerie_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+   "Sha": "5a8001fef6add4989ca6b2b6e506d7d51d7231488a6eb9ac9e3472948f6c8320"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tannerie/Tannerie_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+   "Sha": "8c4ad543995ec419475d029587b7341e1dc0f6191083470bd01aa7c6e0a30b7a"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tannerie/Tannerie_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Temple/Temple_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Warning/Trork_Warning_Trork_Warning_002",
+   "Sha": "1e55bc52384861af6470b4bb9b88374a1b120d828ce0bbbfbc43e8789b368ce3"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Est/Tente_Est_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
+   "Sha": "1381e8a6207527ed6c5fbca2dcbed1ad96eb18355c1aedb5dcd380da0a8feb08"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Est/Tente_Est_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+   "Sha": "5a8001fef6add4989ca6b2b6e506d7d51d7231488a6eb9ac9e3472948f6c8320"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Est/Tente_Est_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+   "Sha": "8c4ad543995ec419475d029587b7341e1dc0f6191083470bd01aa7c6e0a30b7a"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Est/Tente_Est_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Ouest/Tente_Ouest_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
+   "Sha": "1381e8a6207527ed6c5fbca2dcbed1ad96eb18355c1aedb5dcd380da0a8feb08"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Ouest/Tente_Ouest_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+   "Sha": "5a8001fef6add4989ca6b2b6e506d7d51d7231488a6eb9ac9e3472948f6c8320"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Ouest/Tente_Ouest_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+   "Sha": "8c4ad543995ec419475d029587b7341e1dc0f6191083470bd01aa7c6e0a30b7a"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Ouest/Tente_Ouest_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Sud/Tente_Sud_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001",
+   "Sha": "1381e8a6207527ed6c5fbca2dcbed1ad96eb18355c1aedb5dcd380da0a8feb08"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Sud/Tente_Sud_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+   "Sha": "5a8001fef6add4989ca6b2b6e506d7d51d7231488a6eb9ac9e3472948f6c8320"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Sud/Tente_Sud_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001",
+   "Sha": "8c4ad543995ec419475d029587b7341e1dc0f6191083470bd01aa7c6e0a30b7a"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tente_Sud/Tente_Sud_P4": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001",
+   "Sha": "884c0ee0272b1e5e263947b989a9107afa4bbca467a15769d9f99aae32a453ef"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Terrier/Terrier_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001",
+   "Sha": "5a8001fef6add4989ca6b2b6e506d7d51d7231488a6eb9ac9e3472948f6c8320"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tour_De_Guet/Tour_De_Guet_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001",
+   "Sha": "a0ccf7e3a818ee478a2bc07fe685033cf89b54c375e55a3e06d2c0afcfee7971"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tour_De_Guet/Tour_De_Guet_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Watchtower/Trork_Tier_2_Watchtower_001",
+   "Sha": "c11b301be3e6a87d681d81dffbd0b12f91c4bfc8a2e5739f0c088ace44d3b3fd"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tour_De_Guet/Tour_De_Guet_P3": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Watchtower/Trork_Tier_3_Watchtower_001",
+   "Sha": "124a650e128ff5e23ba20ac724c0fc7e1ed4f61c75f66091664ce75e4444179b"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tour_Est/Tour_Est_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_2/Watchtower/Trork_Tier_2_Watchtower_001",
+   "Sha": "c11b301be3e6a87d681d81dffbd0b12f91c4bfc8a2e5739f0c088ace44d3b3fd"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tour_Est/Tour_Est_P2": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Watchtower/Trork_Tier_3_Watchtower_001",
+   "Sha": "124a650e128ff5e23ba20ac724c0fc7e1ed4f61c75f66091664ce75e4444179b"
+  },
+  "Nakasar/Peuples/Batiments/Trork/Tour_Ouest/Tour_Ouest_P1": {
+   "Source": "Nakasar/Peuples/Npc/Trork/Tier_3/Watchtower/Trork_Tier_3_Watchtower_002",
+   "Sha": "4e105e8a84011e84b4cebb1a782e6605f7c639de8e30d038d85c7d0a4207defc"
+  }
+ }
+}

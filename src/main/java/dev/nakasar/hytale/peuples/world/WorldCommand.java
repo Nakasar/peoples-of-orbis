@@ -51,6 +51,7 @@ public final class WorldCommand extends AbstractCommandCollection {
         addSubCommand(new RelationCommand());
         addSubCommand(new SkirmishCommand());
         addSubCommand(new TradeRouteCommand());
+        addSubCommand(new NeedsCommand());
         addSubCommand(new CalendarCommand("fete"));
         addSubCommand(new CalendarCommand("foire"));
         addSubCommand(new CalendarCommand("migration"));
@@ -422,6 +423,52 @@ public final class WorldCommand extends AbstractCommandCollection {
             }
             if (r == null && !action.equals("liste") && !action.equals("fermer")) {
                 player.sendMessage(Message.translation(TradeRoutes.KEYS + "cmd.noRoute"));
+            }
+        }
+    }
+
+    /**
+     * {@code /monde besoins [--faire liste|matin|dire] [--vers village]} : besoins, nouvelles apprises et engagements du
+     * village le plus proche ; « matin » refait tout de suite les besoins et les engagements ; « dire » : le village
+     * `vers` apprend sur-le-champ les besoins du village le plus proche (comme si un voyageur venait d'arriver).
+     */
+    private static final class NeedsCommand extends AdminCommand {
+        private final OptionalArg<String> what = withOptionalArg("faire", TradeNeeds.KEYS + "cmd.what.arg", ArgTypes.STRING);
+        private final OptionalArg<String> to = withOptionalArg("vers", KEYS + "to.arg", ArgTypes.STRING);
+
+        NeedsCommand() {
+            super("besoins", TradeNeeds.KEYS + "cmd.desc");
+        }
+
+        @Override
+        protected void execute(CommandContext context, Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef player, World world) {
+            Village v = nearest(world, player);
+            if (v == null) {
+                return;
+            }
+            long day = GameClock.day(store);
+            String action = what.get(context) == null ? "liste" : what.get(context).toLowerCase(Locale.ROOT);
+            if (action.equals("matin")) {
+                for (Village x : Villages.registry(world).all()) {
+                    TradeNeeds.refreshNeeds(world, x, day);
+                }
+                TradeNeeds.pledgesMorning(world, store, day);
+            } else if (action.equals("dire")) {
+                String dest = to.get(context);
+                Village o = dest == null ? null : byName(world, dest);
+                if (o == null) {
+                    player.sendMessage(Message.translation(KEYS + "noSuchVillage").param("name", String.valueOf(dest)));
+                    return;
+                }
+                TradeNeeds.refreshNeeds(world, v, day);
+                for (TradeNeeds.Need n : TradeNeeds.needs(world, v)) {
+                    TradeNeeds.tell(world, store, o, v, n.item(), day);
+                }
+            }
+            List<Message> lines = TradeNeeds.describe(world, v, day);
+            player.sendMessage(Message.translation(TradeNeeds.KEYS + "cmd.header").param("village", v.name()).param("count", lines.size()));
+            for (Message m : lines) {
+                player.sendMessage(m);
             }
         }
     }

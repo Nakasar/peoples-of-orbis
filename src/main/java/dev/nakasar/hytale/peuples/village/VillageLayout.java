@@ -24,7 +24,7 @@ import java.util.Set;
  *
  * <pre>
  * { "People": "Kweebec", "Radius": 65, "PlazaRadius": 5, "BannerX": 0, "BannerZ": -4,
- *   "Buildings": [ {"Id": "Abri_Ouest", "Tier": 0, "Prefab": "Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
+ *   "Buildings": [ {"Id": "Abri_Ouest", "Tier": 0, "Prefab": "Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001",
  *                   "X": -20, "Z": 2, "Rotation": 0, "MinX": -7, "MaxX": 7, "MinZ": -8, "MaxZ": 9} ] }
  * </pre>
  * Les coordonnées sont relatives au cœur ; {@code Prefab} est un chemin sous {@code Server/Prefabs/} sans
@@ -45,7 +45,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
                 .documentation("Palier du village à partir duquel le bâtiment existe (0 campement ... 3 bourg).")
                 .add()
                 .append(new KeyedCodec<>("Prefab", Codec.STRING), (b, v) -> b.prefab = v, b -> b.prefab)
-                .documentation("Prefab vanilla, chemin sous Server/Prefabs/ sans .prefab.json.")
+                .documentation("Prefab propre au bâtiment (Nakasar/Peuples/Batiments/<Peuple>/<Bâtiment>/..., tools/building_prefabs.py), chemin sous Server/Prefabs/ sans .prefab.json.")
                 .add()
                 .append(new KeyedCodec<>("X", Codec.INTEGER), (b, v) -> b.x = v == null ? 0 : v, b -> b.x).add()
                 .append(new KeyedCodec<>("Z", Codec.INTEGER), (b, v) -> b.z = v == null ? 0 : v, b -> b.z).add()
@@ -63,16 +63,20 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
                 .documentation("Plus haut bloc du prefab au-dessus de son ancre (échafaudage, incendie).")
                 .add()
                 .append(new KeyedCodec<>("Plot", Codec.STRING), (b, v) -> b.plot = v == null || v.isBlank() ? null : v, b -> b.plot)
-                .documentation("Terrain libre (E1, E2) du projet : collé seulement par son chantier d'emplacement.")
+                .documentation("Terrain libre (E1, E2, E3…) du projet : collé seulement par son chantier d'emplacement.")
                 .add()
                 .append(new KeyedCodec<>("Zone", Codec.INT_ARRAY), (b, v) -> b.zone = v == null || v.length < 4 ? null : v, b -> b.zone)
                 .documentation("Zone maximale x0, x1, z0, z1 relative au cœur : tous les paliers du bâtiment y tiennent.")
+                .add()
+                .append(new KeyedCodec<>("Garden", Codec.BOOLEAN), (b, v) -> b.garden = v != null && v, b -> b.garden)
+                .documentation("Potager (prefab d'origine Garden) : collé sans échafaudage, ses récoltes restent libres.")
                 .add()
                 .build();
 
         String id;
         String plot;
         int[] zone;
+        boolean garden;
         int tier;
         String prefab;
         int x;
@@ -134,7 +138,12 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
 
         /** Petit décor (lanterne, banc) ou potager : collé sans échafaudage. */
         public boolean small() {
-            return maxY < 4 || prefab == null || prefab.contains("/Garden") || prefab.contains("/Lampposts/") || prefab.contains("/Seats/");
+            return maxY < 4 || prefab == null || garden() || prefab.contains("/Lampposts/") || prefab.contains("/Seats/");
+        }
+
+        /** Potager : champ « Garden » du plan (prefab propre au bâtiment), ou prefab d'un dossier Garden. */
+        public boolean garden() {
+            return garden || (prefab != null && prefab.contains("/Garden"));
         }
 
         /** Emprise au sol relative au cœur : {x0, x1, z0, z1}. */
@@ -160,6 +169,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             b.id = id;
             b.plot = plot;
             b.zone = zone;
+            b.garden = garden;
             b.tier = tier;
             b.rotation = rotation;
             b.prefab = variantPrefab;
@@ -179,6 +189,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             Building b = new Building();
             b.id = id;
             b.plot = plot;
+            b.garden = garden;
             b.tier = tier;
             b.prefab = prefab;
             int[] at = t.point(x, z);
@@ -427,7 +438,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
         }
     }
 
-    /** Un terrain libre du plan (E1, E2 ; étape 6 des bâtiments de métier) : 24 × 24 blocs centrés en (X, Z). */
+    /** Un terrain libre du plan (E1, E2, E3… ; étape 6 des bâtiments de métier) : 24 × 24 blocs centrés en (X, Z). */
     public static final class Plot {
         public static final BuilderCodec<Plot> CODEC = BuilderCodec.builder(Plot.class, Plot::new)
                 .append(new KeyedCodec<>("Id", Codec.STRING), (p, v) -> p.id = v, p -> p.id).add()
@@ -601,7 +612,7 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             .documentation("Métiers du village (étape 5).")
             .add()
             .append(new KeyedCodec<>("Plots", new ArrayCodec<>(Plot.CODEC, Plot[]::new)), (l, v) -> l.plots = v == null ? new Plot[0] : v, l -> l.plots)
-            .documentation("Terrains libres E1 et E2 (étape 6 des bâtiments de métier).")
+            .documentation("Terrains libres E1, E2, E3… (étape 6 des bâtiments de métier).")
             .add()
             .append(new KeyedCodec<>("Heart", Heart.CODEC), (l, v) -> l.heart = v, l -> l.heart)
             .documentation("Cœur du village par peuple (place, pièces vanilla par palier), ou absent (place carrée d'avant).")
@@ -806,6 +817,23 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
             }
         }
         return null;
+    }
+
+    /**
+     * Rayon au plus du campement dont le sol est jugé pour choisir un site ({@link #campRadius}) : celui des huttes et
+     * abris du palier 0 d'avant la place du marché (22 à 35 blocs selon le peuple).
+     */
+    public static final int CAMP_RADIUS_MAX = 36;
+
+    /**
+     * Rayon du campement jugé par les seeders et le colon (sol du peuple, relief) : celui du palier 0, borné à
+     * {@value #CAMP_RADIUS_MAX}. Kevin 2026-11-21 : depuis la place du marché (palier 0, posée en bordure à 50-65 blocs)
+     * et le Grand-Père kweebec dès le palier 0, le disque jugé avait doublé de rayon et presque aucun site ne tenait
+     * 9 blocs de relief ni 80 % d'herbe ; aucun village suivant n'était plus semé. Au-delà du campement, ces bâtiments
+     * sont placés comme ceux des paliers suivants (placement libre, emprises sondées pour l'eau, terrassement).
+     */
+    public int campRadius() {
+        return Math.min(radiusUpTo(0), Math.max(CAMP_RADIUS_MAX, plazaRadius));
     }
 
     /** Rayon des bâtiments des paliers 0 à `tier` (pour charger et juger le terrain). */

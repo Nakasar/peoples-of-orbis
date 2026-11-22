@@ -42,7 +42,7 @@
       "Responses": [
         {
           "TextKey": "nakasar_peuples.dialogue.Trork_Marchand.troc",
-          "HintKey": "nakasar_peuples.dialogue.hint.shop.Tolere",
+          "HintKey": "nakasar_peuples.dialogue.hint.shop.market",
           "Conditions": [
             {
               "Type": "Rank",
@@ -52,42 +52,7 @@
           "FailKey": "nakasar_peuples.dialogue.fail.rank.Tolere",
           "Effects": [
             {
-              "Type": "OpenShop",
-              "Shop": "Nakasar_Peuples_Trork_Tolere"
-            }
-          ]
-        },
-        {
-          "TextKey": "nakasar_peuples.dialogue.Trork_Marchand.armes",
-          "HintKey": "nakasar_peuples.dialogue.hint.shop.Ami",
-          "Conditions": [
-            {
-              "Type": "Rank",
-              "Min": "Ami"
-            }
-          ],
-          "FailKey": "nakasar_peuples.dialogue.fail.rank.Ami",
-          "Effects": [
-            {
-              "Type": "OpenShop",
-              "Shop": "Nakasar_Peuples_Trork_Ami"
-            }
-          ]
-        },
-        {
-          "TextKey": "nakasar_peuples.dialogue.Trork_Marchand.armure",
-          "HintKey": "nakasar_peuples.dialogue.hint.shop.Hote",
-          "Conditions": [
-            {
-              "Type": "Rank",
-              "Min": "Hote"
-            }
-          ],
-          "FailKey": "nakasar_peuples.dialogue.fail.rank.Hote",
-          "Effects": [
-            {
-              "Type": "OpenShop",
-              "Shop": "Nakasar_Peuples_Trork_Hote"
+              "Type": "OpenShop"
             }
           ]
         },
@@ -102,7 +67,7 @@
       "Responses": [
         {
           "TextKey": "nakasar_peuples.dialogue.Trork_Marchand.troc",
-          "HintKey": "nakasar_peuples.dialogue.hint.shop.Tolere",
+          "HintKey": "nakasar_peuples.dialogue.hint.shop.market",
           "Conditions": [
             {
               "Type": "Rank",
@@ -112,42 +77,7 @@
           "FailKey": "nakasar_peuples.dialogue.fail.rank.Tolere",
           "Effects": [
             {
-              "Type": "OpenShop",
-              "Shop": "Nakasar_Peuples_Trork_Tolere"
-            }
-          ]
-        },
-        {
-          "TextKey": "nakasar_peuples.dialogue.Trork_Marchand.armes",
-          "HintKey": "nakasar_peuples.dialogue.hint.shop.Ami",
-          "Conditions": [
-            {
-              "Type": "Rank",
-              "Min": "Ami"
-            }
-          ],
-          "FailKey": "nakasar_peuples.dialogue.fail.rank.Ami",
-          "Effects": [
-            {
-              "Type": "OpenShop",
-              "Shop": "Nakasar_Peuples_Trork_Ami"
-            }
-          ]
-        },
-        {
-          "TextKey": "nakasar_peuples.dialogue.Trork_Marchand.armure",
-          "HintKey": "nakasar_peuples.dialogue.hint.shop.Hote",
-          "Conditions": [
-            {
-              "Type": "Rank",
-              "Min": "Hote"
-            }
-          ],
-          "FailKey": "nakasar_peuples.dialogue.fail.rank.Hote",
-          "Effects": [
-            {
-              "Type": "OpenShop",
-              "Shop": "Nakasar_Peuples_Trork_Hote"
+              "Type": "OpenShop"
             }
           ]
         },

@@ -95,6 +95,10 @@ public final class TradeCatalogue {
                 out.putIfAbsent(item, Source.TRIBUTE);
             }
         }
+        // Commandes (échanges nés des besoins) : ce qu'un de ses bâtiments ouverts vend, même au niveau I.
+        for (String item : TradeNeeds.orderedProduce(world, v, exceptRoute)) {
+            out.putIfAbsent(item, Source.WORKSHOP);
+        }
         // Réexportation (Kevin : toute ressource importée, dès le niveau I, tant que sa route d'origine est active).
         for (String item : TradeRoutes.importedElsewhere(world, v, exceptRoute)) {
             out.putIfAbsent(item, Source.REEXPORT);

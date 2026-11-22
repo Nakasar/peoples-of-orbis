@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Plans des villages du mod Peuples d'Orbis (étape 2 du plan d'implémentation).
 
-Un plan place des prefabs VANILLA (règle n° 2 d'AGENTS.md : Server/Prefabs/Npc/Kweebec/Oak/...) autour du cœur du
-village. Le Java (village/VillageBuilder) aplanit le sol sous chaque emprise, colle le prefab, puis pose le cœur, le
+Un plan place les copies du mod des prefabs vanilla (règle n° 2 d'AGENTS.md, et règle n° 5 : jamais le prefab vanilla
+lui-même, mais Server/Prefabs/Nakasar/Peuples/Npc/Kweebec/Oak/..., tools/mod_prefabs.py) autour du cœur du village. Le Java (village/VillageBuilder) aplanit le sol sous chaque emprise, colle le prefab, puis pose le cœur, le
 dépôt, le tableau et la bannière sur la place centrale. Seuls les bâtiments dont le palier est atteint sont collés :
 le campement (palier 0) dès la génération, les autres avec les chantiers de l'étape 5.
 
 Les emprises viennent de tools/vanilla-prefabs-0.7.2.txt (bornes des blocs relatifs à l'ancre, relevées dans
-Assets.zip). Le script vérifie qu'aucune emprise n'en chevauche une autre (marge MARGIN) ni la place, et que tout
+Assets.zip, clés traduites en ids du mod par mod_prefabs.mod). Le script vérifie qu'aucune emprise n'en chevauche une autre (marge MARGIN) ni la place, et que tout
 tient dans le rayon du plan.
 
 Étape 5 : chaque palier au-delà du campement a son chantier (matériaux pris au dépôt, durée en heures de jeu), et le
@@ -23,6 +23,7 @@ import json
 import plots
 import math
 import village_streets
+from mod_prefabs import mod
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -31,15 +32,18 @@ PREFABS = Path(__file__).resolve().parent / "vanilla-prefabs-0.7.2.txt"
 # Cœurs de village (place, pièces vanilla par palier, tableau/dépôt/bannière) : tools/generate_village_hearts.py.
 HEARTS = Path(__file__).resolve().parent / "village-hearts.json"
 # Prefabs du mod collés comme des bâtiments (enclos des peuples) : Server/Prefabs/Nakasar/Peuples/Pens.
+# Places du marché (tools/generate_markets.py) : Server/Prefabs/Nakasar/Peuples/Markets.
 MOD_PREFABS = ROOT / "src/main/resources/Server/Prefabs/Nakasar/Peuples/Pens"
+MOD_PREFAB_DIRS = (MOD_PREFABS, ROOT / "src/main/resources/Server/Prefabs/Nakasar/Peuples/Markets")
 PEN = "Nakasar/Peuples/Pens/"
+MARKET = "Nakasar/Peuples/Markets/"
 
 # Écart minimal entre deux emprises (blocs) : le Java aplanit chaque emprise avec une marge de 2 blocs et un fondu.
 MARGIN = 3
 # Petits décors (lanternes, bancs) : posés au bord de la place et près des maisons, un bloc d'écart suffit.
 DECOR = ("/Lampposts/", "/Seats/")
 DECOR_MARGIN = 1
-OAK = "Npc/Kweebec/Oak/"
+OAK = "Nakasar/Peuples/Npc/Kweebec/Oak/"
 
 # Plans : id -> description. Une entrée de bâtiment : (id, palier, prefab, x, z, rotation 0-3 par quarts de tour).
 # Rotation 1 = ROTATION_90 du serveur (x' = z, z' = -x), comme PrefabRotation$RotationExecutor_90.
@@ -55,6 +59,10 @@ LAYOUTS = {
             ("Abri_Est", 0, OAK + "Houses_Small/Kweebec_Oak_Houses_Small_001", 26, -1, 2),
             ("Tour_De_Guet", 0, OAK + "Guard_Towers/Kweebec_Oak_Guard_Towers_001", 13, 21, 0),
             ("Potager", 0, OAK + "Garden/Medium/Kweebec_Oak_Garden_Medium_001", 0, -16, 0),
+            # Place du marché (Kevin, 21 novembre 2026) : le marchand du village et l'étal de passage.
+            ("Marche", 0, MARKET + "Kweebec_Marche", 4, 51, 2),
+            # Le Grand-Père, cœur sacré du bosquet, dès la fondation (Kevin, 21 novembre 2026 ; palier 3 avant).
+            ("Grand_Pere", 0, OAK + "Grandfather/Kweebec_Oak_Grandfather_001", 31, -23, 0),
             # Palier 1, hameau : puits, échoppe, une maison de plus, l'enclos des lapins.
             ("Puits", 1, OAK + "Well/Kweebec_Oak_Well_001", 0, 16, 0),
             ("Echoppe", 1, OAK + "Shops/Kweebec_Oak_Shops_002", -13, -20, 0),
@@ -65,13 +73,13 @@ LAYOUTS = {
             ("Maison_Des_Gardes", 2, OAK + "Houses_Guard/Kweebec_Oak_Houses_Guard_001", -36, -35, 0),
             ("Tour_Est", 2, OAK + "Guard_Towers/Kweebec_Oak_Guard_Towers_002", 2, -28, 0),
             ("Echoppe_Ouest", 2, OAK + "Shops/Kweebec_Oak_Shops_005", -10, -31, 0),
-            # Palier 3, bourg : le Grand-Père, cœur sacré du bosquet, et le grand potager.
-            ("Grand_Pere", 3, OAK + "Grandfather/Kweebec_Oak_Grandfather_001", 31, -23, 0),
+            # Palier 3, bourg : le grand potager.
             ("Grand_Potager", 3, OAK + "Garden/Large/Kweebec_Oak_Garden_Large_001", 4, 34, 0),
         ],
         # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
         # main) : x0, x1, z0, z1 relatifs au cœur, rue de 3 blocs entre deux zones. Chaque palier voulu y tient.
         "Zones": {
+            "Marche": (-3, 11, 46, 56),
             "Abri_Est": (12, 41, -13, 12),
             "Puits": (-3, 4, 12, 23),
             "Potager": (-6, 6, -20, -12),
@@ -112,7 +120,7 @@ LAYOUTS = {
     },
 }
 
-TRORK = "Npc/Trork/"
+TRORK = "Nakasar/Peuples/Npc/Trork/"
 
 # Étape 7 : le camp trork apprivoisable de la zone 1. Prefabs vanilla Npc/Trork « feuilles » seulement (les
 # Encampment vanilla posent des Prefab_Spawner_Block). Les Trorks du camp sont des rôles VANILLA (« @Rôle ») : leur
@@ -129,6 +137,7 @@ LAYOUTS["Trork_Camp"] = {
         ("Tente_Est", 0, TRORK + "Tent/Trork_Tent_001", 14, 0, 2),
         ("Tour_De_Guet", 0, TRORK + "Tier_1/Watchtower/Trork_Tier_1_Watchtower_001", -14, -11, 0),
         ("Avertissement", 0, TRORK + "Warning/Trork_Warning_Trork_Warning_001", -1, 13, 0),
+        ("Marche", 0, MARKET + "Trork_Marche", -35, 25, 1),
         # Palier 1 : le terrier, le piège, la réserve, une troisième tente.
         ("Terrier", 1, TRORK + "Burrow/Trork_Burrow_Trork_Burrow_001", -14, -24, 0),
         ("Piege", 1, TRORK + "Trap/Trork_Trap_Trork_Trap_001", 11, 12, 0),
@@ -148,6 +157,7 @@ LAYOUTS["Trork_Camp"] = {
     # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
     # main) : x0, x1, z0, z1 relatifs au cœur, rue de 3 blocs entre deux zones. Chaque palier voulu y tient.
     "Zones": {
+        "Marche": (-40, -30, 18, 32),
         "Avertissement": (-6, 4, 10, 14),
         "Feu_De_Camp": (-20, -10, -2, 4),
         "Tente_Est": (10, 20, -6, 5),
@@ -195,11 +205,11 @@ def load_bounds():
             continue
         parts = line.split()
         if len(parts) == 7:
-            bounds[parts[0]] = tuple(int(v) for v in parts[1:])
+            bounds[mod(parts[0])] = tuple(int(v) for v in parts[1:])
         else:
-            bounds[parts[0]] = None
+            bounds[mod(parts[0])] = None
     # Prefabs du mod (enclos des peuples, tools/generate_pens.py) : bornes lues dans le fichier.
-    for f in sorted(MOD_PREFABS.glob("**/*.prefab.json")):
+    for f in sorted(f for d in MOD_PREFAB_DIRS for f in d.glob("**/*.prefab.json")):
         blocks = json.loads(f.read_text(encoding="utf-8"))["blocks"]
         xs, ys, zs = [b["x"] for b in blocks], [b["y"] for b in blocks], [b["z"] for b in blocks]
         key = f.relative_to(MOD_PREFABS.parent.parent.parent).as_posix()[: -len(".prefab.json")]

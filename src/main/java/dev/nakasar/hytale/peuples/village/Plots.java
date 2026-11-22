@@ -24,12 +24,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Les terrains libres E1, E2 et E3 des villages (GDD des bâtiments de métier, étape 6). Kevin (2026-11-15) : E1 s'ouvre au
+ * Les terrains libres (E1, E2, E3…) des villages (GDD des bâtiments de métier, étape 6). Kevin (2026-11-15) : E1 s'ouvre au
  * palier 2, E2 au palier 3 ; les piquets du terrain réservé apparaissent un palier plus tôt. Au panneau du village
  * (page {@link PlotPage}), un joueur de rang {@link #CHOOSE_RANK Ami} choisit un des 5 projets du peuple ; tant que le
  * chantier n'est pas lancé, on peut en changer sans frais. Lancer le chantier prend ses matériaux au dépôt ;
- * {@value #DEFAULT_HOURS} h de jeu de travaux dans le style du peuple ({@link SiteStyle}), puis le prefab vanilla est
- * collé et le villageois du projet arrive : c'est un bâtiment de métier complet (workshop/). Démolir rend un quart des
+ * {@value #DEFAULT_HOURS} h de jeu de travaux dans le style du peuple ({@link SiteStyle}), puis la copie du prefab vanilla est
+ * collée et le villageois du projet arrive : c'est un bâtiment de métier complet (workshop/). Démolir rend un quart des
  * matériaux, une fois tous les {@value #DEMOLISH_DAYS} jours de jeu par terrain ; le bâtiment repart au niveau I.
  *
  * <p>Un projet est un bâtiment du plan par terrain ({@code E1_<Projet>}, {@code E2_<Projet>}, champ {@code Plot}),
@@ -139,6 +139,36 @@ public final class Plots {
     /** Id du projet d'un bâtiment d'emplacement ({@code E1_Archerie} → {@code Archerie}). */
     public static String projectId(VillageLayout.Building b) {
         return b.plot() != null && b.id().startsWith(b.plot() + "_") ? b.id().substring(b.plot().length() + 1) : b.id();
+    }
+
+    /**
+     * Bâtiments du plan qui portent le projet `projectId` ({@code Conseil}, {@code Caserne}…), sur TOUS les terrains du
+     * plan (E1, E2, E3 et ceux à venir). Seule façon de retrouver un bâtiment de projet : ne jamais écrire la liste des
+     * terrains à la main (l'Ambassade n'était cherchée que sur E1 et E2, Kevin 2026-11-21 ; {@code checkPlotLookups}).
+     */
+    public static List<VillageLayout.Building> projectBuildings(Village village, String projectId) {
+        List<VillageLayout.Building> out = new ArrayList<>();
+        VillageLayout layout = village == null ? null : Chantiers.layout(village);
+        if (layout != null) {
+            for (VillageLayout.Building b : layout.buildings()) {
+                if (b.plot() != null && projectId.equals(projectId(b))) {
+                    out.add(b);
+                }
+            }
+        }
+        return out;
+    }
+
+    /** Bâtiments de métier du projet `projectId` bâtis sur un terrain du village, quel que soit le terrain. */
+    public static List<Workshop> builtProjects(Village village, String projectId) {
+        List<Workshop> out = new ArrayList<>();
+        for (VillageLayout.Building b : projectBuildings(village, projectId)) {
+            Workshop w = village.isBuilt(b.id()) ? workshop(village, b.id()) : null;
+            if (w != null) {
+                out.add(w);
+            }
+        }
+        return out;
     }
 
     public static boolean isOpen(Village village, VillageLayout.Plot plot) {
@@ -281,6 +311,53 @@ public final class Plots {
             player.sendMessage(Chantiers.obstacleLine(b, o));
             return false;
         }
+        begin(world, store, village, plot, s, layout, b, h);
+        Chantiers.announce(world, village, Message.translation(KEYS + "started").param("player", player.getUsername())
+                .param("building", Message.translation(Chantiers.buildingKey(b.id()))).param("hours", plot.hours()), null,
+                NotificationStyle.Success);
+        LOGGER.atInfo().log("Nakasar Peuples : chantier de %s lancé sur le terrain %s (%s)", b.id(), plot.id(), village.name());
+        return true;
+    }
+
+    /**
+     * Le conseil lance seul le chantier du projet réservé (échanges nés des besoins, world/TradeNeeds ; Kevin,
+     * 2026-11-21) : mêmes conditions que pour un joueur (matériaux au dépôt, emprise libre), sans rang.
+     */
+    public static boolean startByVillage(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot) {
+        PlotState s = village.plot(plot.id());
+        VillageLayout layout = Chantiers.layout(village);
+        VillageLayout.Building b = s.project() == null || layout == null ? null : layout.building(s.project());
+        if (b == null || s.working() || village.isBuilt(b.id()) || !isOpen(village, plot)) {
+            return false;
+        }
+        Map<String, Integer> missing = missing(world, village, plot);
+        if (missing == null || !missing.isEmpty()) {
+            return false;
+        }
+        removeStakes(world, village, plot, s);
+        int h = Chantiers.siteHeight(world, village, b);
+        if (Chantiers.obstacles(world, village, b, h).any()) {
+            return false;
+        }
+        begin(world, store, village, plot, s, layout, b, h);
+        Chantiers.announce(world, village, Message.translation(KEYS + "startedByVillage").param("village", village.name())
+                .param("building", Message.translation(Chantiers.buildingKey(b.id()))).param("hours", plot.hours()), null,
+                NotificationStyle.Success);
+        LOGGER.atInfo().log("Nakasar Peuples : le conseil lance le chantier de %s sur le terrain %s (%s)", b.id(), plot.id(), village.name());
+        return true;
+    }
+
+    /** Le conseil réserve (ou rend, `buildingId` null) le terrain pour un projet, sans joueur (world/TradeNeeds). */
+    public static void reserveByVillage(Village village, VillageLayout.Plot plot, String buildingId) {
+        PlotState s = village.plot(plot.id());
+        if (!s.working() && (s.project() == null || !village.isBuilt(s.project()))) {
+            s.setProject(buildingId);
+        }
+    }
+
+    /** Matériaux pris au dépôt, terrain aplani, échafaudage, {@code Hours} h de travaux. */
+    private static void begin(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot, PlotState s,
+                              VillageLayout layout, VillageLayout.Building b, int h) {
         ItemContainer chest = Requests.depositContainer(world, village);
         for (VillageLayout.Material m : plot.materials()) {
             Requests.take(chest, m.itemId(), m.quantity());
@@ -291,11 +368,6 @@ public final class Plots {
         PHASE.put(key(village, plot), 1);
         long now = GameClock.seconds(store);
         s.startWorks(now, now + plot.hours() * 3600L);
-        Chantiers.announce(world, village, Message.translation(KEYS + "started").param("player", player.getUsername())
-                .param("building", Message.translation(Chantiers.buildingKey(b.id()))).param("hours", plot.hours()), null,
-                NotificationStyle.Success);
-        LOGGER.atInfo().log("Nakasar Peuples : chantier de %s lancé sur le terrain %s (%s)", b.id(), plot.id(), village.name());
-        return true;
     }
 
     /**

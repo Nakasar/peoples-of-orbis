@@ -58,7 +58,7 @@
     "Item": "Nakasar_Peuples_Annex_Tour",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001 0 -8 0"
+      "Nakasar/Peuples/Batiments/Feran/AP_Tour/AP_Tour_P1 0 -8 0"
     ],
     "Rect": [
       -6,

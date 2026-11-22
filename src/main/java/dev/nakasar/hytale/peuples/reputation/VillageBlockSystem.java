@@ -89,7 +89,7 @@ public final class VillageBlockSystem extends EntityEventSystem<EntityStore, Bre
             }
             List<String> built = Arrays.asList(v.built());
             for (VillageLayout.Building b : layout.buildings()) {
-                if (!built.contains(b.id()) || b.prefab() == null || b.prefab().contains("/Garden/")) {
+                if (!built.contains(b.id()) || b.prefab() == null || b.garden()) {
                     continue;
                 }
                 int[] r = dev.nakasar.hytale.peuples.village.BuildingPaliers.current(v, layout, b).rect();

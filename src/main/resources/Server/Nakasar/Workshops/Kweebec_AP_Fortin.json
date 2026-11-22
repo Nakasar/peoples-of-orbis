@@ -59,8 +59,8 @@
     "Item": "Nakasar_Peuples_Annex_Fortin",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Kweebec/Swamp/Guards/Kweebec_Swamp_Guards_002 0 -12 0",
-      "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_003 14 -11 0"
+      "Nakasar/Peuples/Batiments/Kweebec/AP_Fortin/AP_Fortin_1_P1 0 -12 0",
+      "Nakasar/Peuples/Batiments/Kweebec/AP_Fortin/AP_Fortin_2_P1 14 -11 0"
     ],
     "Rect": [
       -9,

@@ -19,8 +19,10 @@ import dev.nakasar.hytale.peuples.village.Villages;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 
 /**
@@ -126,7 +128,7 @@ public final class MoreVillagesSeeder extends TickingSystem<EntityStore> {
         }
         List<int[]> sites = sites(world, layout, people, zones);
         LOGGER.atInfo().log("Nakasar Peuples : recherche d'un village %s suivant (%d sites candidats)", people.id(), sites.size());
-        tryNext(world, layout, people, sites, 0, done);
+        tryNext(world, layout, people, sites, 0, new TreeMap<>(), done);
     }
 
     /**
@@ -161,11 +163,20 @@ public final class MoreVillagesSeeder extends TickingSystem<EntityStore> {
         return SiteRules.tooClose(all, people, x, z) == null;
     }
 
-    private static void tryNext(World world, VillageLayout layout, People people, List<int[]> sites, int index, Consumer<Village> done) {
+    /** Compte le refus d'un site et l'écrit au journal (Kevin 2026-11-21 : savoir quelle règle refuse les sites). */
+    private static void reject(Map<String, Integer> refusals, People people, int[] site, boolean wetOk, String why) {
+        String kind = why.split(" ", 2)[0];
+        refusals.merge(kind, 1, Integer::sum);
+        LOGGER.atInfo().log("Nakasar Peuples : site %d %d refusé pour un village %s%s : %s", site[0], site[1], people.id(),
+                wetOk ? " (seconde passe)" : "", why);
+    }
+
+    private static void tryNext(World world, VillageLayout layout, People people, List<int[]> sites, int index,
+                                Map<String, Integer> refusals, Consumer<Village> done) {
         // Deux passes : sites au sec d'abord, puis, faute de mieux, ceux où un bâtiment à venir touche l'eau.
         if (index >= 2 * sites.size()) {
-            LOGGER.atWarning().log("Nakasar Peuples : aucun site pour un village %s suivant (nouvel essai au prochain démarrage)",
-                    people.id());
+            LOGGER.atWarning().log("Nakasar Peuples : aucun site pour un village %s suivant parmi %d candidats, refus %s"
+                    + " (nouvel essai au prochain démarrage)", people.id(), sites.size(), refusals);
             done.accept(null);
             return;
         }
@@ -174,29 +185,29 @@ public final class MoreVillagesSeeder extends TickingSystem<EntityStore> {
         // Un village a pu être posé entretemps (commande) : on revérifie les écarts.
         if (!spaced(Villages.registry(world).all(), people, site[0], site[1])
                 || VillageBuilder.tooClose(world, layout, site[0], site[1]) != null) {
-            tryNext(world, layout, people, sites, index + 1, done);
+            reject(refusals, people, site, wetOk, "trop près d'un village");
+            tryNext(world, layout, people, sites, index + 1, refusals, done);
             return;
         }
         // Tout le plan, paliers à venir compris : ses emprises sont sondées pour l'eau (Footprints.dry).
         int r = Footprints.siteRadius(layout);
         Terrain.load(world, site[0] - r, site[0] + r, site[1] - r, site[1] + r).whenComplete((ignored, error) -> world.execute(() -> {
-            if (error != null || !suitable(world, layout, people, site[0], site[1], wetOk)) {
-                tryNext(world, layout, people, sites, index + 1, done);
+            String why = error != null ? "chargement " + error.getMessage()
+                    : SiteRules.reject(world, layout, people, site[0], site[1], wetOk);
+            if (why != null) {
+                reject(refusals, people, site, wetOk, why);
+                tryNext(world, layout, people, sites, index + 1, refusals, done);
                 return;
             }
             String name = VillageNames.pick(world, people);
             VillageBuilder.generate(world, layout, name, site[0], site[1], true, result -> {
                 if (result.village() == null) {
-                    tryNext(world, layout, people, sites, index + 1, done);
+                    reject(refusals, people, site, wetOk, "génération " + (result.error() == null ? "?" : String.valueOf(result.error())));
+                    tryNext(world, layout, people, sites, index + 1, refusals, done);
                     return;
                 }
                 done.accept(result.village());
             });
         }));
-    }
-
-    /** Mêmes exigences de site que le premier lieu du peuple (herbe à 80 % et 9 de relief pour les Kweebecs). */
-    private static boolean suitable(World world, VillageLayout layout, People people, int cx, int cz, boolean wetOk) {
-        return wetOk ? SiteRules.groundOk(world, layout, people, cx, cz) : SiteRules.terrainOk(world, layout, people, cx, cz);
     }
 }

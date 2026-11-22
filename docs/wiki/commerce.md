@@ -7,7 +7,18 @@
 <Info label="Commande">/monde route</Info>
 </Infobox>
 
-Un village ne produit pas tout ce dont il a besoin. Une **route commerciale** le relie à un voisin ou à un [lieu-dit](lieux-dits.md) : des caravanes y font l'aller et le retour, chargées de ce que chaque bout exporte.
+Un village ne produit pas tout ce dont il a besoin. Les marchands de passage s'installent aussi sur sa [place du marché](marche.md), où l'on peut leur passer commande. Une **route commerciale** le relie à un voisin ou à un [lieu-dit](lieux-dits.md) : des caravanes y font l'aller et le retour, chargées de ce que chaque bout exporte.
+
+## L'onglet Commerce
+
+En haut, cinq tuiles résument le commerce du village : ses routes (prises sur ses places), la prochaine caravane, ce qui
+lui manque, ses luxes pour le palier suivant, et vos faveurs. Chaque route est une carte : le partenaire, son niveau en
+pastilles, si elle est **équilibrée** (ou le poids qui manque), une jauge de la caravane, puis ses cases en icônes. Le
+bouton **...** montre son bilan et **Fermer la route**. À droite : ce dont le village manque, ce qu'on lui commande et
+l'étal des importations ; en bas, le bandeau des neuf luxes.
+
+Le sous-onglet **Registre** garde les 24 derniers événements du commerce du village (caravanes arrivées ou pillées,
+manques, commandes, achats, routes), filtrables par sorte.
 
 ## Ouvrir une route
 
@@ -27,7 +38,7 @@ Trois caravanes perdues d'affilée font redescendre la route d'un niveau. Si les
 
 ## Ce qui s'échange
 
-Toute ressource s'échange, pas seulement les luxes. Cliquez sur une case **Exporte** ou **Importe** pour faire défiler ce que l'expéditeur produit :
+Toute ressource s'échange, pas seulement les luxes. Cliquez sur une case **Envoie** ou **Reçoit** d'une route : une grille montre ce que l'expéditeur peut envoyer (avec le chargement par caravane et sa classe, filtrable par classe) et le poids envoyé et reçu par la route. Un clic pose la marchandise, **Laisser vide** vide la case. L'expéditeur peut envoyer :
 
 - les lots et livraisons de ses [avant-postes de métier](avant-postes-de-metier.md) ;
 - les spécialités de ses ateliers au niveau II et plus (tout ce que font ses projets) ;
@@ -59,6 +70,37 @@ Neuf ressources sont des **luxes** :
 Un luxe compte tant que le village y a accès ; celui de son terroir compte dès le palier 2. Il en faut **1** pour le chantier du palier 2, **3** pour celui du palier 3 et **4** pour qu'un colon vienne. Chaque luxe en plus donne **+5 % d'essor** (+25 % au plus). Un village ne perd jamais son palier faute de luxes.
 
 Deux luxes posés au dépôt prolongent l'accès de 3 jours quand il touche à sa fin. Les demandes **Luxe d'ailleurs** du tableau (à partir du palier 2) vous demandent un luxe qui manque au village : une fois remplie, le village y a accès 3 jours.
+
+## Les villages demandent, les voyageurs répètent
+
+Chaque matin, un village fait la liste de ce qui lui manque (trois choses au plus) : les ressources du jour de ses
+ateliers qu'il ne produit ni n'importe, un luxe quand il lui en manque pour grandir, et ce qu'attend un bâtiment qu'il a
+promis de bâtir pour un autre village. L'onglet **Commerce** du panneau affiche ces besoins (et quel village en envoie) et
+les commandes que d'autres villages lui ont passées, dans la colonne de droite.
+
+Personne ne connaît ces besoins d'office : ce sont les gens de passage qui les portent. Un voyageur, une caravane de
+commerce ou un marchand de lieu-dit part avec les besoins de son village et ce qu'on y a appris ; à son arrivée, le
+village l'apprend à son tour, et y repense chaque jour où on le lui redit. Les lieux-dits servent de relais : ils retiennent ce que leur disent les marchands et le
+racontent aux suivants. Le **Klops errant** porte les nouvelles d'un arrêt à l'autre, aussi loin soient-ils. Une
+nouvelle passe par quatre mains au plus et s'oublie au bout de 20 jours. Demandez des nouvelles aux voyageurs : ils
+parlent volontiers de ce qu'ils portent (« À Givrelande, on manque de sel… »).
+
+Quand un village apprend un besoin qu'il peut couvrir, et que le demandeur est un partenaire possible (liaison,
+relation au-dessus de Rival, ou lieu-dit à portée), il s'engage :
+
+- s'il produit déjà la ressource (avant-poste, atelier, lieu-dit tenu, boutique d'un de ses bâtiments), il l'exporte ;
+- sinon, un atelier de niveau II sans spécialité prend celle qui la produit ;
+- sinon, le conseil **réserve un terrain libre** pour un projet qui la vend et **lance le chantier seul** dès que ses
+  matériaux sont au dépôt. Vous pouvez encore changer ce projet tant que les travaux n'ont pas commencé ; la promesse
+  tombe alors. Si le projet attend lui-même une ressource (le Caravansérail feran demande du fer), cette ressource
+  devient un besoin du village : des chaînes d'échanges naissent ainsi.
+
+L'export passe par la route qui relie déjà les deux villages, ou par une route que le fournisseur ouvre seul s'il a une
+place libre. Une **commande** a toujours sa case et ne compte pas dans l'équilibre de la route : le demandeur la reçoit
+même s'il n'a rien d'aussi lourd à rendre. Le bâtiment qui la produit remplit la case. Chaque livraison d'une commande
+rapproche les deux villages (+2 de relation). Un besoin n'a qu'un fournisseur, le premier qui l'apprend, et un village
+tient deux commandes au plus. La commande s'arrête si le fournisseur ne produit plus pendant 7 jours ou si la route est
+fermée (le conseil ne la rouvre pas de lui-même) ; la promesse tombe si aucune route ne peut s'ouvrir en 14 jours ou si le chantier n'a pas commencé en 21 jours.
 
 ## Sur la route
 

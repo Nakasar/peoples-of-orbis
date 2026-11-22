@@ -1,0 +1,305 @@
+$C = "../../../Common.ui";
+
+// Généré par tools/generate_trade.py (thème Feran) : ne pas modifier à la main.
+
+@Small = LabelStyle(FontSize: 12, TextColor: #96a9be, VerticalAlignment: Center);
+
+@Bar = ProgressBar {
+  Background: "../../../Common/ProgressBar.png";
+  BarTexturePath: "Board/Bar_Feran.png";
+  Value: 0;
+};
+
+$C.@PageOverlay {
+  LayoutMode: Middle;
+
+  $C.@DecoratedContainer {
+    Anchor: (Width: 760, Height: 560);
+
+    #Title {
+      Group {
+        LayoutMode: Center;
+        Label #PageTitle { Style: (...$C.@TitleStyle, FontSize: 15, TextColor: #ecd29a); }
+      }
+    }
+
+    #Content {
+      LayoutMode: Top;
+      Padding: (Full: 14, Top: 10);
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 30, Bottom: 10);
+        Group #GradeAll {
+          LayoutMode: Full;
+          Anchor: (Width: 110, Height: 30, Right: 6);
+          $C.@SmallSecondaryTextButton #GradeAllButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+          Group #GradeAllOn {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Background: (Color: #e6b552);
+            Visible: false;
+            Label #GradeAllLabel { Anchor: (Full: 0); Style: (FontSize: 12, RenderBold: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+          }
+        }
+        Group #GradeCommon {
+          LayoutMode: Full;
+          Anchor: (Width: 110, Height: 30, Right: 6);
+          $C.@SmallSecondaryTextButton #GradeCommonButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+          Group #GradeCommonOn {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Background: (Color: #e6b552);
+            Visible: false;
+            Label #GradeCommonLabel { Anchor: (Full: 0); Style: (FontSize: 12, RenderBold: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+          }
+        }
+        Group #GradeFine {
+          LayoutMode: Full;
+          Anchor: (Width: 110, Height: 30, Right: 6);
+          $C.@SmallSecondaryTextButton #GradeFineButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+          Group #GradeFineOn {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Background: (Color: #e6b552);
+            Visible: false;
+            Label #GradeFineLabel { Anchor: (Full: 0); Style: (FontSize: 12, RenderBold: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+          }
+        }
+        Group #GradeLuxury {
+          LayoutMode: Full;
+          Anchor: (Width: 110, Height: 30, Right: 6);
+          $C.@SmallSecondaryTextButton #GradeLuxuryButton { @Text = ""; @Anchor = Anchor(Full: 0); }
+          Group #GradeLuxuryOn {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Background: (Color: #e6b552);
+            Visible: false;
+            Label #GradeLuxuryLabel { Anchor: (Full: 0); Style: (FontSize: 12, RenderBold: true, TextColor: #10180e, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+          }
+        }
+        Label #PickHint { Style: (FontSize: 12, TextColor: #96a9be, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+      }
+      Label #NoPick { Anchor: (Height: 40); Style: (FontSize: 14, TextColor: #96a9be, Wrap: true); Text: ""; Visible: false; }
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 52, Bottom: 6);
+        Button #Pick0 {
+          FlexWeight: 1;
+          Anchor: (Right: 6);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick0Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick0Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick0Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick0Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+        Button #Pick1 {
+          FlexWeight: 1;
+          Anchor: (Right: 6);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick1Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick1Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick1Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick1Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+        Button #Pick2 {
+          FlexWeight: 1;
+          Anchor: (Right: 0);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick2Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick2Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick2Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick2Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+      }
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 52, Bottom: 6);
+        Button #Pick3 {
+          FlexWeight: 1;
+          Anchor: (Right: 6);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick3Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick3Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick3Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick3Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+        Button #Pick4 {
+          FlexWeight: 1;
+          Anchor: (Right: 6);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick4Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick4Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick4Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick4Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+        Button #Pick5 {
+          FlexWeight: 1;
+          Anchor: (Right: 0);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick5Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick5Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick5Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick5Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+      }
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 52, Bottom: 6);
+        Button #Pick6 {
+          FlexWeight: 1;
+          Anchor: (Right: 6);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick6Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick6Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick6Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick6Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+        Button #Pick7 {
+          FlexWeight: 1;
+          Anchor: (Right: 6);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick7Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick7Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick7Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick7Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+        Button #Pick8 {
+          FlexWeight: 1;
+          Anchor: (Right: 0);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick8Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick8Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick8Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick8Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+      }
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 52, Bottom: 6);
+        Button #Pick9 {
+          FlexWeight: 1;
+          Anchor: (Right: 6);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick9Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick9Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick9Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick9Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+        Button #Pick10 {
+          FlexWeight: 1;
+          Anchor: (Right: 6);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick10Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick10Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick10Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick10Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+        Button #Pick11 {
+          FlexWeight: 1;
+          Anchor: (Right: 0);
+          Style: $C.@SecondaryButtonStyle;
+          LayoutMode: Left;
+          Padding: (Horizontal: 8);
+          ItemIcon #Pick11Icon { Anchor: (Width: 32, Height: 32, Top: 10, Right: 8); ShowItemTooltip: true; }
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+            Label #Pick11Name { Anchor: (Height: 20, Top: 6); Style: (FontSize: 13, RenderBold: true, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; }
+            Label #Pick11Sub { Anchor: (Height: 16); Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; }
+          }
+          Label #Pick11Grade { Anchor: (Width: 34); Style: (FontSize: 13, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+        }
+      }
+      Group { FlexWeight: 1; }
+      Group {
+        LayoutMode: Top;
+        Anchor: (Height: 92, Top: 4);
+        Padding: (Horizontal: 12, Vertical: 6);
+        Background: (Color: #4a3a17(0.55));
+        Group {
+          LayoutMode: Left;
+          Anchor: (Height: 20);
+          Label #WeightOut { Style: (FontSize: 13, TextColor: #e6edf3, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+          Label #WeightIn { Style: (FontSize: 13, RenderBold: true, TextColor: #9ed36a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+        }
+        @Bar #WeightBar { Anchor: (Height: 10, Top: 4, Bottom: 4); }
+        Label #PickRule { Style: (FontSize: 12, TextColor: #96a9be, Wrap: true); Text: ""; FlexWeight: 1; }
+      }
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 34, Top: 10);
+        Group { FlexWeight: 1; }
+        $C.@SmallSecondaryTextButton #PickBack { @Text = ""; @Anchor = Anchor(Width: 150, Height: 34, Right: 8); }
+        $C.@SmallSecondaryTextButton #PickClear { @Text = ""; @Anchor = Anchor(Width: 170, Height: 34); }
+      }
+    }
+  }
+}
+
+$C.@BackButton {}

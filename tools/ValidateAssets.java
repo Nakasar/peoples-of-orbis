@@ -1225,15 +1225,76 @@ public class ValidateAssets {
     }
 
     /**
-     * Plans de village ({@code Nakasar/VillageLayouts}) : chaque {@code Prefab} doit être un prefab vanilla relevé dans
-     * Assets.zip ({@code -Dprefabs}, tools/vanilla-prefabs-0.7.2.txt) ; un chemin inconnu laisse un trou dans le village.
+     * Le mod ne colle que ses propres prefabs (Kevin, 21 novembre 2026 : plus aucune référence aux prefabs vanilla des
+     * bâtiments et structures) : les prefabs vanilla employés sont copiés sous {@code Nakasar/Peuples/<chemin vanilla>}
+     * (tools/mod_prefabs.py, tools/copy_vanilla_prefabs.py). Vrai si `prefab` est un prefab du mod présent dans le pack.
      */
+    static boolean modPrefab(Path root, String prefab) {
+        return prefab.startsWith("Nakasar/") && Files.isRegularFile(root.resolve("Prefabs/" + prefab + ".prefab.json"));
+    }
+
+    static final String MOD_PREFAB_HINT = "prefab hors du mod ou copie absente (tools/copy_vanilla_prefabs.py) : ";
+
+    /**
+     * Aucune référence à un prefab vanilla dans le mod ({@code -DvanillaPrefabPaths}, chemins de tous les prefabs
+     * d'Assets.zip ; {@code -DmodSources}, dossiers à lire : sources Java et ressources) : un chemin vanilla
+     * ({@code Npc/Kweebec/...}) est refusé, et une copie citée ({@code Nakasar/Peuples/Npc/Kweebec/...}) doit exister
+     * dans le pack. Les prefabs eux-mêmes ne sont pas relus (ils ne citent pas d'autres prefabs).
+     */
+    private static int checkNoVanillaPrefabs(Path root) throws Exception {
+        String list = System.getProperty("vanillaPrefabPaths");
+        String sources = System.getProperty("modSources");
+        if (list == null || sources == null) {
+            return 0;
+        }
+        Set<String> vanilla = new HashSet<>();
+        for (String line : Files.readAllLines(Path.of(list))) {
+            if (!line.isBlank() && !line.startsWith("#")) {
+                vanilla.add(line.trim());
+            }
+        }
+        Pattern token = Pattern.compile("(?<![A-Za-z0-9_/\\-])(?:[A-Za-z0-9_\\-]+/)+[A-Za-z0-9_\\-]+");
+        Path prefabs = root.resolve("Prefabs").toAbsolutePath().normalize();
+        Set<String> problems = new java.util.TreeSet<>();
+        int scanned = 0;
+        for (String dir : sources.split(java.io.File.pathSeparator)) {
+            List<Path> files;
+            try (Stream<Path> walk = Files.walk(Path.of(dir))) {
+                files = walk.filter(Files::isRegularFile)
+                        .filter(f -> !f.toAbsolutePath().normalize().startsWith(prefabs))
+                        .filter(f -> f.toString().matches(".*\\.(java|json|lang|ui|txt|md)$"))
+                        .sorted().toList();
+            }
+            for (Path file : files) {
+                scanned++;
+                String text = Files.readString(file);
+                Matcher m = token.matcher(text);
+                while (m.find()) {
+                    String path = m.group();
+                    if (vanilla.contains(path)) {
+                        problems.add(file.getFileName() + " : prefab vanilla " + path + " (citer sa copie Nakasar/Peuples/" + path + ")");
+                    } else if (path.startsWith("Nakasar/Peuples/") && vanilla.contains(path.substring("Nakasar/Peuples/".length()))
+                            && !modPrefab(root, path)) {
+                        problems.add(file.getFileName() + " : " + MOD_PREFAB_HINT + path);
+                    }
+                }
+            }
+        }
+        for (String p : problems) {
+            System.out.println("ERROR prefabs du mod : " + p);
+        }
+        if (problems.isEmpty()) {
+            System.out.println("OK    aucun prefab vanilla cité (" + scanned + " fichiers lus)");
+        }
+        return problems.isEmpty() ? 0 : 1;
+    }
+
     /**
      * Bâtiments de métier ({@code Nakasar/Workshops}) : plan, bâtiment et métier existent, le métier travaille dans ce
      * bâtiment, chaque bâtiment a au moins {@value #MIN_WORKSHOP_ORDERS} commandes ; chaque commande
      * ({@code "Workshop"} d'un modèle de demande) cite un bâtiment de métier qui existe.
      */
-    private static int checkWorkshops(Path root, String prefabsFile) throws Exception {
+    private static int checkWorkshops(Path root) throws Exception {
         Path dir = root.resolve("Nakasar/Workshops");
         Path layouts = root.resolve("Nakasar/VillageLayouts");
         Path requests = root.resolve("Nakasar/Requests");
@@ -1278,7 +1339,7 @@ public class ValidateAssets {
                     problems.add("lieu-dit inconnu " + asset);
                 }
             } else if (doc.containsKey("Annex")) {
-                checkAnnex(root, doc.getDocument("Annex"), prefabsFile, problems);
+                checkAnnex(root, doc.getDocument("Annex"), problems);
             } else if (!Files.isRegularFile(layoutFile)) {
                 problems.add("plan inconnu " + layoutId);
             } else {
@@ -1291,7 +1352,13 @@ public class ValidateAssets {
                 if (!hasBuilding) {
                     problems.add("bâtiment " + building + " absent du plan " + layoutId);
                 }
-                if (jobDoc == null) {
+                boolean market = doc.containsKey("Keeper") && doc.getString("Keeper").getValue().equals("Merchant");
+                if (market) {
+                    // Place du marché : tenue par le marchand du village (world/Markets), sans métier du plan.
+                    if (!job.isEmpty()) {
+                        problems.add("la place du marché " + building + " n'a pas de métier (Keeper Merchant)");
+                    }
+                } else if (jobDoc == null) {
                     problems.add("métier " + job + " absent du plan " + layoutId);
                 } else if (!jobDoc.getString("Building", new org.bson.BsonString("")).getValue().equals(building)) {
                     problems.add("le métier " + job + " ne travaille pas dans " + building);
@@ -1415,18 +1482,10 @@ public class ValidateAssets {
      * haut » bien formés, un seul principal (M), chances d'un côté à 1 au plus, prefabs vanilla relevés, décor en blocs
      * connus, 1 à 3 habitants dont les rôles existent, dialogue et trocs présents.
      */
-    private static int checkHamlets(Path root, String prefabsFile) throws Exception {
+    private static int checkHamlets(Path root) throws Exception {
         Path dir = root.resolve("Nakasar/Hamlets");
         if (!Files.isDirectory(dir)) {
             return 0;
-        }
-        Set<String> known = new HashSet<>();
-        if (prefabsFile != null) {
-            for (String line : Files.readAllLines(Path.of(prefabsFile))) {
-                if (!line.isBlank() && !line.startsWith("#")) {
-                    known.add(line.trim().split("\\s+")[0]);
-                }
-            }
         }
         int errors = 0;
         int count = 0;
@@ -1450,8 +1509,8 @@ public class ValidateAssets {
                             problems.add("bâtiment mal formé « " + v.asString().getValue() + " »");
                             continue;
                         }
-                        if (prefabsFile != null && !known.contains(p[0])) {
-                            problems.add("prefab vanilla non relevé " + p[0] + " (tools/vanilla-prefabs-0.7.2.txt)");
+                        if (!modPrefab(root, p[0])) {
+                            problems.add(MOD_PREFAB_HINT + p[0]);
                         }
                         try {
                             double chance = Double.parseDouble(p[5]);
@@ -1526,15 +1585,7 @@ public class ValidateAssets {
         return errors;
     }
 
-    private static void checkAnnex(Path root, BsonDocument annex, String prefabsFile, List<String> problems) throws Exception {
-        Set<String> known = new HashSet<>();
-        if (prefabsFile != null) {
-            for (String line : Files.readAllLines(Path.of(prefabsFile))) {
-                if (!line.isBlank() && !line.startsWith("#")) {
-                    known.add(line.trim().split("\\s+")[0]);
-                }
-            }
-        }
+    private static void checkAnnex(Path root, BsonDocument annex, List<String> problems) throws Exception {
         String item = annex.containsKey("Item") ? annex.getString("Item").getValue() : "";
         try (Stream<Path> walk = Files.walk(root.resolve("Item/Items"))) {
             if (walk.noneMatch(f -> f.getFileName().toString().equals(item + ".json"))) {
@@ -1552,8 +1603,8 @@ public class ValidateAssets {
                 String[] p = v.asString().getValue().trim().split("\\s+");
                 if (p.length != 4) {
                     problems.add("avant-poste : prefab mal formé « " + v.asString().getValue() + " »");
-                } else if (prefabsFile != null && !known.contains(p[0])) {
-                    problems.add("avant-poste : prefab vanilla non relevé " + p[0] + " (tools/vanilla-prefabs-0.7.2.txt)");
+                } else if (!modPrefab(root, p[0])) {
+                    problems.add("avant-poste : " + MOD_PREFAB_HINT + p[0]);
                 }
             }
         }
@@ -1627,24 +1678,31 @@ public class ValidateAssets {
 
     /**
      * Paliers d'apparence des bâtiments ({@code nakasar-peuples/paliers-batiments.json}, tools/building_growth.py) : chaque
-     * bâtiment et avant-poste existe, chaque prefab est connu (vanilla relevé ou prefab du mod), et le palier 1 est encore
+     * bâtiment et avant-poste existe, chaque prefab est un prefab du mod présent dans le pack, et le palier 1 est encore
      * le bâtiment du plan (sinon le fichier date d'avant un changement des plans : relancer le générateur).
      */
-    private static int checkBuildingPaliers(Path root, String vanillaPrefabs) throws Exception {
+    /**
+     * Prefab propre au bâtiment (Kevin, 21 novembre 2026 : « organise les prefabs par bâtiment, pas de réutilisation ») :
+     * chaque bâtiment colle ses propres fichiers, {@code Nakasar/Peuples/Batiments/<Peuple>/<Bâtiment>/} (le même
+     * projet sur E1 à E3 partage les siens) ; seuls les petits décors (lanternes, bancs) restent partagés.
+     */
+    private static void ownPrefab(String where, String prefab, String people, String building, List<String> problems) {
+        if (prefab.contains("/Lampposts/") || prefab.contains("/Seats/")) {
+            return;
+        }
+        String folder = "Nakasar/Peuples/Batiments/" + people + "/" + building + "/";
+        if (!prefab.startsWith(folder)) {
+            problems.add(where + " : prefab " + prefab + " hors du dossier du bâtiment " + folder
+                    + " (relancer tools/building_prefabs.py)");
+        }
+    }
+
+    private static int checkBuildingPaliers(Path root) throws Exception {
         Path file = root.getParent().resolve("nakasar-peuples/paliers-batiments.json");
         if (!Files.isRegularFile(file)) {
             return 0;
         }
-        Set<String> known = new HashSet<>();
-        if (vanillaPrefabs != null) {
-            for (String line : Files.readAllLines(Path.of(vanillaPrefabs))) {
-                if (!line.isBlank() && !line.startsWith("#")) {
-                    known.add(line.trim().split("\\s+")[0]);
-                }
-            }
-        }
-        java.util.function.Predicate<String> knownPrefab = prefab -> vanillaPrefabs == null || known.contains(prefab)
-                || Files.isRegularFile(root.resolve("Prefabs/" + prefab + ".prefab.json"));
+        java.util.function.Predicate<String> knownPrefab = prefab -> modPrefab(root, prefab);
         List<String> problems = new ArrayList<>();
         BsonDocument doc = BsonDocument.parse(Files.readString(file));
         BsonDocument layouts = doc.containsKey("Layouts") ? doc.getDocument("Layouts") : new BsonDocument();
@@ -1655,10 +1713,18 @@ public class ValidateAssets {
                 continue;
             }
             Map<String, BsonDocument> buildings = new HashMap<>();
-            for (BsonValue b : BsonDocument.parse(Files.readString(lf)).getArray("Buildings")) {
+            BsonDocument layoutDoc = BsonDocument.parse(Files.readString(lf));
+            String people = layoutDoc.getString("People").getValue();
+            for (BsonValue b : layoutDoc.getArray("Buildings")) {
                 buildings.put(b.asDocument().getString("Id").getValue(), b.asDocument());
             }
             BsonDocument entries = layouts.getDocument(layoutId);
+            for (BsonDocument b : buildings.values()) {
+                if (b.containsKey("Prefab")) {
+                    String id = b.getString("Id").getValue();
+                    ownPrefab(layoutId + "/" + id, b.getString("Prefab").getValue(), people, id.replaceFirst("^E\\d_", ""), problems);
+                }
+            }
             for (String id : entries.keySet()) {
                 BsonDocument b = buildings.get(id);
                 if (b == null) {
@@ -1671,6 +1737,8 @@ public class ValidateAssets {
                     if (!knownPrefab.test(prefab)) {
                         problems.add(layoutId + "/" + id + " : prefab inconnu " + prefab);
                     }
+                    ownPrefab(layoutId + "/" + id + " palier " + tier.getInt32("Palier").getValue(), prefab, people,
+                            id.replaceFirst("^E\\d_", ""), problems);
                     // Palier 1 retouché à la main sur la carte de revue (tools/retouches-prefabs.json) : permis.
                     if (tier.getInt32("Palier").getValue() == 1 && !prefab.startsWith("Nakasar/Peuples/Retouches/")
                             && (!prefab.equals(b.getString("Prefab").getValue())
@@ -1701,6 +1769,8 @@ public class ValidateAssets {
                     if (!knownPrefab.test(line.split("\\s+")[0])) {
                         problems.add(id + " : prefab inconnu " + line);
                     }
+                    ownPrefab(id, line.split("\\s+")[0], w.getString("People").getValue(),
+                            "AP_" + w.getDocument("Annex").getString("Type").getValue(), problems);
                 }
                 if (tier.getInt32("Palier").getValue() == 1 && !lines.equals(plan)) {
                     problems.add(id + " : le palier 1 n'est plus l'avant-poste (relancer tools/building_growth.py)");
@@ -1716,16 +1786,10 @@ public class ValidateAssets {
         return problems.isEmpty() ? 0 : 1;
     }
 
-    private static int checkVillageLayouts(Path root, String vanillaPrefabs) throws Exception {
+    private static int checkVillageLayouts(Path root) throws Exception {
         Path layouts = root.resolve("Nakasar/VillageLayouts");
-        if (!Files.isDirectory(layouts) || vanillaPrefabs == null) {
+        if (!Files.isDirectory(layouts)) {
             return 0;
-        }
-        Set<String> known = new HashSet<>();
-        for (String line : Files.readAllLines(Path.of(vanillaPrefabs))) {
-            if (!line.isBlank() && !line.startsWith("#")) {
-                known.add(line.trim().split("\\s+")[0]);
-            }
         }
         int errors = 0;
         List<Path> files;
@@ -1741,10 +1805,8 @@ public class ValidateAssets {
                         continue;
                     }
                     String prefab = b.asDocument().getString("Prefab").getValue();
-                    // Prefab du mod (enclos des peuples, tools/generate_pens.py) : présent dans le pack.
-                    boolean mod = prefab.startsWith("Nakasar/") && Files.isRegularFile(root.resolve("Prefabs/" + prefab + ".prefab.json"));
-                    if (!known.contains(prefab) && !mod) {
-                        problems.add("prefab vanilla inconnu : " + prefab);
+                    if (!modPrefab(root, prefab)) {
+                        problems.add(MOD_PREFAB_HINT + prefab);
                     }
                 }
             }
@@ -1863,6 +1925,62 @@ public class ValidateAssets {
      * {@code request.BoardPage} ({@code "#Id"} et {@code "#Id" + n}, case 0) existe dans chaque mise en page du tableau
      * (un id absent d'une page ouverte fait planter le client) ; les icônes de type de demande sont des objets vanilla.
      */
+    /**
+     * Clés de texte des pages Java : chaque préfixe {@code KEYS = "nakasar_peuples.x."} a des clés dans les deux fichiers de
+     * langue, et signale (avertissement) chaque {@code KEYS + "y")} complet du même fichier absent (un renommage de paquet avait changé le préfixe de
+     * l'onglet Bâtir et le jeu affichait les clés brutes, Kevin 2026-11-21).
+     */
+    private static int checkJavaKeys(Path root) throws Exception {
+        Path sources = root.getParent().getParent().resolve("java");
+        if (!Files.isDirectory(sources)) {
+            return 0;
+        }
+        Map<String, Set<String>> langs = new HashMap<>();
+        for (String locale : List.of("fr-FR", "en-US")) {
+            Path lang = root.resolve("Languages/" + locale + "/nakasar_peuples.lang");
+            Set<String> keys = new HashSet<>();
+            if (Files.isRegularFile(lang)) {
+                for (String line : Files.readAllLines(lang, java.nio.charset.StandardCharsets.UTF_8)) {
+                    int eq = line.indexOf('=');
+                    if (eq > 0 && !line.startsWith("#")) {
+                        keys.add(line.substring(0, eq).trim());
+                    }
+                }
+            }
+            langs.put(locale, keys);
+        }
+        Pattern prefix = Pattern.compile("String KEYS = \"nakasar_peuples\\.([A-Za-z0-9_.]+\\.)\";");
+        Pattern full = Pattern.compile("\\bKEYS \\+ \"([A-Za-z0-9_.]+)\"\\)");
+        int errors = 0;
+        List<Path> files;
+        try (Stream<Path> walk = Files.walk(sources)) {
+            files = walk.filter(f -> f.toString().endsWith(".java")).sorted().toList();
+        }
+        for (Path f : files) {
+            String code = Files.readString(f);
+            Matcher m = prefix.matcher(code);
+            if (!m.find()) {
+                continue;
+            }
+            String pre = m.group(1);
+            for (Map.Entry<String, Set<String>> lang : langs.entrySet()) {
+                if (lang.getValue().stream().noneMatch(k -> k.startsWith(pre))) {
+                    errors++;
+                    System.out.println("ERROR " + sources.relativize(f) + " : aucune clé " + pre + "* dans " + lang.getKey());
+                    continue;
+                }
+                Matcher k = full.matcher(code);
+                while (k.find()) {
+                    if (!lang.getValue().contains(pre + k.group(1))) {
+                        // Avertissement seulement : des clés manquaient déjà (commandes d'admin, quelques messages).
+                        System.out.println("WARN  " + sources.relativize(f) + " : clé " + pre + k.group(1) + " absente de " + lang.getKey());
+                    }
+                }
+            }
+        }
+        return errors;
+    }
+
     private static int checkUiPages(Path root, String vanillaTextures, String vanillaItems) throws Exception {
         Path custom = root.resolveSibling("Common/UI/Custom");
         Path pages = custom.resolve("Pages/Nakasar");
@@ -1905,6 +2023,9 @@ public class ValidateAssets {
                 {"workshop/WorkshopSpecialtyPage.java", "WorkshopSpecialtyPage"}, {"village/PlotPage.java", "PlotPage"},
                 {"annex/AnnexPage.java", "AnnexPage"}, {"world/WorldPage.java", "WorldPage"},
                 {"world/DomainPage.java", "DomainPage"}, {"population/PeoplePage.java", "PeoplePage"},
+                {"batir/BuildPage.java", "BuildPage"}, {"request/BoardTabs.java", "BuildPage"},
+                {"reputation/ShopPage.java", "ShopPage"}, {"world/TradePage.java", "TradePage"},
+                {"world/TradePickerPage.java", "TradePickerPage"},
                 // Barre des onglets du panneau : mêmes ids dans les six pages.
                 {"request/BoardTabs.java", "BoardPage"}, {"request/BoardTabs.java", "PlotPage"},
                 {"request/BoardTabs.java", "AnnexPage"}, {"request/BoardTabs.java", "WorldPage"},
@@ -1952,7 +2073,8 @@ public class ValidateAssets {
     /**
      * Syntaxe d'une page .ui telle que le client la lit (une erreur déconnecte le client au chargement, pour TOUTES
      * les pages) : un id d'élément {@code #Nom} n'a que lettres et chiffres (le client lit {@code #RouteOut0_0} comme
-     * {@code #RouteOut0} puis attend {@code {}) ; accolades et parenthèses équilibrées hors chaînes et commentaires.
+     * {@code #RouteOut0} puis attend {@code {}) ; accolades et parenthèses équilibrées hors chaînes et commentaires ;
+     * alignements de style parmi {@link #UI_ALIGNMENTS}.
      */
     private static int checkUiSyntax(Path root, Path ui) throws Exception {
         String text = Files.readString(ui);
@@ -2001,8 +2123,23 @@ public class ValidateAssets {
             errors++;
             System.out.println("ERROR " + name + " (" + uiPos(text, open.peek()) + ") : " + text.charAt(open.peek()) + " jamais refermé");
         }
+        Matcher align = UI_ALIGNMENT.matcher(text);
+        while (align.find()) {
+            if (!UI_ALIGNMENTS.contains(align.group(2))) {
+                errors++;
+                System.out.println("ERROR " + name + " (" + uiPos(text, align.start(2)) + ") : " + align.group(1) + "Alignment: "
+                        + align.group(2) + " invalide, le client n'accepte que " + String.join("/", UI_ALIGNMENTS));
+            }
+        }
         return errors;
     }
+
+    /**
+     * Alignements d'un style (type {@code LabelAlignment} côté client) : Start, Center ou End. « Bottom », « Top », « Left »
+     * ou « Right » déconnectent le client au chargement (échoppe, 21 novembre 2026 : {@code VerticalAlignment: Bottom}).
+     */
+    private static final Pattern UI_ALIGNMENT = Pattern.compile("\\b(Horizontal|Vertical)Alignment\\s*:\\s*([A-Za-z]+)");
+    private static final List<String> UI_ALIGNMENTS = List.of("Start", "Center", "End");
 
     /** Position {@code ligne:colonne} (base 1, comme le client) d'un index dans un texte. */
     private static String uiPos(String text, int index) {
@@ -2211,19 +2348,21 @@ public class ValidateAssets {
         errors += checkWarningZones(root);
         errors += checkDialogueTexts(root, System.getProperty("items"));
         errors += checkRequestTitles(root);
-        errors += checkVillageLayouts(root, System.getProperty("prefabs"));
+        errors += checkVillageLayouts(root);
+        errors += checkNoVanillaPrefabs(root);
         String blockIds = System.getProperty("blocks");
         if (blockIds != null && Files.isRegularFile(Path.of(blockIds))) {
             WORKSHOP_BLOCKS = new HashSet<>(Files.readAllLines(Path.of(blockIds)));
         }
         WORKSHOP_NPCS = System.getProperty("refs") == null ? null : vanillaNpcRefs();
-        errors += checkWorkshops(root, System.getProperty("prefabs"));
-        errors += checkHamlets(root, System.getProperty("prefabs"));
-        errors += checkBuildingPaliers(root, System.getProperty("prefabs"));
+        errors += checkWorkshops(root);
+        errors += checkHamlets(root);
+        errors += checkBuildingPaliers(root);
         errors += checkTargetBlocks(root);
         errors += checkMapMarkerIcons(root);
         errors += checkReputation(root);
         errors += checkUiPages(root, System.getProperty("uitextures"), System.getProperty("items"));
+        errors += checkJavaKeys(root);
         String blocks = System.getProperty("blocks");
         if (blocks != null) {
             errors += checkBlockIds(root, Path.of(blocks));

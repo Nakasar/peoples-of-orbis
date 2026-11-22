@@ -4,31 +4,27 @@ coupés » → une icône par onglet, son nom en info-bulle).
 
     python3 tools/generate_tab_icons.py <dossier du jeu : …/install/release/package/game/latest>
 
-Assets vanilla d'abord : la maison (Tableau), le livre (Projets) et le buste (Habitants) sont les icônes du client
-(VANILLA, sous Client/Data/Game/Interface), passées en blanc et recadrées pour avoir la même taille et le même éclat que
-les autres (les originales sont grises et le livre a une large marge : teintées telles quelles, elles paraissaient
-éteintes). Le jeu n'a ni globe, ni balance, ni tour, ni couronne, ni mine : ces cinq-là sont dessinées ici, en
-silhouettes blanches pleines comme les icônes vanilla. La pioche de l'entrée de mine est la silhouette de l'icône
-vanilla Common/Icons/CraftingCategories/Workbench/Tools.png, lue dans Assets.zip. La page teinte chaque icône par la
-couleur du PatchStyle (claire sur un onglet fermé, sombre sur l'aplat de l'onglet ouvert).
+Assets vanilla d'abord : la maison (Tableau) et le buste (Habitants) sont les icônes du client (VANILLA, sous
+Client/Data/Game/Interface), passées en blanc et recadrées pour avoir la même taille et le même éclat que les autres (les
+originales sont grises : teintées telles quelles, elles paraissaient éteintes). Le jeu n'a ni globe, ni balance, ni
+marteau, ni couronne : ces quatre-là sont dessinées ici, en silhouettes blanches pleines comme les icônes vanilla. Le
+marteau est l'onglet « Bâtir » (Kevin, 21 novembre 2026 : un seul onglet pour les emplacements, avant-postes et
+ouvrages). La page teinte chaque icône par la couleur du PatchStyle (claire sur un onglet fermé, sombre sur l'aplat de
+l'onglet ouvert).
 
 Sortie : src/main/resources/Common/UI/Custom/Pages/Nakasar/Peuples/Board/Tab_<Onglet>.png (64 px, affichées en 24 px).
 """
-import io
 import sys
-import zipfile
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw, ImageFilter
+from PIL import Image, ImageChops, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "src/main/resources/Common/UI/Custom/Pages/Nakasar/Peuples/Board"
-PICKAXE = "Common/Icons/CraftingCategories/Workbench/Tools.png"
 INTERFACE = "Client/Data/Game/Interface"
 # Onglet → icône du client ; detail : garder les nuances (lignes des pages du livre) plutôt qu'une silhouette pleine.
 VANILLA = {
     "Board": ("InGame/Pages/MapIcons/ReturnToCrossroads@2x.png", False),   # maison
-    "Plots": ("InGame/Hud/InputBindingIconBook@2x.png", True),             # livre
     "People": ("InGame/Pages/MapIcons/WorldOnly@2x.png", False),           # utilisateur
 }
 
@@ -73,39 +69,16 @@ def balance():
     return im
 
 
-def mine(pickaxe_png):
-    """Production : une entrée de mine boisée dans la colline, la pioche vanilla devant."""
+def hammer():
+    """Bâtir : un marteau de charpentier penché (le jeu n'a pas d'icône de marteau hors des objets)."""
     im, d = canvas()
-    d.pieslice((-10, 190, 440, 800), 180, 360, fill=W)
-    d.rectangle((0, 470, N, N), fill=T)
-    d.rectangle((110, 350, 300, 470), fill=T)
-    d.pieslice((110, 280, 300, 420), 180, 360, fill=T)
-    d.rectangle((126, 322, 156, 470), fill=W)
-    d.rectangle((254, 322, 284, 470), fill=W)
-    d.rectangle((108, 304, 302, 334), fill=W)
-    alpha = Image.open(io.BytesIO(pickaxe_png)).convert("RGBA").split()[3].resize((300, 300), Image.BICUBIC)
-    alpha = alpha.point(lambda v: 255 if v > 110 else 0).filter(ImageFilter.GaussianBlur(1.2))
-    pick = Image.new("RGBA", (300, 300), W)
-    pick.putalpha(alpha)
-    layer = Image.new("RGBA", (N, N), T)
-    layer.alpha_composite(pick, (N - 300 + 6, -4))
-    # Un liseré vide autour de la pioche la détache de la colline.
-    im.paste(T, (0, 0), layer.split()[3].filter(ImageFilter.MaxFilter(25)))
-    im.alpha_composite(layer)
-    return im
-
-
-def tower():
-    """Ouvrages : une tour de château fort crénelée."""
-    im, d = canvas()
-    d.rectangle((150, 190, 362, 470), fill=W)
-    d.rectangle((120, 120, 392, 200), fill=W)
-    d.rectangle((120, 60, 392, 130), fill=W)
-    for x in (158, 236, 314):                           # trois créneaux entre quatre merlons
-        d.rectangle((x, 60, x + 40, 122), fill=T)
-    d.pieslice((206, 330, 306, 430), 180, 360, fill=T)
-    d.rectangle((206, 380, 306, 470), fill=T)
-    d.rectangle((240, 235, 272, 295), fill=T)
+    head = Image.new("RGBA", (N, N), T)
+    h = ImageDraw.Draw(head)
+    h.rounded_rectangle((232, 150, 280, 450), 16, fill=W)              # manche
+    h.rounded_rectangle((150, 90, 380, 180), 18, fill=W)               # tête
+    h.polygon([(150, 100), (82, 82), (96, 132), (150, 170)], fill=W)   # panne fendue
+    h.polygon([(84, 108), (130, 116), (130, 126), (90, 120)], fill=T)
+    im.alpha_composite(head.rotate(-35, resample=Image.BICUBIC, center=(256, 270)))
     return im
 
 
@@ -145,14 +118,11 @@ def main():
     if len(sys.argv) != 2:
         sys.exit(__doc__)
     game = Path(sys.argv[1])
-    with zipfile.ZipFile(game / "Assets.zip") as z:
-        pickaxe = z.read(PICKAXE)
     OUT.mkdir(parents=True, exist_ok=True)
     for tab, (path, detail) in VANILLA.items():
         whiten(game / INTERFACE / path, detail).save(OUT / f"Tab_{tab}.png")
         print(f"Board/Tab_{tab}.png")
-    for tab, im in (("World", globe()), ("Trade", balance()), ("Annexes", mine(pickaxe)), ("Works", tower()),
-                    ("Domain", crown())):
+    for tab, im in (("World", globe()), ("Trade", balance()), ("Build", hammer()), ("Domain", crown())):
         im.resize((SIZE, SIZE), Image.LANCZOS).save(OUT / f"Tab_{tab}.png")
         print(f"Board/Tab_{tab}.png")
 

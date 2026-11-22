@@ -42,6 +42,11 @@ Votre rang dans un village est le **meilleur des deux** : un ami des Kweebecs es
 - **Les Slothians écoutent leurs amis.** Ils entendent parler de l'aide que vous donnez aux Feran et aux Renoncés : chaque gain auprès de ces deux peuples vous rapporte un quart de ce gain chez les Slothians.
 - La [Peinture de guerre](trorks.md#la-peinture-de-guerre) des Trorks vous fait voir un rang plus bas par les Kweebecs.
 
-## Les échoppes
+## Les échoppes {#les-echoppes}
 
-Le marchand de chaque village ouvre trois échoppes de troc selon votre rang (Toléré, Ami, Hôte), payées en **faveurs** du peuple : on en gagne une poignée à chaque demande remplie et à chaque raid gagné. Le stock est partagé par tout le monde et se renouvelle tous les 3 jours à 6 h.
+Le marchand de chaque village, à son étal de la [place du marché](marche.md), ouvre l'**échoppe** : trois étals en onglets, un par rang (Toléré, Ami, Hôte), payés en
+**faveurs** du peuple ; on en gagne une poignée à chaque demande remplie et à chaque raid gagné. Un étal au-dessus de
+votre rang reste visible, grisé, avec la réputation qui vous manque. À gauche, le **marché du village** liste aussi
+chaque [bâtiment de métier](batiments-de-metier.md) qui vend, avec ses niveaux I à III en onglets et la raison d'un étal
+fermé (artisan absent, atelier à l'arrêt, niveau du bâtiment). Chaque offre montre ce que vous en avez, le stock, le prix
+et une quantité à choisir. Le stock est partagé par tout le monde et se renouvelle tous les 3 jours à 6 h.

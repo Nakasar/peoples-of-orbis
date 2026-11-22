@@ -18,6 +18,7 @@ const sidebars = {
         "lieux-dits",
         "conquete",
         "commerce",
+        "marche",
         "climats",
       ],
     },
@@ -30,6 +31,7 @@ const sidebars = {
       type: "category",
       label: "Bâtiments et métiers",
       items: [
+        "batir",
         "batiments-de-metier",
         "emplacements",
         "avant-postes-de-metier",

@@ -107,7 +107,7 @@ public final class Village {
             .add()
             .append(new KeyedCodec<>("Plots", new ArrayCodec<>(PlotState.CODEC, PlotState[]::new)),
                     (v, a) -> v.plots = a == null ? new PlotState[0] : a, v -> v.plots)
-            .documentation("Terrains libres E1 et E2 : projet, chantier, démolition, piquets.")
+            .documentation("Terrains libres (E1, E2, E3…) : projet, chantier, démolition, piquets.")
             .add()
             .append(new KeyedCodec<>("Annexes", new ArrayCodec<>(AnnexState.CODEC, AnnexState[]::new)),
                     (v, a) -> v.annexes = a == null ? new AnnexState[0] : a, v -> v.annexes)
@@ -518,7 +518,7 @@ public final class Village {
         ruins = java.util.Arrays.stream(ruins).filter(r -> r != null && r != ruin).toArray(AnnexState[]::new);
     }
 
-    /** État sauvegardé du terrain `plotId` (E1, E2), créé vide s'il manque (thread du monde). */
+    /** État sauvegardé du terrain `plotId` (E1, E2, E3…), créé vide s'il manque (thread du monde). */
     public PlotState plot(String plotId) {
         for (PlotState p : plots) {
             if (p != null && p.id.equals(plotId)) {

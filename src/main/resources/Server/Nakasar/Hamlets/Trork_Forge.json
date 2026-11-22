@@ -8,10 +8,10 @@
   "Rule": "NONE",
   "Weight": 3,
   "Buildings": [
-    "Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001 1 -10 0 M 1 -4 5 -15 -4 8",
-    "Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001 -11 -10 0 W 0.5 -15 -7 -14 -6 11",
-    "Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001 13 -10 0 E 0.35 8 17 -14 -5 8",
-    "Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001 11 -10 0 E 0.35 8 13 -12 -7 14"
+    "Nakasar/Peuples/Npc/Trork/Tier_3/Store/Trork_Tier_3_Store_001 1 -10 0 M 1 -4 5 -15 -4 8",
+    "Nakasar/Peuples/Npc/Trork/Burrow/Trork_Burrow_Trork_Burrow_001 -11 -10 0 W 0.5 -15 -7 -14 -6 11",
+    "Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001 13 -10 0 E 0.35 8 17 -14 -5 8",
+    "Nakasar/Peuples/Npc/Trork/Tier_1/Watchtower/Trork_Tier_1_Watchtower_001 11 -10 0 E 0.35 8 13 -12 -7 14"
   ],
   "Decor": [
     "-2 0 -2 0 Bench_Furnace",

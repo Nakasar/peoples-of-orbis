@@ -359,8 +359,8 @@ public final class Calendar {
         boolean near = WorldLife.near(players, v.x(), v.z(), WorldLife.REAL_RANGE + 32);
         int radius = radius(v);
         if (g.kind.equals("fair") && !g.stalls && near) {
-            String[] stalls = {"Orbis/Enkindled/Deco_Stalls/Deco_Stalls_001", "Orbis/Enkindled/Deco_Stalls/Deco_Stalls_002",
-                    "Orbis/Enkindled/Deco_Carts/Deco_Carts_001"};
+            String[] stalls = {"Nakasar/Peuples/Orbis/Enkindled/Deco_Stalls/Deco_Stalls_001", "Nakasar/Peuples/Orbis/Enkindled/Deco_Stalls/Deco_Stalls_002",
+                    "Nakasar/Peuples/Orbis/Enkindled/Deco_Carts/Deco_Carts_001"};
             for (int i = 0; i < stalls.length; i++) {
                 double a = Math.PI / 6 + i * (Math.PI * 2 / 3);
                 int x = v.x() + (int) Math.round(Math.cos(a) * (radius + 8));

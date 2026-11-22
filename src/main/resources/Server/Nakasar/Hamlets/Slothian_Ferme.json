@@ -8,9 +8,9 @@
   "Rule": "FERTILE",
   "Weight": 4,
   "Buildings": [
-    "Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001 0 -8 0 M 1 -3 3 -13 -4 4",
-    "Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001 7 -9 0 E 1 6 8 -10 -8 4",
-    "Monuments/Incidental/Volcanic/Farm/Incidental_Volcanic_003 -11 -8 0 W 0.7 -18 -6 -13 -4 9"
+    "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001 0 -8 0 M 1 -3 3 -13 -4 4",
+    "Nakasar/Peuples/Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001 7 -9 0 E 1 6 8 -10 -8 4",
+    "Nakasar/Peuples/Monuments/Incidental/Volcanic/Farm/Incidental_Volcanic_003 -11 -8 0 W 0.7 -18 -6 -13 -4 9"
   ],
   "Decor": [],
   "Residents": [

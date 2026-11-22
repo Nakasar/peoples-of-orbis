@@ -78,6 +78,7 @@ public final class WorldLifeSystem extends TickingSystem<EntityStore> {
                     TradeCaravans.step(world, s, players, slowDt);
                     TradeRoutes.flushInboxes(world);
                     Garrisons.step(world, s, players);
+                    Markets.step(world, s, players);
                     dev.nakasar.hytale.peuples.annex.Ouvrages.step(world, s, players);
                     Banners.step(world, s, players);
                     Camps.step(world, s, players);
@@ -108,7 +109,10 @@ public final class WorldLifeSystem extends TickingSystem<EntityStore> {
         HamletTrips.morning(world, store, random);
         Allegiance.morning(world, store, day, random);
         TradeAccess.morning(world, day);
+        // Besoins, nouvelles du Klops et engagements avant les routes : les cases des commandes sont posées avant les départs.
+        TradeNeeds.morning(world, store, day, random);
         TradeRoutes.morning(world, store, day, random);
+        Markets.morning(world, store, day, random);
         // Ateliers : ressources du jour prises au dépôt, sinon à l'arrêt (workshop/Inputs).
         dev.nakasar.hytale.peuples.workshop.Inputs.morning(world, store);
     }

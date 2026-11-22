@@ -125,6 +125,9 @@ public final class Workshops {
         if (!village.isStanding(w.building())) {
             return false;
         }
+        if (w.isMarket()) {
+            return true; // place du marché : le marchand du village la tient dès qu'elle est debout
+        }
         VillageLayout layout = Chantiers.layout(village);
         if (layout == null) {
             return false;
@@ -1062,6 +1065,9 @@ public final class Workshops {
     public static boolean keeperPresent(Village village, Workshop w) {
         if (w.isHamlet()) {
             return true; // le tenancier vit au lieu-dit (il apparaît quand un joueur approche)
+        }
+        if (w.isMarket()) {
+            return dev.nakasar.hytale.peuples.request.Criers.merchantPresent(village);
         }
         VillageLayout.Job job = job(village, w);
         if (job != null && w.isAnnex()) {

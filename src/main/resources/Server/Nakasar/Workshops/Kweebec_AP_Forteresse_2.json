@@ -59,9 +59,9 @@
     "Item": "Nakasar_Peuples_Annex_Forteresse",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Kweebec/Oak/Houses_Guard/Kweebec_Oak_Houses_Guard_001 0 -17 0",
-      "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_002 21 -17 0",
-      "Npc/Kweebec/Oak/Guard_Towers/Kweebec_Oak_Guard_Towers_005 -20 -17 0"
+      "Nakasar/Peuples/Batiments/Kweebec/AP_Forteresse/AP_Forteresse_1_P1 0 -17 0",
+      "Nakasar/Peuples/Batiments/Kweebec/AP_Forteresse/AP_Forteresse_2_P1 21 -17 0",
+      "Nakasar/Peuples/Batiments/Kweebec/AP_Forteresse/AP_Forteresse_3_P1 -20 -17 0"
     ],
     "Rect": [
       -25,

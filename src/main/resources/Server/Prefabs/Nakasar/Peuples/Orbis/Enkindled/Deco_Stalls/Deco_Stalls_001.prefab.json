@@ -1,0 +1,569 @@
+{
+  "version": 8,
+  "blockIdVersion": 11,
+  "anchorX": 0,
+  "anchorY": 1,
+  "anchorZ": 0,
+  "blocks": [
+    {
+      "x": -2,
+      "y": 3,
+      "z": -3,
+      "name": "Cloth_Roof_Hide_Flap",
+      "rotation": 2
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -2,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -2,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -2,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": -2,
+      "name": "Cloth_Roof_Hide_Flat"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -1,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -1,
+      "name": "Cloth_Roof_Hide_Flap"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "name": "Cloth_Roof_Hide_Vertical"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 1,
+      "name": "Wood_Softwood_Planks_Half"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Hide_Flap",
+      "rotation": 2
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 2,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 2,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 2,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 2,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": 2,
+      "name": "Cloth_Roof_Hide_Flat"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 3,
+      "name": "Cloth_Roof_Hide_Flap"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 3,
+      "name": "Cloth_Roof_Hide_Vertical"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 3,
+      "name": "Cloth_Roof_Hide_Vertical"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -2,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": -2,
+      "name": "Furniture_Ancient_Barrel"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 1,
+      "name": "Furniture_Ancient_Pot",
+      "rotation": 1
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Leather_Vertical",
+      "rotation": 2
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 2,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": 2,
+      "name": "Wood_Softwood_Beam",
+      "rotation": 5
+    },
+    {
+      "x": -1,
+      "y": 5,
+      "z": 2,
+      "name": "Cloth_Roof_Leather_Flat"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": 3,
+      "name": "Cloth_Roof_Leather_Flap"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": 3,
+      "name": "Cloth_Roof_Leather_Vertical"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -2,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": -2,
+      "name": "Wood_Softwood_Beam",
+      "rotation": 5
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -1,
+      "name": "Furniture_Ancient_Barrel"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": 0,
+      "name": "Cloth_Roof_Hide_Flap",
+      "rotation": 2
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Hide",
+      "rotation": 2
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 2,
+      "name": "Wood_Softwood_Stairs",
+      "rotation": 10
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 2,
+      "name": "Wood_Softwood_Beam",
+      "rotation": 5
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "z": 2,
+      "name": "Cloth_Roof_Hide_Flat"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 3,
+      "name": "Cloth_Roof_Hide_Vertical"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -3,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -2,
+      "name": "Wood_Softwood_Planks_Half"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": -2,
+      "name": "Wood_Softwood_Beam",
+      "rotation": 5
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": -1,
+      "name": "Cloth_Roof_Leather_Flap",
+      "rotation": 2
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 0,
+      "name": "Cloth_Roof_Leather",
+      "rotation": 2
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Leather",
+      "rotation": 2
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 2,
+      "name": "Wood_Softwood_Planks_Half"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 2,
+      "name": "Wood_Softwood_Beam",
+      "rotation": 5
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "z": 2,
+      "name": "Cloth_Roof_Leather_Flat"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 3,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 3,
+      "name": "Cloth_Roof_Leather_Flap"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 3,
+      "name": "Cloth_Roof_Leather_Vertical"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -2,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -2,
+      "name": "Cloth_Roof_Hide_Shallow",
+      "rotation": 2
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -1,
+      "name": "Cloth_Roof_Hide_Shallow",
+      "filler": 32,
+      "rotation": 2
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 0,
+      "name": "Cloth_Roof_Hide",
+      "rotation": 2
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 1,
+      "name": "Furniture_Ancient_Barrel"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 1,
+      "name": "Cloth_Roof_Hide",
+      "rotation": 2
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 2,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 2,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 2,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 2,
+      "name": "Wood_Softwood_Beam"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 2,
+      "name": "Wood_Softwood_Planks"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": 2,
+      "name": "Cloth_Roof_Hide_Flat"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 3,
+      "name": "Cloth_Roof_Hide_Flap"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 0,
+      "name": "Soil_Pathway"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 1,
+      "name": "Soil_Pathway"
+    }
+  ]
+}

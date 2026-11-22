@@ -58,9 +58,9 @@
     "Item": "Nakasar_Peuples_Annex_Forteresse",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Slothian/Disabled/Temple/Medium/Slothian_Disabled_Temple_Medium_001 0 -15 0",
-      "Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_001 -15 -15 0",
-      "Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_003 14 -14 0"
+      "Nakasar/Peuples/Batiments/Slothian/AP_Forteresse/AP_Forteresse_1_P1 0 -15 0",
+      "Nakasar/Peuples/Batiments/Slothian/AP_Forteresse/AP_Forteresse_2_P1 -15 -15 0",
+      "Nakasar/Peuples/Batiments/Slothian/AP_Forteresse/AP_Forteresse_3_P1 14 -14 0"
     ],
     "Rect": [
       -19,

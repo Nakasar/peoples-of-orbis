@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Pecherie",
     "Rule": "WATER",
     "Prefabs": [
-      "Npc/Outlander/Houses/Tier0/Outlander_Houses_Tier0_004 0 -8 0",
-      "Npc/Outlander/Boats/Small/Outlander_Boats_Small_001 8 -8 0"
+      "Nakasar/Peuples/Batiments/Renonce/AP_Pecherie/AP_Pecherie_1_P1 0 -8 0",
+      "Nakasar/Peuples/Batiments/Renonce/AP_Pecherie/AP_Pecherie_2_P1 8 -8 0"
     ],
     "Rect": [
       -5,

@@ -30,7 +30,7 @@ import java.util.Map;
  * {@value #MIN_LENGTH_HALF} blocs de chaque village) qui voit {@value #TRAFFIC_1} passages (marcheurs arrivés : une
  * caravane en compte trois ; au plus un départ par liaison et par jour) en
  * {@value Links#WINDOW_DAYS} jours lance le chantier d'une auberge à mi-chemin, un peu à l'écart de la route : une
- * journée de travaux ({@value #WORK_HOURS} h de jeu), puis le prefab vanilla de la zone et un aubergiste du peuple du
+ * journée de travaux ({@value #WORK_HOURS} h de jeu), puis la copie du prefab vanilla de la zone et un aubergiste du peuple du
  * premier village. Niveaux : relais (repas), auberge à {@value #TRAFFIC_2} passages (troc des voyageurs), grand relais à
  * {@value #TRAFFIC_3} (rumeurs et lettres). Les voyageurs y passent la nuit. Sans passage pendant
  * {@value #CLOSE_DAYS} jours, l'aubergiste s'en va : l'auberge reste debout, vide (une trace de plus).
@@ -110,6 +110,11 @@ public final class Inns {
             return stage == OPEN;
         }
 
+        /** Chantier en cours (pas encore ouverte). */
+        public boolean building() {
+            return stage == WORKS;
+        }
+
         public int x() {
             return x;
         }
@@ -158,10 +163,10 @@ public final class Inns {
     /** Prefab vanilla de l'auberge selon la zone du peuple. */
     public static String prefab(People people) {
         return switch (people.zone()) {
-            case 2 -> "Monuments/Incidental/Sandstone/Normal/Incidental_Sandstone_003";
-            case 3 -> "Monuments/Incidental/Softwood/Misc/Incidental_Softwood_001";
-            case 4 -> "Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001";
-            default -> "Monuments/Incidental/Grasslands/Hunting/Cabins/Incidental_Grasslands_Cabins_Incidentals_Grasslands_Hunting_Cabins_002";
+            case 2 -> "Nakasar/Peuples/Monuments/Incidental/Sandstone/Normal/Incidental_Sandstone_003";
+            case 3 -> "Nakasar/Peuples/Monuments/Incidental/Softwood/Misc/Incidental_Softwood_001";
+            case 4 -> "Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Merchant/Incidental_Slothian_Merchant_Slothian_Merchant_001";
+            default -> "Nakasar/Peuples/Monuments/Incidental/Grasslands/Hunting/Cabins/Incidental_Grasslands_Cabins_Incidentals_Grasslands_Hunting_Cabins_002";
         };
     }
 

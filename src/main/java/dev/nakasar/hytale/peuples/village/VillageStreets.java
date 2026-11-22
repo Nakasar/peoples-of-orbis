@@ -197,7 +197,7 @@ public final class VillageStreets {
         return Blocks.set(chunks, x, y, z, block, 0);
     }
 
-    /** Pose un élément de décor (prefab vanilla ou bloc) sur le sol naturel libre. Vrai s'il est posé. */
+    /** Pose un élément de décor (copie de prefab vanilla ou bloc) sur le sol naturel libre. Vrai s'il est posé. */
     private static boolean decor(World world, Store<EntityStore> store, Terrain terrain, ChunkStore chunks, Village village,
                                  VillageLayout layout, int plaza, int x, int z, int rotation, boolean prefab, String id) {
         if (insideBuilding(village, layout, x, z)) {
@@ -278,7 +278,7 @@ public final class VillageStreets {
         return true;
     }
 
-    /** Vrai si (x, z) tombe dans l'emprise d'un bâtiment du plan ou d'un terrain E1/E2 (garde-fou du générateur). */
+    /** Vrai si (x, z) tombe dans l'emprise d'un bâtiment du plan ou d'un terrain E1, E2, E3… (garde-fou du générateur). */
     private static boolean insideBuilding(Village village, VillageLayout layout, int x, int z) {
         int lx = x - village.x();
         int lz = z - village.z();

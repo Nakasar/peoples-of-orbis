@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Mine",
     "Rule": "ROCK",
     "Prefabs": [
-      "Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_001 0 -7 0",
-      "Npc/Trork/Resource/Rock/Stone/Trork_Resource_Rock_Stone_003 11 -8 0"
+      "Nakasar/Peuples/Batiments/Slothian/AP_Mine/AP_Mine_1_P1 0 -7 0",
+      "Nakasar/Peuples/Batiments/Slothian/AP_Mine/AP_Mine_2_P1 11 -8 0"
     ],
     "Rect": [
       -9,

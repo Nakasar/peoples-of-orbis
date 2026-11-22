@@ -58,9 +58,9 @@
     "Item": "Nakasar_Peuples_Annex_Scierie",
     "Rule": "TREES",
     "Prefabs": [
-      "Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001 0 -8 0",
-      "Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_001 10 -7 0",
-      "Npc/Trork/Resource/Lumber/Forest_Gully/Trork_Resource_Lumber_Forest_Gully_002 -9 -8 0"
+      "Nakasar/Peuples/Batiments/Feran/AP_Scierie/AP_Scierie_1_P1 0 -8 0",
+      "Nakasar/Peuples/Batiments/Feran/AP_Scierie/AP_Scierie_2_P1 10 -7 0",
+      "Nakasar/Peuples/Batiments/Feran/AP_Scierie/AP_Scierie_3_P1 -9 -8 0"
     ],
     "Rect": [
       -12,

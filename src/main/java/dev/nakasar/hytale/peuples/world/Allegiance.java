@@ -274,16 +274,16 @@ public final class Allegiance {
 
     // ---- Maison du conseil ----
 
-    /** L'état de la Maison du conseil du village (le plus haut niveau de ses deux terrains), ou null. */
+    /**
+     * L'état de la Maison du conseil (Ambassade) du village : le plus haut niveau parmi ses terrains, quel que soit le
+     * terrain où elle est bâtie ({@link dev.nakasar.hytale.peuples.village.Plots#builtProjects}), ou null.
+     */
     static WorkshopState council(Village v) {
         WorkshopState best = null;
-        for (String plot : new String[] {"E1", "E2"}) {
-            String id = v.people().id() + "_" + plot + "_" + COUNCIL;
-            if (Workshops.known(v, id) && v.isBuilt(plot + "_" + COUNCIL)) {
-                WorkshopState s = v.workshop(id);
-                if (s != null && (best == null || s.level() > best.level())) {
-                    best = s;
-                }
+        for (dev.nakasar.hytale.peuples.workshop.Workshop w : dev.nakasar.hytale.peuples.village.Plots.builtProjects(v, COUNCIL)) {
+            WorkshopState s = Workshops.known(v, w.getId()) ? v.workshop(w.getId()) : null;
+            if (s != null && (best == null || s.level() > best.level())) {
+                best = s;
             }
         }
         return best;

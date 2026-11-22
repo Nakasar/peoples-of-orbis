@@ -161,7 +161,8 @@ Les demandes (étape 3), la réputation et les rangs (étape 4, groupes et rangs
 ### Plan du village
 
 Un plan (`Server/Nakasar/VillageLayouts/<Id>.json`, asset `VillageLayout`) place des prefabs **vanilla**
-(`Server/Prefabs/Npc/Kweebec/Oak/...`, règle n° 2) autour du cœur. Il est écrit par
+(règle n° 2), toujours par leur copie dans le mod (`Server/Prefabs/Nakasar/Peuples/Npc/Kweebec/Oak/...`, règle n° 5)
+autour du cœur. Il est écrit par
 `tools/generate_village_layouts.py`, qui lit les emprises de `tools/vanilla-prefabs-0.7.2.txt` (relevées dans
 Assets.zip), refuse tout chevauchement (3 blocs entre bâtiments, 1 pour les lanternes et les bancs) et dessine un
 aperçu (`--preview DIR`). Chaque bâtiment a un palier : seul le campement (palier 0) est collé à la génération, les
@@ -169,10 +170,10 @@ autres attendent les chantiers (étape 5).
 
 | Palier | Bâtiments du plan `Kweebec_Oak` (rayon 65) |
 | --- | --- |
-| 0, campement | deux abris, tour de guet, potager (lanternes et bancs : dans le cœur) |
+| 0, campement | deux abris, tour de guet, potager, le Grand-Père, place du marché (lanternes et bancs : dans le cœur) |
 | 1, hameau | puits, échoppe, une maison, enclos des lapins |
 | 2, village | grande maison, maison des gardes, deuxième tour, deuxième échoppe |
-| 3, bourg | le Grand-Père, grand potager |
+| 3, bourg | grand potager |
 
 Les prefabs vanilla gardent leurs marqueurs d'apparition : des Kweebecs (villageois, marchand, patrouilles de
 Razorleaf et de Sproutlings, lapins) apparaissent dans le campement.
@@ -235,9 +236,9 @@ viennent de sa boîte de collision tournée par le moteur (`FillerBlockUtil`) ; 
 du coffre ou pas libre, l'autre voisine sur l'axe (hors d'un chemin d'abord). Le village (`DepositLarge`,
 `Deposit2X/Y/Z`) protège les deux cases. Un village qui redescend de palier garde son grand coffre.
 
-Aperçus : `python3 tools/generate_village_hearts.py --vanilla dump.json --preview DIR --palette pal.json` (le dump vient
-de `tools/extract_vanilla_prefabs.py Assets.zip pieces.txt dump.json --palette pal.json`, la liste des pièces de
-`--list`). Le script refuse un bloc inconnu, un meuble de plusieurs cases posé bloc à bloc, un bloc hors de la place ou
+Aperçus : `python3 tools/generate_village_hearts.py --preview DIR --palette pal.json` (les pièces sont lues dans leurs
+copies du mod ; la palette vient de `tools/extract_vanilla_prefabs.py Assets.zip pieces.txt dump.json --palette
+pal.json`, la liste des pièces de `--list`). Le script refuse un bloc inconnu, un meuble de plusieurs cases posé bloc à bloc, un bloc hors de la place ou
 une case réservée occupée.
 
 `VillageSeeder` pose tout seul **le premier village kweebec du monde par défaut** : 15 s après le démarrage, il essaie
@@ -1669,26 +1670,34 @@ ce village, à 2400 blocs au plus. Sans `--vers`, vers le voisin le plus proche.
 
 ### Onglet Monde du panneau (`world/WorldPage`)
 
-Kevin (2026-11-16), refait d'après la maquette Claude Design « Panneau du village — refonte »
-(https://claude.ai/artifact/6bQjMFFoWYHqx5HJmsNeFj). Page `WorldPage_<Peuple>.ui` (`tools/generate_workshop_ui.py`,
-`world_page`), en deux colonnes :
+Refait par Kevin le 21 novembre 2026 d'après la maquette Claude Design « Onglet Monde — refonte »
+(https://claude.ai/artifact/LAQ1qPd4sBDPsY4Vviafoa), qui remplace celle du 16 novembre. Page `WorldPage_<Peuple>.ui`,
+générée avec ses textures `Board/World_*.png` et le bloc de textes `world.tab.*` par `tools/generate_world_tab.py`
+(constantes de placement partagées avec le Java : carte 540 × 300, rayon 120, anneaux 500 / 1000 / 2400).
 
-- **Voisins** : boussole `Board/Compass.png` (230 px, anneaux 500 et 1000 blocs, 1000 blocs aux 3/4 du rayon, bord à
-  `Links.MAX_LENGTH`), le village au centre, 8 marqueurs `#Mark<i>` placés par `setObject("#Mark<i>.Anchor", Anchor)`
-  (comme `MemoriesPage` vanilla) : les 5 voisins les plus proches (une couleur par relation : allié, ami, neutre,
-  tendu, rival), le troupeau en migration, 2 campements du village. Puis une fiche par voisin (liseré à la couleur de
-  la relation) : peuple, distance, direction, valeur ; route balisée (`Routes.gap`), auberge ouverte, trêve, dernière
-  escarmouche de la semaine gagnée / perdue / nulle (clé `~last:<liaison>` « jour|vainqueur »).
-  Ligne « Voyages d'ici » (Kevin, 2026-11-16) : voyages partis du village vers ce voisin, tentés / réussis / échoués,
-  depuis toujours (`Links.trip`/`trips`, clé `~trips:<de>><vers>` « t|r|é » dans la partie TRAFFIC) : tenté au
-  départ (`Travellers.start`), réussi à l'arrivée ou quand le messager confie sa lettre, échoué quand le dernier
-  marcheur meurt. Les fiches (16 au plus, triées par distance) sont dans une liste qui défile (`#NbList`, TopScrolling) ; la boussole garde 5 voisins, `#NbMore` dit le reste.
-- **En ce moment** (masqué s'il n'y a rien) : raid en cours, escarmouche (`Relations.fighting`), fête ici, fêtes
-  ailleurs, foire en cours, migration (`Calendar.herdAt`).
-- **Agenda** (5 lignes, triées par jour puis heure) : escarmouche attendue (`pendingHour`), raid annoncé (`RaidRecord.night`),
-  fête des moissons (`Calendar.upcoming`), foire (`Calendar.nextFair`, liseré si elle se tient ici), migration ; en
-  dernier ce qui manque (ferme de niveau II, village de palier 2).
-- **Sur les routes** (4 lignes) : voyageurs partis du village puis arrivants, genre coloré, jauge `at / longueur`.
+- **Bandeau** (4 tuiles) : voisins par relation, prochain événement (rouge s'il est hostile), voyageurs sur les
+  routes, ce qui est autour (camps, troupeau, auberges).
+- **Alentours** : carte cliquable, **tous** les voisins jusqu'à `Links.MAX_LENGTH` (10 points au plus). Une forme par
+  relation (allié double anneau, ami disque, neutre anneau, tendu triangle, rival losange) pour ne pas dépendre de la
+  couleur. Le nom est toujours posé vers l'extérieur (le serveur choisit le côté gauche ou droit). La liaison choisie
+  a un halo et une traînée de 7 points. Les points d'intérêt (12 au plus) : campements, troupeau, auberges,
+  voyageurs (une pastille par genre), escarmouche. Un clic sur un point choisit ce voisin.
+- **Voisins** : liste qui défile (16 lignes, `#NbList`), triée par distance, cliquable, avec des pictos : route
+  balisée, auberge ouverte, trêve, voyageur en route, escarmouche en cours.
+- **Fiche** du voisin choisi (sinon celui d'une escarmouche en cours, sinon le plus proche) : jauge de relation en 20
+  segments sur 5 zones (−100 / −50 / −20 / 20 / 50 / 100) et ligne de tendance ; 4 pastilles (route, auberge ouverte
+  ou en chantier x/6, trêve et jours restants `Relations.truceUntil`, dernière escarmouche) ; voyages partis / arrivés
+  / perdus (`Links.trips`) ; 2 voyageurs suivis avec jauge et temps restant (blocs ÷ `Walk.SPEED` ou
+  `Walk.ROUTE_SPEED`) ; une ligne « ce que vous pouvez faire » (dans l'ordre : rejoindre l'escarmouche, escarmouche
+  attendue, trêve, lettre de paix si rival, escorte si des voyageurs sont sur la liaison, renfort d'allié, auberge,
+  auberge à venir, route à baliser).
+- **Marquer sur la carte** (`world/WorldWaypoints`) : un repère par joueur sur la carte du monde et la boussole, à
+  l'icône du peuple du village ; le même bouton le retire, un nouveau remplace l'ancien. En mémoire seulement (perdu
+  au redémarrage).
+- **Ce qui vient** : « En ce moment » et l'agenda fusionnés (6 lignes), ce qui se passe maintenant en premier, puis
+  par jour et heure ; une pastille de lieu (ici, route, autre village). Ce qui manque (fête sans ferme de niveau II,
+  foire sans palier 2) va dans une ligne bloquante en bas, avec un bouton **Bâtir** qui ouvre l'onglet Bâtir.
+- **Rumeurs** : le pied de page montre une rumeur de `Rumours.all`, la même pour un village toute la journée.
 
 ### Trajets à pied sec (`annex/LandPath`)
 
@@ -1763,7 +1772,7 @@ Ligne de bâtiment : `"chemin x z rot côté chance x0 x1 z0 z1 haut"` dans le r
 principal au nord `-z`, marché à `z = 5`). Côté `M` toujours posé ; `W` et `E` : un tirage par côté (chaque choix a sa
 chance, au plus un). Le tirage est fait à la création (`mask`, bit i = bâtiment i). Décor `"dx dy dz lacet Bloc"` posé
 seulement dans l'air (bancs vanilla de la forge, caisses, sacs). Les emprises des nouveaux prefabs sont relevées dans
-`tools/vanilla-prefabs-0.7.2.txt`.
+`tools/vanilla-prefabs-0.7.2.txt`, et leur copie ajoutée au mod par `tools/copy_vanilla_prefabs.py`.
 
 Habitants (1 à 3) : rôles `Nakasar_Peuples_<Peuple>_Hamlet_{Keeper,Worker,Sentry}` (apparences vanilla du peuple),
 dialogue `Monde_LieuDit_<Genre>` (troc, « qui vient commercer ici ? », rumeurs). Troc `Nakasar_Peuples_Hamlet_<P>_<G>`
@@ -2042,6 +2051,44 @@ Textes, onglet, demandes et dialogue : `tools/generate_trade.py`.
   défilent au clic, niveau, crédit, fermeture), partenaires, étal des importations (demi-chargement de niveau I pris
   au dépôt contre 1 faveur, rang Toléré).
 - Commande `/monde route [--faire liste|ouvrir|niveau|depart|acces|fermer] [--vers village]`.
+## Échanges nés des besoins (`world/TradeNeeds`)
+
+Demande de Kevin (21 novembre 2026) : les villages créent eux-mêmes leurs échanges selon leurs besoins ; les besoins
+voyagent avec les PNJ de passage ; un village qui peut produire apprend le besoin quand un porteur passe chez lui, bâtit
+ce qu'il faut et exporte. Choix de Kevin le même jour : le conseil réserve un terrain libre **et lance seul** le chantier.
+
+- **Besoins** (`N:<village>|<objet> = raison|depuis`, partie `TradeNeeds`), refaits chaque matin avant les routes, au plus
+  3 : `INPUT` (Inputs d'un atelier ouvert non `TradeAccess.available`), `CHAIN` (Requires d'un projet promis non
+  disponible), `LUXURY` (un luxe à terroir étranger quand `missingFor(tier+1) > 0`, tiré par hachage de l'id).
+- **Nouvelles** (`K:<lieu>|<village>|<objet> = jour|mains`, 16 par lieu, oubliées à 20 jours) et **sacs**
+  (`B:<porteur>`, 8 nouvelles, porteur = `walkKey()` : `T:`, `TC:`, `HT:`, ou `KLOPS`). `pack` au départ
+  (`Travellers.start`, `TradeCaravans.dispatch`, `HamletTrips.start`), `unpack` à l'arrivée (voyageur, caravane,
+  place du lieu-dit puis `pack` depuis le lieu-dit, retour au village), `discard` au `drop`. Klops : chaque matin,
+  `unpack` puis `pack` à `Klops.stop(day)`. 4 mains au plus.
+- **Engagements** (`P:<fournisseur>|<demandeur>|<objet> = état|depuis|bâtiment|livré le|porteur`), pris à la première
+  nouvelle (`respond`) : un fournisseur par besoin, 2 par village, partenaire via `TradeRoutes.candidates`. Ordre :
+  `canSupply` (catalogue hors réexport, ou boutique d'un bâtiment ouvert, base comprise) → spécialité d'un atelier de
+  niveau II sans spécialité → terrain libre ouvert (`Plots.catalog`, boutique de base qui vend l'objet ; refus
+  `requires` accepté, il crée le besoin `CHAIN`) via `Plots.reserveByVillage`. États `BUILD` → `OPEN` → `ACTIVE`.
+  `BUILD` : `Plots.startByVillage` dès que matériaux au dépôt + `Projects.projectMissing == null` (`AUTO_START`).
+- **Routes** : `TradeNeeds.ordered(sender, receiver)` = commandes ; `TradeRoutes.cleared` les laisse toujours passer,
+  `spendCredit` ne les compte pas, `autoCases` les pose en premier (sans paire) ; la route autonome n'est « idle » que
+  si les deux côtés sont vides. `TradeCatalogue.of` ajoute `orderedProduce` (source WORKSHOP) ; `TradeCaravans.dispatch`
+  charge une case de commande pleine sans prendre au dépôt. `TradeNeeds.delivered` : +2 de relation, première
+  livraison annoncée au demandeur. `TradeRoutes.drop` → `routeDropped`.
+- **Paroles** : `Rumours.all` (commandes et besoins portés), action de dialogue `Rumour` (une fois sur deux, une
+  nouvelle du sac du PNJ), onglet Commerce (label `#Needs` à côté de `#Rule`, `TradeNeeds.pageLine`).
+- Relecture (PR #17) : `respond` rejoué quand une nouvelle est réentendue un autre jour ; route fermée → toutes ses
+  commandes finissent (`end.route`), pas de réouverture ; case de commande rendue sur une route de joueur à la fin ;
+  commandes du receveur exclues de son budget (`TradeRoutes.paying`) ; couverture jugée par `TradeAccess.available`
+  (`lacks`) ; `orderedProduce` limité à la route de l'acheteur ; plafond `AUTO_MAX` respecté ; rumeurs de commandes
+  limitées à 4.
+- Commande `/monde besoins [--faire liste|matin|dire] [--vers village]`. Textes écrits à la main en fin des fichiers
+  de langue (bloc « Échanges commerciaux nés des besoins »).
+- Écarts / limites : les avant-postes (fondation posée par un joueur) ne sont jamais bâtis par le conseil ; les
+  aubergistes et campeurs ne portent pas de nouvelles ; une commande `ACTIVE` dure tant que le fournisseur produit et
+  que la route tient, même si le besoin d'origine a disparu.
+
 ## Générations de villageois (`population/`)
 
 Proposition validée par Kevin le 16 novembre 2026 (Claude Doc « Peuples d'Orbis — Générations de villageois »,

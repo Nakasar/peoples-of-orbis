@@ -26,6 +26,7 @@ import dev.nakasar.hytale.peuples.request.BoardTabs;
 import dev.nakasar.hytale.peuples.request.GameClock;
 import dev.nakasar.hytale.peuples.request.Requests;
 import dev.nakasar.hytale.peuples.village.People;
+import dev.nakasar.hytale.peuples.village.VillageBoard;
 import dev.nakasar.hytale.peuples.village.Village;
 import dev.nakasar.hytale.peuples.village.Villages;
 
@@ -34,24 +35,33 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * L'onglet « Commerce » du panneau du village (routes commerciales, Kevin, 16 novembre 2026) : les neuf luxes (en accès,
- * du terroir, manquants) et ce que demande le palier suivant ; les routes ouvertes avec leurs cases d'export et
- * d'import (un clic fait défiler le catalogue), le niveau, le crédit et la fermeture ; les partenaires possibles
- * (ouvrir une route) ; l'étal des importations (acheter un petit lot pris au dépôt contre une faveur).
+ * L'onglet « Commerce » du panneau du village, refait le 21 novembre 2026 (maquette « Commerce repensé ») : un résumé
+ * (routes, prochaine caravane, manques, luxes, porte-monnaie) ; les routes en cartes (partenaire, niveau en pastilles,
+ * équilibre, jauge de la caravane, cases en icônes qu'un clic ouvre dans {@link TradePickerPage}, actions rares derrière
+ * « ... ») ; à droite ce dont le village manque (et qui en envoie), ce qu'on lui commande, l'étal des importations ; les
+ * luxes en bandeau. Le sous-onglet « Registre » montre les derniers événements du commerce ({@link TradeLog}).
  * Mise en page par peuple ({@code TradePage_<Peuple>.ui}, {@code tools/generate_trade.py}).
  */
 public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
 
     private static final String LAYOUT = "Pages/Nakasar/Peuples/TradePage.ui";
     private static final List<String> THEMED = List.of("Kweebec", "Trork", "Feran", "Renonce", "Slothian");
-    /** Lignes de l'onglet (tools/generate_trade.py ROUTES, CANDIDATES, STALL). */
+    /** tools/generate_trade.py ROUTES, CANDIDATES, STALL, CASES, NEEDS, ORDERS, LOG, LOG_FILTERS. */
     private static final int ROUTES = 3;
     private static final int CANDIDATES = 3;
     private static final int STALL = 4;
     private static final int CASES = 3;
+    private static final int NEEDS = 3;
+    private static final int ORDERS = 2;
+    private static final int LOG = 11;
+    private static final List<String> FILTERS = List.of("All", "Caravans", "Needs", "Orders", "Purchases", "Routes");
+    private static final String CASE_LETTERS = "abc";
     private static final String OK = "#9ed36a";
+    private static final String WARN = "#e8a65a";
     private static final String MUTED = "#7f93a8";
     private static final String GOLD = "#e8c46a";
+    private static final String BLUE = "#7fa8d8";
+    private static final String TEXT = "#e6edf3";
     static final String KEYS = TradeRoutes.KEYS + "page.";
     public static final String TAB = KEYS + "tab";
 
@@ -68,6 +78,9 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
     private final List<String> routes = new ArrayList<>();
     private final List<String> candidates = new ArrayList<>();
     private final List<String> stall = new ArrayList<>();
+    private boolean log;
+    private String filter = "All";
+    private int menu = -1;
 
     public TradePage(PlayerRef playerRef, Village village) {
         super(playerRef, CustomPageLifetime.CanDismiss, Event.CODEC);
@@ -97,12 +110,96 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
         long day = GameClock.day(store);
         cmd.set("#PageTitle.TextSpans", Message.translation(KEYS + "title").param("village", village.name()));
         BoardTabs.fill(cmd, events, store, village);
+        summary(cmd, store, ref, world, village, day);
+        views(cmd, events);
+        cmd.set("#MainView.Visible", !log);
+        cmd.set("#LogView.Visible", log);
+        if (log) {
+            ledger(cmd, events, world, village, day);
+            return;
+        }
         luxuries(cmd, world, village, day);
         routes(cmd, events, world, village, day);
         candidates(cmd, events, world, village, day);
+        needs(cmd, world, village);
+        orders(cmd, world, village);
         stall(cmd, events, world, village, day);
-        cmd.set("#Rule.TextSpans", Message.translation(KEYS + "rule").param("offering", TradeRoutes.OFFERING)
-                .param("credit", dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(village)));
+    }
+
+    // ---- Résumé ----
+
+    private void summary(UICommandBuilder cmd, Store<EntityStore> store, Ref<EntityStore> ref, World world, Village v, long day) {
+        int used = TradeRoutes.used(world, v);
+        int slots = TradeRoutes.slots(world, v, day);
+        cmd.set("#SumRoutesLabel.TextSpans", Message.translation(KEYS + "sum.routes"));
+        cmd.set("#SumRoutesValue.TextSpans", Message.translation(KEYS + "sum.routesValue").param("used", used).param("slots", slots));
+        cmd.set("#SumRoutesSub.TextSpans", used >= slots ? Message.translation(KEYS + "sum.routesFull")
+                : Message.translation(KEYS + "sum.routesFree").param("count", TradeRoutes.candidates(world, v).size()));
+        // Prochaine caravane : une en route d'abord, sinon le prochain départ.
+        cmd.set("#SumCaravanLabel.TextSpans", Message.translation(KEYS + "sum.caravan"));
+        Message value = Message.translation(KEYS + "sum.caravanNone");
+        Message sub = Message.translation(KEYS + "sum.caravanNoneSub");
+        long best = Long.MAX_VALUE;
+        for (TradeRoutes.Route r : TradeRoutes.of(world, v)) {
+            Village o = TradeRoutes.village(world, r.other(v.id()));
+            if (o == null || r.suspended()) {
+                continue;
+            }
+            if (caravan(world, r) != null) {
+                value = Message.translation(KEYS + "sum.caravanRoad");
+                sub = Message.translation(KEYS + "sum.caravanTo").param("partner", TradeRoutes.name(world, o));
+                best = -1;
+                break;
+            }
+            long left = Math.max(0, r.next() - day);
+            if (left < best) {
+                best = left;
+                value = left == 0 ? Message.translation(KEYS + "sum.caravanToday") : Message.translation(KEYS + "sum.caravanDays").param("days", left);
+                sub = Message.translation(KEYS + "sum.caravanTo").param("partner", TradeRoutes.name(world, o));
+            }
+        }
+        cmd.set("#SumCaravanValue.TextSpans", value);
+        cmd.set("#SumCaravanValue.Style.TextColor", best == Long.MAX_VALUE ? MUTED : OK);
+        cmd.set("#SumCaravanSub.TextSpans", sub);
+        List<TradeNeeds.Need> needs = TradeNeeds.needs(world, v);
+        int covered = 0;
+        for (TradeNeeds.Need n : needs) {
+            if (supplier(world, v, n.item()) != null) {
+                covered++;
+            }
+        }
+        cmd.set("#SumNeedsLabel.TextSpans", Message.translation(KEYS + "sum.needs"));
+        cmd.set("#SumNeedsValue.TextSpans", Message.raw(Integer.toString(needs.size())));
+        cmd.set("#SumNeedsValue.Style.TextColor", needs.isEmpty() ? OK : WARN);
+        cmd.set("#SumNeedsSub.TextSpans", Message.translation(KEYS + "sum.needsSub").param("covered", covered));
+        int count = TradeAccess.count(world, v, day);
+        int target = Math.min(3, v.tier() + 1);
+        int need = v.tier() >= 3 ? TradeAccess.SETTLER : TradeAccess.needAt(target);
+        cmd.set("#SumLuxLabel.TextSpans", Message.translation(KEYS + "sum.lux"));
+        cmd.set("#SumLuxValue.TextSpans", Message.translation(KEYS + "sum.luxValue").param("count", count).param("need", need));
+        cmd.set("#SumLuxValue.Style.TextColor", count >= need ? GOLD : TEXT);
+        cmd.set("#SumLuxSub.TextSpans", v.tier() >= 3 ? Message.translation(KEYS + "sum.luxSettler")
+                : Message.translation(KEYS + "sum.luxTier").param("tier", Message.translation(dev.nakasar.hytale.peuples.village.Tiers.nameKey(target))));
+        String favour = v.people().favorItem();
+        cmd.set("#SumWalletLabel.TextSpans", Message.translation(KEYS + "sum.wallet"));
+        cmd.set("#SumWalletIcon.ItemId", favour);
+        cmd.set("#SumWalletValue.TextSpans", Message.raw(Integer.toString(WorldLife.count(store, ref, favour::equals))));
+        cmd.set("#SumWalletSub.TextSpans", VillageBoard.itemName(favour));
+    }
+
+    private static void toggle(UICommandBuilder cmd, UIEventBuilder events, String id, Message text, boolean on, String action) {
+        cmd.set("#" + id + "On.Visible", on);
+        cmd.set("#" + id + "Button.Visible", !on);
+        cmd.set("#" + id + "Label.TextSpans", text);
+        if (!on) {
+            cmd.set("#" + id + "Button.Text", text);
+            events.addEventBinding(CustomUIEventBindingType.Activating, "#" + id + "Button", EventData.of("Action", action));
+        }
+    }
+
+    private void views(UICommandBuilder cmd, UIEventBuilder events) {
+        toggle(cmd, events, "ViewMain", Message.translation(KEYS + "view.main"), !log, "ViewMain");
+        toggle(cmd, events, "ViewLog", Message.translation(KEYS + "view.log"), log, "ViewLog");
     }
 
     // ---- Luxes ----
@@ -130,7 +227,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
                 colour = OK;
             } else if (!TradeGoods.allowed(v.people(), l.item())) {
                 mark = Message.translation(KEYS + "lux.never");
-                colour = MUTED;
+                colour = "#e07468";
             } else {
                 mark = Message.translation(KEYS + "lux.missing");
                 colour = MUTED;
@@ -142,8 +239,22 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
 
     // ---- Routes ----
 
-    private static Message itemName(String item) {
+    static Message itemName(String item) {
         return item == null ? Message.translation(KEYS + "case.empty") : Message.translation(TradeGoods.itemKey(item));
+    }
+
+    static Message gradeName(String item) {
+        return Message.translation(KEYS + "grade." + TradeGoods.grade(item).key());
+    }
+
+    /** La caravane de la route en chemin, ou null. */
+    private static TradeCaravans.Caravan caravan(World world, TradeRoutes.Route r) {
+        for (TradeCaravans.Caravan c : TradeCaravans.all(world)) {
+            if (r.key().equals(c.route)) {
+                return c;
+            }
+        }
+        return null;
     }
 
     private void routes(UICommandBuilder cmd, UIEventBuilder events, World world, Village v, long day) {
@@ -151,6 +262,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
         routes.clear();
         cmd.set("#RoutesHeader.TextSpans", Message.translation(KEYS + "routes").param("count", list.size())
                 .param("slots", TradeRoutes.slots(world, v, day)));
+        cmd.set("#RoutesHint.TextSpans", Message.translation(KEYS + "routesHint"));
         cmd.set("#NoRoute.Visible", list.isEmpty());
         if (list.isEmpty()) {
             cmd.set("#NoRoute.TextSpans", Message.translation(KEYS + (v.tier() < 1 ? "noRouteTier" : "noRoute")));
@@ -165,73 +277,192 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
             routes.add(r.key());
             Village o = TradeRoutes.village(world, r.other(v.id()));
             cmd.set("#Route" + n + ".Visible", true);
-            cmd.set("#RouteName" + n + ".TextSpans", Message.translation(KEYS + "route.name").param("partner", o == null ? Message.raw("?") : TradeRoutes.name(world, o))
-                    .param("level", Message.translation(KEYS + "level." + r.level())));
+            cmd.set("#RouteName" + n + ".TextSpans", o == null ? Message.raw("?") : TradeRoutes.name(world, o));
+            for (int j = 0; j < CASES; j++) {
+                String pip = n + CASE_LETTERS.charAt(j);
+                cmd.set("#RoutePip" + pip + ".Visible", j < r.level());
+                cmd.set("#RoutePipOff" + pip + ".Visible", j >= r.level());
+            }
+            int deficit = TradeRoutes.deficit(r, v.id());
+            int credit = r.credit(v.id());
+            Message balance = deficit <= 0 ? Message.translation(KEYS + "balance.ok")
+                    : credit >= deficit ? Message.translation(KEYS + "balance.credit").param("credit", credit)
+                    : Message.translation(KEYS + "balance.short").param("deficit", deficit).param("credit", credit);
+            cmd.set("#RouteBalance" + n + ".TextSpans", balance);
+            cmd.set("#RouteBalance" + n + ".Style.TextColor", deficit <= 0 || credit >= deficit ? OK : WARN);
+            // Jauge : la caravane en chemin (de ce village ou vers lui), sinon les jours avant le départ.
+            cmd.set("#RouteFrom" + n + ".TextSpans", Message.raw(v.name()));
+            cmd.set("#RouteTo" + n + ".TextSpans", o == null ? Message.raw("?") : TradeRoutes.name(world, o));
+            TradeCaravans.Caravan c = caravan(world, r);
             Message state;
+            float fill;
             if (r.suspended()) {
                 state = Message.translation(KEYS + "route.suspended").param("days", Math.max(0, TradeRoutes.BREAK_DAYS - (day - r.suspendedSince())));
+                fill = 0f;
+            } else if (c != null && o != null) {
+                double length = Math.max(1.0, TradeRoutes.distance(v, o));
+                double at = Math.max(0.0, Math.min(1.0, c.at() / length));
+                fill = (float) (c.from().equals(v.id()) ? at : 1.0 - at);
+                state = Message.translation(KEYS + "state.road");
             } else {
-                state = Message.translation(KEYS + "route.state").param("next", Math.max(0, r.next() - day)).param("arrivals", r.arrivals())
-                        .param("lost", r.lost()).param("credit", r.credit(v.id())).param("deficit", TradeRoutes.deficit(r, v.id()));
+                long left = Math.max(0, r.next() - day);
+                fill = (float) Math.max(0.0, Math.min(1.0, 1.0 - left / (double) Math.max(1, r.interval())));
+                state = left == 0 ? Message.translation(KEYS + "state.today") : Message.translation(KEYS + "state.days").param("days", left);
             }
             if (r.auto()) {
                 state = Message.translation(KEYS + "route.auto").param("state", state);
             }
+            cmd.set("#RouteBar" + n + ".Value", fill);
             cmd.set("#RouteState" + n + ".TextSpans", state);
-            cmd.set("#RouteOutLabel" + n + ".TextSpans", Message.translation(KEYS + "route.out"));
-            cmd.set("#RouteInLabel" + n + ".TextSpans", Message.translation(KEYS + "route.in"));
-            List<String> out = r.exportsOf(v.id());
-            List<String> in = r.importsOf(v.id());
-            for (int j = 0; j < CASES; j++) {
-                boolean open = j < r.level();
-                String o1 = "#RouteOut" + n + "C" + j;
-                String i1 = "#RouteIn" + n + "C" + j;
-                cmd.set(o1 + ".Visible", open);
-                cmd.set(i1 + ".Visible", open);
-                if (open) {
-                    cmd.set(o1 + ".Text", itemName(j < out.size() ? out.get(j) : null));
-                    cmd.set(i1 + ".Text", itemName(j < in.size() ? in.get(j) : null));
-                    events.addEventBinding(CustomUIEventBindingType.Activating, o1, EventData.of("Action", "Out" + n + "_" + j));
-                    events.addEventBinding(CustomUIEventBindingType.Activating, i1, EventData.of("Action", "In" + n + "_" + j));
-                }
-            }
+            cmd.set("#RouteOutLabel" + n + ".TextSpans", Message.translation(KEYS + "route.outShort"));
+            cmd.set("#RouteInLabel" + n + ".TextSpans", Message.translation(KEYS + "route.inShort"));
+            cases(cmd, events, r, n, "Out", r.exportsOf(v.id()));
+            cases(cmd, events, r, n, "In", r.importsOf(v.id()));
             boolean raise = r.level() < TradeRoutes.MAX_LEVEL;
             cmd.set("#RouteRaise" + n + ".Visible", raise);
             if (raise) {
-                cmd.set("#RouteRaise" + n + ".Text", Message.translation(KEYS + "button.raise").param("count", TradeRoutes.RAISE_OFFERING));
+                cmd.set("#RouteRaise" + n + ".Text", Message.translation(KEYS + "button.raiseShort")
+                        .param("level", Message.translation(KEYS + "level." + (r.level() + 1))).param("count", TradeRoutes.RAISE_OFFERING));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#RouteRaise" + n, EventData.of("Action", "Raise" + n));
             }
-            cmd.set("#RoutePay" + n + ".Text", Message.translation(KEYS + "button.pay").param("credit", dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(v)));
-            events.addEventBinding(CustomUIEventBindingType.Activating, "#RoutePay" + n, EventData.of("Action", "Pay" + n));
-            cmd.set("#RouteClose" + n + ".Text", Message.translation(KEYS + "button.close"));
-            events.addEventBinding(CustomUIEventBindingType.Activating, "#RouteClose" + n, EventData.of("Action", "Close" + n));
+            boolean pay = deficit > 0 && credit < deficit;
+            cmd.set("#RoutePay" + n + ".Visible", pay);
+            if (pay) {
+                cmd.set("#RoutePay" + n + ".Text", Message.translation(KEYS + "button.payShort").param("credit", dev.nakasar.hytale.peuples.workshop.Projects.creditPerFavour(v)));
+                events.addEventBinding(CustomUIEventBindingType.Activating, "#RoutePay" + n, EventData.of("Action", "Pay" + n));
+            }
+            events.addEventBinding(CustomUIEventBindingType.Activating, "#RouteMore" + n, EventData.of("Action", "Menu" + n));
+            cmd.set("#RouteMenu" + n + ".Visible", menu == i);
+            cmd.set("#RouteTrack" + n + ".Visible", menu != i);
+            if (menu == i) {
+                cmd.set("#RouteMenuLine" + n + ".TextSpans", Message.translation(KEYS + "menu.line").param("arrivals", r.arrivals()).param("lost", r.lost()));
+                cmd.set("#RouteClose" + n + ".Text", Message.translation(KEYS + "button.close"));
+                events.addEventBinding(CustomUIEventBindingType.Activating, "#RouteClose" + n, EventData.of("Action", "Close" + n));
+            }
         }
     }
 
-    // ---- Partenaires ----
+    /** Les trois cases d'un côté : marchandise (icône, nom, chargement), case libre, ou case fermée au-dessus du niveau. */
+    private static void cases(UICommandBuilder cmd, UIEventBuilder events, TradeRoutes.Route r, String n, String side, List<String> items) {
+        for (int j = 0; j < CASES; j++) {
+            String id = "#Case" + side + n + CASE_LETTERS.charAt(j);
+            boolean open = j < r.level();
+            String item = open && j < items.size() ? items.get(j) : null;
+            cmd.set(id + ".Disabled", !open);
+            cmd.set(id + "Icon.Visible", item != null);
+            if (item != null) {
+                cmd.set(id + "Icon.ItemId", item);
+                cmd.set(id + "Name.TextSpans", itemName(item));
+                cmd.set(id + "Sub.TextSpans", Message.translation(KEYS + "case.sub").param("count", TradeGoods.grade(item).load(r.level()))
+                        .param("grade", gradeName(item)));
+            } else if (open) {
+                cmd.set(id + "Name.TextSpans", Message.translation(KEYS + "case.choose"));
+                cmd.set(id + "Sub.TextSpans", Message.translation(KEYS + "case.free"));
+            } else {
+                cmd.set(id + "Name.TextSpans", Message.translation(KEYS + "case.locked").param("level", Message.translation(KEYS + "level." + (j + 1))));
+                cmd.set(id + "Sub.TextSpans", Message.translation(KEYS + "case.lockedSub"));
+            }
+            if (open) {
+                events.addEventBinding(CustomUIEventBindingType.Activating, id, EventData.of("Action", "Pick" + side + n + "_" + j));
+            }
+        }
+    }
+
+    // ---- Ouvrir une route ----
 
     private void candidates(UICommandBuilder cmd, UIEventBuilder events, World world, Village v, long day) {
         List<Village> list = TradeRoutes.candidates(world, v);
         candidates.clear();
-        cmd.set("#CandHeader.TextSpans", Message.translation(KEYS + "candidates"));
-        cmd.set("#NoCand.Visible", list.isEmpty());
-        if (list.isEmpty()) {
-            cmd.set("#NoCand.TextSpans", Message.translation(KEYS + "noCandidate").param("max", Links.MAX_LENGTH));
+        int used = TradeRoutes.used(world, v);
+        int slots = TradeRoutes.slots(world, v, day);
+        boolean full = used >= slots;
+        Message line;
+        if (full) {
+            line = Message.translation(KEYS + "open.full").param("used", used).param("slots", slots);
+        } else if (list.isEmpty()) {
+            line = Message.translation(KEYS + "noCandidate").param("max", Links.MAX_LENGTH);
+        } else {
+            line = Message.translation(KEYS + "open.line").param("used", used).param("slots", slots).param("offering", TradeRoutes.OFFERING);
         }
+        cmd.set("#OpenLine.TextSpans", line);
+        cmd.set("#OpenButtons.Visible", !full && !list.isEmpty());
         for (int i = 0; i < CANDIDATES; i++) {
             String n = Integer.toString(i);
-            if (i >= list.size()) {
-                cmd.set("#Cand" + n + ".Visible", false);
+            boolean shown = !full && i < list.size();
+            cmd.set("#CandOpen" + n + ".Visible", shown);
+            if (!shown) {
                 continue;
             }
             Village o = list.get(i);
             candidates.add(o.id());
-            cmd.set("#Cand" + n + ".Visible", true);
-            int dist = (int) Math.round(TradeRoutes.distance(v, o));
-            cmd.set("#CandName" + n + ".TextSpans", Message.translation(KEYS + "candidate").param("partner", TradeRoutes.name(world, o))
-                    .param("distance", dist).param("dir", Message.translation(Villages.MESSAGES + "dir." + Requests.direction(o.x() - v.x(), o.z() - v.z()))));
-            cmd.set("#CandOpen" + n + ".Text", Message.translation(KEYS + "button.open").param("count", TradeRoutes.OFFERING));
+            cmd.set("#CandOpen" + n + ".Text", Message.translation(KEYS + "open.with").param("partner", TradeRoutes.name(world, o)));
             events.addEventBinding(CustomUIEventBindingType.Activating, "#CandOpen" + n, EventData.of("Action", "Open" + n));
+        }
+    }
+
+    // ---- Manques et commandes ----
+
+    /** Le village qui s'est engagé à envoyer `item` à `v`, ou null. */
+    private static Village supplier(World world, Village v, String item) {
+        for (TradeNeeds.Pledge p : TradeNeeds.pledgesFor(world, v)) {
+            if (p.item.equals(item)) {
+                return Villages.registry(world).byId(p.supplier);
+            }
+        }
+        return null;
+    }
+
+    private void needs(UICommandBuilder cmd, World world, Village v) {
+        List<TradeNeeds.Need> list = TradeNeeds.needs(world, v);
+        cmd.set("#NeedsHeader.TextSpans", Message.translation(KEYS + "needs.header"));
+        cmd.set("#NoNeeds.Visible", list.isEmpty());
+        if (list.isEmpty()) {
+            cmd.set("#NoNeeds.TextSpans", Message.translation(KEYS + "needs.none"));
+        }
+        for (int i = 0; i < NEEDS; i++) {
+            String n = Integer.toString(i);
+            boolean shown = i < list.size();
+            cmd.set("#Need" + n + ".Visible", shown);
+            if (!shown) {
+                continue;
+            }
+            TradeNeeds.Need need = list.get(i);
+            cmd.set("#Need" + n + "Icon.ItemId", need.item());
+            cmd.set("#Need" + n + "Name.TextSpans", VillageBoard.itemName(need.item()));
+            cmd.set("#Need" + n + "Sub.TextSpans", Message.translation(TradeNeeds.KEYS + "reason." + need.reason().key()));
+            Village s = supplier(world, v, need.item());
+            cmd.set("#Need" + n + "State.TextSpans", s == null ? Message.translation(KEYS + "needs.waiting")
+                    : Message.translation(KEYS + "needs.covered").param("supplier", TradeRoutes.name(world, s)));
+            cmd.set("#Need" + n + "State.Style.TextColor", s == null ? WARN : BLUE);
+        }
+    }
+
+    private void orders(UICommandBuilder cmd, World world, Village v) {
+        List<TradeNeeds.Pledge> list = TradeNeeds.pledgesOf(world, v);
+        cmd.set("#OrdersHeader.TextSpans", Message.translation(KEYS + "orders.header"));
+        cmd.set("#NoOrders.Visible", list.isEmpty());
+        if (list.isEmpty()) {
+            cmd.set("#NoOrders.TextSpans", Message.translation(KEYS + "orders.none"));
+        }
+        for (int i = 0; i < ORDERS; i++) {
+            String n = Integer.toString(i);
+            boolean shown = i < list.size();
+            cmd.set("#Order" + n + ".Visible", shown);
+            if (!shown) {
+                continue;
+            }
+            TradeNeeds.Pledge p = list.get(i);
+            Village b = Villages.registry(world).byId(p.buyer);
+            cmd.set("#Order" + n + "Icon.ItemId", p.item);
+            cmd.set("#Order" + n + "Name.TextSpans", VillageBoard.itemName(p.item));
+            cmd.set("#Order" + n + "Sub.TextSpans", Message.translation(KEYS + "orders.for").param("buyer", b == null ? Message.raw(p.buyer) : TradeRoutes.name(world, b)));
+            String key = switch (p.state) {
+                case BUILD -> "orders.build";
+                case ACTIVE -> "orders.active";
+                default -> "orders.wait";
+            };
+            cmd.set("#Order" + n + "State.TextSpans", Message.translation(KEYS + key));
+            cmd.set("#Order" + n + "State.Style.TextColor", p.state == TradeNeeds.State.ACTIVE ? OK : WARN);
         }
     }
 
@@ -263,9 +494,11 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
                 continue;
             }
             String item = stall.get(i);
-            cmd.set("#StallIcon" + n + ".ItemId", item);
-            cmd.set("#StallBuy" + n + ".Text", Message.translation(KEYS + "button.buy").param("count", stallLot(item)));
-            events.addEventBinding(CustomUIEventBindingType.Activating, "#StallBuy" + n, EventData.of("Action", "Buy" + n));
+            cmd.set("#Stall" + n + "Icon.ItemId", item);
+            cmd.set("#Stall" + n + "Name.TextSpans", itemName(item));
+            cmd.set("#Stall" + n + "Sub.TextSpans", Message.translation(KEYS + "stall.sub").param("count", deposit.getOrDefault(item, 0)));
+            cmd.set("#Stall" + n + "Buy.Text", Message.translation(KEYS + "button.buyShort").param("count", stallLot(item)));
+            events.addEventBinding(CustomUIEventBindingType.Activating, "#Stall" + n + "Buy", EventData.of("Action", "Buy" + n));
         }
     }
 
@@ -286,7 +519,47 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
         WorldLife.take(store, ref, favour::equals, 1);
         int got = Requests.take(chest, item, lot);
         Requests.give(store, ref, new ItemStack(item, got));
+        PlayerRef player = ref == null ? null : store.getComponent(ref, PlayerRef.getComponentType());
+        TradeLog.add(world, v, TradeLog.Kind.PURCHASE, item, Message.translation("nakasar_peuples.shop.log")
+                .param("player", player == null ? "?" : player.getUsername()).param("count", got).param("item", itemName(item))
+                .param("price", 1).param("currency", VillageBoard.itemName(favour)));
         return null;
+    }
+
+    // ---- Registre ----
+
+    private void ledger(UICommandBuilder cmd, UIEventBuilder events, World world, Village v, long day) {
+        for (String f : FILTERS) {
+            toggle(cmd, events, "Filter" + f, Message.translation(KEYS + "log." + f), f.equals(filter), "Filter" + f);
+        }
+        List<TradeLog.Entry> list = new ArrayList<>();
+        for (TradeLog.Entry e : TradeLog.of(world, v)) {
+            if (filter.equals("All") || e.kind().filter.equals(filter)) {
+                list.add(e);
+            }
+        }
+        cmd.set("#LogHint.TextSpans", Message.translation(KEYS + "log.hint").param("count", TradeLog.KEEP));
+        cmd.set("#NoLog.Visible", list.isEmpty());
+        if (list.isEmpty()) {
+            cmd.set("#NoLog.TextSpans", Message.translation(KEYS + "log.none"));
+        }
+        for (int i = 0; i < LOG; i++) {
+            String n = Integer.toString(i);
+            boolean shown = i < list.size();
+            cmd.set("#Log" + n + ".Visible", shown);
+            if (!shown) {
+                continue;
+            }
+            TradeLog.Entry e = list.get(i);
+            long ago = day - e.day();
+            cmd.set("#LogWhen" + n + ".TextSpans", ago <= 0 ? Message.translation(KEYS + "log.today").param("hour", e.hour())
+                    : ago == 1 ? Message.translation(KEYS + "log.yesterday") : Message.translation(KEYS + "log.days").param("days", ago));
+            String icon = e.item() != null ? e.item() : v.people().favorItem();
+            cmd.set("#LogIcon" + n + ".ItemId", icon);
+            cmd.set("#LogText" + n + ".TextSpans", e.text());
+            cmd.set("#LogTag" + n + ".TextSpans", Message.translation(KEYS + "log.tag." + e.kind().name()));
+            cmd.set("#LogTag" + n + ".Style.TextColor", e.kind().colour);
+        }
     }
 
     // ---- Clics ----
@@ -301,46 +574,6 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
 
     private TradeRoutes.Route route(World world, int i) {
         return i >= 0 && i < routes.size() ? TradeRoutes.get(world, routes.get(i)) : null;
-    }
-
-    /** Case suivante : l'objet après celui de la case dans le catalogue de l'expéditeur, puis « vide ». */
-    private Message cycle(World world, Store<EntityStore> store, Ref<EntityStore> ref, Village board, String action, boolean export) {
-        String body = action.substring(export ? 3 : 2);
-        int cut = body.indexOf('_');
-        if (cut <= 0) {
-            return null;
-        }
-        TradeRoutes.Route r = route(world, index(body.substring(0, cut), ""));
-        int j = index(body.substring(cut + 1), "");
-        if (r == null || j < 0) {
-            return null;
-        }
-        Village sender = export ? board : TradeRoutes.village(world, r.other(board.id()));
-        Village receiver = export ? TradeRoutes.village(world, r.other(board.id())) : board;
-        if (sender == null || receiver == null) {
-            return null;
-        }
-        long day = GameClock.day(store);
-        List<String> items = new ArrayList<>();
-        for (String item : TradeCatalogue.of(world, sender, r.key(), day).keySet()) {
-            if (TradeGoods.allowed(receiver.people(), item)) {
-                items.add(item);
-            }
-        }
-        List<String> cases = r.exportsOf(sender.id());
-        String current = j < cases.size() ? cases.get(j) : null;
-        int at = current == null ? -1 : items.indexOf(current);
-        String next = null;
-        for (int k = at + 1; k < items.size(); k++) {
-            if (!cases.contains(items.get(k))) {
-                next = items.get(k);
-                break;
-            }
-        }
-        if (next == null && current == null && items.isEmpty()) {
-            return Message.translation(KEYS + "nothing").param("village", TradeRoutes.name(world, sender));
-        }
-        return TradeRoutes.setCase(world, store, ref, board, r, sender, j, next);
     }
 
     private void tell(Message m, boolean ok) {
@@ -365,10 +598,30 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
         }
         Message why = null;
         Message done = null;
-        if (action.startsWith("Out")) {
-            why = cycle(world, store, ref, village, action, true);
-        } else if (action.startsWith("In")) {
-            why = cycle(world, store, ref, village, action, false);
+        if (action.equals("ViewMain") || action.equals("ViewLog")) {
+            log = action.equals("ViewLog");
+        } else if (action.startsWith("Filter")) {
+            String f = action.substring("Filter".length());
+            if (FILTERS.contains(f)) {
+                filter = f;
+            }
+        } else if (action.startsWith("Pick")) {
+            // « PickOut1_2 » : route 1, case 2 des envois ; « PickIn… » : des réceptions.
+            boolean export = action.startsWith("PickOut");
+            String body = action.substring(export ? 7 : 6);
+            int cut = body.indexOf('_');
+            TradeRoutes.Route r = cut > 0 ? route(world, index(body.substring(0, cut), "")) : null;
+            int j = cut > 0 ? index(body.substring(cut + 1), "") : -1;
+            if (r != null && j >= 0) {
+                Player player = store.getComponent(ref, Player.getComponentType());
+                if (player != null) {
+                    player.getPageManager().openCustomPage(ref, store, new TradePickerPage(playerRef, village, r.key(), export, j));
+                    return;
+                }
+            }
+        } else if (action.startsWith("Menu")) {
+            int i = index(action, "Menu");
+            menu = menu == i ? -1 : i;
         } else if (action.startsWith("Raise")) {
             TradeRoutes.Route r = route(world, index(action, "Raise"));
             if (r != null) {
@@ -385,6 +638,7 @@ public final class TradePage extends InteractiveCustomUIPage<TradePage.Event> {
             TradeRoutes.Route r = route(world, index(action, "Close"));
             if (r != null) {
                 why = TradeRoutes.close(world, store, ref, village, r);
+                menu = -1;
             }
         } else if (action.startsWith("Open")) {
             int i = index(action, "Open");

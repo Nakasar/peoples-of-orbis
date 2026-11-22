@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Chasse",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Outlander/Houses/Tier1/Outlander_Houses_Tier1_006 1 -11 0",
-      "Npc/Outlander/Braziers/Outlander_Braziers_Npc_Outlander_Brazier_001 -8 -10 0"
+      "Nakasar/Peuples/Batiments/Renonce/AP_Chasse/AP_Chasse_1_P1 1 -11 0",
+      "Nakasar/Peuples/Batiments/Renonce/AP_Chasse/AP_Chasse_2_P1 -8 -10 0"
     ],
     "Rect": [
       -10,

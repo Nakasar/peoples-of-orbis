@@ -72,11 +72,11 @@ def write(path, doc):
 # Peuples
 # ----------------------------------------------------------------------------------------------------------------------
 
-FERAN_T1 = "Npc/Feran/Tier1/"
-FERAN_T2 = "Npc/Feran/Tier2/"
-FERAN_T3 = "Npc/Feran/Tier3/"
-OASIS = "Npc/Feran/Portals_Oasis/"
-OUT = "Npc/Outlander/"
+FERAN_T1 = "Nakasar/Peuples/Npc/Feran/Tier1/"
+FERAN_T2 = "Nakasar/Peuples/Npc/Feran/Tier2/"
+FERAN_T3 = "Nakasar/Peuples/Npc/Feran/Tier3/"
+OASIS = "Nakasar/Peuples/Npc/Feran/Portals_Oasis/"
+OUT = "Nakasar/Peuples/Npc/Outlander/"
 
 PEOPLES = {
     "Feran": {
@@ -92,6 +92,8 @@ PEOPLES = {
                 ("Hutte_Ouest", 0, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", -21, -1, 0),
                 ("Hutte_Est", 0, FERAN_T3 + "Huts/Feran_Tier3_Huts_001", 21, 0, 2),
                 ("Muret_Du_Vent", 0, FERAN_T3 + "Walls/Feran_Tier3_Walls_001", -1, -14, 0),
+                # Place du marché (Kevin, 21 novembre 2026, tools/generate_markets.py).
+                ("Marche", 0, gl.MARKET + "Feran_Marche", 39, 28, 3),
                 # Palier 1 : la grande hutte, l'entrée de l'oasis, une hutte au sud.
                 ("Grande_Hutte", 1, FERAN_T2 + "Hut/Feran_Tier2_Hut_001", -23, 26, 0),
                 ("Entree_Oasis", 1, FERAN_T2 + "Entrance/Feran_Tier2_Entrance_001", -1, 14, 0),
@@ -109,6 +111,7 @@ PEOPLES = {
             # Zones maximales (Kevin, 18 novembre 2026 : taille allouée à chaque bâtiment, pour retoucher les prefabs à la
             # main) : x0, x1, z0, z1 relatifs au cœur, rue de 3 blocs entre deux zones. Chaque palier voulu y tient.
             "Zones": {
+                "Marche": (34, 44, 21, 35),
                 "Hutte_Ouest": (-30, -11, -10, 9),
                 "Muret_Du_Vent": (-4, 6, -26, -11),
                 "Hutte_Est": (11, 30, -10, 9),
@@ -156,7 +159,7 @@ PEOPLES = {
         "defender": ("Feran_Longtooth", "Weapon_Spear_Bone",
                      ["Feran_Longtooth_Spear_Swing_Left", "Feran_Longtooth_Spear_Swing_Right",
                       "Feran_Longtooth_Spear_Stab"], 3.2),
-        "favor": {"Icon": "Icons/ItemsGenerated/Ingredient_Feathers_Light.png",
+        "favor": {"Icon": "Icons/ItemsGenerated/Nakasar_Peuples_Favor_Feran.png",
                   "Model": "Resources/Materials/Feather.blockymodel",
                   "Texture": "Resources/Materials/Feather_Textures/White.png",
                   "IconProperties": {"Scale": 0.6, "Translation": [4, 0], "Rotation": [22.5, 45, 22.5]},
@@ -179,6 +182,7 @@ PEOPLES = {
                 ("Abri_Des_Fuyards", 0, OUT + "Houses/Tier0/Outlander_Houses_Tier0_001", 27, 4, 0),
                 ("Abri_Du_Guet", 0, OUT + "Houses/Tier0/Outlander_Houses_Tier0_003", 0, -27, 0),
                 ("Tour_De_Guet_Givre", 0, OUT + "Towers/Tier1/Outlander_Towers_Tier1_001", -19, -1, 0),
+                ("Marche", 0, gl.MARKET + "Renonce_Marche", -19, 55, 2),
                 # Palier 1 : deux maisons Tier 1, le petit bateau ramené.
                 ("Maison_Des_Repentis", 1, OUT + "Houses/Tier1/Outlander_Houses_Tier1_002", 32, -29, 0),
                 ("Maison_Du_Chasseur", 1, OUT + "Houses/Tier1/Outlander_Houses_Tier1_005", -41, -2, 0),
@@ -197,6 +201,7 @@ PEOPLES = {
             # retouché à la main compris, y tient ; deux zones gardent une rue de 3 blocs entre elles. Tracées en laine
             # jaune sur la carte de revue (/village revue).
             "Zones": {
+                "Marche": (-26, -12, 50, 60),
                 "Abri_Du_Guet": (-14, 14, -40, -14),
                 "Tour_De_Guet_Givre": (-24, -14, -6, 4),
                 "Abri_Des_Fuyards": (14, 40, -10, 19),
@@ -242,7 +247,7 @@ PEOPLES = {
         "statue": "Furniture_Human_Ruins_Banner",
         "defender": ("Outlander_Hunter", "Weapon_Daggers_Fang_Doomed",
                      ["Outlander_Hunter_Daggers_Swing_Left_Right", "Outlander_Hunter_Daggers_Swing_Right_Left"], 2.4),
-        "favor": {"Icon": "Icons/ItemsGenerated/Ingredient_Ice_Essence.png",
+        "favor": {"Icon": "Icons/ItemsGenerated/Nakasar_Peuples_Favor_Renonce.png",
                   "Model": "Resources/Ingredients/Essence.blockymodel",
                   "Texture": "Resources/Ingredients/Essence_Textures/Ice_Essence_Texture.png",
                   "IconProperties": {"Scale": 0.6, "Rotation": [0, 0, 0], "Translation": [0, -13]},

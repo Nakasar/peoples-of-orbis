@@ -1,0 +1,98 @@
+{
+  "$Comment": "Bâtiment de métier généré par tools/generate_workshops.py (ne pas modifier à la main) : voir dev.nakasar.hytale.peuples.workshop.Workshop.",
+  "People": "Trork",
+  "Layout": "Trork_Camp",
+  "Building": "Marche",
+  "Job": "",
+  "Keeper": "Merchant",
+  "Icon": "Furniture_Village_Crate",
+  "NameKey": "nakasar_peuples.workshop.Trork_Marche.name",
+  "Board": [
+    -30,
+    28,
+    1
+  ],
+  "Upgrades": [
+    {
+      "Level": 2,
+      "Hours": 12,
+      "Materials": [
+        {
+          "ItemId": "Food_Wildmeat_Raw",
+          "Quantity": 16
+        },
+        {
+          "ItemId": "Ingredient_Hide_Medium",
+          "Quantity": 8
+        },
+        {
+          "ItemId": "Wood_Oak_Trunk",
+          "Quantity": 24
+        }
+      ],
+      "Decor": [
+        "1 0 0 0 Furniture_Crude_Torch"
+      ]
+    },
+    {
+      "Level": 3,
+      "Hours": 12,
+      "Materials": [
+        {
+          "ItemId": "Food_Wildmeat_Raw",
+          "Quantity": 24
+        },
+        {
+          "ItemId": "Ingredient_Hide_Heavy",
+          "Quantity": 8
+        },
+        {
+          "ItemId": "Wood_Oak_Trunk",
+          "Quantity": 32
+        }
+      ],
+      "Decor": [
+        "-1 0 0 0 Furniture_Crude_Brazier"
+      ]
+    }
+  ],
+  "Specialties": [
+    {
+      "Id": "Interieur",
+      "NameKey": "nakasar_peuples.workshop.specialty.Trork_Marche.Interieur",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_Marche.Interieur",
+      "Icon": "Deco_Map",
+      "Shops": [
+        "Nakasar_Peuples_W_Trork_Marche_Interieur_2",
+        "Nakasar_Peuples_W_Trork_Marche_Interieur_3"
+      ],
+      "ShareItem": "Food_Salad_Berry",
+      "ShareQuantity": 2
+    },
+    {
+      "Id": "Exterieur",
+      "NameKey": "nakasar_peuples.workshop.specialty.Trork_Marche.Exterieur",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_Marche.Exterieur",
+      "Icon": "Tool_Map",
+      "Shops": [
+        "Nakasar_Peuples_W_Trork_Marche_Exterieur_2",
+        "Nakasar_Peuples_W_Trork_Marche_Exterieur_3"
+      ],
+      "ShareItem": "Ingredient_Fabric_Scrap_Linen",
+      "ShareQuantity": 4
+    },
+    {
+      "Id": "Noir",
+      "NameKey": "nakasar_peuples.workshop.specialty.Trork_Marche.Noir",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Trork_Marche.Noir",
+      "Icon": "Deco_Bone_Skulls",
+      "Shops": [
+        "Nakasar_Peuples_W_Trork_Marche_Noir_2",
+        "Nakasar_Peuples_W_Trork_Marche_Noir_3"
+      ],
+      "ShareItem": "Ingredient_Bone_Fragment",
+      "ShareQuantity": 4
+    }
+  ],
+  "Shop": "Nakasar_Peuples_W_Trork_Marche_Base_1"
+}

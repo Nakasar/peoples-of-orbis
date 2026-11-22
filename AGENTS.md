@@ -36,9 +36,31 @@ Consignes de Kevin (25 octobre 2026), à respecter pour chaque mob, boss, élite
    blanc sur un sol clair (dalles de la Voix de la montagne, neige). Les générateurs (`generate_warnings.py`, `tower_warnings.py`) portent ces valeurs ; `validateAssets` refuse tout émetteur
    d'un dossier `Warnings` ou à texture `Warning_*` qui s'en écarte. Seules les zones favorables listées dans
    `POSITIVE_ZONES` gardent une autre couleur.
+5. **Jamais de prefab vanilla référencé pour un bâtiment ou une structure** (Kevin, 21 novembre 2026 : « pour tous
+   les prefab qu'on utilise, copie le prefab dans le mod avec sa propre référence »). Un prefab vanilla réemployé
+   (règle n° 2) est copié tel quel d'`Assets.zip` (`Server/Prefabs/<chemin>`) dans
+   `src/main/resources/Server/Prefabs/Nakasar/Peuples/<chemin>`, et le mod ne cite que cette copie
+   (`Nakasar/Peuples/<chemin>`) : Java, plans, paliers, lieux-dits, avant-postes, générateurs `tools/*.py`
+   (`tools/mod_prefabs.py`). Après avoir pris un nouveau prefab vanilla dans un générateur, lancer
+   `python3 tools/copy_vanilla_prefabs.py Assets.zip` sur le PC du jeu. `validateAssets` refuse tout chemin de prefab
+   vanilla (`tools/vanilla-prefab-paths-0.7.2.txt`) cité dans `src/main` et toute copie absente. Le Java lit un
+   chemin vanilla resté dans un monde sauvé comme sa copie (`VillageBuilder.modPrefab`).
+6. **Chaque bâtiment a ses propres prefabs, sans réutilisation** (Kevin, 21 novembre 2026 : « organise les prefabs
+   par bâtiment ; les halles marchandes doivent avoir leurs propres prefabs, comme tous les autres bâtiments »). Les
+   bâtiments des villages (plan, artisans, place du marché, projets d'emplacement, avant-postes) collent uniquement
+   `Nakasar/Peuples/Batiments/<Peuple>/<Bâtiment>/<Bâtiment>_P<n>` (premier palier qui montre ce prefab ; avant-poste :
+   `AP_<Type>_<pièce>_P<n>`), copiés de leur prefab d'origine par `tools/building_prefabs.py`, à lancer EN DERNIER
+   après les générateurs de plans, `building_tiers.py`, `building_growth.py` puis `building_tiers.py`. Le même projet
+   sur E1 à E3 garde les mêmes fichiers ; seuls les petits décors (lanternes, bancs) restent partagés. Un fichier
+   propre retouché à la main n'est jamais écrasé (`tools/prefabs-batiments.json`) ; `validateAssets` refuse un
+   bâtiment qui colle un prefab hors de son dossier.
 
 ## Vérifications
 
-`./gradlew build` (compile, `validateJson`, `checkSystemRegistrations`, `validateRoles`, `validateAssets`) ; le wiki :
+`./gradlew build` (compile, `validateJson`, `checkSystemRegistrations`, `checkPlotLookups`, `validateRoles`, `validateAssets`) ; le wiki :
 `cd wiki && npm ci && npm run build` (liens cassés refusés). Un id vanilla que le validateur ne
 connaît pas s'ajoute dans `tools/vanilla-refs-0.7.2.txt`, uniquement après l'avoir vu dans les fichiers du jeu.
+
+Un bâtiment de projet (Ambassade, Caserne…) se cherche sur **tous** les terrains du plan, quel que soit son
+emplacement (Kevin, 21 novembre 2026) : `village.Plots.projectBuildings` / `Plots.builtProjects`, ou une boucle sur
+`Plots.plots(village)`. Jamais de liste de terrains écrite à la main (`"E1"`, `"E2"`…) : `checkPlotLookups` la refuse.

@@ -32,6 +32,8 @@ import json
 import re
 from pathlib import Path
 
+from mod_prefabs import mod, source, sourced
+
 ROOT = Path(__file__).resolve().parent.parent
 TOOLS = Path(__file__).resolve().parent
 RES = ROOT / "src/main/resources/Server"
@@ -65,7 +67,7 @@ RESERVED = {
 # L'atelier slothian (Taillerie du basalte, 2026-11-17) a maintenant son prefab : plus d'emplacement réservé.
 RESERVED_CATEGORY_NAMES = {}
 
-NPC = "Npc/"
+NPC = "Nakasar/Peuples/Npc/"
 
 
 # ---- Familles vanilla : version plus grande d'un prefab ----
@@ -87,70 +89,73 @@ def _watch_trork(m):
 
 # Échelles explicites (familles réparties sur plusieurs dossiers) : versions de plus en plus grandes, à la suite.
 CHAINS = [
-    (r"^Npc/Outlander/Houses/Tier(\d)/Outlander_Houses_Tier\d_(\d+)$", _house_outlander),
-    (r"^Npc/Outlander/Towers/Tier(\d)/Outlander_Towers_Tier\d_(\d+)$", _tower_outlander),
-    (r"^Npc/Trork/Tier_(\d)/Watchtower/Trork_Tier_\d_Watchtower_(\d+)$", _watch_trork),
-    (r"^Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001$",
+    (r"^Nakasar/Peuples/Npc/Outlander/Houses/Tier(\d)/Outlander_Houses_Tier\d_(\d+)$", _house_outlander),
+    (r"^Nakasar/Peuples/Npc/Outlander/Towers/Tier(\d)/Outlander_Towers_Tier\d_(\d+)$", _tower_outlander),
+    (r"^Nakasar/Peuples/Npc/Trork/Tier_(\d)/Watchtower/Trork_Tier_\d_Watchtower_(\d+)$", _watch_trork),
+    (r"^Nakasar/Peuples/Npc/Trork/Tier_2/Store/Trork_Tier_2_Store_001$",
      lambda m: [NPC + "Trork/Tier_3/Store/Trork_Tier_3_Store_001", NPC + "Trork/Tier_3/Store/Trork_Tier_3_Store_002"]),
-    (r"^Npc/Kweebec/Redwood/Small_Plot/House/Kweebec_Redwood_Small_Plot_House_\d+$",
+    (r"^Nakasar/Peuples/Npc/Kweebec/Redwood/Small_Plot/House/Kweebec_Redwood_Small_Plot_House_\d+$",
      lambda m: [NPC + "Kweebec/Redwood/Normal_Plot/House/Kweebec_Redwood_Normal_Plot_House_001",
                 NPC + "Kweebec/Redwood/Normal_Plot/House/Kweebec_Redwood_Normal_Plot_House_002"]),
-    (r"^Npc/Kweebec/Redwood/Small_Plot/Farm/Kweebec_Redwood_Small_Plot_Farm_\d+$",
+    (r"^Nakasar/Peuples/Npc/Kweebec/Redwood/Small_Plot/Farm/Kweebec_Redwood_Small_Plot_Farm_\d+$",
      lambda m: [NPC + "Kweebec/Redwood/Normal_Plot/Farm/Kweebec_Redwood_Normal_Plot_Farm_003",
                 NPC + "Kweebec/Redwood/Normal_Plot/Farm/Kweebec_Redwood_Normal_Plot_Farm_001"]),
-    (r"^Npc/Kweebec/Oak/Garden/Small/Kweebec_Oak_Garden_Small_001$",
+    (r"^Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Small/Kweebec_Oak_Garden_Small_001$",
      lambda m: [NPC + "Kweebec/Oak/Garden/Medium/Kweebec_Oak_Garden_Medium_001",
                 NPC + "Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_001",
                 NPC + "Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_003"]),
-    (r"^Npc/Kweebec/Oak/Garden/Medium/Kweebec_Oak_Garden_Medium_001$",
+    (r"^Nakasar/Peuples/Npc/Kweebec/Oak/Garden/Medium/Kweebec_Oak_Garden_Medium_001$",
      lambda m: [NPC + "Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_001",
                 NPC + "Kweebec/Oak/Garden/Large/Kweebec_Oak_Garden_Large_003"]),
     # Maisons-arbres kweebec : petite maison → grande maison (l'arbre grandit).
-    (r"^Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001$",
+    (r"^Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_001$",
      lambda m: [NPC + "Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002",
                 NPC + "Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001",
                 NPC + "Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002"]),
-    (r"^Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002$",
+    (r"^Nakasar/Peuples/Npc/Kweebec/Oak/Houses_Small/Kweebec_Oak_Houses_Small_002$",
      lambda m: [NPC + "Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_001",
                 NPC + "Kweebec/Oak/Houses_Large/Kweebec_Oak_Houses_Large_002"]),
-    (r"^Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_(\d+)$",
+    (r"^Nakasar/Peuples/Npc/Slothian/Disabled/House/Small/Slothian_Disabled_House_Small_(\d+)$",
      lambda m: [f"{NPC}Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_{int(m.group(1)):03d}",
                 f"{NPC}Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_{(int(m.group(1)) - 1) % 2 + 1:03d}"]),
-    (r"^Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_(\d+)$",
+    (r"^Nakasar/Peuples/Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_(\d+)$",
      lambda m: [f"{NPC}Slothian/Disabled/House/Medium/Tall/Slothian_Disabled_House_Medium_Tall_{(int(m.group(1)) - 1) % 2 + 1:03d}"]),
-    (r"^Npc/Slothian/Disabled/Gate/Slothian_Disabled_Gate_(\d+)$",
+    (r"^Nakasar/Peuples/Npc/Slothian/Disabled/Gate/Slothian_Disabled_Gate_(\d+)$",
      lambda m: [NPC + "Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_001",
                 NPC + "Slothian/Disabled/Gate/Rich/Slothian_Disabled_Gate_Rich_002"]),
-    (r"^Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_00[123]$",
+    (r"^Nakasar/Peuples/Npc/Feran/Tier2/Hut/Feran_Tier2_Hut_00[123]$",
      lambda m: [NPC + "Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004", NPC + "Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"]),
-    (r"^Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_00[123]$",
+    (r"^Nakasar/Peuples/Npc/Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_00[123]$",
      lambda m: [NPC + "Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_004", NPC + "Feran/Portals_Oasis/Hut/Feran_Tier2_Hut_005"]),
     # Enclos du mod : enclos de plus en plus grand (tools/generate_pens.py, TIER_HALF).
     (r"^Nakasar/Peuples/Pens/(\w+)_Pen$",
      lambda m: [f"Nakasar/Peuples/Pens/{m.group(1)}_Pen_T{t}" for t in (2, 3, 4)]),
+    # Place du marché (tools/generate_markets.py) : même place, de plus en plus garnie.
+    (r"^Nakasar/Peuples/Markets/(\w+)_Marche$",
+     lambda m: [f"Nakasar/Peuples/Markets/{m.group(1)}_Marche_T{t}" for t in (2, 3, 4)]),
     # Tente trork → terrier → réserve → grande réserve.
-    (r"^Npc/Trork/Tent/Trork_Tent_001$",
+    (r"^Nakasar/Peuples/Npc/Trork/Tent/Trork_Tent_001$",
      lambda m: [NPC + "Trork/Burrow/Trork_Burrow_Trork_Burrow_001", NPC + "Trork/Tier_2/Store/Trork_Tier_2_Store_001",
                 NPC + "Trork/Tier_3/Store/Trork_Tier_3_Store_001"]),
-    (r"^Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001$",
-     lambda m: ["Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_002"]),
-    (r"^Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001$",
+    (r"^Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_001$",
+     lambda m: ["Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_002"]),
+    (r"^Nakasar/Peuples/Npc/Feran/Tier3/Huts/Feran_Tier3_Huts_001$",
      lambda m: [NPC + "Feran/Portals_Oasis/Pillar_Hut/Feran_Tier3_Hut_001", NPC + "Feran/Tier2/Hut/Feran_Tier2_Hut_002",
                 NPC + "Feran/Tier2/Hut/Feran_Tier2_Hut_001"]),
 ]
 
 # Dossiers dont les prefabs ne sont PAS des versions les uns des autres (pas d'échelle par volume) : formes différentes
 # d'une même ressource ou décor varié, où « plus grand » ne veut pas dire « palier au-dessus ».
-NO_FOLDER_LADDER = ("Npc/Kweebec/Oak/Garden_Small", "Npc/Kweebec/Autumn/Garden_Small", "Npc/Kweebec/Oak/Lampposts",
-                    "Npc/Kweebec/Oak/Seats", "Npc/Outlander/Braziers", "Npc/Outlander/Spikes", "Npc/Outlander/Boats",
-                    "Npc/Trork/Warning", "Npc/Trork/Trap", "Npc/Feran/Portals_Oasis/Wall", "Npc/Feran/Tier2/Wall",
-                    "Npc/Feran/Tier3/Walls", "Npc/Feran/Tier2/Entrance", "Npc/Feran/Tier2/Chieftain",
-                    "Npc/Feran/Tier3/Chieftain")
+NO_FOLDER_LADDER = ("Nakasar/Peuples/Npc/Kweebec/Oak/Garden_Small", "Nakasar/Peuples/Npc/Kweebec/Autumn/Garden_Small", "Nakasar/Peuples/Npc/Kweebec/Oak/Lampposts",
+                    "Nakasar/Peuples/Npc/Kweebec/Oak/Seats", "Nakasar/Peuples/Npc/Outlander/Braziers", "Nakasar/Peuples/Npc/Outlander/Spikes", "Nakasar/Peuples/Npc/Outlander/Boats",
+                    "Nakasar/Peuples/Npc/Trork/Warning", "Nakasar/Peuples/Npc/Trork/Trap", "Nakasar/Peuples/Npc/Feran/Portals_Oasis/Wall", "Nakasar/Peuples/Npc/Feran/Tier2/Wall",
+                    "Nakasar/Peuples/Npc/Feran/Tier3/Walls", "Nakasar/Peuples/Npc/Feran/Tier2/Entrance", "Nakasar/Peuples/Npc/Feran/Tier2/Chieftain",
+                    "Nakasar/Peuples/Npc/Feran/Tier3/Chieftain")
 
 
-# Prefabs vanilla que le mod colle déjà ailleurs (donc présents dans le jeu) mais absents de vanilla-prefabs-0.7.2.txt :
-# permis dans une échelle d'une pièce seule (le Java les mesure sur place).
-UNMEASURED_OK = {"Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_002"}
+# Prefabs que le mod colle déjà ailleurs mais absents de vanilla-prefabs-0.7.2.txt : permis dans une échelle d'une pièce
+# seule (le Java les mesure sur place ; leur copie du mod est aussi mesurée par load_bounds).
+UNMEASURED_OK = {"Nakasar/Peuples/Monuments/Incidental/Slothian/Land/Hunting/Incidental_Slothian_Slothian_Hunting_002"}
 
 
 def load_bounds():
@@ -160,15 +165,17 @@ def load_bounds():
             continue
         p = line.split()
         if len(p) == 7:
-            bounds[p[0]] = tuple(int(v) for v in p[1:])
+            bounds[mod(p[0])] = tuple(int(v) for v in p[1:])
     for f in (RES / "Prefabs").rglob("*.prefab.json"):
         d = json.loads(f.read_text(encoding="utf-8"))
         bl = [b for b in d["blocks"] if b.get("name") not in (None, "Empty")]
         if not bl:
             continue
         rel = str(f.relative_to(RES / "Prefabs")).replace("\\", "/")[: -len(".prefab.json")]
-        bounds[rel] = (min(b["x"] for b in bl), max(b["x"] for b in bl), min(b["y"] for b in bl),
-                       max(b["y"] for b in bl), min(b["z"] for b in bl), max(b["z"] for b in bl))
+        # Relatives à l'ancre, comme vanilla-prefabs-0.7.2.txt (les copies des prefabs vanilla ont une ancre).
+        ax, ay, az = d.get("anchorX", 0), d.get("anchorY", 0), d.get("anchorZ", 0)
+        bounds[rel] = (min(b["x"] for b in bl) - ax, max(b["x"] for b in bl) - ax, min(b["y"] for b in bl) - ay,
+                       max(b["y"] for b in bl) - ay, min(b["z"] for b in bl) - az, max(b["z"] for b in bl) - az)
     return bounds
 
 
@@ -207,6 +214,7 @@ def rot_rect(path, x, z, rot):
 
 def ladder(path):
     """Versions de plus en plus grandes de `path` (sans lui), d'abord CHAINS, puis le même dossier par volume."""
+    path = source(path)  # prefab propre à un bâtiment (tools/building_prefabs.py) : échelle de son origine
     for pattern, fn in CHAINS:
         m = re.match(pattern, path)
         if m:
@@ -233,7 +241,7 @@ def overlaps(a, b):
 
 def layout_of(people):
     for f in (NAK / "VillageLayouts").glob("*.json"):
-        d = json.loads(f.read_text(encoding="utf-8"))
+        d = sourced(json.loads(f.read_text(encoding="utf-8")))
         if d["People"] == people:
             return d
     raise SystemExit(f"plan de village introuvable : {people}")
@@ -262,7 +270,7 @@ def heart_entry(people):
 
 def layout_file(people):
     for f in (NAK / "VillageLayouts").glob("*.json"):
-        if json.loads(f.read_text(encoding="utf-8"))["People"] == people:
+        if sourced(json.loads(f.read_text(encoding="utf-8")))["People"] == people:
             return f
     return ""
 
@@ -280,7 +288,7 @@ def village_entries(people):
                 continue
             seen_projects.add(name_id)
             wid = f"{people}_{bid}"
-            ws = json.loads((NAK / "Workshops" / f"{wid}.json").read_text(encoding="utf-8"))
+            ws = sourced(json.loads((NAK / "Workshops" / f"{wid}.json").read_text(encoding="utf-8")))
             if ws.get("Legacy"):
                 continue  # projet hérité (doublait un avant-poste de production) : plus construit
             cat, bid = "Projet", "Projet_" + name_id
@@ -300,7 +308,7 @@ def village_entries(people):
 def annex_entries(people):
     out = []
     for f in sorted((NAK / "Workshops").glob(f"{people}_AP_*.json")):
-        d = json.loads(f.read_text(encoding="utf-8"))
+        d = sourced(json.loads(f.read_text(encoding="utf-8")))
         if d["Annex"].get("Slot", 1) > 1:
             continue  # place 2, 3... d'un ouvrage : copie du même bâtiment
         pieces = []
@@ -372,7 +380,7 @@ def world_entries():
         m = re.search(r"case (HUNTERS|WOODCUTTERS|PROSPECTORS|MERCHANTS|REFUGEES)", line)
         if m:
             current = m.group(1)
-        for path in re.findall(r'"((?:Monuments|Orbis|Npc)/[^"]+)"', line):
+        for path in re.findall(r'"(Nakasar/Peuples/(?:Monuments|Orbis|Npc)/[^"]+)"', line):
             names = {"HUNTERS": "chasseurs", "WOODCUTTERS": "bûcherons", "PROSPECTORS": "prospecteurs",
                      "MERCHANTS": "marchands", "REFUGEES": "réfugiés"}
             add("Camp", path, f"Campement de {names[current]}", "world/Camps")
@@ -479,7 +487,7 @@ def apply_retouches(people, e, tiers, table):
 
 
 def growth_data():
-    return json.loads(GROWTH.read_text(encoding="utf-8")) if GROWTH.exists() else {}
+    return sourced(json.loads(GROWTH.read_text(encoding="utf-8"))) if GROWTH.exists() else {}
 
 
 def board_block(people):
@@ -541,7 +549,7 @@ def add_zone(people, e, tiers, growth):
     layout = layout_file(people)
     zones = growth.get("Zones", {}).get(layout.stem if layout else "", {})
     # Zones maximales fixées par le plan (Kevin, 18 novembre 2026) : bâtiments à « Zone » et terrains de ce plan.
-    plan = json.loads(layout.read_text(encoding="utf-8")) if layout else {}
+    plan = sourced(json.loads(layout.read_text(encoding="utf-8"))) if layout else {}
     fixed = {b["Id"] for b in plan.get("Buildings", []) if b.get("Zone")}
     if fixed:
         fixed |= {b["Id"] for b in plan.get("Buildings", []) if b.get("Plot")}
@@ -624,7 +632,7 @@ def main():
                 for t in tiers:
                     for line in t["Pieces"]:
                         path = line.split()[0]
-                        if path not in BOUNDS and not path.startswith(("Monuments/", "Orbis/")) and not (
+                        if path not in BOUNDS and not path.startswith(("Nakasar/Peuples/Monuments/", "Nakasar/Peuples/Orbis/")) and not (
                                 RES / "Prefabs" / (path + ".prefab.json")).exists():
                             missing.add(path)
                 total_cells += len(tiers)

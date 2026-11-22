@@ -55,7 +55,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *   <li>il va poser la fondation là où il veut bâtir ({@link AnnexPlaceSystem}) : si la place ne convient pas
  *   ({@link #check}), le bloc n'est pas posé et le joueur lit pourquoi ; sinon la fondation reste, l'emprise est
  *   aplanie et marquée par le chantier du peuple ({@link SiteStyle}) ;</li>
- *   <li>une journée de jeu plus tard ({@code Hours}), les prefabs vanilla du peuple sont collés, la fondation devient le
+ *   <li>une journée de jeu plus tard ({@code Hours}), les copies des prefabs vanilla du peuple sont collées, la fondation devient le
  *   panneau de l'avant-poste et ses villageois arrivent ({@link Villagers}).</li>
  * </ol>
  * Debout, c'est un bâtiment de métier complet ({@link Workshops}) : commandes du jour, savoir-faire, niveaux I à III

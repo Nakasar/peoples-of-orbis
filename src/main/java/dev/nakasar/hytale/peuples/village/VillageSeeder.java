@@ -157,7 +157,7 @@ public final class VillageSeeder extends TickingSystem<EntityStore> {
     /** Comme ci-dessus ; `wetOk` : un bâtiment à venir peut toucher l'eau (seconde passe, faute de site au sec). */
     static boolean suitable(World world, VillageLayout layout, int cx, int cz, double minGrass, boolean wetOk) {
         Terrain terrain = new Terrain(world);
-        int r = layout.radiusUpTo(0);
+        int r = layout.campRadius();
         int samples = 0;
         int grass = 0;
         int min = Integer.MAX_VALUE;

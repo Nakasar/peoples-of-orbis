@@ -11,7 +11,7 @@ Chaque village garde trois terrains vides, **E1**, **E2** et **E3**, pour des b�
 
 ## Bâtir sur un terrain
 
-1. Au panneau du village, l'onglet **Projets** montre les trois terrains et les projets du peuple, avec leur catégorie.
+1. Au panneau du village, l'onglet [**Bâtir**](batir.md) montre les projets du peuple rangés par usage ; le bouton **Choisir ce projet** ou **Voir les emplacements** ouvre la page des terrains, avec leur catégorie.
 2. **Choisir** un projet (rang **Ami**). Tant que le chantier n'est pas lancé, vous pouvez en changer ou y renoncer sans frais.
 3. Réunir au **dépôt** du village les matériaux du terrain : la page dit ce qu'il manque.
 4. **Lancer le chantier** : les matériaux sont pris, le terrain est aplani, et les bâtisseurs travaillent 24 heures de jeu.

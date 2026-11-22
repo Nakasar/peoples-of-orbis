@@ -90,11 +90,14 @@ Voyageurs, aubergistes et campeurs racontent ce qui se passe : caravanes en rout
 
 ## L'onglet Monde du panneau
 
-Le panneau du village a quatre onglets toujours visibles en haut : **Tableau**, **Emplacements**, **Avant-postes** et **Monde**, avec l'heure du jeu à droite. L'onglet Monde montre ce que le monde vivant fait autour du village :
+L'onglet **Monde** du panneau du village montre ce que le monde vivant fait autour du village :
 
-- **Voisins** : une boussole avec le village au centre, ses voisins (direction et distance, une couleur par relation : vert allié, gris neutre, rouge rival), le troupeau en migration et les campements du village. Sous la boussole, une fiche par voisin : relation, route balisée ou non, auberge, trêve, dernière escarmouche de la semaine, et les voyages partis du village vers lui (tentés, réussis, échoués).
-- **En ce moment** : ce qui se passe maintenant (raid, escarmouche, fête, foire, migration).
-- **Agenda** : les jours qui viennent (escarmouche attendue, raid, fête des moissons, foire et où, migration).
-- **Sur les routes** : les voyageurs partis du village ou qui y viennent, avec leur progression.
+- **En haut**, quatre chiffres : vos voisins et leurs relations, le prochain événement, les voyageurs sur les routes et ce qui est autour (campements, troupeau, auberges).
+- **Les alentours** : une carte avec tous les voisins à moins de 2400 blocs. Chaque relation a sa forme : double anneau pour un allié, disque pour un ami, anneau pour un neutre, triangle pour un voisin tendu, losange pour un rival. On y voit aussi les campements, le troupeau en migration, les auberges, les voyageurs et les escarmouches. Cliquez sur un voisin pour ouvrir sa fiche.
+- **La liste des voisins**, du plus proche au plus loin, avec des pictos : route balisée, auberge, trêve, voyageur en route, escarmouche.
+- **La fiche du voisin** : sa relation sur une jauge et sa tendance, la route, l'auberge, la trêve, la dernière escarmouche, les voyages partis, arrivés ou perdus, les voyageurs en chemin avec le temps qu'il leur reste, et une idée de ce que vous pouvez faire (rejoindre une escarmouche, escorter une caravane, porter une lettre de paix, bâtir une auberge…).
+- **Marquer sur la carte** pose un repère sur ce village, sur votre carte du monde et votre boussole. Un second clic l'enlève ; marquer un autre village remplace le repère. Les repères s'effacent quand le serveur redémarre.
+- **Ce qui vient** : ce qui se passe maintenant puis les jours qui viennent (escarmouche, raid, fête des moissons, foire, migration), avec le lieu. Si une fête ou une foire ne peut pas avoir lieu chez vous, une ligne dit ce qu'il faut bâtir, avec un bouton vers l'onglet **Bâtir**.
+- **En bas**, une rumeur du jour.
 
 `/monde etat` résume l'état du monde vivant.

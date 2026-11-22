@@ -1,0 +1,1579 @@
+$C = "../../../Common.ui";
+
+// Généré par tools/generate_build_tab.py (thème Renonce) : ne pas modifier à la main.
+
+@Accent = #8fd0ea;
+@Body = LabelStyle(FontSize: 13, TextColor: #c9d1d9, Wrap: true);
+@Small = LabelStyle(FontSize: 12, TextColor: #96a9be);
+@SmallWrap = LabelStyle(FontSize: 12, TextColor: #96a9be, Wrap: true);
+@Head = LabelStyle(FontSize: 12, RenderBold: true, RenderUppercase: true, TextColor: #96a9be);
+@Count = LabelStyle(FontSize: 12, RenderBold: true, TextColor: #e8c46a, HorizontalAlignment: Center, VerticalAlignment: Center);
+@Qty = LabelStyle(FontSize: 12, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center);
+
+$C.@PageOverlay {
+  LayoutMode: Middle;
+
+  $C.@DecoratedContainer {
+    Anchor: (Width: 1060, Height: 840);
+
+    #Title {
+      Group {
+        LayoutMode: Center;
+        Group #TitleEmblem { Anchor: (Width: 26, Height: 26, Right: 8); Background: (TexturePath: "../../Memories/categories/Outlander.png", Color: #8fd0ea); }
+        Label #PageTitle { Style: (...$C.@TitleStyle, FontSize: 16, TextColor: #bfe2ee); }
+      }
+    }
+
+    #Content {
+      LayoutMode: Top;
+      Padding: (Full: 17, Top: 12);
+      Group #Tabs {
+        LayoutMode: Left;
+        Anchor: (Height: 38);
+        Group #TabBoard {
+          LayoutMode: Full;
+          Anchor: (Width: 52, Height: 38, Right: 6);
+          Group #TabBoardOff {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Visible: true;
+            Button #TabBoardButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Board.png", Color: #c9d1d9); }
+            }
+          }
+          Group #TabBoardOn {
+            LayoutMode: CenterMiddle;
+            Anchor: (Full: 0);
+            Background: (Color: #8fd0ea);
+            Visible: false;
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Board.png", Color: #10180e); }
+          }
+        }
+        Group #TabBuild {
+          LayoutMode: Full;
+          Anchor: (Width: 52, Height: 38, Right: 6);
+          Group #TabBuildOff {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Visible: false;
+            Button #TabBuildButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Build.png", Color: #c9d1d9); }
+            }
+          }
+          Group #TabBuildOn {
+            LayoutMode: CenterMiddle;
+            Anchor: (Full: 0);
+            Background: (Color: #8fd0ea);
+            Visible: true;
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Build.png", Color: #10180e); }
+          }
+        }
+        Group #TabWorld {
+          LayoutMode: Full;
+          Anchor: (Width: 52, Height: 38, Right: 6);
+          Group #TabWorldOff {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Visible: true;
+            Button #TabWorldButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_World.png", Color: #c9d1d9); }
+            }
+          }
+          Group #TabWorldOn {
+            LayoutMode: CenterMiddle;
+            Anchor: (Full: 0);
+            Background: (Color: #8fd0ea);
+            Visible: false;
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_World.png", Color: #10180e); }
+          }
+        }
+        Group #TabDomain {
+          LayoutMode: Full;
+          Anchor: (Width: 52, Height: 38, Right: 6);
+          Group #TabDomainOff {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Visible: true;
+            Button #TabDomainButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Domain.png", Color: #c9d1d9); }
+            }
+          }
+          Group #TabDomainOn {
+            LayoutMode: CenterMiddle;
+            Anchor: (Full: 0);
+            Background: (Color: #8fd0ea);
+            Visible: false;
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Domain.png", Color: #10180e); }
+          }
+        }
+        Group #TabTrade {
+          LayoutMode: Full;
+          Anchor: (Width: 52, Height: 38, Right: 6);
+          Group #TabTradeOff {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Visible: true;
+            Button #TabTradeButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Trade.png", Color: #c9d1d9); }
+            }
+          }
+          Group #TabTradeOn {
+            LayoutMode: CenterMiddle;
+            Anchor: (Full: 0);
+            Background: (Color: #8fd0ea);
+            Visible: false;
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_Trade.png", Color: #10180e); }
+          }
+        }
+        Group #TabPeople {
+          LayoutMode: Full;
+          Anchor: (Width: 52, Height: 38, Right: 6);
+          Group #TabPeopleOff {
+            LayoutMode: Full;
+            Anchor: (Full: 0);
+            Visible: true;
+            Button #TabPeopleButton {
+              Anchor: (Full: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: CenterMiddle;
+              TextTooltipStyle: $C.@DefaultTextTooltipStyle;
+              Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_People.png", Color: #c9d1d9); }
+            }
+          }
+          Group #TabPeopleOn {
+            LayoutMode: CenterMiddle;
+            Anchor: (Full: 0);
+            Background: (Color: #8fd0ea);
+            Visible: false;
+            Group { Anchor: (Width: 24, Height: 24); Background: (TexturePath: "Board/Tab_People.png", Color: #10180e); }
+          }
+        }
+        Group {
+          LayoutMode: Full;
+          FlexWeight: 1;
+          Padding: (Left: 8);
+          Label #TabNameBoard { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #8fd0ea, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNameBuild { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #8fd0ea, VerticalAlignment: Center); Text: ""; Visible: true; }
+          Label #TabNameWorld { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #8fd0ea, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNameDomain { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #8fd0ea, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNameTrade { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #8fd0ea, VerticalAlignment: Center); Text: ""; Visible: false; }
+          Label #TabNamePeople { Anchor: (Full: 0); Style: (FontSize: 16, RenderBold: true, RenderUppercase: true, TextColor: #8fd0ea, VerticalAlignment: Center); Text: ""; Visible: false; }
+        }
+        Label #Clock { Anchor: (Width: 110); Style: (FontSize: 14, RenderBold: true, TextColor: #96a9be, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+      }
+      Group { Anchor: (Height: 2, Bottom: 12); Background: (Color: #8fd0ea); }
+      Group {
+        LayoutMode: Left;
+        FlexWeight: 1;
+        Group #Rail {
+          LayoutMode: Top;
+          Anchor: (Width: 178, Right: 12);
+          Button #Fam0 {
+            Anchor: (Height: 58, Bottom: 6);
+            Style: $C.@SecondaryButtonStyle;
+            LayoutMode: Left;
+            Padding: (Left: 4, Right: 6);
+            Group #FamOn0 { Anchor: (Width: 4, Right: 6); Background: (Color: #8fd0ea); Visible: false; }
+            Group {
+              LayoutMode: Full;
+              Anchor: (Width: 38, Height: 38, Right: 8);
+              ItemIcon #FamIcon0 { Anchor: (Full: 2); ShowItemTooltip: false; }
+            }
+            Group {
+              LayoutMode: Middle;
+              FlexWeight: 1;
+              Label #FamName0 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, Wrap: true); Text: ""; }
+              Label #FamCount0 { Anchor: (Height: 16); Style: @Small; Text: ""; }
+            }
+          }
+          Button #Fam1 {
+            Anchor: (Height: 58, Bottom: 6);
+            Style: $C.@SecondaryButtonStyle;
+            LayoutMode: Left;
+            Padding: (Left: 4, Right: 6);
+            Group #FamOn1 { Anchor: (Width: 4, Right: 6); Background: (Color: #8fd0ea); Visible: false; }
+            Group {
+              LayoutMode: Full;
+              Anchor: (Width: 38, Height: 38, Right: 8);
+              ItemIcon #FamIcon1 { Anchor: (Full: 2); ShowItemTooltip: false; }
+            }
+            Group {
+              LayoutMode: Middle;
+              FlexWeight: 1;
+              Label #FamName1 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, Wrap: true); Text: ""; }
+              Label #FamCount1 { Anchor: (Height: 16); Style: @Small; Text: ""; }
+            }
+          }
+          Button #Fam2 {
+            Anchor: (Height: 58, Bottom: 6);
+            Style: $C.@SecondaryButtonStyle;
+            LayoutMode: Left;
+            Padding: (Left: 4, Right: 6);
+            Group #FamOn2 { Anchor: (Width: 4, Right: 6); Background: (Color: #8fd0ea); Visible: false; }
+            Group {
+              LayoutMode: Full;
+              Anchor: (Width: 38, Height: 38, Right: 8);
+              ItemIcon #FamIcon2 { Anchor: (Full: 2); ShowItemTooltip: false; }
+            }
+            Group {
+              LayoutMode: Middle;
+              FlexWeight: 1;
+              Label #FamName2 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, Wrap: true); Text: ""; }
+              Label #FamCount2 { Anchor: (Height: 16); Style: @Small; Text: ""; }
+            }
+          }
+          Button #Fam3 {
+            Anchor: (Height: 58, Bottom: 6);
+            Style: $C.@SecondaryButtonStyle;
+            LayoutMode: Left;
+            Padding: (Left: 4, Right: 6);
+            Group #FamOn3 { Anchor: (Width: 4, Right: 6); Background: (Color: #8fd0ea); Visible: false; }
+            Group {
+              LayoutMode: Full;
+              Anchor: (Width: 38, Height: 38, Right: 8);
+              ItemIcon #FamIcon3 { Anchor: (Full: 2); ShowItemTooltip: false; }
+            }
+            Group {
+              LayoutMode: Middle;
+              FlexWeight: 1;
+              Label #FamName3 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, Wrap: true); Text: ""; }
+              Label #FamCount3 { Anchor: (Height: 16); Style: @Small; Text: ""; }
+            }
+          }
+          Button #Fam4 {
+            Anchor: (Height: 58, Bottom: 6);
+            Style: $C.@SecondaryButtonStyle;
+            LayoutMode: Left;
+            Padding: (Left: 4, Right: 6);
+            Group #FamOn4 { Anchor: (Width: 4, Right: 6); Background: (Color: #8fd0ea); Visible: false; }
+            Group {
+              LayoutMode: Full;
+              Anchor: (Width: 38, Height: 38, Right: 8);
+              ItemIcon #FamIcon4 { Anchor: (Full: 2); ShowItemTooltip: false; }
+            }
+            Group {
+              LayoutMode: Middle;
+              FlexWeight: 1;
+              Label #FamName4 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, Wrap: true); Text: ""; }
+              Label #FamCount4 { Anchor: (Height: 16); Style: @Small; Text: ""; }
+            }
+          }
+          Button #Fam5 {
+            Anchor: (Height: 58, Bottom: 6);
+            Style: $C.@SecondaryButtonStyle;
+            LayoutMode: Left;
+            Padding: (Left: 4, Right: 6);
+            Group #FamOn5 { Anchor: (Width: 4, Right: 6); Background: (Color: #8fd0ea); Visible: false; }
+            Group {
+              LayoutMode: Full;
+              Anchor: (Width: 38, Height: 38, Right: 8);
+              ItemIcon #FamIcon5 { Anchor: (Full: 2); ShowItemTooltip: false; }
+            }
+            Group {
+              LayoutMode: Middle;
+              FlexWeight: 1;
+              Label #FamName5 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, Wrap: true); Text: ""; }
+              Label #FamCount5 { Anchor: (Height: 16); Style: @Small; Text: ""; }
+            }
+          }
+          Button #Fam6 {
+            Anchor: (Height: 58, Bottom: 6);
+            Style: $C.@SecondaryButtonStyle;
+            LayoutMode: Left;
+            Padding: (Left: 4, Right: 6);
+            Group #FamOn6 { Anchor: (Width: 4, Right: 6); Background: (Color: #8fd0ea); Visible: false; }
+            Group {
+              LayoutMode: Full;
+              Anchor: (Width: 38, Height: 38, Right: 8);
+              ItemIcon #FamIcon6 { Anchor: (Full: 2); ShowItemTooltip: false; }
+            }
+            Group {
+              LayoutMode: Middle;
+              FlexWeight: 1;
+              Label #FamName6 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, Wrap: true); Text: ""; }
+              Label #FamCount6 { Anchor: (Height: 16); Style: @Small; Text: ""; }
+            }
+          }
+        }
+        Group #Middle {
+          LayoutMode: Top;
+          FlexWeight: 1;
+          Anchor: (Right: 12);
+          Label #WhereLabel { Anchor: (Height: 16, Bottom: 2); Style: @Head; Text: ""; }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 44, Bottom: 6);
+            Button #Where0 {
+              Anchor: (Height: 44, Right: 4);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn0 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Village.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName0 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
+            }
+            Button #Where1 {
+              Anchor: (Height: 44, Right: 4);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn1 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Plot.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName1 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
+            }
+            Button #Where2 {
+              Anchor: (Height: 44, Right: 4);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn2 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Outpost.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName2 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
+            }
+            Button #Where3 {
+              Anchor: (Height: 44, Right: 4);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn3 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Work.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName3 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
+            }
+            Button #Where4 {
+              Anchor: (Height: 44);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #WhereOn4 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Padding: (Top: 3, Horizontal: 2);
+                  Group {
+                    LayoutMode: Left;
+                    Anchor: (Height: 20);
+                    Group { FlexWeight: 1; }
+                    Group { Anchor: (Width: 20, Height: 20); Background: (TexturePath: "Board/Place_Hamlet.png"); }
+                    Group { FlexWeight: 1; }
+                  }
+                  Label #WhereName4 { Anchor: (Height: 16); Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; }
+                }
+            }
+          }
+          Label #SeekLabel { Anchor: (Height: 16, Bottom: 2); Style: @Head; Text: ""; }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 32, Bottom: 10);
+            Button #Seek0 {
+              Anchor: (Height: 32, Right: 3);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn0 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
+                  ItemIcon #SeekIcon0 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
+                  Label #SeekName0 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+            }
+            Button #Seek1 {
+              Anchor: (Height: 32, Right: 3);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn1 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
+                  ItemIcon #SeekIcon1 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
+                  Label #SeekName1 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+            }
+            Button #Seek2 {
+              Anchor: (Height: 32, Right: 3);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn2 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
+                  ItemIcon #SeekIcon2 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
+                  Label #SeekName2 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+            }
+            Button #Seek3 {
+              Anchor: (Height: 32, Right: 3);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn3 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
+                  ItemIcon #SeekIcon3 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
+                  Label #SeekName3 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+            }
+            Button #Seek4 {
+              Anchor: (Height: 32, Right: 3);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn4 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
+                  ItemIcon #SeekIcon4 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
+                  Label #SeekName4 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+            }
+            Button #Seek5 {
+              Anchor: (Height: 32);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Full;
+              FlexWeight: 1;
+                Group #SeekOn5 {
+                  LayoutMode: Top;
+                  Anchor: (Full: 0);
+                  Visible: false;
+                  Group { FlexWeight: 1; Background: (Color: #8fd0ea(0.28)); }
+                  Group { Anchor: (Height: 3); Background: (Color: #8fd0ea); }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Full: 0);
+                  Padding: (Horizontal: 4, Vertical: 5);
+                  ItemIcon #SeekIcon5 { Anchor: (Width: 22, Height: 22, Right: 3); ShowItemTooltip: false; }
+                  Label #SeekName5 { Style: (FontSize: 11, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+            }
+          }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 118, Bottom: 8);
+            Button #Card0 {
+              Anchor: (Right: 8);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Left;
+              Padding: (Right: 8);
+              FlexWeight: 1;
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 4, Right: 8);
+                Group #CardStripe0 { Anchor: (Full: 0); Background: (Color: #7fc36a); Visible: false; }
+                Group #CardStripe1 { Anchor: (Full: 0); Background: (Color: #e8c46a); Visible: false; }
+                Group #CardStripe2 { Anchor: (Full: 0); Background: (Color: #d9a35a); Visible: false; }
+                Group #CardStripe3 { Anchor: (Full: 0); Background: (Color: #e07468); Visible: false; }
+                Group #CardStripe4 { Anchor: (Full: 0); Background: (Color: #7fa8d8); Visible: false; }
+                Group #CardStripe5 { Anchor: (Full: 0); Background: (Color: #6b7785); Visible: false; }
+              }
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Right: 8, Bottom: 52);
+                Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                ItemIcon #CardIcon0 { Anchor: (Full: 5); ShowItemTooltip: false; }
+              }
+              Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Padding: (Vertical: 7);
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName0 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState0 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 30, Top: 2);
+                  Group #CardOut0 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon0 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut1 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon1 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut2 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon2 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut3 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon3 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Label #CardFx0 { Style: (FontSize: 12, RenderBold: true, TextColor: #7fa8d8, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 22, Top: 4);
+                  Group {
+                    LayoutMode: Full;
+                    Anchor: (Width: 22, Height: 22, Right: 5);
+                    Group #CardPlace0 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Village.png"); Visible: false; }
+                    Group #CardPlace1 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Plot.png"); Visible: false; }
+                    Group #CardPlace2 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Outpost.png"); Visible: false; }
+                    Group #CardPlace3 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Work.png"); Visible: false; }
+                    Group #CardPlace4 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Hamlet.png"); Visible: false; }
+                  }
+                  Label #CardWhere0 { Style: (FontSize: 12, RenderBold: true, TextColor: #c9d1d9, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20, Top: 3);
+                  Group #CardCost0 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon0 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount0 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost1 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon1 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount1 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost2 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon2 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount2 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Label #CardNote0 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+              }
+            }
+            Button #Card1 {
+              Anchor: (Right: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Left;
+              Padding: (Right: 8);
+              FlexWeight: 1;
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 4, Right: 8);
+                Group #CardStripe6 { Anchor: (Full: 0); Background: (Color: #7fc36a); Visible: false; }
+                Group #CardStripe7 { Anchor: (Full: 0); Background: (Color: #e8c46a); Visible: false; }
+                Group #CardStripe8 { Anchor: (Full: 0); Background: (Color: #d9a35a); Visible: false; }
+                Group #CardStripe9 { Anchor: (Full: 0); Background: (Color: #e07468); Visible: false; }
+                Group #CardStripe10 { Anchor: (Full: 0); Background: (Color: #7fa8d8); Visible: false; }
+                Group #CardStripe11 { Anchor: (Full: 0); Background: (Color: #6b7785); Visible: false; }
+              }
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Right: 8, Bottom: 52);
+                Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                ItemIcon #CardIcon1 { Anchor: (Full: 5); ShowItemTooltip: false; }
+              }
+              Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Padding: (Vertical: 7);
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName1 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState1 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 30, Top: 2);
+                  Group #CardOut4 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon4 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut5 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon5 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut6 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon6 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut7 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon7 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Label #CardFx1 { Style: (FontSize: 12, RenderBold: true, TextColor: #7fa8d8, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 22, Top: 4);
+                  Group {
+                    LayoutMode: Full;
+                    Anchor: (Width: 22, Height: 22, Right: 5);
+                    Group #CardPlace5 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Village.png"); Visible: false; }
+                    Group #CardPlace6 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Plot.png"); Visible: false; }
+                    Group #CardPlace7 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Outpost.png"); Visible: false; }
+                    Group #CardPlace8 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Work.png"); Visible: false; }
+                    Group #CardPlace9 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Hamlet.png"); Visible: false; }
+                  }
+                  Label #CardWhere1 { Style: (FontSize: 12, RenderBold: true, TextColor: #c9d1d9, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20, Top: 3);
+                  Group #CardCost3 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon3 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount3 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost4 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon4 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount4 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost5 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon5 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount5 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Label #CardNote1 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+              }
+            }
+          }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 118, Bottom: 8);
+            Button #Card2 {
+              Anchor: (Right: 8);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Left;
+              Padding: (Right: 8);
+              FlexWeight: 1;
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 4, Right: 8);
+                Group #CardStripe12 { Anchor: (Full: 0); Background: (Color: #7fc36a); Visible: false; }
+                Group #CardStripe13 { Anchor: (Full: 0); Background: (Color: #e8c46a); Visible: false; }
+                Group #CardStripe14 { Anchor: (Full: 0); Background: (Color: #d9a35a); Visible: false; }
+                Group #CardStripe15 { Anchor: (Full: 0); Background: (Color: #e07468); Visible: false; }
+                Group #CardStripe16 { Anchor: (Full: 0); Background: (Color: #7fa8d8); Visible: false; }
+                Group #CardStripe17 { Anchor: (Full: 0); Background: (Color: #6b7785); Visible: false; }
+              }
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Right: 8, Bottom: 52);
+                Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                ItemIcon #CardIcon2 { Anchor: (Full: 5); ShowItemTooltip: false; }
+              }
+              Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Padding: (Vertical: 7);
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName2 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState2 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 30, Top: 2);
+                  Group #CardOut8 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon8 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut9 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon9 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut10 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon10 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut11 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon11 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Label #CardFx2 { Style: (FontSize: 12, RenderBold: true, TextColor: #7fa8d8, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 22, Top: 4);
+                  Group {
+                    LayoutMode: Full;
+                    Anchor: (Width: 22, Height: 22, Right: 5);
+                    Group #CardPlace10 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Village.png"); Visible: false; }
+                    Group #CardPlace11 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Plot.png"); Visible: false; }
+                    Group #CardPlace12 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Outpost.png"); Visible: false; }
+                    Group #CardPlace13 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Work.png"); Visible: false; }
+                    Group #CardPlace14 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Hamlet.png"); Visible: false; }
+                  }
+                  Label #CardWhere2 { Style: (FontSize: 12, RenderBold: true, TextColor: #c9d1d9, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20, Top: 3);
+                  Group #CardCost6 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon6 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount6 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost7 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon7 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount7 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost8 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon8 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount8 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Label #CardNote2 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+              }
+            }
+            Button #Card3 {
+              Anchor: (Right: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Left;
+              Padding: (Right: 8);
+              FlexWeight: 1;
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 4, Right: 8);
+                Group #CardStripe18 { Anchor: (Full: 0); Background: (Color: #7fc36a); Visible: false; }
+                Group #CardStripe19 { Anchor: (Full: 0); Background: (Color: #e8c46a); Visible: false; }
+                Group #CardStripe20 { Anchor: (Full: 0); Background: (Color: #d9a35a); Visible: false; }
+                Group #CardStripe21 { Anchor: (Full: 0); Background: (Color: #e07468); Visible: false; }
+                Group #CardStripe22 { Anchor: (Full: 0); Background: (Color: #7fa8d8); Visible: false; }
+                Group #CardStripe23 { Anchor: (Full: 0); Background: (Color: #6b7785); Visible: false; }
+              }
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Right: 8, Bottom: 52);
+                Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                ItemIcon #CardIcon3 { Anchor: (Full: 5); ShowItemTooltip: false; }
+              }
+              Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Padding: (Vertical: 7);
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName3 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState3 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 30, Top: 2);
+                  Group #CardOut12 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon12 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut13 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon13 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut14 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon14 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut15 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon15 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Label #CardFx3 { Style: (FontSize: 12, RenderBold: true, TextColor: #7fa8d8, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 22, Top: 4);
+                  Group {
+                    LayoutMode: Full;
+                    Anchor: (Width: 22, Height: 22, Right: 5);
+                    Group #CardPlace15 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Village.png"); Visible: false; }
+                    Group #CardPlace16 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Plot.png"); Visible: false; }
+                    Group #CardPlace17 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Outpost.png"); Visible: false; }
+                    Group #CardPlace18 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Work.png"); Visible: false; }
+                    Group #CardPlace19 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Hamlet.png"); Visible: false; }
+                  }
+                  Label #CardWhere3 { Style: (FontSize: 12, RenderBold: true, TextColor: #c9d1d9, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20, Top: 3);
+                  Group #CardCost9 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon9 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount9 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost10 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon10 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount10 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost11 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon11 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount11 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Label #CardNote3 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+              }
+            }
+          }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 118, Bottom: 8);
+            Button #Card4 {
+              Anchor: (Right: 8);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Left;
+              Padding: (Right: 8);
+              FlexWeight: 1;
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 4, Right: 8);
+                Group #CardStripe24 { Anchor: (Full: 0); Background: (Color: #7fc36a); Visible: false; }
+                Group #CardStripe25 { Anchor: (Full: 0); Background: (Color: #e8c46a); Visible: false; }
+                Group #CardStripe26 { Anchor: (Full: 0); Background: (Color: #d9a35a); Visible: false; }
+                Group #CardStripe27 { Anchor: (Full: 0); Background: (Color: #e07468); Visible: false; }
+                Group #CardStripe28 { Anchor: (Full: 0); Background: (Color: #7fa8d8); Visible: false; }
+                Group #CardStripe29 { Anchor: (Full: 0); Background: (Color: #6b7785); Visible: false; }
+              }
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Right: 8, Bottom: 52);
+                Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                ItemIcon #CardIcon4 { Anchor: (Full: 5); ShowItemTooltip: false; }
+              }
+              Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Padding: (Vertical: 7);
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName4 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState4 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 30, Top: 2);
+                  Group #CardOut16 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon16 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut17 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon17 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut18 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon18 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut19 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon19 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Label #CardFx4 { Style: (FontSize: 12, RenderBold: true, TextColor: #7fa8d8, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 22, Top: 4);
+                  Group {
+                    LayoutMode: Full;
+                    Anchor: (Width: 22, Height: 22, Right: 5);
+                    Group #CardPlace20 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Village.png"); Visible: false; }
+                    Group #CardPlace21 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Plot.png"); Visible: false; }
+                    Group #CardPlace22 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Outpost.png"); Visible: false; }
+                    Group #CardPlace23 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Work.png"); Visible: false; }
+                    Group #CardPlace24 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Hamlet.png"); Visible: false; }
+                  }
+                  Label #CardWhere4 { Style: (FontSize: 12, RenderBold: true, TextColor: #c9d1d9, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20, Top: 3);
+                  Group #CardCost12 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon12 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount12 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost13 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon13 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount13 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost14 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon14 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount14 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Label #CardNote4 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+              }
+            }
+            Button #Card5 {
+              Anchor: (Right: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Left;
+              Padding: (Right: 8);
+              FlexWeight: 1;
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 4, Right: 8);
+                Group #CardStripe30 { Anchor: (Full: 0); Background: (Color: #7fc36a); Visible: false; }
+                Group #CardStripe31 { Anchor: (Full: 0); Background: (Color: #e8c46a); Visible: false; }
+                Group #CardStripe32 { Anchor: (Full: 0); Background: (Color: #d9a35a); Visible: false; }
+                Group #CardStripe33 { Anchor: (Full: 0); Background: (Color: #e07468); Visible: false; }
+                Group #CardStripe34 { Anchor: (Full: 0); Background: (Color: #7fa8d8); Visible: false; }
+                Group #CardStripe35 { Anchor: (Full: 0); Background: (Color: #6b7785); Visible: false; }
+              }
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Right: 8, Bottom: 52);
+                Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                ItemIcon #CardIcon5 { Anchor: (Full: 5); ShowItemTooltip: false; }
+              }
+              Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Padding: (Vertical: 7);
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName5 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState5 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 30, Top: 2);
+                  Group #CardOut20 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon20 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut21 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon21 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut22 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon22 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut23 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon23 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Label #CardFx5 { Style: (FontSize: 12, RenderBold: true, TextColor: #7fa8d8, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 22, Top: 4);
+                  Group {
+                    LayoutMode: Full;
+                    Anchor: (Width: 22, Height: 22, Right: 5);
+                    Group #CardPlace25 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Village.png"); Visible: false; }
+                    Group #CardPlace26 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Plot.png"); Visible: false; }
+                    Group #CardPlace27 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Outpost.png"); Visible: false; }
+                    Group #CardPlace28 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Work.png"); Visible: false; }
+                    Group #CardPlace29 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Hamlet.png"); Visible: false; }
+                  }
+                  Label #CardWhere5 { Style: (FontSize: 12, RenderBold: true, TextColor: #c9d1d9, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20, Top: 3);
+                  Group #CardCost15 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon15 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount15 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost16 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon16 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount16 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost17 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon17 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount17 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Label #CardNote5 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+              }
+            }
+          }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 118, Bottom: 8);
+            Button #Card6 {
+              Anchor: (Right: 8);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Left;
+              Padding: (Right: 8);
+              FlexWeight: 1;
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 4, Right: 8);
+                Group #CardStripe36 { Anchor: (Full: 0); Background: (Color: #7fc36a); Visible: false; }
+                Group #CardStripe37 { Anchor: (Full: 0); Background: (Color: #e8c46a); Visible: false; }
+                Group #CardStripe38 { Anchor: (Full: 0); Background: (Color: #d9a35a); Visible: false; }
+                Group #CardStripe39 { Anchor: (Full: 0); Background: (Color: #e07468); Visible: false; }
+                Group #CardStripe40 { Anchor: (Full: 0); Background: (Color: #7fa8d8); Visible: false; }
+                Group #CardStripe41 { Anchor: (Full: 0); Background: (Color: #6b7785); Visible: false; }
+              }
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Right: 8, Bottom: 52);
+                Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                ItemIcon #CardIcon6 { Anchor: (Full: 5); ShowItemTooltip: false; }
+              }
+              Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Padding: (Vertical: 7);
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName6 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState6 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 30, Top: 2);
+                  Group #CardOut24 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon24 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut25 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon25 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut26 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon26 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut27 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon27 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Label #CardFx6 { Style: (FontSize: 12, RenderBold: true, TextColor: #7fa8d8, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 22, Top: 4);
+                  Group {
+                    LayoutMode: Full;
+                    Anchor: (Width: 22, Height: 22, Right: 5);
+                    Group #CardPlace30 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Village.png"); Visible: false; }
+                    Group #CardPlace31 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Plot.png"); Visible: false; }
+                    Group #CardPlace32 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Outpost.png"); Visible: false; }
+                    Group #CardPlace33 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Work.png"); Visible: false; }
+                    Group #CardPlace34 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Hamlet.png"); Visible: false; }
+                  }
+                  Label #CardWhere6 { Style: (FontSize: 12, RenderBold: true, TextColor: #c9d1d9, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20, Top: 3);
+                  Group #CardCost18 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon18 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount18 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost19 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon19 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount19 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost20 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon20 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount20 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Label #CardNote6 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+              }
+            }
+            Button #Card7 {
+              Anchor: (Right: 0);
+              Style: $C.@SecondaryButtonStyle;
+              LayoutMode: Left;
+              Padding: (Right: 8);
+              FlexWeight: 1;
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 4, Right: 8);
+                Group #CardStripe42 { Anchor: (Full: 0); Background: (Color: #7fc36a); Visible: false; }
+                Group #CardStripe43 { Anchor: (Full: 0); Background: (Color: #e8c46a); Visible: false; }
+                Group #CardStripe44 { Anchor: (Full: 0); Background: (Color: #d9a35a); Visible: false; }
+                Group #CardStripe45 { Anchor: (Full: 0); Background: (Color: #e07468); Visible: false; }
+                Group #CardStripe46 { Anchor: (Full: 0); Background: (Color: #7fa8d8); Visible: false; }
+                Group #CardStripe47 { Anchor: (Full: 0); Background: (Color: #6b7785); Visible: false; }
+              }
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Right: 8, Bottom: 52);
+                Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                ItemIcon #CardIcon7 { Anchor: (Full: 5); ShowItemTooltip: false; }
+              }
+              Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Padding: (Vertical: 7);
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20);
+                  Label #CardName7 { Style: (FontSize: 14, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                  Label #CardState7 { Anchor: (Width: 92); Style: (FontSize: 11, RenderBold: true, RenderUppercase: true, TextColor: #e8c46a, HorizontalAlignment: End, VerticalAlignment: Center); Text: ""; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 30, Top: 2);
+                  Group #CardOut28 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon28 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut29 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon29 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut30 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon30 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Group #CardOut31 {
+                    LayoutMode: Full;
+                    Anchor: (Width: 30, Height: 30, Right: 3);
+                    Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+                    ItemIcon #CardOutIcon31 { Anchor: (Full: 3); ShowItemTooltip: false; }
+                  }
+                  Label #CardFx7 { Style: (FontSize: 12, RenderBold: true, TextColor: #7fa8d8, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 22, Top: 4);
+                  Group {
+                    LayoutMode: Full;
+                    Anchor: (Width: 22, Height: 22, Right: 5);
+                    Group #CardPlace35 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Village.png"); Visible: false; }
+                    Group #CardPlace36 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Plot.png"); Visible: false; }
+                    Group #CardPlace37 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Outpost.png"); Visible: false; }
+                    Group #CardPlace38 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Work.png"); Visible: false; }
+                    Group #CardPlace39 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Hamlet.png"); Visible: false; }
+                  }
+                  Label #CardWhere7 { Style: (FontSize: 12, RenderBold: true, TextColor: #c9d1d9, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Height: 20, Top: 3);
+                  Group #CardCost21 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon21 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount21 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost22 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon22 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount22 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Group #CardCost23 {
+                    LayoutMode: Left;
+                    Anchor: (Width: 48);
+                    ItemIcon #CardCostIcon23 { Anchor: (Width: 20, Height: 20, Right: 2); ShowItemTooltip: false; }
+                    Label #CardCostCount23 { Style: @Qty; Text: ""; FlexWeight: 1; }
+                  }
+                  Label #CardNote7 { Style: (FontSize: 11, TextColor: #96a9be, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+                }
+              }
+            }
+          }
+          Group { FlexWeight: 1; }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 30);
+            $C.@SmallSecondaryTextButton #PagePrev { @Text = ""; @Anchor = Anchor(Width: 110, Height: 30); }
+            Label #PageInfo { Style: (FontSize: 12, TextColor: #96a9be, HorizontalAlignment: Center, VerticalAlignment: Center); Text: ""; FlexWeight: 1; }
+            $C.@SmallSecondaryTextButton #PageNext { @Text = ""; @Anchor = Anchor(Width: 110, Height: 30); }
+          }
+        }
+        Group #Detail {
+          LayoutMode: Top;
+          Anchor: (Width: 318);
+          Padding: (Full: 14);
+          Background: (Color: #173246(0.55));
+          Label #DetName { Style: (FontSize: 18, FontName: "Secondary", RenderBold: true, TextColor: #8fd0ea, Wrap: true); Text: ""; }
+          Group {
+            LayoutMode: Left;
+            Anchor: (Height: 28, Top: 6);
+            Group {
+              LayoutMode: Full;
+              Anchor: (Width: 28, Height: 28, Right: 8);
+              Group #DetPlace0 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Village.png"); Visible: false; }
+              Group #DetPlace1 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Plot.png"); Visible: false; }
+              Group #DetPlace2 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Outpost.png"); Visible: false; }
+              Group #DetPlace3 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Work.png"); Visible: false; }
+              Group #DetPlace4 { Anchor: (Full: 0); Background: (TexturePath: "Board/Place_Hamlet.png"); Visible: false; }
+            }
+            Label #DetWhere { Style: (FontSize: 13, RenderBold: true, TextColor: #d9e2ec, VerticalAlignment: Center, Wrap: true); Text: ""; FlexWeight: 1; }
+          }
+          Label #DetLine { Anchor: (Top: 8); Style: @Body; Text: ""; }
+          Label #DetOutHead { Anchor: (Height: 18, Top: 10); Style: @Head; Text: ""; }
+          Group #DetOuts {
+            LayoutMode: Left;
+            Anchor: (Height: 42, Top: 4);
+            Group #DetOut0 {
+              LayoutMode: Full;
+              Anchor: (Width: 42, Height: 42, Right: 4);
+              Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+              ItemIcon #DetOutIcon0 { Anchor: (Full: 4); ShowItemTooltip: true; }
+            }
+            Group #DetOut1 {
+              LayoutMode: Full;
+              Anchor: (Width: 42, Height: 42, Right: 4);
+              Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+              ItemIcon #DetOutIcon1 { Anchor: (Full: 4); ShowItemTooltip: true; }
+            }
+            Group #DetOut2 {
+              LayoutMode: Full;
+              Anchor: (Width: 42, Height: 42, Right: 4);
+              Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+              ItemIcon #DetOutIcon2 { Anchor: (Full: 4); ShowItemTooltip: true; }
+            }
+            Group #DetOut3 {
+              LayoutMode: Full;
+              Anchor: (Width: 42, Height: 42, Right: 4);
+              Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+              ItemIcon #DetOutIcon3 { Anchor: (Full: 4); ShowItemTooltip: true; }
+            }
+            Group #DetOut4 {
+              LayoutMode: Full;
+              Anchor: (Width: 42, Height: 42, Right: 4);
+              Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+              ItemIcon #DetOutIcon4 { Anchor: (Full: 4); ShowItemTooltip: true; }
+            }
+            Group #DetOut5 {
+              LayoutMode: Full;
+              Anchor: (Width: 42, Height: 42, Right: 4);
+              Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24);
+              ItemIcon #DetOutIcon5 { Anchor: (Full: 4); ShowItemTooltip: true; }
+            }
+          }
+          Label #DetCostHead { Anchor: (Height: 18, Top: 10); Style: @Head; Text: ""; }
+          Group #DetMats {
+            LayoutMode: Left;
+            Anchor: (Height: 66, Top: 4);
+            Group #DetMat0 {
+              LayoutMode: Top;
+              Anchor: (Width: 60, Right: 8);
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Left: 7);
+                Group #DetMatSlot0 { Anchor: (Full: 0); Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24); }
+                Group #DetMatOk0 { Anchor: (Full: 0); Background: (TexturePath: "../../../Common/IngredientSlotValid.png", Border: 24); Visible: false; }
+                ItemIcon #DetMatIcon0 { Anchor: (Full: 5); ShowItemTooltip: true; }
+              }
+              Label #DetMatCount0 { Anchor: (Height: 18, Top: 2); Style: @Count; Text: ""; }
+            }
+            Group #DetMat1 {
+              LayoutMode: Top;
+              Anchor: (Width: 60, Right: 8);
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Left: 7);
+                Group #DetMatSlot1 { Anchor: (Full: 0); Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24); }
+                Group #DetMatOk1 { Anchor: (Full: 0); Background: (TexturePath: "../../../Common/IngredientSlotValid.png", Border: 24); Visible: false; }
+                ItemIcon #DetMatIcon1 { Anchor: (Full: 5); ShowItemTooltip: true; }
+              }
+              Label #DetMatCount1 { Anchor: (Height: 18, Top: 2); Style: @Count; Text: ""; }
+            }
+            Group #DetMat2 {
+              LayoutMode: Top;
+              Anchor: (Width: 60, Right: 8);
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Left: 7);
+                Group #DetMatSlot2 { Anchor: (Full: 0); Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24); }
+                Group #DetMatOk2 { Anchor: (Full: 0); Background: (TexturePath: "../../../Common/IngredientSlotValid.png", Border: 24); Visible: false; }
+                ItemIcon #DetMatIcon2 { Anchor: (Full: 5); ShowItemTooltip: true; }
+              }
+              Label #DetMatCount2 { Anchor: (Height: 18, Top: 2); Style: @Count; Text: ""; }
+            }
+            Group #DetMat3 {
+              LayoutMode: Top;
+              Anchor: (Width: 60, Right: 8);
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 46, Height: 46, Left: 7);
+                Group #DetMatSlot3 { Anchor: (Full: 0); Background: (TexturePath: "../../../Common/IngredientSlot.png", Border: 24); }
+                Group #DetMatOk3 { Anchor: (Full: 0); Background: (TexturePath: "../../../Common/IngredientSlotValid.png", Border: 24); Visible: false; }
+                ItemIcon #DetMatIcon3 { Anchor: (Full: 5); ShowItemTooltip: true; }
+              }
+              Label #DetMatCount3 { Anchor: (Height: 18, Top: 2); Style: @Count; Text: ""; }
+            }
+          }
+          Label #DetCostNote { Anchor: (Top: 4); Style: @SmallWrap; Text: ""; }
+          Group {
+            LayoutMode: Top;
+            Anchor: (Top: 10);
+            Group #DetReq0 {
+              LayoutMode: Left;
+              Anchor: (Bottom: 5);
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 14, Height: 14, Right: 8, Top: 2);
+                Group #DetReqOk0 { Anchor: (Full: 0); Background: (TexturePath: "Board/Dot.png", Color: #7fc36a); }
+                Group #DetReqNo0 { Anchor: (Full: 0); Background: (TexturePath: "Board/Dot.png", Color: #e07468); Visible: false; }
+              }
+              Label #DetReqText0 { Style: @Body; Text: ""; FlexWeight: 1; }
+            }
+            Group #DetReq1 {
+              LayoutMode: Left;
+              Anchor: (Bottom: 5);
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 14, Height: 14, Right: 8, Top: 2);
+                Group #DetReqOk1 { Anchor: (Full: 0); Background: (TexturePath: "Board/Dot.png", Color: #7fc36a); }
+                Group #DetReqNo1 { Anchor: (Full: 0); Background: (TexturePath: "Board/Dot.png", Color: #e07468); Visible: false; }
+              }
+              Label #DetReqText1 { Style: @Body; Text: ""; FlexWeight: 1; }
+            }
+            Group #DetReq2 {
+              LayoutMode: Left;
+              Anchor: (Bottom: 5);
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 14, Height: 14, Right: 8, Top: 2);
+                Group #DetReqOk2 { Anchor: (Full: 0); Background: (TexturePath: "Board/Dot.png", Color: #7fc36a); }
+                Group #DetReqNo2 { Anchor: (Full: 0); Background: (TexturePath: "Board/Dot.png", Color: #e07468); Visible: false; }
+              }
+              Label #DetReqText2 { Style: @Body; Text: ""; FlexWeight: 1; }
+            }
+            Group #DetReq3 {
+              LayoutMode: Left;
+              Anchor: (Bottom: 5);
+              Group {
+                LayoutMode: Full;
+                Anchor: (Width: 14, Height: 14, Right: 8, Top: 2);
+                Group #DetReqOk3 { Anchor: (Full: 0); Background: (TexturePath: "Board/Dot.png", Color: #7fc36a); }
+                Group #DetReqNo3 { Anchor: (Full: 0); Background: (TexturePath: "Board/Dot.png", Color: #e07468); Visible: false; }
+              }
+              Label #DetReqText3 { Style: @Body; Text: ""; FlexWeight: 1; }
+            }
+          }
+          Group { FlexWeight: 1; }
+          $C.@SmallSecondaryTextButton #DetAction { @Text = ""; @Anchor = Anchor(Height: 36); }
+        }
+      }
+    }
+  }
+}
+
+$C.@BackButton {}

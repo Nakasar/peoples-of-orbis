@@ -51,7 +51,10 @@ Le bouton **Boutique** ouvre un troc payé en **faveurs** du peuple. Son stock r
 | Ami | niveau II : la base et les produits de la spécialité (de toutes pour un projet) |
 | Hôte | niveau III : tout, avec les meilleurs produits |
 
-La boutique est fermée quand le villageois du bâtiment est absent : il revient au matin.
+La carte **Offres** du panneau montre, pour chaque niveau, ce qu'il vend en icônes et ce qui l'ouvre (votre rang, le
+niveau du bâtiment). La boutique est fermée quand le villageois du bâtiment est absent (il revient au matin) ou que
+l'atelier est à l'arrêt faute de ressources : la raison s'affiche sur la carte, avant le clic. La boutique s'ouvre dans
+l'[échoppe](reputation.md#les-echoppes) du village, sur l'onglet de votre niveau ; les autres niveaux y restent visibles.
 
 Au **niveau III**, le bâtiment met de côté chaque matin un petit lot de sa production pour chaque joueur de rang **Hôte** : c'est la **Part de l'Hôte**, à prendre au panneau une fois par jour. Si votre inventaire est plein, le lot tombe à vos pieds.
 

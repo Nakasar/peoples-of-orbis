@@ -58,8 +58,8 @@
     "Item": "Nakasar_Peuples_Annex_Fortin",
     "Rule": "NONE",
     "Prefabs": [
-      "Npc/Slothian/Disabled/House/Medium/Slothian_Disabled_House_Medium_001 0 -12 0",
-      "Monuments/Incidental/Slothian/Land/Temple/Incidental_Slothian_Slothian_Temple_003 -15 -14 0"
+      "Nakasar/Peuples/Batiments/Slothian/AP_Fortin/AP_Fortin_1_P1 0 -12 0",
+      "Nakasar/Peuples/Batiments/Slothian/AP_Fortin/AP_Fortin_2_P1 -15 -14 0"
     ],
     "Rect": [
       -19,

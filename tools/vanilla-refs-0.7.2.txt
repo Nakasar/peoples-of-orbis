@@ -1,5 +1,5 @@
 # Ids vanilla référencés par le mod Fractales, que ValidateAssets accepte sans les trouver dans le pack.
-# Une ligne par id : « <type> <id> ». Types : droplist (listes de butin), npc (rôles de PNJ), animations (ItemPlayerAnimationsId).
+# Une ligne par id : « <type> <id> ». Types : droplist (listes de butin), npc (rôles de PNJ), animations (ItemPlayerAnimationsId), marker (marqueurs d'apparition).
 # Un id absent du jeu fait échouer en jeu l'asset qui le cite, et parfois tout le mod. N'ajouter ici qu'un id
 # vu dans les fichiers du jeu ou chargé sans erreur en jeu ; préciser la source (même règle que le mod Vampires).
 # Jeux d'animations des armes vanilla (déjà acceptés par le mod Vampires, vus dans Assets.zip 0.7.2 ; Sword : coutelas
@@ -124,3 +124,26 @@ droplist Drop_Trork_Chieftain
 droplist Drop_Bear_Grizzly
 droplist Drop_Yeti
 droplist Drop_Golem_Crystal_Sand
+# Marqueurs d'apparition vanilla (Server/NPC/Spawn/Markers/<id>.json, vus dans Assets.zip le 2026-11-21) cités par les
+# copies des prefabs vanilla (Server/Prefabs/Nakasar/Peuples/..., tools/mod_prefabs.py).
+marker Feran_Civilian
+marker Feran_T2
+marker Feran_T3
+marker Kweebec
+marker Kweebec_Merchant
+marker Kweebec_Rabbit
+marker Kweebec_Razorleaf_Patrol
+marker Kweebec_Sproutling_Patrol
+marker Outlander_Berserker
+marker Outlander_Cultist
+marker Outlander_Hunter
+marker Outlander_Marauder
+marker Outlander_Peon
+marker Outlander_Stalker
+marker Skeleton_Archer
+marker Skeleton_Burnt_Archer
+marker Skeleton_Burnt_Soldier
+marker Skeleton_Fighter
+marker Trork_Hunter
+marker Trork_Sentry
+marker Zombie_Sand

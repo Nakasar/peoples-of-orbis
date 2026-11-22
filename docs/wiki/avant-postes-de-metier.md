@@ -42,11 +42,11 @@ L'endroit où vous posez la fondation fixe pour toujours le **rendement** de l'a
 - **Pêcherie** : selon l'étendue d'eau, riche à partir de 120 blocs d'eau, ordinaire dès 40.
 - **Pavillon de chasse** : riche loin de tout village (192 blocs et plus, là où vivent les troupeaux), pauvre à moins de 96 blocs.
 
-L'onglet **Production** du panneau rappelle le gisement de chaque avant-poste. Les bâtiments viennent du jeu et prennent le style du peuple : ferme de séquoia kweebec, terrier trork, hutte feran, maison des Renoncés, temple slothian…
+La page des avant-postes (onglet [**Bâtir**](batir.md), bouton **Voir les avant-postes**) rappelle le gisement de chaque avant-poste. Les bâtiments viennent du jeu et prennent le style du peuple : ferme de séquoia kweebec, terrier trork, hutte feran, maison des Renoncés, temple slothian…
 
 ## Fonder un avant-poste
 
-1. Au panneau du village, l'onglet **Production** montre les types du peuple et leur coût.
+1. Au panneau du village, l'onglet [**Bâtir**](batir.md) montre les avant-postes du peuple (filtre **Où : Avant-poste**) et leur coût.
 2. Réunir au **dépôt** du village les matériaux de la fondation, puis **Recevoir la fondation** (rang **Ami**).
 3. Aller là où vous voulez bâtir et **poser la fondation**. Le bâtiment s'élève devant vous, l'entrée de votre côté.
 4. Si la place ne convient pas, la fondation n'est pas posée et un message dit pourquoi : trop près ou trop loin du village, trop près d'un autre village ou d'un autre avant-poste, dans l'eau, terrain trop accidenté, construction dans le chemin, ou sol qui ne va pas au métier.
@@ -83,7 +83,7 @@ Debout, un avant-poste est un [bâtiment de métier](batiments-de-metier.md) com
 
 ## Détruire un avant-poste
 
-À l'onglet **Production** du panneau du village, un avant-poste debout ou en travaux a un bouton **Détruire
+Sur la page des avant-postes (onglet **Bâtir**, bouton **Voir les avant-postes**), un avant-poste debout ou en travaux a un bouton **Détruire
 l'avant-poste** (rang **Ami**). Un second clic, sur **Confirmer la destruction**, le détruit :
 
 - ses villageois partent, le bâtiment, son panneau et son décor sont rasés, son niveau est perdu ;

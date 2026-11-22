@@ -42,10 +42,10 @@ JAR_AT = (1, 1, 4)        # tournée vers le bassin (lacet 2 = nord)
 TORCH_AT = (-1, 4)
 CACTI = [(5, -4, "Plant_Cactus_2"), (-5, 5, "Plant_Cactus_1")]
 # Pièces vanilla collées par le Java (mêmes valeurs dans EchoSpring.PIECES) : prefab, x, y, z.
-PIECES = [("Orbis/Trees/Palm/Stage_3/Palm_Stage3_002", -4, 1, -3),
-          ("Orbis/Trees/Palm/Stage_2/Palm_Stage2_001", 3, 1, -4),
-          ("Orbis/Trees/Palm/Stage_3/Palm_Stage3_004", 4, 1, 2),
-          ("Rock_Formations/Rocks/Sandstone/Oasis/Rock_Oasis_Small_01", -5, 1, 2)]
+PIECES = [("Nakasar/Peuples/Orbis/Trees/Palm/Stage_3/Palm_Stage3_002", -4, 1, -3),
+          ("Nakasar/Peuples/Orbis/Trees/Palm/Stage_2/Palm_Stage2_001", 3, 1, -4),
+          ("Nakasar/Peuples/Orbis/Trees/Palm/Stage_3/Palm_Stage3_004", 4, 1, 2),
+          ("Nakasar/Peuples/Rock_Formations/Rocks/Sandstone/Oasis/Rock_Oasis_Small_01", -5, 1, 2)]
 # Cases laissées libres pour les pièces (troncs, rocher).
 KEEP_FREE = {(-4, -3), (3, -4), (4, 2)} | {(x, z) for x in range(-6, -2) for z in range(-1, 6)}
 

@@ -1,0 +1,98 @@
+{
+  "$Comment": "Bâtiment de métier généré par tools/generate_workshops.py (ne pas modifier à la main) : voir dev.nakasar.hytale.peuples.workshop.Workshop.",
+  "People": "Renonce",
+  "Layout": "Renonce_Givre",
+  "Building": "Marche",
+  "Job": "",
+  "Keeper": "Merchant",
+  "Icon": "Furniture_Village_Crate",
+  "NameKey": "nakasar_peuples.workshop.Renonce_Marche.name",
+  "Board": [
+    -16,
+    50,
+    2
+  ],
+  "Upgrades": [
+    {
+      "Level": 2,
+      "Hours": 12,
+      "Materials": [
+        {
+          "ItemId": "Wood_Fir_Trunk",
+          "Quantity": 24
+        },
+        {
+          "ItemId": "Wood_Hardwood_Planks",
+          "Quantity": 16
+        },
+        {
+          "ItemId": "Rock_Stone_Cobble",
+          "Quantity": 12
+        }
+      ],
+      "Decor": [
+        "1 0 0 0 Furniture_Lumberjack_Lantern"
+      ]
+    },
+    {
+      "Level": 3,
+      "Hours": 12,
+      "Materials": [
+        {
+          "ItemId": "Wood_Fir_Trunk",
+          "Quantity": 32
+        },
+        {
+          "ItemId": "Ingredient_Bolt_Wool",
+          "Quantity": 6
+        },
+        {
+          "ItemId": "Ingredient_Ice_Essence",
+          "Quantity": 6
+        }
+      ],
+      "Decor": [
+        "-1 0 0 0 Furniture_Lumberjack_Lantern"
+      ]
+    }
+  ],
+  "Specialties": [
+    {
+      "Id": "Interieur",
+      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_Marche.Interieur",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_Marche.Interieur",
+      "Icon": "Deco_Map",
+      "Shops": [
+        "Nakasar_Peuples_W_Renonce_Marche_Interieur_2",
+        "Nakasar_Peuples_W_Renonce_Marche_Interieur_3"
+      ],
+      "ShareItem": "Food_Salad_Berry",
+      "ShareQuantity": 2
+    },
+    {
+      "Id": "Exterieur",
+      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_Marche.Exterieur",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_Marche.Exterieur",
+      "Icon": "Tool_Map",
+      "Shops": [
+        "Nakasar_Peuples_W_Renonce_Marche_Exterieur_2",
+        "Nakasar_Peuples_W_Renonce_Marche_Exterieur_3"
+      ],
+      "ShareItem": "Ingredient_Fabric_Scrap_Linen",
+      "ShareQuantity": 4
+    },
+    {
+      "Id": "Noir",
+      "NameKey": "nakasar_peuples.workshop.specialty.Renonce_Marche.Noir",
+      "LineKey": "nakasar_peuples.workshop.specialtyLine.Renonce_Marche.Noir",
+      "Icon": "Deco_Bone_Skulls",
+      "Shops": [
+        "Nakasar_Peuples_W_Renonce_Marche_Noir_2",
+        "Nakasar_Peuples_W_Renonce_Marche_Noir_3"
+      ],
+      "ShareItem": "Ingredient_Bone_Fragment",
+      "ShareQuantity": 4
+    }
+  ],
+  "Shop": "Nakasar_Peuples_W_Renonce_Marche_Base_1"
+}

@@ -1,0 +1,122 @@
+{
+  "$Comment": "Marché noir des villages Kweebec (receleur de la place du marché, la nuit), généré par tools/generate_markets.py : ce que le peuple refuse d'échanger : luxes d'ailleurs sans route ni terroir, métal, au prix fort.",
+  "DisplayNameKey": "nakasar_peuples.barter.Marche_Kweebec_Noir.title",
+  "RefreshInterval": {
+    "Days": 3
+  },
+  "RestockHour": 20,
+  "TradeSlots": [
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Leather_Heavy",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Spices",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Food_Cheese",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Crystal_Purple",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 9
+          }
+        ],
+        "Stock": 1
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Bar_Iron",
+          "Quantity": 2
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 4
+          }
+        ],
+        "Stock": 2
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Ingredient_Bar_Copper",
+          "Quantity": 2
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 3
+          }
+        ],
+        "Stock": 2
+      }
+    },
+    {
+      "Type": "Fixed",
+      "Trade": {
+        "Output": {
+          "ItemId": "Tool_Pickaxe_Iron",
+          "Quantity": 1
+        },
+        "Input": [
+          {
+            "ItemId": "Nakasar_Peuples_Favor_Kweebec",
+            "Quantity": 8
+          }
+        ],
+        "Stock": 2
+      }
+    }
+  ]
+}

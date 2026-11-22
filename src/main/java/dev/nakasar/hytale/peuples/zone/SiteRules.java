@@ -73,7 +73,7 @@ public final class SiteRules {
     /** Sonde le sol du campement (palier 0) centré en (cx, cz), un point tous les 6 blocs. */
     public static Ground ground(World world, VillageLayout layout, People people, int cx, int cz) {
         Terrain terrain = new Terrain(world);
-        int r = layout.radiusUpTo(0);
+        int r = layout.campRadius();
         int samples = 0;
         int ground = 0;
         int water = 0;
@@ -113,6 +113,33 @@ public final class SiteRules {
     public static boolean groundOk(World world, VillageLayout layout, People people, int cx, int cz) {
         Ground g = ground(world, layout, people, cx, cz);
         return g.samples() > 0 && g.ground() >= minGround(people) * g.samples() && g.relief() <= maxRelief(people);
+    }
+
+    /**
+     * Pourquoi le sol du site ne convient pas aux seeders, en clair pour les journaux du serveur (null : il convient).
+     * Mêmes règles que {@link #terrainOk} ({@link #groundOk} si `wetOk`). Kevin 2026-11-21 : « aucun site pour un
+     * village suivant » ne disait pas quelle règle refusait les sites candidats.
+     */
+    public static String reject(World world, VillageLayout layout, People people, int cx, int cz, boolean wetOk) {
+        Ground g = ground(world, layout, people, cx, cz);
+        if (g.samples() == 0 || g.ground() + g.water() == 0 && g.relief() == 0) {
+            return "terrain non chargé";
+        }
+        int need = (int) Math.ceil(minGround(people) * g.samples());
+        if (g.ground() < need) {
+            return String.format("sol %d %% < %d %% (eau %d %%, rayon %d)", 100 * g.ground() / g.samples(),
+                    Math.round(minGround(people) * 100), 100 * g.water() / g.samples(), layout.campRadius());
+        }
+        if (g.relief() > maxRelief(people)) {
+            return String.format("relief %d > %d (rayon %d)", g.relief(), maxRelief(people), layout.campRadius());
+        }
+        if (!wetOk) {
+            String wet = Footprints.wetBuilding(world, layout, cx, cz);
+            if (wet != null) {
+                return "plan sans place au sec pour " + wet;
+            }
+        }
+        return null;
     }
 
     /** Examine le site (cx, cz) pour un village de `people` (thread du monde, terrain déjà chargé). */

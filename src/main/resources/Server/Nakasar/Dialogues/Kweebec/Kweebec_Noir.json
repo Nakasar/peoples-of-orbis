@@ -1,0 +1,63 @@
+{
+  "$Comment": "Le receleur du marché noir (place du marché, palier 2), la nuit seulement, généré par tools/generate_markets.py (effets WorldAction MarketBlackShop, MarketFenceShop, MarketCollect). Aucune perte de réputation (Kevin, 21 novembre 2026).",
+  "NpcNameKey": "nakasar_peuples.dialogue.Kweebec_Noir.npc",
+  "RoleKey": "nakasar_peuples.dialogue.Kweebec_Noir.role",
+  "People": "Kweebec",
+  "Entries": [
+    {
+      "Node": "Accueil"
+    }
+  ],
+  "Nodes": [
+    {
+      "Id": "Accueil",
+      "TextKey": "nakasar_peuples.dialogue.Kweebec_Noir.accueil",
+      "Responses": [
+        {
+          "TextKey": "nakasar_peuples.dialogue.Kweebec_Noir.voir",
+          "Conditions": [
+            {
+              "Type": "Rank",
+              "Min": "Tolere"
+            }
+          ],
+          "FailKey": "nakasar_peuples.dialogue.fail.rank.Tolere",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketBlackShop"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Kweebec_Noir.vendre",
+          "Conditions": [
+            {
+              "Type": "Rank",
+              "Min": "Tolere"
+            }
+          ],
+          "FailKey": "nakasar_peuples.dialogue.fail.rank.Tolere",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketFenceShop"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Kweebec_Noir.retirer",
+          "Effects": [
+            {
+              "Type": "WorldAction",
+              "Action": "MarketCollect"
+            }
+          ]
+        },
+        {
+          "TextKey": "nakasar_peuples.dialogue.Kweebec_Noir.aurevoir"
+        }
+      ]
+    }
+  ]
+}

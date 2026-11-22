@@ -1,0 +1,24 @@
+{
+  "$Comment": "Commande du bâtiment de métier Renonce_Marche, générée par tools/generate_workshops.py (ne pas modifier à la main) : voir RequestTemplate.",
+  "People": "Renonce",
+  "Workshop": "Renonce_Marche",
+  "Type": "Hunt",
+  "MinLevel": 1,
+  "MaxLevel": 3,
+  "Weight": 1,
+  "TitleKey": "nakasar_peuples.request.Renonce_Marche_Bandits.title",
+  "TaskKey": "nakasar_peuples.request.Renonce_Marche_Bandits.task",
+  "Spawns": [
+    "Outlander_Hunter",
+    "Outlander_Hunter"
+  ],
+  "Roles": [
+    "Outlander_Hunter"
+  ],
+  "MinDistance": 60,
+  "MaxDistance": 110,
+  "Knowledge": 45,
+  "Essor": 5,
+  "Favors": 2,
+  "Reputation": 8
+}
