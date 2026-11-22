@@ -108,6 +108,6 @@ Un raid sans défenseur se joue quand même : les gardes du village se battent s
 
 Si le serveur est éteint, le monde est en pause : rien ne se rattrape au redémarrage.
 
-Les opérateurs règlent tout ça avec `/monde veille` : `--etat off` coupe la vie sans joueur, `--raids off` garde les raids pour quand un joueur est là.
+Les opérateurs règlent tout ça avec `/monde veille` : `--etat off` coupe la vie sans joueur, `--raids off` garde les raids pour quand un joueur est là, `--autonomie off` empêche les villages de récolter et de décider seuls (voir [Un village qui grandit seul](villages.md#un-village-qui-grandit-seul)).
 
 `/monde etat` résume l'état du monde vivant.

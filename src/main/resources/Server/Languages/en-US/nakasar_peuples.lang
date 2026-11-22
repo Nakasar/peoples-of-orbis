@@ -9376,12 +9376,24 @@ dialogue.Monde_Marchand_Etal.rumeur = Any news from the road?
 dialogue.Monde_Marchand_Etal.aurevoir = Goodbye.
 # ---- Fin de la place du marché ----
 # ---- Veille : le monde qui vit sans joueur ----
-world.veille.cmd.desc = The world lives on with no player online (watch): state, --etat on|off, --raids on|off
+world.veille.cmd.desc = The world lives on with no player online (watch): state, --etat on|off, --raids on|off, --autonomie on|off
 world.veille.cmd.state.arg = on or off: village and world life goes on with no player
 world.veille.cmd.raids.arg = on or off: raids also happen with no witness (outcome rolled)
-world.veille.cmd.usage = Usage: /monde veille [--etat on|off] [--raids on|off]
-world.veille.cmd.state = Watch: {on}. Raids with no witness: {raids}. Place held right now: {held}.
+world.veille.cmd.usage = Usage: /monde veille [--etat on|off] [--raids on|off] [--autonomie on|off]
+world.veille.cmd.state = Watch: {on}. Raids with no witness: {raids}. Self-growing villages: {autonomy}. Place held right now: {held}.
 world.veille.yes = on
 world.veille.no = off
 world.veille.none = none
+world.veille.cmd.autonomy.arg = on or off: villages harvest, decide and grow on their own
 # ---- Fin de la veille ----
+# ---- Villages autonomes : le conseil du matin ----
+world.autonomy.knowledge = {building} gathered its know-how on its own.
+world.autonomy.master = The craftsfolk of {building} have proven themselves: the level-up only waits for its materials.
+world.autonomy.upgrade = The council of {village} starts enlarging {building}: {hours} h of works.
+world.autonomy.specialty = The council of {village} specialises {building}: {specialty}.
+world.autonomy.plot = The council of {village} reserves plot {plot} for {building}.
+world.autonomy.annex = The council of {village} founds {building} on its own.
+world.autonomy.plan.annex = The council plans to found {building}.
+world.autonomy.plan.plot = Plot {plot} reserved by the council for {building}.
+annex.startedByVillage = The council of {village} laid the foundation: {building}. Works for {hours} h.
+# ---- Fin des villages autonomes ----

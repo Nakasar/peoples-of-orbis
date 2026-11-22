@@ -64,7 +64,9 @@ public final class WorldLifeRegistry implements Resource<EntityStore> {
         /** Registre du commerce : village = événements récents ({@link TradeLog}). */
         TRADE_LOG("TradeLog"),
         /** Places du marché : marchand de passage, visites, commandes, dépôts-ventes ({@link Markets}). */
-        MARKETS("Markets");
+        MARKETS("Markets"),
+        /** Villages qui grandissent seuls : décisions et dates du conseil ({@link Autonomy}). */
+        AUTONOMY("Autonomy");
 
         final String key;
 
@@ -135,6 +137,9 @@ public final class WorldLifeRegistry implements Resource<EntityStore> {
             .documentation("Monde vivant : « clé=valeur », lu par le Java du mod.")
             .add()
             .append(new KeyedCodec<>(Part.MARKETS.key, Codec.STRING_ARRAY), (r, a) -> r.read(Part.MARKETS, a), r -> r.write(Part.MARKETS))
+            .documentation("Monde vivant : « clé=valeur », lu par le Java du mod.")
+            .add()
+            .append(new KeyedCodec<>(Part.AUTONOMY.key, Codec.STRING_ARRAY), (r, a) -> r.read(Part.AUTONOMY, a), r -> r.write(Part.AUTONOMY))
             .documentation("Monde vivant : « clé=valeur », lu par le Java du mod.")
             .add()
             .build();

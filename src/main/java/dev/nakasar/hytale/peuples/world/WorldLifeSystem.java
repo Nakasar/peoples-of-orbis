@@ -130,11 +130,15 @@ public final class WorldLifeSystem extends TickingSystem<EntityStore> {
         HamletTrips.morning(world, store, random);
         Allegiance.morning(world, store, day, random);
         TradeAccess.morning(world, day);
+        // Villages qui grandissent seuls : récolte au dépôt et essor du jour, avant les besoins (Autonomy).
+        Autonomy.harvest(world, store, day);
         // Besoins, nouvelles du Klops et engagements avant les routes : les cases des commandes sont posées avant les départs.
         TradeNeeds.morning(world, store, day, random);
         TradeRoutes.morning(world, store, day, random);
         Markets.morning(world, store, day, random);
         // Ateliers : ressources du jour prises au dépôt, sinon à l'arrêt (workshop/Inputs).
         dev.nakasar.hytale.peuples.workshop.Inputs.morning(world, store);
+        // Conseil du matin des villages autonomes : ateliers, terrains, avant-postes (Autonomy).
+        Autonomy.council(world, store, day, random);
     }
 }

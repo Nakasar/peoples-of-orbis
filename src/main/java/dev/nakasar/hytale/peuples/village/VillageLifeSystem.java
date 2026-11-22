@@ -64,6 +64,8 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
         for (Village village : new ArrayList<>(Villages.registry(world).all())) {
             // Avant-postes de métier : chacun a sa propre distance de veille, loin du cœur.
             dev.nakasar.hytale.peuples.annex.Annexes.step(world, store, village, players, dt);
+            // Avant-poste prévu par le conseil (village autonome) : une place essayée à la fois.
+            dev.nakasar.hytale.peuples.world.Autonomy.stepAnnex(world, store, village, players);
             // Sans joueur proche, la veille tient le village le temps de ses travaux (world/Veille) : il travaille
             // alors comme sous les yeux d'un joueur.
             boolean seen = watched(village, players) || veille && dev.nakasar.hytale.peuples.world.Veille.held(world, village);
@@ -106,6 +108,8 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
                 Chantiers.grow(world, village);
             }
             Plots.step(world, store, village);
+            // Village autonome : le conseil lance le chantier du terrain qu'il a réservé.
+            dev.nakasar.hytale.peuples.world.Autonomy.step(world, store, village);
             // Générations : naissances, âges, passations, morts, tombes.
             dev.nakasar.hytale.peuples.population.Population.step(world, store, village);
         }
@@ -140,7 +144,7 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
         } else if (Chantiers.workDue(store, village)) {
             return true;
         }
-        return Plots.workDue(store, village);
+        return Plots.workDue(store, village) || dev.nakasar.hytale.peuples.world.Autonomy.workDue(world, store, village);
     }
 
     private static boolean watched(Village village, List<Vector3d> players) {

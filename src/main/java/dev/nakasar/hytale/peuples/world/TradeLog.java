@@ -31,7 +31,9 @@ public final class TradeLog {
         COVER("#7fa8d8", "Needs"),
         ORDER("#e8a65a", "Orders"),
         PURCHASE("#9ed36a", "Purchases"),
-        ROUTE("#9ed36a", "Routes");
+        ROUTE("#9ed36a", "Routes"),
+        /** Décision du conseil d'un village qui grandit seul ({@link Autonomy}) : visible sous « Tout ». */
+        COUNCIL("#c8b07a", "Council");
 
         public final String colour;
         public final String filter;

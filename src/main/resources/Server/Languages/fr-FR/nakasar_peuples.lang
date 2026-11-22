@@ -9376,12 +9376,24 @@ dialogue.Monde_Marchand_Etal.rumeur = Quelles nouvelles de la route ?
 dialogue.Monde_Marchand_Etal.aurevoir = Au revoir.
 # ---- Fin de la place du marché ----
 # ---- Veille : le monde qui vit sans joueur ----
-world.veille.cmd.desc = Le monde qui vit sans joueur connecté (veille) : état, --etat on|off, --raids on|off
+world.veille.cmd.desc = Le monde qui vit sans joueur connecté (veille) : état, --etat on|off, --raids on|off, --autonomie on|off
 world.veille.cmd.state.arg = on ou off : la vie des villages et du monde continue sans joueur
 world.veille.cmd.raids.arg = on ou off : les raids se jouent aussi sans témoin (bilan tiré au sort)
-world.veille.cmd.usage = Utilisation : /monde veille [--etat on|off] [--raids on|off]
-world.veille.cmd.state = Veille : {on}. Raids sans témoin : {raids}. Lieu tenu en ce moment : {held}.
+world.veille.cmd.usage = Utilisation : /monde veille [--etat on|off] [--raids on|off] [--autonomie on|off]
+world.veille.cmd.state = Veille : {on}. Raids sans témoin : {raids}. Villages autonomes : {autonomy}. Lieu tenu en ce moment : {held}.
 world.veille.yes = active
 world.veille.no = coupée
 world.veille.none = aucun
+world.veille.cmd.autonomy.arg = on ou off : les villages récoltent, décident et grandissent seuls
 # ---- Fin de la veille ----
+# ---- Villages autonomes : le conseil du matin ----
+world.autonomy.knowledge = {building} a réuni seul son savoir-faire.
+world.autonomy.master = Les artisans de {building} ont fait leurs preuves : la montée de niveau n'attend plus que ses matériaux.
+world.autonomy.upgrade = Le conseil de {village} lance l'agrandissement de {building} : {hours} h de travaux.
+world.autonomy.specialty = Le conseil de {village} spécialise {building} : {specialty}.
+world.autonomy.plot = Le conseil de {village} réserve le terrain {plot} pour {building}.
+world.autonomy.annex = Le conseil de {village} fonde seul {building}.
+world.autonomy.plan.annex = Le conseil prévoit de fonder {building}.
+world.autonomy.plan.plot = Terrain {plot} réservé par le conseil pour {building}.
+annex.startedByVillage = Le conseil de {village} a posé la fondation : {building}. Travaux pendant {hours} h.
+# ---- Fin des villages autonomes ----
