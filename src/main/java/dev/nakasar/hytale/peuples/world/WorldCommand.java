@@ -52,6 +52,7 @@ public final class WorldCommand extends AbstractCommandCollection {
         addSubCommand(new SkirmishCommand());
         addSubCommand(new TradeRouteCommand());
         addSubCommand(new NeedsCommand());
+        addSubCommand(new VeilleCommand());
         addSubCommand(new CalendarCommand("fete"));
         addSubCommand(new CalendarCommand("foire"));
         addSubCommand(new CalendarCommand("migration"));
@@ -424,6 +425,48 @@ public final class WorldCommand extends AbstractCommandCollection {
             if (r == null && !action.equals("liste") && !action.equals("fermer")) {
                 player.sendMessage(Message.translation(TradeRoutes.KEYS + "cmd.noRoute"));
             }
+        }
+    }
+
+    /** {@code /monde veille [--etat on|off] [--raids on|off]} : le monde qui vit sans joueur ({@link Veille}). */
+    private static final class VeilleCommand extends AdminCommand {
+        private final OptionalArg<String> state = withOptionalArg("etat", Veille.KEYS + "cmd.state.arg", ArgTypes.STRING);
+        private final OptionalArg<String> raids = withOptionalArg("raids", Veille.KEYS + "cmd.raids.arg", ArgTypes.STRING);
+
+        VeilleCommand() {
+            super("veille", Veille.KEYS + "cmd.desc");
+        }
+
+        @Override
+        protected void execute(CommandContext context, Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef player, World world) {
+            Boolean on = parse(state.get(context));
+            Boolean withRaids = parse(raids.get(context));
+            if ((state.get(context) != null && on == null) || (raids.get(context) != null && withRaids == null)) {
+                player.sendMessage(Message.translation(Veille.KEYS + "cmd.usage"));
+                return;
+            }
+            if (on != null) {
+                Veille.setOn(world, on);
+            }
+            if (withRaids != null) {
+                Veille.setRaids(world, withRaids);
+            }
+            String held = Veille.current(world);
+            player.sendMessage(Message.translation(Veille.KEYS + "cmd.state")
+                    .param("on", Message.translation(Veille.KEYS + (Veille.on(world) ? "yes" : "no")))
+                    .param("raids", Message.translation(Veille.KEYS + (Veille.raids(world) ? "yes" : "no")))
+                    .param("held", held == null ? Message.translation(Veille.KEYS + "none") : Message.raw(held)));
+        }
+
+        private static Boolean parse(String value) {
+            if (value == null) {
+                return null;
+            }
+            return switch (value.trim().toLowerCase(Locale.ROOT)) {
+                case "on", "oui", "true", "1" -> Boolean.TRUE;
+                case "off", "non", "false", "0" -> Boolean.FALSE;
+                default -> null;
+            };
         }
     }
 

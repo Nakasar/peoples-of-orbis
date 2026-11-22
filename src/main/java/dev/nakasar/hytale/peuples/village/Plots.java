@@ -468,6 +468,39 @@ public final class Plots {
         }
     }
 
+    /**
+     * Vrai si un terrain du village a des blocs à poser maintenant (travaux finis, phase suivante, piquets) : la veille
+     * tient alors le village sans joueur (world/Veille). Mêmes conditions que {@link #step}.
+     */
+    public static boolean workDue(Store<EntityStore> store, Village village) {
+        VillageLayout layout = Chantiers.layout(village);
+        if (layout == null) {
+            return false;
+        }
+        long now = GameClock.seconds(store);
+        for (VillageLayout.Plot plot : layout.plots()) {
+            PlotState s = village.plot(plot.id());
+            VillageLayout.Building b = s.project() == null ? null : layout.building(s.project());
+            if (s.working() && b != null) {
+                if (now >= s.end()) {
+                    return true;
+                }
+                long span = Math.max(1, s.end() - s.start());
+                int phase = 1 + (int) Math.min(SiteStyle.PHASES - 1, (now - s.start()) * SiteStyle.PHASES / span);
+                Integer shown = PHASE.get(key(village, plot));
+                if (shown == null || shown != phase) {
+                    return true;
+                }
+                continue;
+            }
+            boolean empty = b == null || !village.isBuilt(b.id());
+            if (empty && !s.stakes() && village.tier() >= plot.tier() - 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static void finish(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot, PlotState s,
                                VillageLayout.Building plan) {
         VillageLayout layoutOf = Chantiers.layout(village);

@@ -757,8 +757,9 @@ Un raid est attendu (sauvegardé avec le village) pour une nuit donnée, pour l'
 - **demande de défense** du tableau, ou **veillée** de la chaîne : le raid vient la nuit même ;
 - **commande** (`raidprevoir`, `raidlancer`).
 
-Le raid commence de nuit, avant 4 h, et seulement si un joueur est à moins de 80 blocs du cœur. Personne n'est venu ?
-Le raid attend la prochaine nuit, sans pénalité. Un redémarrage pendant un raid le fait reprendre depuis l'annonce, lui
+Le raid commence de nuit, avant 4 h, si un joueur est à moins de 80 blocs du cœur. Personne n'est venu ? Avec la veille
+et ses raids actifs (par défaut, voir « Le monde qui vit sans joueur »), le raid se joue sans PNJ et son bilan est tiré
+au sort (`Raids.resolveAlone`) ; sinon il attend la prochaine nuit, sans pénalité. Un redémarrage pendant un raid le fait reprendre depuis l'annonce, lui
 aussi sans pénalité.
 
 ### Déroulé
@@ -1722,6 +1723,69 @@ Avant-postes si le peuple n'en a pas. `ValidateAssets` vérifie les ids de `Boar
 - Placement des auberges, campements et étals (pente, arbres), retrait propre des prefabs temporaires.
 - Les voyageurs suivent bien leur point d'attache sur de longues distances (relief, rivières).
 - Ruée : le chef charge bien le long de la zone rouge (rotation, relief, arrêt sur un mur), les dégâts ne tombent que sur les joueurs qu'il traverse dans la zone, et il n'est plus figé après la course.
+
+## Le monde qui vit sans joueur (`world/Veille`)
+
+Kevin (22 novembre 2026) : « j'aimerais un monde qui évolue seul, always on ». Choix de Kevin : version **hybride**,
+**pas de rattrapage** (serveur éteint, le monde est en pause), raids sans témoin **possibles mais réglables**.
+
+**Ce que fait le serveur 0.7.7** (lu dans `HytaleServer.jar`) : un monde sans joueur est « au repos » (`World.isIdle`)
+mais `TickingThread` ne s'en sert que pour dormir entre deux pas ; `World.tick` fait toujours tourner l'`EntityStore`,
+donc l'heure du jeu avance (`WorldTimeSystems`), sauf monde en pause ou `isGameTimePaused`. Seuls les chunks loin des
+joueurs sont déchargés (`ChunkUnloadingSystem`, `WorldConfig.canUnloadChunks`) ; `WorldChunk.addKeepLoaded` /
+`removeKeepLoaded` les retiennent. C'était le mod qui s'arrêtait : `WorldLifeSystem`, `VillageLifeSystem` et
+`ZoneSystem` sortaient sans joueur, et les travaux de blocs attendaient un joueur à 160 blocs du village.
+
+**Avec la veille active** (par défaut) :
+
+- **Données** : le monde vivant (`WorldLifeSystem`), les générations (`Population.step` de chaque village, les tombes
+  attendent leur chunk), la ruche et les avant-postes du champion (`ZoneSystem`) tournent sans joueur, comme si tous
+  les joueurs étaient loin : voyageurs, caravanes et convois virtuels, commerce, besoins, relations, calendrier.
+- **Dépôts du matin** (`Veille.withDeposits`) : au changement de jour, le chunk du dépôt de chaque village est chargé et
+  gardé le temps de `daily` (prélèvements des ateliers, besoins, commandes) et de la remise des livraisons en attente
+  (`TradeRoutes.flushInboxes`), puis relâché. Aussi avec des joueurs connectés : les dépôts lointains comptent. Le
+  reste du pas attend la fin du matin ; un chargement qui ne répond pas est abandonné après 60 s et le matin se fait
+  avec les dépôts chargés.
+- **Lieux tenus** (`Veille.offer` / `held`) : un village sans joueur proche qui a des blocs à poser
+  (`VillageLifeSystem.workDue` : grand dépôt, sentiers, recollages, chantier à ouvrir, à faire changer de phase ou à
+  finir, terrains via `Plots.workDue`) ou un avant-poste (`Annexes.workDue` : rasé à déblayer, apparence en retard,
+  travaux) est **tenu** : ses chunks (rayon `Chantiers.reach`, ou rectangle de l'avant-poste + 12) sont chargés puis
+  gardés chargés, et il travaille comme sous les yeux d'un joueur. Un seul lieu tenu par monde ; il est relâché après
+  `HOLD_MILLIS` (10 s) une fois son collage fini (`Chantiers.busy`, `VillageStreets.busy`, `Rebuilds.busy`), au plus
+  `MAX_HOLD_MILLIS` (90 s). Un même lieu n'est pas retenu plus d'une fois toutes les 10 min (`COOLDOWN_MILLIS`) : un
+  chantier qui manque de matériaux ne recharge pas son village en boucle (`Veille.markShort` : plus de tenue pour ça
+  avant le jour de jeu suivant). La durée minimale de 10 s part de la fin du chargement.
+- **Pas de PNJ** sans joueur : villageois, bétail, gardes, voyageurs et caravanes ne sont créés qu'à `REAL_RANGE` d'un
+  joueur, comme avant.
+- **Raids sans témoin** (`Veille.raids`, `Raids.alone` / `resolveAlone`) : la nuit prévue, sans joueur à 80 blocs, quand
+  le monde n'a aucun joueur ou à la dernière heure de départ (3 h : les joueurs connectés ailleurs ont la nuit pour
+  venir), les chunks du village sont chargés puis le bilan est tiré : défense = gardes (palier, spécialités, postes, renforts
+  d'alliés) × bonus de vie, attaque = vague pondérée (guerrier 1, cogneur 1,5, brute 2, chef 3) × `ALONE_ATTACK`
+  (0,35), chance de victoire entre 20 et 80 % (palier 0 : un tiers environ, palier 3 : une sur deux). Même bilan qu'un
+  raid joué (essor, bâtiment brûlé ou qui perd un niveau, palier perdu, refuge, un raid sur quatre sur un ouvrage),
+  gardes tombés blessés. Les joueurs connectés ailleurs voient leurs demandes de défense de ce village échouer si le raid est perdu.
+- **Pas de rattrapage** : rien n'est rejoué au démarrage. Serveur éteint, l'heure du jeu ne passe pas. (Le rattrapage
+  des générations, `Population.CATCH_UP`, ne sert plus qu'avec la veille coupée.)
+
+**Réglages**, par monde, gardés dans le registre du monde vivant (`CALENDAR`, clés `veille` et `veille.raids`) :
+`/monde veille [--etat on|off] [--raids on|off]` (admin), sans option : l'état et le lieu tenu. Sans réglage, les
+propriétés JVM `-Dnakasar.peuples.veille=false` et `-Dnakasar.peuples.veille.raids=false` donnent la valeur par défaut
+du serveur ; sinon les deux sont actives. Veille coupée : comportement d'avant (rien sans joueur).
+
+### Tester en jeu (veille)
+
+1. `/monde veille` : « Veille : active. Raids sans témoin : active ».
+2. Remplir la jauge et le dépôt d'un village (`/village essor`, matériaux), s'éloigner à plus de 160 blocs ou se
+   déconnecter : le log `Peuples (veille) : village:<id> tenu sans joueur` puis `chantier du palier … ouvert` doit
+   paraître ; revenir après la durée du chantier : bâtiments collés.
+3. `/village raidprevoir` sur un village, partir loin : la nuit, log `raid sans témoin sur …` et bilan au panneau.
+4. `/monde veille --raids off`, recommencer : le raid attend un joueur. `/monde veille --etat off` : plus rien sans
+   joueur.
+
+### À vérifier en jeu (veille)
+
+- Les chunks tenus se déchargent bien après la tenue (nombre de chunks chargés stable sur un serveur vide).
+- Charge du serveur sans joueur avec une vingtaine de villages (un lieu tenu à la fois, ~50 chunks).
 
 ## Lieux-dits (`world/Hamlets`, `world/HamletTrips`)
 

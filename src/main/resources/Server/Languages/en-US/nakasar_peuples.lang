@@ -9375,3 +9375,13 @@ dialogue.Monde_Marchand_Etal.troc = Show me your wares.
 dialogue.Monde_Marchand_Etal.rumeur = Any news from the road?
 dialogue.Monde_Marchand_Etal.aurevoir = Goodbye.
 # ---- Fin de la place du marché ----
+# ---- Veille : le monde qui vit sans joueur ----
+world.veille.cmd.desc = The world lives on with no player online (watch): state, --etat on|off, --raids on|off
+world.veille.cmd.state.arg = on or off: village and world life goes on with no player
+world.veille.cmd.raids.arg = on or off: raids also happen with no witness (outcome rolled)
+world.veille.cmd.usage = Usage: /monde veille [--etat on|off] [--raids on|off]
+world.veille.cmd.state = Watch: {on}. Raids with no witness: {raids}. Place held right now: {held}.
+world.veille.yes = on
+world.veille.no = off
+world.veille.none = none
+# ---- Fin de la veille ----

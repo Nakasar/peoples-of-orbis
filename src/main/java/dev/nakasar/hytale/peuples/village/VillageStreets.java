@@ -42,6 +42,11 @@ public final class VillageStreets {
     private VillageStreets() {
     }
 
+    /** Vrai pendant que le travail du village est en cours (chunks en chargement, collage). */
+    public static boolean busy(Village village) {
+        return BUSY.contains(village.id());
+    }
+
     /** Vrai si le village a des sentiers ou du décor à poser pour son palier. */
     public static boolean due(Village village) {
         VillageLayout layout = Chantiers.layout(village);

@@ -60,7 +60,7 @@ Quand la jauge d'essor est pleine et que le dépôt contient les matériaux du p
 
 ## Les raids
 
-Une nuit, les ennemis du peuple marchent sur le village : après avoir gagné un palier, au tirage du matin (10 à 40 % selon le palier), ou pour une demande de défense. Le raid ne commence que si un joueur est à moins de 80 blocs du cœur.
+Une nuit, les ennemis du peuple marchent sur le village : après avoir gagné un palier, au tirage du matin (10 à 40 % selon le palier), ou pour une demande de défense. Le raid commence quand un joueur est à moins de 80 blocs du cœur. Sur un serveur allumé sans personne autour, il peut aussi se jouer sans vous : les gardes se défendent seuls (voir [Le monde vivant](monde-vivant.md)).
 
 1. **Annonce, 1 minute** : un titre donne la direction du camp ennemi, les gardes du village se postent autour du cœur.
 2. **Assaut, 5 minutes au plus** : 5, 7, 9 ou 12 assaillants selon le palier marchent sur le cœur.

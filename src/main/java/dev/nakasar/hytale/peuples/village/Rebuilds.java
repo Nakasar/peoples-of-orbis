@@ -68,6 +68,11 @@ public final class Rebuilds {
         return out;
     }
 
+    /** Vrai pendant que le travail du village est en cours (chunks en chargement, collage). */
+    public static boolean busy(Village village) {
+        return BUSY.contains(village.id());
+    }
+
     /** Vrai si des bâtiments du village attendent leur nouvelle apparence (rien d'autre en cours au village). */
     public static boolean due(Village village) {
         VillageLayout layout = Chantiers.layout(village);
