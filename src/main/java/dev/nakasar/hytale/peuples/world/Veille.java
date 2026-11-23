@@ -2,7 +2,9 @@ package dev.nakasar.hytale.peuples.world;
 
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
+import com.hypixel.hytale.server.core.universe.world.chunk.section.ChunkSection;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import dev.nakasar.hytale.peuples.PeuplesPlugin;
 import dev.nakasar.hytale.peuples.village.Village;
@@ -67,6 +69,7 @@ public final class Veille {
         final long since = System.currentTimeMillis();
         final BooleanSupplier busy;
         final List<WorldChunk> kept = new ArrayList<>();
+        final List<ChunkSection> keptSections = new ArrayList<>();
         boolean ready;
         /** Instant où les chunks ont fini de charger : la durée minimale de la tenue part de là. */
         long readyAt;
@@ -168,7 +171,8 @@ public final class Veille {
         long[] chunks = chunks(x0, x1, z0, z1);
         Hold h = new Hold(key, chunks, busy);
         HOLDS.put(world, h);
-        load(world, chunks).whenComplete((ignored, error) -> world.execute(() -> {
+        List<int[]> blocks = depositsIn(world, x0, x1, z0, z1);
+        load(world, chunks).thenCompose(ignored -> loadSections(world, blocks)).whenComplete((ignored, error) -> world.execute(() -> {
             if (HOLDS.get(world) != h) {
                 return;
             }
@@ -178,6 +182,7 @@ public final class Veille {
                 return;
             }
             keep(world, chunks, h.kept);
+            keepSections(world, blocks, h.keptSections);
             h.ready = true;
             h.readyAt = System.currentTimeMillis();
         }));
@@ -223,6 +228,10 @@ public final class Veille {
             c.removeKeepLoaded();
         }
         h.kept.clear();
+        for (ChunkSection c : h.keptSections) {
+            c.removeKeepLoaded();
+        }
+        h.keptSections.clear();
     }
 
     // ---- Dépôts du matin ----
@@ -236,23 +245,32 @@ public final class Veille {
             return false;
         }
         Set<Long> set = new LinkedHashSet<>();
+        List<int[]> blocks = new ArrayList<>();
         for (Village v : Villages.registry(world).all()) {
             int[] d = v.deposit();
             if (d != null) {
                 set.add(ChunkUtil.indexChunk(ChunkUtil.chunkCoordinate(d[0]), ChunkUtil.chunkCoordinate(d[2])));
+                blocks.add(d);
             }
         }
         long[] chunks = set.stream().mapToLong(Long::longValue).toArray();
-        load(world, chunks).whenComplete((ignored, error) -> world.execute(() -> {
+        // Le chargeur du monde charge les sections une à une : la colonne seule ne rend pas le coffre lisible.
+        load(world, chunks).thenCompose(ignored -> loadSections(world, blocks)).whenComplete((ignored, error) -> world.execute(() -> {
             List<WorldChunk> kept = new ArrayList<>();
+            List<ChunkSection> keptSections = new ArrayList<>();
             try {
                 if (error != null) {
                     PeuplesPlugin.get().getLogger().atWarning().withCause(error).log("Peuples (veille) : dépôts non chargés pour le matin");
                 }
                 keep(world, chunks, kept);
+                int read = keepSections(world, blocks, keptSections);
+                PeuplesPlugin.get().getLogger().atInfo().log("Peuples (veille) : matin, %d dépôt(s) sur %d chargé(s)", read, blocks.size());
                 then.run();
             } finally {
                 for (WorldChunk c : kept) {
+                    c.removeKeepLoaded();
+                }
+                for (ChunkSection c : keptSections) {
                     c.removeKeepLoaded();
                 }
                 MORNING.remove(world);
@@ -281,6 +299,47 @@ public final class Veille {
         }
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new))
                 .orTimeout(LOAD_TIMEOUT_MILLIS, java.util.concurrent.TimeUnit.MILLISECONDS);
+    }
+
+    /** Dépôts des villages dont le coffre est dans le rectangle de blocs (tenue d'un lieu). */
+    private static List<int[]> depositsIn(World world, int x0, int x1, int z0, int z1) {
+        List<int[]> out = new ArrayList<>();
+        for (Village v : Villages.registry(world).all()) {
+            int[] d = v.deposit();
+            if (d != null && d[0] >= Math.min(x0, x1) && d[0] <= Math.max(x0, x1) && d[2] >= Math.min(z0, z1) && d[2] <= Math.max(z0, z1)) {
+                out.add(d);
+            }
+        }
+        return out;
+    }
+
+    /** Charge la section de chaque bloc (x, y, z) : les sections se chargent à part de leur colonne. */
+    private static CompletableFuture<Void> loadSections(World world, List<int[]> blocks) {
+        ChunkStore store = world.getChunkStore();
+        List<CompletableFuture<?>> futures = new ArrayList<>();
+        for (int[] b : blocks) {
+            futures.add(store.getChunkSectionReferenceAtBlockAsync(b[0], b[1], b[2]));
+        }
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new))
+                .orTimeout(LOAD_TIMEOUT_MILLIS, java.util.concurrent.TimeUnit.MILLISECONDS);
+    }
+
+    /** Garde chargées les sections des blocs donnés ; rend le nombre de sections trouvées. */
+    private static int keepSections(World world, List<int[]> blocks, List<ChunkSection> kept) {
+        ChunkStore store = world.getChunkStore();
+        int found = 0;
+        for (int[] b : blocks) {
+            Ref<ChunkStore> ref = store.getChunkSectionReferenceAtBlock(b[0], b[1], b[2]);
+            ChunkSection c = ref == null || !ref.isValid() ? null : store.getStore().getComponent(ref, ChunkSection.getComponentType());
+            if (c != null) {
+                found++;
+                if (!kept.contains(c)) {
+                    c.addKeepLoaded();
+                    kept.add(c);
+                }
+            }
+        }
+        return found;
     }
 
     private static void keep(World world, long[] chunks, List<WorldChunk> kept) {

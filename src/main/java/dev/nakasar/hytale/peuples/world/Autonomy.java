@@ -139,6 +139,37 @@ public final class Autonomy {
         return WorldLife.registry(world);
     }
 
+    /** Dernier contenu lu du dépôt d'un village (récolte sans dépôt chargé). */
+    private static final String SEEN = "D:";
+
+    static String encode(Map<String, Integer> items) {
+        StringBuilder b = new StringBuilder();
+        for (Map.Entry<String, Integer> e : items.entrySet()) {
+            if (e.getValue() > 0) {
+                b.append(b.length() == 0 ? "" : ",").append(e.getKey()).append(':').append(e.getValue());
+            }
+        }
+        return b.toString();
+    }
+
+    static Map<String, Integer> decode(String s) {
+        Map<String, Integer> out = new HashMap<>();
+        if (s == null || s.isEmpty()) {
+            return out;
+        }
+        for (String part : s.split(",")) {
+            int cut = part.lastIndexOf(':');
+            if (cut > 0) {
+                try {
+                    out.merge(part.substring(0, cut), Integer.parseInt(part.substring(cut + 1)), Integer::sum);
+                } catch (NumberFormatException ignored) {
+                    // entrée abîmée
+                }
+            }
+        }
+        return out;
+    }
+
     private static String get(World world, String key) {
         return reg(world).get(WorldLifeRegistry.Part.AUTONOMY, key);
     }
@@ -206,7 +237,11 @@ public final class Autonomy {
         }
         Map<String, Integer> deposit = Villages.depositContents(world, v);
         if (deposit == null) {
-            return out; // dépôt pas chargé : on ne sait pas ce qu'il a, on ne récolte pas (sinon il déborderait)
+            // Dépôt pas lisible (section pas chargée, sans joueur) : on compte sur le dernier contenu vu ; la récolte
+            // attend alors dans la boîte du village (TradeRoutes.deliver) et entre au dépôt dès qu'il est chargé.
+            deposit = decode(get(world, SEEN + v.id()));
+        } else {
+            put(world, SEEN + v.id(), encode(deposit));
         }
         Map<String, Integer> have = new HashMap<>(deposit);
         TradeRoutes.inbox(world, v).forEach((k, q) -> have.merge(k, q, Integer::sum));
