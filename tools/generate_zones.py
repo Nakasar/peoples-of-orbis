@@ -1319,14 +1319,14 @@ def raid_texts():
         t(f"raid.title.warningSub.{pid}", Fr + " " + verb + ", direction {direction}", En + " approach, from the {direction}")
         t(f"raid.title.wave.{pid}", (Fr + " attaquent !") if pid == "Feran" else (Fr + " attaque !"), En + " attack!")
         t(f"raid.report.lost.timeout.{pid}",
-          "Bilan du raid sur {village} : défaite. " + Fr + " tenai" + ("ent" if pid == "Feran" else "t") + " encore le village au bout de l'assaut ({killed}/{raiders} abattus). Incendié : {building}. Le village perd un palier.",
-          "Raid report for {village}: defeat. " + En + " still held the village at the end of the assault ({killed}/{raiders} slain). Burned: {building}. The village loses a tier.")
+          "Bilan du raid sur {village} : défaite. " + Fr + " tenai" + ("ent" if pid == "Feran" else "t") + " encore le village au bout de l'assaut ({killed}/{raiders} abattus). Incendié : {building}. Il se répare contre des ressources (onglet Bâtir).",
+          "Raid report for {village}: defeat. " + En + " still held the village at the end of the assault ({killed}/{raiders} slain). Burned: {building}. It can be repaired for resources (Build tab).")
         t(f"raid.report.lost.abandon.{pid}",
-          "Bilan du raid sur {village} : défaite. Personne n'est resté pour défendre le village ({killed}/{raiders} abattus). Incendié : {building}. Le village perd un palier.",
-          "Raid report for {village}: defeat. No one stayed to defend the village ({killed}/{raiders} slain). Burned: {building}. The village loses a tier.")
+          "Bilan du raid sur {village} : défaite. Personne n'est resté pour défendre le village ({killed}/{raiders} abattus). Incendié : {building}. Il se répare contre des ressources (onglet Bâtir).",
+          "Raid report for {village}: defeat. No one stayed to defend the village ({killed}/{raiders} slain). Burned: {building}. It can be repaired for resources (Build tab).")
         t(f"raid.report.lost.guards.{pid}",
-          "Bilan du raid sur {village} : défaite. Tous les gardes sont tombés et " + fr_en + " " + ("ont" if pid == "Feran" else "a") + " atteint le cœur du village ({killed}/{raiders} abattus). Incendié : {building}. Le village perd un palier.",
-          "Raid report for {village}: defeat. All the guards fell and " + en_en + " reached the village heart ({killed}/{raiders} slain). Burned: {building}. The village loses a tier.")
+          "Bilan du raid sur {village} : défaite. Tous les gardes sont tombés et " + fr_en + " " + ("ont" if pid == "Feran" else "a") + " atteint le cœur du village ({killed}/{raiders} abattus). Incendié : {building}. Il se répare contre des ressources (onglet Bâtir).",
+          "Raid report for {village}: defeat. All the guards fell and " + en_en + " reached the village heart ({killed}/{raiders} slain). Burned: {building}. It can be repaired for resources (Build tab).")
         t(f"raid.status.warn.{pid}", "Raid en approche : " + fr_en + " " + ("seront" if pid == "Feran" else "sera") + " là dans {seconds} s.",
           "Raid incoming: " + en_en + " will be here in {seconds} s.")
         t(f"raid.cause.Random.{pid}", "la ruche a faim" if pid == "Feran" else "le culte rôde",

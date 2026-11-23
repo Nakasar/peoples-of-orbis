@@ -220,6 +220,15 @@ public final class VillageLayout implements JsonAssetWithMap<String, DefaultAsse
         String itemId;
         int quantity = 1;
 
+        Material() {
+        }
+
+        /** Un matériau calculé (coût d'une réparation, {@link Repairs}). */
+        public Material(String itemId, int quantity) {
+            this.itemId = itemId;
+            this.quantity = Math.max(1, quantity);
+        }
+
         public String itemId() {
             return itemId;
         }

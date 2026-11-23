@@ -59,8 +59,9 @@ import java.util.concurrent.ConcurrentHashMap;
  *   gardent. Le propriétaire peut le reprendre (bouton Reprendre au panneau, rang Ami, sans frais) ; au palier 3 il lance
  *   lui-même sa reprise après {@value #RETAKE_DAYS} jours ; au bout de {@value #LOST_DAYS} jours l'ouvrage est perdu
  *   pour de bon et ne compte plus dans sa limite ;</li>
- *   <li><b>Raid</b> : un raid sur quatre vise un ouvrage (Raids) ; perdu, l'ouvrage est rasé, le village garde son
- *   palier. Une ruine se relève pour la moitié de la fondation et {@value #REBUILD_HOURS} h de travaux.</li>
+ *   <li><b>Raid</b> : un raid sur quatre vise un ouvrage (Raids) ; perdu, l'ouvrage est rasé. Une forteresse tenue
+ *   détourne tous les raids du village : le camp trork qui les envoie l'assiège ({@link #raidSiege}) ; contre un ennemi
+ *   sans village (Scaraks, culte, Vide), le raid la vise et, perdu, la rase. Une ruine se relève pour la moitié de la fondation et {@value #REBUILD_HOURS} h de travaux.</li>
  * </ul>
  * État sauvé dans {@link AnnexState} (Occupant, Garrison, SiegeBy...) ; le combat réel est en mémoire.
  */
@@ -243,6 +244,19 @@ public final class Ouvrages {
         }
         launch(world, store, owner, w);
         return null;
+    }
+
+    /**
+     * Raid détourné sur la forteresse (Kevin, 23 novembre 2026) : le camp `sender` qui envoyait le raid assiège la
+     * forteresse pour la prendre, comme une expédition (marche, assaut réel ou réglé seul, capture, reprise), sans les
+     * conditions d'une expédition entre villages. Faux si elle est déjà assiégée.
+     */
+    public static boolean raidSiege(World world, Store<EntityStore> store, Village sender, Infrastructures.Work w) {
+        if (w.state().besieged() || !w.state().built()) {
+            return false;
+        }
+        launch(world, store, sender, w);
+        return true;
     }
 
     static void launch(World world, Store<EntityStore> store, Village attacker, Infrastructures.Work w) {

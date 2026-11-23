@@ -667,9 +667,9 @@ reste disparaît), plantes et déco retirées, meubles en demi-planches noires (
 terre vers `Soil_Dirt_Burnt`, mousse et litière vers `Soil_Ash`. Les coffres et autres conteneurs ne sont jamais
 touchés.
 
-Un bâtiment brûlé fait perdre un palier au village (recommandation du GDD pour un raid perdu ; les raids arrivent à
-l'étape 6). Le chantier en cours est annulé et la jauge repart à 0. Le chantier suivant rebâtit les bâtiments brûlés
-de son palier, ruines débarrassées. Pour l'instant, seule la commande `bruler` déclenche un incendie.
+Un bâtiment brûlé ne fait plus perdre de palier au village (Kevin, 23 novembre 2026 ; avant : recommandation du GDD
+pour un raid perdu). Le chantier en cours est annulé. Le bâtiment se répare contre des ressources (`village/Repairs`,
+voir « Réparer un bâtiment brûlé » plus bas), sinon le chantier de palier suivant le rebâtit, ruines débarrassées.
 
 ### Les villageois à métier
 
@@ -709,7 +709,7 @@ Chaque palier ajoute des Kweebecs vanilla à métier, avec leur rôle (`Nakasar_
 | `genes [bâtiment]` | joueur | blocs qui gênent les chantiers : coordonnées et repères en jeu pendant 60 s |
 | `lancer` | opérateur | ouvre le chantier du palier suivant sans jauge ni matériaux |
 | `finir` | opérateur | finit le chantier en cours tout de suite |
-| `bruler [bâtiment]` | opérateur | brûle un bâtiment (au hasard dans le palier le plus haut si aucun n'est donné), le village perd un palier |
+| `bruler [bâtiment]` | opérateur | brûle un bâtiment (au hasard dans le palier le plus haut si aucun n'est donné), le village garde son palier |
 | `palier <n>` | opérateur | bâtit d'un coup jusqu'au palier n (sans chantier) |
 
 ### Tester en jeu (étape 5) : le village grandit sous les yeux
@@ -776,7 +776,7 @@ aussi sans pénalité.
    - Victoire (tous les assaillants abattus) : +30 d'essor, et pour chaque joueur présent +50 de réputation et 4 Feuilles
      de sève. Les joueurs qui ont abattu un assaillant reçoivent aussi un Trophée trork.
    - Défaite : temps écoulé, village abandonné 90 s, ou tous les gardes tombés avec un Trork au cœur. Un bâtiment brûle
-     et le village perd un palier, comme le recommande le GDD. Un village sans plan voit sa jauge d'essor se vider.
+     (le village garde son palier depuis le 23 novembre 2026). Un village sans plan voit sa jauge d'essor se vider.
    - Les demandes de défense sont remplies à la victoire et échouent à la défaite.
    - Le bilan s'affiche au tableau (page texte) et avec `/village raid`.
 
@@ -849,7 +849,7 @@ bâtiment à brûler.
 
 1. Le lendemain soir (`/time midnight`), `/village raidlancer`. S'éloigner à plus de 160 blocs pendant 90 s, ou
    `/village raidfinir perdu`.
-2. Titre « Le village brûle » : un bâtiment du palier le plus haut est noirci et le village perd un palier. Le bilan
+2. Titre « Le village brûle » : un bâtiment du palier le plus haut est noirci, le village garde son palier. Le bilan
    le nomme.
 
 **Chaîne**
@@ -1759,10 +1759,14 @@ joueurs sont déchargés (`ChunkUnloadingSystem`, `WorldConfig.canUnloadChunks`)
   joueur, comme avant.
 - **Raids sans témoin** (`Veille.raids`, `Raids.alone` / `resolveAlone`) : la nuit prévue, sans joueur à 80 blocs, quand
   le monde n'a aucun joueur ou à la dernière heure de départ (3 h : les joueurs connectés ailleurs ont la nuit pour
-  venir), les chunks du village sont chargés puis le bilan est tiré : défense = gardes (palier, spécialités, postes, renforts
-  d'alliés) × bonus de vie, attaque = vague pondérée (guerrier 1, cogneur 1,5, brute 2, chef 3) × `ALONE_ATTACK`
-  (0,35), chance de victoire entre 20 et 80 % (palier 0 : un tiers environ, palier 3 : une sur deux). Même bilan qu'un
-  raid joué (essor, bâtiment brûlé ou qui perd un niveau, palier perdu, refuge, un raid sur quatre sur un ouvrage),
+  venir), les chunks du village sont chargés puis le bilan est tiré (rééquilibré le 23 novembre 2026, Kevin : « un
+  village devrait résister la plupart du temps aux raids envoyés par un village de palier inférieur »). Chance de
+  victoire `Raids.aloneChance` selon l'écart entre le palier du village et celui de l'assaillant
+  (`Raids.attackerTier` : camp trork le plus proche à moins de 2400 blocs pour un village kweebec, sinon le palier du
+  village) : +2 et plus 92 %, +1 85 %, égalité 65 %, -1 40 %, -2 et moins 25 % ; +4 % par garde au-delà de ceux du
+  palier (spécialités, postes, renforts), +25 % × (bonus de vie - 1), -3 % par Scarak de la ruche ; bornée entre 10
+  et 95 %. La vague (raid joué ou non) suit aussi le palier de l'assaillant. Même bilan qu'un
+  raid joué (essor, bâtiment brûlé ou qui perd un niveau, refuge, un raid sur quatre sur un ouvrage),
   gardes tombés blessés. Les joueurs connectés ailleurs voient leurs demandes de défense de ce village échouer si le raid est perdu.
 - **Pas de rattrapage** : rien n'est rejoué au démarrage. Serveur éteint, l'heure du jeu ne passe pas. (Le rattrapage
   des générations, `Population.CATCH_UP`, ne sert plus qu'avec la veille coupée.)
@@ -2365,7 +2369,7 @@ propre. »
 - **Bâtiment à niveaux** (bâtiment de métier, projet de terrain E1-E3, bâtiment de production, ouvrage) : d'après son
   niveau, `BuildingPaliers.LEVEL_PALIER` : I → 1, II → 3, III → 4 (le niveau II demande un village et le III un bourg :
   le bâtiment a alors la taille des bâtiments propres autour). Le palier du village n'y touche pas.
-- L'apparence ne redescend jamais : un village qui perd un palier après un raid, une reconversion ou un ouvrage rasé
+- L'apparence ne redescend jamais : un village qui perd un palier (reconversion, ou raid avant le 23 novembre 2026) ou un ouvrage rasé
   puis relevé gardent l'apparence atteinte (un bâtiment brûlé est rebâti à la plus haute des deux).
 - Le cœur du village a déjà ses étapes (`VillageHeart`) ; les lieux-dits ne sont pas concernés.
 
@@ -2603,3 +2607,45 @@ du joueur se dit tel quel, un changement du monde s'annonce comme une nouvelle.
 - Messager : « Donne-moi ta lettre » ; pèlerin : « Je t'accompagne » lance l'escorte.
 - Aubergiste et campeur : « Quelles nouvelles ? » donne des rumeurs vraies, avec leurs noms exacts.
 - Le « … » d'attente d'une réplique redite ne reste pas affiché (délai de 6 s au plus).
+
+## Réparer un bâtiment brûlé (`village/Repairs`, Kevin, 23 novembre 2026)
+
+Demande de Kevin : « Retire la perte d'un palier lors d'un raid perdu. Les bâtiments brûlés doivent pouvoir être
+réparés contre des ressources. Un village doit pouvoir lancer seul la réparation d'un bâtiment. »
+
+- **Raid perdu** : `RaidLosses.apply` brûle toujours un bâtiment (ou fait perdre un niveau à un bâtiment à niveaux),
+  mais `Chantiers.burn` ne touche plus au palier ni à la jauge d'essor.
+- **Forteresse** (demande de Kevin : « Si la forteresse est construite et tenue par le village, elle empêche les raids
+  contre le village. Les raids ciblent la forteresse pour tenter de la capturer. ») : `Infrastructures.fortress` rend la
+  forteresse debout que le village possède et tient (assiégée comprise). À la nuit d'un raid, `Raids.divert` : avec un
+  village assaillant (`sender`, le camp trork), le raid devient `Ouvrages.raidSiege` (siège ordinaire, prise puis
+  reprise possibles ; rien si elle est déjà assiégée) et `RaidRecord.divert` clôt la nuit sans bilan. Sans assaillant
+  (Scaraks, culte, Vide), le raid se joue contre la forteresse (`a.ouvrage`) : perdu, elle est rasée. Le village ne
+  brûle jamais tant qu'il la tient.
+- **Coût** (`Repairs.cost`) : 30 % (arrondi au-dessus) des matériaux du chantier du palier du bâtiment (palier 1 pour
+  un bâtiment du palier 0), ou du terrain pour un projet d'emplacement, pris au dépôt. **Durée** : 8 heures de jeu.
+- **Lancer** : onglet Bâtir (carte au liseré rouge « Brûlé », action « Réparer » ; en réparation, liseré du chantier),
+  `/village reparer [bâtiment]` (joueurs ; sans argument, la liste des ruines et leur coût), `/village reparerfinir`
+  (opérateurs, essai). Une réparation à la fois par village ; un bâtiment déjà dans le chantier de palier en cours est
+  refusé, et le chantier de palier saute les bâtiments en réparation (`Chantiers.pending`).
+- **Travaux** : ruines retirées (coffres gardés), échafaudage du peuple (phase 1) ; à la fin (`Repairs.step`, village
+  vu ou tenu par la veille, `VillageLifeSystem.workDue`), échafaudage retiré, prefab de l'apparence prévue recollé
+  (`Chantiers.plannedPalier`), relief repris (`settle`), bâtiment debout.
+- **Conseil** (`Autonomy.repair`) : la ruine prioritaire (bâtiments de métier d'abord, puis le plus haut palier) passe
+  en tête de `Autonomy.saving` (la récolte du matin met ses matériaux de côté avant ceux du palier suivant) ; dès que
+  le dépôt les a, le conseil lance la réparation (`TradeLog` COUNCIL, ligne « met de côté » à l'onglet Monde), et la
+  veille tient le village pour ça (`Autonomy.workDue`).
+- **Panneau et villageois** (bug du Puits rebâti sans panneau ni Rosée) : l'incendie décroche le panneau du bâtiment
+  de métier (`Repairs.unhangBoards`) ; un bâtiment réparé ou rebâti par un chantier efface un panneau disparu avec ses
+  ruines (`Repairs.restored`, et `Workshops.refresh` pour les mondes déjà touchés), qui est reposé contre le nouveau
+  mur ; ses postes vacants sont repris tout de suite (`Population.refill` : héritier, adulte sans poste, sinon un
+  arrivant), au lieu d'attendre 3 jours un inconnu. La puisatière morte dans l'incendie ne revient pas : c'est une autre
+  habitante qui reprend le Puits.
+
+### À vérifier en jeu (réparations)
+
+1. `/village bruler Puits` : le Puits brûle, le palier ne bouge pas, le panneau disparaît.
+2. Onglet Bâtir, carte du Puits en rouge : déposer les matériaux, « Réparer » ; échafaudage. `/village reparerfinir` :
+   le Puits revient, son panneau est reposé et un villageois tient le poste.
+3. Sans joueur (veille) : un village avec une ruine récolte ses matériaux et la répare seul.
+4. Raids sans témoin : `/monde veille` et les journaux « raid sans témoin sur … (palier X, assaillant palier Y) ».

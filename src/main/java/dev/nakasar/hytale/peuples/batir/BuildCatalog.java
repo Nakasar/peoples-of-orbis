@@ -14,6 +14,7 @@ import dev.nakasar.hytale.peuples.village.AnnexState;
 import dev.nakasar.hytale.peuples.village.Chantiers;
 import dev.nakasar.hytale.peuples.village.PlotState;
 import dev.nakasar.hytale.peuples.village.Plots;
+import dev.nakasar.hytale.peuples.village.Repairs;
 import dev.nakasar.hytale.peuples.village.Tiers;
 import dev.nakasar.hytale.peuples.village.Village;
 import dev.nakasar.hytale.peuples.village.VillageLayout;
@@ -111,8 +112,8 @@ public final class BuildCatalog {
     }
 
     /**
-     * Une fiche. {@code action} : choose, plots, grant, regive, outposts, works, domain, ou null ; {@code target} : le
-     * terrain (projet) ou l'id du bâtiment (avant-poste, ouvrage) sur lequel l'action porte.
+     * Une fiche. {@code action} : choose, plots, grant, regive, outposts, works, domain, repair, ou null ; {@code target} :
+     * le terrain (projet) ou l'id du bâtiment (avant-poste, ouvrage, bâtiment brûlé) sur lequel l'action porte.
      */
     public record Entry(String key, Family family, boolean herd, Place place, String icon, Message name, List<String> outputs,
                         String fx, Message line, List<VillageLayout.Material> cost, Message costNote, List<Req> reqs,
@@ -142,7 +143,7 @@ public final class BuildCatalog {
         List<Entry> out = new ArrayList<>();
         VillageLayout layout = Chantiers.layout(village);
         if (layout != null) {
-            villageBuildings(out, village, layout);
+            villageBuildings(out, world, village, layout);
             projects(out, world, store, ref, village);
         }
         if (!village.isHamlet()) {
@@ -165,7 +166,7 @@ public final class BuildCatalog {
 
     // ---- Village : bâtiments du plan bâtis avec le palier ----
 
-    private static void villageBuildings(List<Entry> out, Village village, VillageLayout layout) {
+    private static void villageBuildings(List<Entry> out, World world, Village village, VillageLayout layout) {
         Map<String, Integer> homes = new LinkedHashMap<>();
         for (VillageLayout.Job j : layout.jobs()) {
             if (j.home() != null) {
@@ -189,6 +190,11 @@ public final class BuildCatalog {
             List<VillageLayout.Material> cost = chantier == null ? List.of() : List.of(chantier.materials());
             List<Req> reqs = List.of(new Req(reached, Message.translation(KEYS + "req.tier").param("tier", tier)));
             Message name = Message.translation(w != null ? w.nameKey() : KEYS + "name." + b.id());
+            if (built && village.isBurnt(b.id())) {
+                out.add(ruin(world, village, layout, b, "V/" + b.id(), family, herd(b.id(), w), Place.VILLAGE, icon(w, family),
+                        name, outputs, fx, line(w, home, fx), Message.translation(KEYS + "cardWhere.Village").param("tier", tier), w));
+                continue;
+            }
             out.add(new Entry("V/" + b.id(), family, herd(b.id(), w), Place.VILLAGE, icon(w, family), name, outputs, fx,
                     line(w, home, fx), cost, Message.translation(KEYS + "costNote.tier"), reqs, stripe,
                     built ? builtState(village, w) : Message.translation(KEYS + "state." + (reached ? "working" : "locked")),
@@ -218,6 +224,7 @@ public final class BuildCatalog {
             VillageLayout.Plot free = null;
             VillageLayout.Building freeBuilding = null;
             VillageLayout.Plot lowest = null;
+            VillageLayout.Building ruin = null;
             for (VillageLayout.Building b : e.getValue()) {
                 VillageLayout.Plot p = plot(village, b.plot());
                 if (p == null) {
@@ -229,6 +236,9 @@ public final class BuildCatalog {
                 PlotState s = village.plot(p.id());
                 if (b.id().equals(s.project())) {
                     at = p;
+                    if (village.isBuilt(b.id()) && village.isBurnt(b.id())) {
+                        ruin = b;
+                    }
                     if (village.isBuilt(b.id())) {
                         stripe = Stripe.BUILT;
                         state = "built";
@@ -281,6 +291,13 @@ public final class BuildCatalog {
             Family family = family(project, w);
             List<String> outputs = outputs(w);
             String fx = fx(project, w, outputs, 0, family);
+            if (ruin != null) {
+                VillageLayout layout = Chantiers.layout(village);
+                out.add(ruin(world, village, layout, ruin, "P/" + project, family, herd(project, w), Place.PLOT, icon(w, family),
+                        Message.translation(w != null ? w.nameKey() : Chantiers.buildingKey(ruin.id())), outputs, fx, line(w, 0, fx),
+                        Message.translation(KEYS + "cardWhere.Plot"), w));
+                continue;
+            }
             Message st = "built".equals(state) ? builtState(village, w) : Message.translation(KEYS + "state." + state);
             String action = "open".equals(state) ? "choose" : "plots";
             String target = at != null ? at.id() : free != null ? free.id() : shown.id();
@@ -289,6 +306,25 @@ public final class BuildCatalog {
                     List.of(shown.materials()), Message.translation(KEYS + "costNote.plot").param("hours", shown.hours()), reqs,
                     stripe, st, Message.translation(KEYS + "cardWhere.Plot"), null, action, "open".equals(state) ? b.id() + "@" + target : target, w));
         }
+    }
+
+    /**
+     * Fiche d'un bâtiment brûlé (Kevin, 23 novembre 2026) : liseré rouge, coût de la réparation au dépôt, action
+     * « Réparer » ({@link Repairs}) ; en réparation, liseré du chantier et sans action.
+     */
+    private static Entry ruin(World world, Village village, VillageLayout layout, VillageLayout.Building b, String key, Family family,
+                              boolean herd, Place place, String icon, Message name, List<String> outputs, String fx, Message line,
+                              Message where, Workshop w) {
+        boolean repairing = village.isRepairing(b.id());
+        List<VillageLayout.Material> cost = Repairs.cost(village, layout, b);
+        java.util.Map<String, Integer> missing = Repairs.missing(world, village, cost);
+        List<Req> reqs = new ArrayList<>();
+        reqs.add(new Req(repairing || missing != null && missing.isEmpty(), Message.translation(KEYS + "req.repairDeposit")));
+        reqs.add(new Req(repairing || village.repairs().length == 0, Message.translation(KEYS + "req.oneRepair")));
+        return new Entry(key, family, herd, place, icon, name, outputs, fx, line, cost,
+                Message.translation(KEYS + "costNote.repair").param("hours", Repairs.HOURS), reqs,
+                repairing ? Stripe.WORKING : Stripe.LOCKED, Message.translation(KEYS + "state." + (repairing ? "repairing" : "burnt")),
+                where, null, repairing ? null : "repair", b.id(), w);
     }
 
     private static VillageLayout.Plot plot(Village village, String id) {

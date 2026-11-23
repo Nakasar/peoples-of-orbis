@@ -483,6 +483,40 @@ public final class Population {
         }
     }
 
+    /**
+     * Bâtiment rebâti ou réparé ({@code village/Repairs}, chantier) : ses postes vacants sont repris tout de suite, par
+     * un héritier, un adulte sans poste, sinon un arrivant, pour que le villageois du métier revienne avec son
+     * bâtiment (le Puits rebâti restait sans puisatière jusqu'à l'arrivée d'un inconnu, des jours plus tard).
+     */
+    public static void refill(World world, Store<EntityStore> store, Village village, String buildingId) {
+        if (!applies(village) || !state(village).seeded() || buildingId == null) {
+            return;
+        }
+        PopulationState p = state(village);
+        long day = GameClock.day(store);
+        java.util.Random random = java.util.concurrent.ThreadLocalRandom.current();
+        for (Post post : posts(village)) {
+            if (post.job() == null || !buildingId.equals(post.job().building()) || p.holder(post.id()) != null) {
+                continue;
+            }
+            Inhabitant taker = heir(p, post.id(), day);
+            if (taker == null) {
+                taker = idleAdult(village, p, day);
+            }
+            if (taker == null && p.living().size() < MAX_LIVING) {
+                taker = arrive(village, p, day, random, post);
+            }
+            if (taker != null) {
+                taker.job = post.id();
+                if (taker.home.isEmpty() && post.home() != null) {
+                    taker.home = post.home();
+                }
+                p.clearVacant(post.id());
+                p.log(day, "takes", taker.id, null, post.id());
+            }
+        }
+    }
+
     // ---- Vocation, succession, arrivants ----
 
     /** L'apprenti choisit sa vocation : un poste qui se libère, le métier d'un parent, celui de son trait, un autre. */

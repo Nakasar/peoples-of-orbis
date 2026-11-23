@@ -625,14 +625,14 @@ def texts():
     t(f"raid.title.warningSub.{PID}", "Le Vide s'agite, direction {direction}", "The Void stirs, from the {direction}")
     t(f"raid.title.wave.{PID}", "Le Vide monte !", "The Void rises!")
     t(f"raid.report.lost.timeout.{PID}",
-      "Bilan de la nuit sur {village} : défaite. Le Vide tenait encore le monastère au bout de l'assaut ({killed}/{raiders} abattus). Incendié : {building}. Le village perd un palier.",
-      "Night report for {village}: defeat. The Void still held the monastery at the end of the assault ({killed}/{raiders} slain). Burned: {building}. The village loses a tier.")
+      "Bilan de la nuit sur {village} : défaite. Le Vide tenait encore le monastère au bout de l'assaut ({killed}/{raiders} abattus). Incendié : {building}. Il se répare contre des ressources (onglet Bâtir).",
+      "Night report for {village}: defeat. The Void still held the monastery at the end of the assault ({killed}/{raiders} slain). Burned: {building}. It can be repaired for resources (Build tab).")
     t(f"raid.report.lost.abandon.{PID}",
-      "Bilan de la nuit sur {village} : défaite. Personne n'est resté pour veiller ({killed}/{raiders} abattus). Incendié : {building}. Le village perd un palier.",
-      "Night report for {village}: defeat. No one stayed to keep watch ({killed}/{raiders} slain). Burned: {building}. The village loses a tier.")
+      "Bilan de la nuit sur {village} : défaite. Personne n'est resté pour veiller ({killed}/{raiders} abattus). Incendié : {building}. Il se répare contre des ressources (onglet Bâtir).",
+      "Night report for {village}: defeat. No one stayed to keep watch ({killed}/{raiders} slain). Burned: {building}. It can be repaired for resources (Build tab).")
     t(f"raid.report.lost.guards.{PID}",
-      "Bilan de la nuit sur {village} : défaite. Tous les gardiens sont tombés et le Vide a atteint le cœur du monastère ({killed}/{raiders} abattus). Incendié : {building}. Le village perd un palier.",
-      "Night report for {village}: defeat. All the wardens fell and the Void reached the heart of the monastery ({killed}/{raiders} slain). Burned: {building}. The village loses a tier.")
+      "Bilan de la nuit sur {village} : défaite. Tous les gardiens sont tombés et le Vide a atteint le cœur du monastère ({killed}/{raiders} abattus). Incendié : {building}. Il se répare contre des ressources (onglet Bâtir).",
+      "Night report for {village}: defeat. All the wardens fell and the Void reached the heart of the monastery ({killed}/{raiders} slain). Burned: {building}. It can be repaired for resources (Build tab).")
     t(f"raid.status.warn.{PID}", "Le Vide monte : il sera là dans {seconds} s.", "The Void is rising: it will be here in {seconds} s.")
     t(f"raid.cause.Random.{PID}", "la faille s'agite", "the rift stirs")
     for suffix, fr, en in [("Void_Larva", "Larve du Vide", "Void larva"), ("Void_Crawler", "Rampant du Vide", "Void crawler"),

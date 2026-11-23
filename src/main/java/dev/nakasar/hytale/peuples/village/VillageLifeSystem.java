@@ -74,7 +74,7 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
                 int r = Chantiers.reach(village);
                 dev.nakasar.hytale.peuples.world.Veille.offer(world, dev.nakasar.hytale.peuples.world.Veille.villageKey(village),
                         village.x() - r, village.x() + r, village.z() - r, village.z() + r,
-                        () -> Chantiers.busy(village) || VillageStreets.busy(village) || Rebuilds.busy(village));
+                        () -> Chantiers.busy(village) || VillageStreets.busy(village) || Rebuilds.busy(village) || Repairs.busy(village));
             }
             // Dépôt : grand coffre à partir du palier 2.
             if (!village.depositLarge() && village.tier() >= Deposits.LARGE_TIER && seen) {
@@ -108,6 +108,8 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
                 Chantiers.grow(world, village);
             }
             Plots.step(world, store, village);
+            // Réparations de bâtiments brûlés : fin des travaux.
+            Repairs.step(world, store, village);
             // Village autonome : le conseil lance le chantier du terrain qu'il a réservé.
             dev.nakasar.hytale.peuples.world.Autonomy.step(world, store, village);
             // Générations : naissances, âges, passations, morts, tombes.
@@ -144,7 +146,8 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
         } else if (Chantiers.workDue(store, village)) {
             return true;
         }
-        return Plots.workDue(store, village) || dev.nakasar.hytale.peuples.world.Autonomy.workDue(world, store, village);
+        return Plots.workDue(store, village) || Repairs.workDue(store, village)
+                || dev.nakasar.hytale.peuples.world.Autonomy.workDue(world, store, village);
     }
 
     private static boolean watched(Village village, List<Vector3d> players) {

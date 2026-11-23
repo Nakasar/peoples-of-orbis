@@ -102,8 +102,8 @@ NAMES = {  # (nom fr, nom en, rôle fr, rôle en, métier fr, métier en, icône
               "Placed by a route beacon: no more ambushes within 64 blocks.", "Garde des routes", "Road warden", "Furniture_Desert_Lantern_Tall"),
     "Fortin": ("Fortin", "Fort", "Étend le territoire du village de 96 blocs autour ; +1 garde aux lieux-dits tenus à moins de 200 blocs.",
                "Extends the village territory 96 blocks around; +1 guard in held hamlets within 200 blocks.", "Soldat", "Soldier", "Weapon_Shield_Wood"),
-    "Forteresse": ("Forteresse", "Fortress", "Un raid perdu brûle un bâtiment mais ne fait plus perdre de palier ; +1 lieu-dit tenu.",
-                   "A lost raid burns a building but no longer costs a tier; +1 held hamlet.", "Capitaine", "Captain", "Weapon_Shield_Iron"),
+    "Forteresse": ("Forteresse", "Fortress", "Tenue, elle détourne les raids du village : les pillards l'assiègent pour la prendre ; +1 lieu-dit tenu.",
+                   "While held, it draws raids away from the village: raiders besiege it to take it; +1 held hamlet.", "Capitaine", "Captain", "Weapon_Shield_Iron"),
 }
 
 # Matériaux propres au peuple : bois, pierre taillée, brique.
@@ -619,10 +619,10 @@ LANG = {
     "raid.ouvrage.target": ("Les pillards ne visent pas le village mais un de ses ouvrages : {building} ({x} {z}). Perdu, il sera rasé.",
                             "The raiders are not after the village but one of its works: the {building} ({x} {z}). If lost, it will be razed."),
     "raid.templeSpared": ("Les prières du temple protègent le village : rien ne brûle cette nuit.", "The temple's prayers protect the village: nothing burns tonight."),
-    "raid.report.ouvrage": ("Bilan du raid sur {village} : défaite ({killed}/{raiders} abattus). L'ouvrage visé est rasé : {building}. Le village ne brûle pas et garde son palier.",
-                            "Raid report for {village}: defeat ({killed}/{raiders} killed). The targeted work is razed: {building}. The village does not burn and keeps its tier."),
+    "raid.report.ouvrage": ("Bilan du raid sur {village} : défaite ({killed}/{raiders} abattus). L'ouvrage visé est rasé : {building}. Le village ne brûle pas.",
+                            "Raid report for {village}: defeat ({killed}/{raiders} killed). The targeted work is razed: {building}. The village does not burn."),
     "raid.report.spared": ("Bilan du raid sur {village} : défaite ({killed}/{raiders} abattus), mais le temple a protégé le village : rien n'a brûlé.",
                            "Raid report for {village}: defeat ({killed}/{raiders} killed), but the temple protected the village: nothing burned."),
-    "raid.report.kept": ("Bilan du raid sur {village} : défaite ({killed}/{raiders} abattus). Incendié : {building}. La forteresse tient : le village garde son palier.",
-                         "Raid report for {village}: defeat ({killed}/{raiders} killed). Burned: {building}. The fortress holds: the village keeps its tier."),
+    "raid.report.kept": ("Bilan du raid sur {village} : défaite ({killed}/{raiders} abattus). Incendié : {building}. La forteresse tient : le feu est contenu, personne n'y meurt.",
+                         "Raid report for {village}: defeat ({killed}/{raiders} killed). Burned: {building}. The fortress holds: the fire is contained, nobody dies in it."),
 }

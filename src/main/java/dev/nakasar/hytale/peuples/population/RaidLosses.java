@@ -24,10 +24,12 @@ import java.util.concurrent.ThreadLocalRandom;
  *   <li>un grand bâtiment debout est tiré au hasard, comme avant (parmi ceux du plus haut palier) ;</li>
  *   <li>un bâtiment à niveaux (bâtiment de métier, projet de terrain) au niveau II ou plus perd un niveau au lieu de
  *   brûler : personne ne meurt, le village garde son palier ;</li>
- *   <li>sinon il brûle (le village perd un palier, comme avant) : seul son responsable meurt (le titulaire du poste qui
- *   y travaille, sinon l'adulte le plus âgé du foyer), même s'il défendait ; les autres habitants vont au refuge
- *   désigné par l'Hôte, sinon au camp de réfugiés du bord du village (world/Camps).</li>
+ *   <li>sinon il brûle : seul son responsable meurt (le titulaire du poste qui y travaille, sinon l'adulte le plus âgé
+ *   du foyer), même s'il défendait ; les autres habitants vont au refuge désigné par l'Hôte, sinon au camp de réfugiés
+ *   du bord du village (world/Camps).</li>
  * </ul>
+ * Le village ne perd plus de palier (Kevin, 23 novembre 2026) : le bâtiment brûlé se répare contre des ressources
+ * ({@link dev.nakasar.hytale.peuples.village.Repairs}).
  */
 public final class RaidLosses {
 
@@ -44,10 +46,9 @@ public final class RaidLosses {
     }
 
     /**
-     * Applique la perte du raid ; {@code dropTier} faux (Forteresse tenue, annex/Infrastructures) : le bâtiment brûle
-     * mais le village garde son palier.
+     * Applique la perte du raid ; {@code deadly} faux : le bâtiment brûle mais son responsable ne meurt pas.
      */
-    public static Loss apply(World world, Store<EntityStore> store, Village village, boolean dropTier) {
+    public static Loss apply(World world, Store<EntityStore> store, Village village, boolean deadly) {
         VillageLayout layout = Chantiers.layout(village);
         if (layout == null) {
             return null;
@@ -79,7 +80,7 @@ public final class RaidLosses {
         long day = GameClock.day(store);
         if (Population.applies(village)) {
             PopulationState p = village.population();
-            dead = responsible(village, layout, p, target.id(), day);
+            dead = deadly ? responsible(village, layout, p, target.id(), day) : null;
             if (dead != null) {
                 Population.die(world, village, p, dead, day, "fire", true);
             }
@@ -89,7 +90,7 @@ public final class RaidLosses {
                 }
             }
         }
-        VillageLayout.Building b = Chantiers.burn(world, village, target.id(), dropTier);
+        VillageLayout.Building b = Chantiers.burn(world, village, target.id());
         if (b == null) {
             return null;
         }

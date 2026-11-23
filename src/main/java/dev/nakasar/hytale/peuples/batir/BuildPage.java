@@ -425,6 +425,14 @@ public final class BuildPage extends InteractiveCustomUIPage<BuildPage.Event> {
                 DomainPage.open(store, ref, playerRef, village);
                 return true;
             }
+            case "repair" -> {
+                dev.nakasar.hytale.peuples.village.Repairs.Block b = dev.nakasar.hytale.peuples.village.Repairs.start(world, store,
+                        village, target, playerRef.getUuid().toString());
+                if (b != dev.nakasar.hytale.peuples.village.Repairs.Block.NONE) {
+                    playerRef.sendMessage(dev.nakasar.hytale.peuples.village.Repairs.refusal(village, target, b));
+                }
+                return false;
+            }
             default -> {
                 return false;
             }
