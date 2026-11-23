@@ -27,6 +27,7 @@ import dev.nakasar.hytale.peuples.village.Villages;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import dev.nakasar.hytale.peuples.ui.ButtonText;
 import java.util.Map;
 
 /**
@@ -190,7 +191,7 @@ public final class PeoplePage extends InteractiveCustomUIPage<PeoplePage.Event> 
             boolean shown = naming && i < p.proposals().length;
             cmd.set("#Name" + n + ".Visible", shown);
             if (shown) {
-                cmd.set("#Name" + n + ".Text", Message.raw(p.proposals()[i]));
+                cmd.set("#Name" + n + ".Text", ButtonText.plain(p.proposals()[i]));
                 events.addEventBinding(CustomUIEventBindingType.Activating, "#Name" + n, EventData.of("Action", "Name" + n));
             }
         }
