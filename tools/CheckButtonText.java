@@ -14,10 +14,13 @@ import java.util.stream.Stream;
  * Kevin 2026-11-22). Seuls sont acceptés :
  * <ul>
  *   <li>{@code Message.translation(clé)} sans {@code .param} ni message imbriqué ;</li>
- *   <li>{@code Message.raw(…)} ;</li>
- *   <li>{@code ButtonText.of(joueur, message)} (texte final construit côté serveur, ui/ButtonText).</li>
+ *   <li>{@code ButtonText.of(joueur, message)} ou {@code ButtonText.plain(texte)} : une simple chaîne, texte final
+ *   construit côté serveur (ui/ButtonText).</li>
  * </ul>
  * Une variable ({@code cmd.set("#Action.Text", action)}) est refusée : on ne sait pas ce qu'elle contient.
+ * {@code Message.raw(…)} est refusé aussi : {@code .Text} est une chaîne côté client, un message brut (objet) y fait
+ * planter le client à l'ouverture de la page (« No parameterless constructor defined for type 'System.String' »,
+ * Kevin 2026-11-23).
  *
  * <p>Usage : {@code java tools/CheckButtonText.java <dossier de sources>...}
  */
@@ -51,7 +54,7 @@ public final class CheckButtonText {
         if (!errors.isEmpty()) {
             errors.forEach(System.err::println);
             System.err.println(errors.size() + " texte(s) de bouton dont les paramètres s'afficheraient bruts : passer par "
-                    + "ui.ButtonText.of(playerRef, message).");
+                    + "ui.ButtonText.of(playerRef, message) ou ButtonText.plain(texte) (simple chaîne).");
             System.exit(1);
         }
         System.out.println("checkButtonText : tous les textes de bouton sont finaux.");
@@ -86,11 +89,12 @@ public final class CheckButtonText {
     }
 
     static String refuse(String v) {
-        if (v.startsWith("ButtonText.of(") || v.startsWith("dev.nakasar.hytale.peuples.ui.ButtonText.of(")) {
-            return null;
+        if (v.matches("(dev\\.nakasar\\.hytale\\.peuples\\.ui\\.)?ButtonText\\.(of|plain)\\([\\s\\S]*\\)")
+                && argument(v, v.indexOf('(') + 1).length() == v.length() - v.indexOf('(') - 2) {
+            return null; // un seul appel, rien d'enchaîné après
         }
-        if (v.startsWith("Message.raw(") && v.endsWith(")")) {
-            return null;
+        if (v.startsWith("Message.raw(")) {
+            return "Message.raw sur .Text (le client attend une chaîne : plantage)";
         }
         if (v.startsWith("Message.translation(") && v.endsWith(")")
                 && argument(v, "Message.translation(".length()).length() == v.length() - "Message.translation(".length() - 1) {
