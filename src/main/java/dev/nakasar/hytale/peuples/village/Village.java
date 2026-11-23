@@ -81,7 +81,11 @@ public final class Village {
             .documentation("Hauteur de pose de chaque bâtiment collé (étape 5).")
             .add()
             .append(new KeyedCodec<>("Burnt", new ArrayCodec<>(Codec.STRING, String[]::new)), (v, a) -> v.burnt = a == null ? new String[0] : a, v -> v.burnt)
-            .documentation("Bâtiments brûlés (étape 5) : en ruine jusqu'au prochain chantier.")
+            .documentation("Bâtiments brûlés (étape 5) : en ruine jusqu'à leur réparation (Repairs) ou au prochain chantier.")
+            .add()
+            .append(new KeyedCodec<>("Repairs", new ArrayCodec<>(RepairState.CODEC, RepairState[]::new)),
+                    (v, a) -> v.repairs = a == null ? new RepairState[0] : a, v -> v.repairs)
+            .documentation("Réparations en cours de bâtiments brûlés (Repairs) : bâtiment, début, fin, qui l'a lancée.")
             .add()
             .append(new KeyedCodec<>("Chantier", ChantierState.CODEC), (v, c) -> v.chantier = c, v -> v.chantier)
             .documentation("Chantier en cours, ou absent (étape 5).")
@@ -166,6 +170,7 @@ public final class Village {
     long requestDay = Long.MIN_VALUE;
     Site[] sites = new Site[0];
     String[] burnt = new String[0];
+    RepairState[] repairs = new RepairState[0];
     ChantierState chantier;
     RaidRecord raid = new RaidRecord();
     PlotState[] plots = new PlotState[0];
@@ -230,6 +235,7 @@ public final class Village {
         v.requestDay = requestDay;
         v.sites = sites.clone();
         v.burnt = burnt.clone();
+        v.repairs = java.util.Arrays.stream(repairs).map(RepairState::copy).toArray(RepairState[]::new);
         v.chantier = chantier == null ? null : chantier.copy();
         v.raid = raid == null ? new RaidRecord() : raid.copy();
         v.settlerDay = settlerDay;
@@ -541,6 +547,7 @@ public final class Village {
     void unmarkBuilt(String buildingId) {
         built = without(built, buildingId);
         burnt = without(burnt, buildingId);
+        removeRepair(buildingId);
         sites = java.util.Arrays.stream(sites).filter(s -> !s.id.equals(buildingId)).toArray(Site[]::new);
     }
 
@@ -582,6 +589,35 @@ public final class Village {
 
     public boolean isBurnt(String buildingId) {
         return contains(burnt, buildingId);
+    }
+
+    /** Réparations en cours (Repairs). */
+    public RepairState[] repairs() {
+        return repairs.clone();
+    }
+
+    /** Réparation en cours du bâtiment, ou null. */
+    public RepairState repair(String buildingId) {
+        for (RepairState r : repairs) {
+            if (r.building.equals(buildingId)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+    public boolean isRepairing(String buildingId) {
+        return repair(buildingId) != null;
+    }
+
+    void addRepair(RepairState value) {
+        RepairState[] grown = java.util.Arrays.copyOf(repairs, repairs.length + 1);
+        grown[repairs.length] = value;
+        repairs = grown;
+    }
+
+    void removeRepair(String buildingId) {
+        repairs = java.util.Arrays.stream(repairs).filter(r -> !r.building.equals(buildingId)).toArray(RepairState[]::new);
     }
 
     /** Hauteur de pose du bâtiment, ou {@link Integer#MIN_VALUE} si elle n'a pas été gardée. */

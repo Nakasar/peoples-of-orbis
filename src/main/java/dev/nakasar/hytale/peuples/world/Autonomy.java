@@ -12,9 +12,11 @@ import dev.nakasar.hytale.peuples.annex.Annexes;
 import dev.nakasar.hytale.peuples.request.GameClock;
 import dev.nakasar.hytale.peuples.request.Requests;
 import dev.nakasar.hytale.peuples.village.AnnexState;
+import dev.nakasar.hytale.peuples.village.ChantierState;
 import dev.nakasar.hytale.peuples.village.Chantiers;
 import dev.nakasar.hytale.peuples.village.PlotState;
 import dev.nakasar.hytale.peuples.village.Plots;
+import dev.nakasar.hytale.peuples.village.Repairs;
 import dev.nakasar.hytale.peuples.village.Terrain;
 import dev.nakasar.hytale.peuples.village.Tiers;
 import dev.nakasar.hytale.peuples.village.Village;
@@ -53,6 +55,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *   commande de maître tenue pour faite au bout de {@value #MASTER_DAYS} jours, montée lancée quand les matériaux sont
  *   là, spécialité et projet de terrain choisis selon les besoins (les siens, ceux qu'il a appris, ceux de ses
  *   partenaires) puis ses relations commerciales, et au plus {@value #ANNEX_MAX} avant-postes fondés seuls au bourg.
+ *   Un bâtiment brûlé passe avant tout : ses matériaux de réparation sont mis de côté en premier et le conseil lance
+ *   la réparation dès qu'ils sont au dépôt ({@link Repairs}, Kevin, 23 novembre 2026).
  *   Les joueurs gardent la main : {@value #PLAYER_DAYS} jours pour choisir avant le conseil, et un choix de joueur n'est
  *   jamais défait.</li>
  * </ul>
@@ -241,6 +245,11 @@ public final class Autonomy {
         VillageLayout layout = Chantiers.layout(v);
         if (layout == null) {
             return out;
+        }
+        // Bâtiment brûlé : sa réparation d'abord (Kevin, 23 novembre 2026), avant le palier suivant.
+        VillageLayout.Building ruin = ruinToRepair(v);
+        if (ruin != null) {
+            out.addAll(Repairs.cost(v, layout, ruin));
         }
         if (v.tier() < Tiers.MAX && v.chantier() == null) {
             VillageLayout.Chantier c = layout.chantier(v.tier() + 1);
@@ -683,6 +692,7 @@ public final class Autonomy {
             return;
         }
         long day = GameClock.day(store);
+        repair(world, store, v);
         for (VillageLayout.Plot plot : Plots.plots(v)) {
             String reserved = get(world, "P:" + v.id() + "|" + plot.id());
             PlotState s = v.plot(plot.id());
@@ -718,6 +728,37 @@ public final class Autonomy {
         }
     }
 
+    /** Prochain bâtiment brûlé que le conseil fera réparer (aucune réparation en cours), ou null. */
+    static VillageLayout.Building ruinToRepair(Village v) {
+        if (v.repairs().length > 0) {
+            return null;
+        }
+        ChantierState c = v.chantier();
+        for (VillageLayout.Building b : Repairs.ruins(v)) {
+            if (c == null || !List.of(c.buildings()).contains(b.id())) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Le conseil lance seul la réparation d'un bâtiment brûlé dès que le dépôt a ses matériaux (Kevin, 23 novembre
+     * 2026 : « un village doit pouvoir lancer seul la réparation d'un bâtiment »). Thread du monde, village chargé.
+     */
+    private static void repair(World world, Store<EntityStore> store, Village v) {
+        VillageLayout.Building ruin = ruinToRepair(v);
+        if (ruin == null || Repairs.blocker(world, v, ruin.id()) != Repairs.Block.NONE) {
+            return;
+        }
+        if (Repairs.start(world, store, v, ruin.id(), Repairs.VILLAGE) == Repairs.Block.NONE) {
+            TradeLog.add(world, v, TradeLog.Kind.COUNCIL, null, Message.translation(Repairs.KEYS + "startedByVillage")
+                    .param("village", v.name()).param("building", Message.translation(Chantiers.buildingKey(ruin.id())))
+                    .param("hours", Repairs.HOURS));
+            log("%s répare %s", v.id(), ruin.id());
+        }
+    }
+
     /** Le chantier du terrain du conseil échoue depuis {@value #PLOT_FAIL_DAYS} jours : le terrain est rendu. */
     private static void giveBack(World world, Village v, VillageLayout.Plot plot, String fail, long day) {
         if (day - since(world, fail, day) < PLOT_FAIL_DAYS) {
@@ -733,6 +774,10 @@ public final class Autonomy {
     public static boolean workDue(World world, Store<EntityStore> store, Village v) {
         if (!on(world) || !grows(v)) {
             return false;
+        }
+        VillageLayout.Building ruin = ruinToRepair(v);
+        if (ruin != null && Repairs.blocker(world, v, ruin.id()) == Repairs.Block.NONE) {
+            return true;
         }
         Long short_ = SHORT.get(v.id());
         if (short_ != null && short_ == GameClock.day(store)) {
@@ -831,6 +876,10 @@ public final class Autonomy {
         List<Message> out = new ArrayList<>();
         if (!on(world) || !grows(v)) {
             return out;
+        }
+        VillageLayout.Building ruin = ruinToRepair(v);
+        if (ruin != null) {
+            out.add(Message.translation(KEYS + "plan.repair").param("building", Message.translation(Chantiers.buildingKey(ruin.id()))));
         }
         AnnexPlan plan = AnnexPlan.of(get(world, "A:" + v.id()));
         Workshop annex = plan == null ? null : Workshop.get(plan.workshop);

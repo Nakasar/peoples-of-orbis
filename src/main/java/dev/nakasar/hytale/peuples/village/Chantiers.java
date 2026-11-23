@@ -81,7 +81,9 @@ public final class Chantiers {
         List<VillageLayout.Building> out = new ArrayList<>();
         for (VillageLayout.Building b : layout.buildings()) {
             // Un bâtiment d'emplacement n'est collé que par son chantier d'emplacement (Plots) ; brûlé, il est rebâti.
-            if (b.tier() <= tier && !village.isStanding(b.id()) && (b.plot() == null || village.isBuilt(b.id()))) {
+            // Un bâtiment en réparation (Repairs) a son propre chantier.
+            if (b.tier() <= tier && !village.isStanding(b.id()) && !village.isRepairing(b.id())
+                    && (b.plot() == null || village.isBuilt(b.id()))) {
                 out.add(b);
             }
         }
@@ -296,7 +298,8 @@ public final class Chantiers {
             VillageLayout.Building b = BuildingPaliers.at(layout, plan, palier);
             int h = siteHeight(world, village, b);
             site(world, village, b, h, 0);
-            if (village.isBuilt(b.id())) {
+            boolean ruins = village.isBuilt(b.id());
+            if (ruins) {
                 clearRuins(world, village, b, h);
             }
             if (VillageBuilder.paste(world, store, b.prefab(), village.x() + b.x(), h, village.z() + b.z(), b.rotation())) {
@@ -304,6 +307,9 @@ public final class Chantiers {
                 village.markBuilt(b.id());
                 village.setSiteY(b.id(), h);
                 village.setPalier(b.id(), palier);
+                if (ruins) {
+                    Repairs.restored(world, store, village, b.id()); // panneau et métier du bâtiment rebâti
+                }
                 pasted++;
             }
         }
@@ -427,10 +433,11 @@ public final class Chantiers {
 
     /**
      * Brûle un bâtiment debout du village (`buildingId` null : un des bâtiments du plus haut palier, au hasard, hors
-     * petits décors). `dropTier` : le village redescend d'un palier et sa jauge repart de zéro (GDD, Raids). Le
-     * bâtiment sera rebâti par le prochain chantier. Rend le bâtiment brûlé, ou null.
+     * petits décors). Le village garde son palier (Kevin, 23 novembre 2026) : le bâtiment se répare contre des
+     * ressources ({@link Repairs}), ou le prochain chantier le rebâtit. Le panneau de son bâtiment de métier est
+     * décroché (reposé quand il sera debout). Rend le bâtiment brûlé, ou null.
      */
-    public static VillageLayout.Building burn(World world, Village village, String buildingId, boolean dropTier) {
+    public static VillageLayout.Building burn(World world, Village village, String buildingId) {
         VillageLayout layout = layout(village);
         if (layout == null) {
             return null;
@@ -471,10 +478,7 @@ public final class Chantiers {
                 ThreadLocalRandom.current().nextLong());
         village.setSiteY(target.id(), h);
         village.markBurnt(target.id());
-        if (dropTier) {
-            Villages.setTier(village, village.tier() - 1);
-            village.setEssor(0);
-        }
+        Repairs.unhangBoards(world, village, target.id());
         announce(world, village, Message.translation(KEYS + "burnt").param("village", village.name())
                 .param("building", Message.translation(buildingKey(target.id())))
                 .param("tier", Message.translation(Tiers.nameKey(village.tier()))), null, NotificationStyle.Danger);

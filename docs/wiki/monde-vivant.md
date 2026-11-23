@@ -104,7 +104,17 @@ L'onglet **Monde** du panneau du village montre ce que le monde vivant fait auto
 
 Sur un serveur qui reste allumé, le monde continue de vivre sans joueur : les jours passent, les caravanes et les voyageurs font leur route, les villages commercent, grandissent, bâtissent leurs chantiers, vieillissent et se font attaquer. Vous retrouvez les nouveaux bâtiments en revenant. Les gens du village et les voyageurs n'apparaissent que quand un joueur est près d'eux.
 
-Un raid sans défenseur se joue quand même : les gardes du village se battent seuls, et le village peut perdre un bâtiment et un palier. Plus le village a de gardes, mieux il se défend.
+Un raid sans défenseur se joue quand même : les gardes du village se battent seuls. Ce qui compte, c'est l'écart de palier avec l'assaillant (le camp trork qui envoie le raid chez les Kweebecs, sinon le village lui-même) :
+
+| Le village a… | il résiste |
+| --- | --- |
+| 2 paliers d'avance ou plus | 92 % du temps |
+| 1 palier d'avance | 85 % |
+| le même palier | 65 % |
+| 1 palier de retard | 40 % |
+| 2 paliers de retard ou plus | 25 % |
+
+Chaque garde en plus de ceux du palier (spécialités de garde, postes, renforts d'un allié) ajoute 4 %, des gardes plus robustes un peu plus ; chaque Scarak de la ruche en plus en retire 3 %. Perdu, le raid brûle un bâtiment, mais le village garde son palier : le bâtiment se répare (voir [Réparer un bâtiment brûlé](villages.md#réparer-un-bâtiment-brûlé)).
 
 Si le serveur est éteint, le monde est en pause : rien ne se rattrape au redémarrage.
 

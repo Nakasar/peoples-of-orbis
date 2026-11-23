@@ -24,7 +24,7 @@ Les villages vieillissent même sans vous : à votre retour, les jours passés s
 
 ## Naissances
 
-Un matin sur sept environ, un enfant naît dans un foyer qui a un lit libre et un adulte. Il faut **6 vivres** au dépôt du village (nourriture, récoltes, fruits), et au moins 7 jours depuis la dernière naissance. Pas de naissance pendant un deuil, ni tant qu'un bâtiment brûlé n'est pas rebâti.
+Un matin sur sept environ, un enfant naît dans un foyer qui a un lit libre et un adulte. Il faut **6 vivres** au dépôt du village (nourriture, récoltes, fruits), et au moins 7 jours depuis la dernière naissance. Pas de naissance pendant un deuil, ni tant qu'un bâtiment brûlé n'est pas réparé.
 
 Le nouveau-né prend le nom de famille d'un de ses deux parents. Jusqu'au lendemain, un joueur **Ami** du village peut choisir son prénom parmi trois, dans l'onglet **Habitants** du panneau. Il devient alors son **parrain** : chaque fois que son filleul passe un âge, il gagne de la réputation. Sinon, l'enfant garde le prénom tiré au sort.
 
@@ -44,8 +44,9 @@ Chaque maison a un lit par villageois à métier qui y dort, plus deux pour la f
 - Raid **gagné** : personne ne meurt.
 - Raid **perdu** : un grand bâtiment est tiré au hasard.
   - Un bâtiment à niveaux (bâtiment de métier, projet d'emplacement) au niveau II ou plus **perd un niveau**. Personne ne meurt.
-  - Sinon il **brûle** et le village perd un palier, comme avant. Seul son **responsable** meurt : le villageois qui y travaille, ou pour une maison l'adulte le plus âgé du foyer. Les autres habitants vont au **refuge** désigné par un Hôte (dès le palier 2), sinon au camp de réfugiés au bord du village. Le deuil dure 3 jours.
-- Pas de raid sans joueur pour le voir : on ne meurt pas dans un raid pendant votre absence.
+  - Sinon il **brûle** (le village garde son palier, le bâtiment se répare). Seul son **responsable** meurt : le villageois qui y travaille, ou pour une maison l'adulte le plus âgé du foyer. Les autres habitants vont au **refuge** désigné par un Hôte (dès le palier 2), sinon au camp de réfugiés au bord du village. Le deuil dure 3 jours.
+- Une forteresse tenue contient le feu : personne ne meurt dans l'incendie.
+- Quand le bâtiment est réparé ou rebâti, son poste est repris tout de suite : par un héritier, un adulte sans poste, sinon un nouveau venu.
 
 ## L'onglet Habitants
 

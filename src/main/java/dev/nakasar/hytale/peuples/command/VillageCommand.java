@@ -67,7 +67,8 @@ import java.util.Map;
  *   (réputation de peuple) ;</li>
  *   <li>étape 5 : {@code chantier} (état du chantier ou de ce qu'attend le prochain), {@code metiers} (villageois à
  *   métier) ; opérateurs : {@code lancer} (ouvre le chantier sans jauge ni matériaux), {@code finir} (finit le chantier
- *   en cours), {@code bruler [bâtiment]} (brûle un bâtiment, le village perd un palier) ; {@code palier <n>} bâtit
+ *   en cours), {@code bruler [bâtiment]} (brûle un bâtiment, le village garde son palier), {@code reparer [bâtiment]} (ruines et leur
+ *   réparation) ; {@code palier <n>} bâtit
  *   maintenant sur-le-champ ce qui manque jusqu'au palier n ;</li>
  *   <li>étape 6 : {@code raid} (raid attendu ou en cours, bilan du dernier), {@code chaine} (étape de la chaîne du peuple) ;
  *   opérateurs : {@code raidlancer} (raid tout de suite, de jour aussi), {@code raidfinir <gagne|perdu>} (bilan tout de
@@ -114,6 +115,8 @@ public final class VillageCommand extends AbstractCommandCollection {
         addSubCommand(new StartChantierCommand());
         addSubCommand(new FinishChantierCommand());
         addSubCommand(new BurnCommand());
+        addSubCommand(new RepairCommand());
+        addSubCommand(new RepairFinishCommand());
         addSubCommand(new JobsCommand());
         addSubCommand(new ObstaclesCommand());
         addSubCommand(new RaidCommand());
@@ -1005,11 +1008,61 @@ public final class VillageCommand extends AbstractCommandCollection {
             if (village == null) {
                 return;
             }
-            var burnt = Chantiers.burn(world, village, building.get(context), true);
+            var burnt = Chantiers.burn(world, village, building.get(context));
             Villagers.forgetGround();
             if (burnt == null) {
                 player.sendMessage(Message.translation(Chantiers.KEYS + "burnNothing"));
             }
+        }
+    }
+
+    /**
+     * Réparer un bâtiment brûlé (Kevin, 23 novembre 2026) : sans argument, les ruines du village le plus proche, leur
+     * coût et ce qui manque au dépôt ; avec l'id d'un bâtiment, lance sa réparation (matériaux pris au dépôt).
+     */
+    private static final class RepairCommand extends PlayerCommand {
+        private final OptionalArg<String> building = withOptionalArg("batiment", KEYS + "repair.arg", ArgTypes.STRING);
+
+        RepairCommand() {
+            super("reparer", KEYS + "repair.desc");
+        }
+
+        @Override
+        protected void execute(CommandContext context, Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef player, World world) {
+            Village village = nearest(world, player);
+            if (village == null) {
+                return;
+            }
+            String id = building.get(context);
+            if (id == null || id.isBlank()) {
+                List<Message> lines = dev.nakasar.hytale.peuples.village.Repairs.lines(world, store, village);
+                player.sendMessage(Message.translation(dev.nakasar.hytale.peuples.village.Repairs.KEYS + (lines.isEmpty() ? "none" : "header"))
+                        .param("village", village.name()));
+                lines.forEach(player::sendMessage);
+                return;
+            }
+            dev.nakasar.hytale.peuples.village.Repairs.Block b = dev.nakasar.hytale.peuples.village.Repairs.start(world, store, village,
+                    id.trim(), player.getUuid().toString());
+            if (b != dev.nakasar.hytale.peuples.village.Repairs.Block.NONE) {
+                player.sendMessage(dev.nakasar.hytale.peuples.village.Repairs.refusal(village, id.trim(), b));
+            }
+        }
+    }
+
+    private static final class RepairFinishCommand extends AbstractPlayerCommand {
+        RepairFinishCommand() {
+            super("reparerfinir", KEYS + "repairFinish.desc");
+            requirePermission(ADMIN);
+        }
+
+        @Override
+        protected void execute(CommandContext context, Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef player, World world) {
+            Village village = nearest(world, player);
+            if (village == null) {
+                return;
+            }
+            player.sendMessage(Message.translation(dev.nakasar.hytale.peuples.village.Repairs.KEYS + "hurried")
+                    .param("count", dev.nakasar.hytale.peuples.village.Repairs.hurry(store, village)));
         }
     }
 

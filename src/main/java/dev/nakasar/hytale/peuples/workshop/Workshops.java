@@ -197,6 +197,11 @@ public final class Workshops {
                 finishUpgrade(world, store, village, w, state);
             }
             draw(store, village, w, state, false);
+            if (!w.isAnnex() && !w.isHamlet()
+                    && dev.nakasar.hytale.peuples.village.Repairs.boardGone(world.getChunkStore(), village, state)) {
+                // Panneau retiré avec les ruines d'un bâtiment rebâti (mondes sauvés avant la réparation) : reposé.
+                state.clearBoard();
+            }
             if (!state.hasBoard()) {
                 placeBoard(world, village, w, state);
             } else if (!w.isHamlet() && !RAISED.contains(village.id() + "/" + w.getId()) && raiseBoard(world, village, state)) {
