@@ -227,9 +227,18 @@ public final class Infrastructures {
         return 0;
     }
 
-    /** Vrai si un raid perdu ne fait pas perdre de palier au village (il tient une forteresse). */
-    public static boolean keepsTier(World world, Village village) {
-        return !held(world, village, FORTRESS).isEmpty();
+    /**
+     * La forteresse du village, debout et tenue par lui (assiégée comprise), ou null. Tenue, elle détourne les raids du
+     * village (Kevin, 23 novembre 2026 : « elle empêche les raids contre le village ; les raids ciblent la forteresse
+     * pour tenter de la capturer »), {@code raid/Raids}.
+     */
+    public static Work fortress(World world, Village village) {
+        for (Work w : all(world)) {
+            if (FORTRESS.equals(w.type()) && w.state().built() && w.owner() == village && w.holder().equals(village.id())) {
+                return w;
+            }
+        }
+        return null;
     }
 
     /** Ouvrages du village (les siens, pas perdus) visables par un raid : debout, à moins de 400 blocs du cœur. */

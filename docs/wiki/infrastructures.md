@@ -16,7 +16,7 @@ Les **ouvrages** protègent le village et ses routes. Comme les [avant-postes de
 | **Tour de garde** (6 au plus) | de 64 à 400 blocs du cœur, 96 blocs entre deux tours | à moins de 160 blocs du cœur, le raid est annoncé 30 s plus tôt par niveau ; embuscades deux fois moins fréquentes à moins de 48 blocs |
 | **Poste routier** (4) | à moins de 8 blocs d'une balise de route, 128 blocs entre deux postes | plus aucune embuscade à moins de 64 blocs ; **halte de nuit** : convois, caravanes, voyageurs et marchands marchent de nuit jusqu'au poste devant eux (300 blocs de route au plus) et y dorment jusqu'au jour |
 | **Fortin** (2) | de 200 à 600 blocs du cœur | le territoire du village s'étend de 96 blocs autour ; +1 garde aux lieux-dits tenus à moins de 200 blocs ; les **expéditions** partent du fortin le plus proche de leur cible (marche plus courte, portée comptée depuis le fortin) |
-| **Forteresse** (1) | de 96 à 256 blocs du cœur | un raid perdu brûle un bâtiment mais le feu est contenu : personne n'y meurt ; +1 lieu-dit tenu, aussi pour le rival qui l'a prise |
+| **Forteresse** (1) | de 96 à 256 blocs du cœur | tant que le village la tient, les raids ne visent plus le village mais la forteresse : les pillards l'assiègent pour la prendre ; +1 lieu-dit tenu, aussi pour le rival qui l'a prise |
 
 Un ouvrage agit tant qu'il est debout et pas assiégé, pour le village qui le **tient** : son propriétaire, ou le rival qui l'a pris. Chaque ouvrage a ses gardes (plus nombreux à chaque niveau). Avec une **Caserne**, ils ont 25 % de vie de plus par niveau de la Caserne du village qui tient l'ouvrage.
 
@@ -39,6 +39,13 @@ Le propriétaire peut le **reprendre** (bouton Reprendre de la page des ouvrages
 ## Raids et ruines
 
 Un raid sur quatre vise un ouvrage du village à moins de 400 blocs plutôt que le village. Perdu, ce raid **rase** l'ouvrage : le village ne brûle pas.
+
+Une **forteresse** debout et tenue par son village détourne **tous** les raids du village :
+
+- un raid du camp trork rival devient un **siège** de la forteresse (voir plus haut) : gagné, les Trorks l'occupent, et le village peut la reprendre ; déjà assiégée, le raid ne vient pas ;
+- un raid sans village derrière lui (Scaraks, culte, Vide) se joue contre la forteresse : perdu, elle est **rasée**.
+
+Le village lui-même ne brûle pas. Une forteresse prise, assiégée par un autre ou en ruine ne protège plus.
 
 Une ruine se dégage au premier passage d'un joueur. Ensuite, **Rebâtir** coûte la moitié des matériaux de la fondation et 12 heures de travaux.
 

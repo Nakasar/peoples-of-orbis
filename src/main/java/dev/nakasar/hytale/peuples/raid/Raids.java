@@ -66,7 +66,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * des chasseurs) : annonce 1 min avant (tambours, fumée, marqueur de carte), vague de 5 à 12 ennemis du peuple hostile
  * voisin selon le palier, 5 min, puis bilan. Les gardes du village se battent avec le joueur. Un raid perdu enflamme
  * un bâtiment » ; il ne fait plus perdre de palier (Kevin, 23 novembre 2026) : le bâtiment se répare
- * ({@code village/Repairs}). La vague suit le palier de l'assaillant ({@link #attackerTier}) : le camp trork qui
+ * ({@code village/Repairs}). Une forteresse tenue détourne les raids du village ({@link #divert}). La vague suit le palier de l'assaillant ({@link #attackerTier}) : le camp trork qui
  * envoie le raid sur un village kweebec, sinon le village lui-même.
  *
  * <p>Le Java tient la vérité (qui est en vie, qui a tué, issue) ; l'évènement de monde vanilla {@value #EVENT} affiche le
@@ -446,6 +446,9 @@ public final class Raids {
             }
             boolean due = r.scheduled() && r.night() <= day && night && hour >= 0 && !(hour >= LAST_START_HOUR && hour < GameClock.MORNING);
             boolean witness = near(village, players, START_RADIUS);
+            if (due && divert(world, store, village, day)) {
+                continue; // forteresse tenue : le camp trork l'assiège au lieu du village
+            }
             if (due && witness && Villages.heartPresent(world, village)) {
                 begin(world, store, village);
             } else if (due && !witness && (players.isEmpty() || hour == LAST_START_HOUR - 1)
@@ -549,7 +552,11 @@ public final class Raids {
         // Comme un raid joué : un sur quatre vise un ouvrage du village (perdu, l'ouvrage est rasé et le village épargné).
         List<dev.nakasar.hytale.peuples.annex.Infrastructures.Work> targets =
                 dev.nakasar.hytale.peuples.annex.Infrastructures.raidTargets(world, village);
-        if (!targets.isEmpty() && random.nextInt(4) == 0) {
+        dev.nakasar.hytale.peuples.annex.Infrastructures.Work fortress =
+                dev.nakasar.hytale.peuples.annex.Infrastructures.fortress(world, village);
+        if (fortress != null) {
+            a.ouvrage = fortress.workshop().getId(); // forteresse tenue : le raid la vise, jamais le village
+        } else if (!targets.isEmpty() && random.nextInt(4) == 0) {
             a.ouvrage = targets.get(random.nextInt(targets.size())).workshop().getId();
         }
         if (victory) {
@@ -567,6 +574,26 @@ public final class Raids {
         PeuplesPlugin.get().getLogger().atInfo().log("Peuples (veille) : raid sans témoin sur %s (palier %d, assaillant palier %d), %d gardes contre %d assaillants, chance %.0f %%",
                 village.name(), village.tier(), attacker, guards, a.total, chance * 100);
         resolve(world, store, village, a, victory, victory ? "cleared" : "guards");
+    }
+
+    /**
+     * Forteresse tenue par le village (Kevin, 23 novembre 2026) : le raid prévu ne vise plus le village. Le camp trork
+     * qui l'envoie assiège la forteresse pour la prendre (annex/Ouvrages : marche, assaut, capture, reprise) ; déjà
+     * assiégée, le raid se perd dans le siège. Sans village ennemi (Scaraks, culte, Vide), rien n'est détourné ici : le
+     * raid se joue et vise la forteresse ({@link #begin}, {@link #resolveAlone}). Vrai si le raid a été détourné.
+     */
+    private static boolean divert(World world, Store<EntityStore> store, Village village, long day) {
+        dev.nakasar.hytale.peuples.annex.Infrastructures.Work fortress =
+                dev.nakasar.hytale.peuples.annex.Infrastructures.fortress(world, village);
+        Village from = fortress == null ? null : sender(world, village);
+        if (from == null) {
+            return false;
+        }
+        boolean sieged = dev.nakasar.hytale.peuples.annex.Ouvrages.raidSiege(world, store, from, fortress);
+        village.raid().divert(day);
+        PeuplesPlugin.get().getLogger().atInfo().log("Peuples : raid sur %s détourné sur sa forteresse (%s)", village.name(),
+                sieged ? from.name() + " l'assiège" : "déjà assiégée");
+        return true;
     }
 
     /**
@@ -697,8 +724,12 @@ public final class Raids {
         // Un raid sur quatre vise un ouvrage du village à moins de 400 blocs (Infrastructures) : perdu, il le rase.
         java.util.List<dev.nakasar.hytale.peuples.annex.Infrastructures.Work> targets =
                 dev.nakasar.hytale.peuples.annex.Infrastructures.raidTargets(world, village);
-        if (!targets.isEmpty() && random.nextInt(4) == 0) {
-            dev.nakasar.hytale.peuples.annex.Infrastructures.Work target = targets.get(random.nextInt(targets.size()));
+        dev.nakasar.hytale.peuples.annex.Infrastructures.Work fortress =
+                dev.nakasar.hytale.peuples.annex.Infrastructures.fortress(world, village);
+        if (fortress != null || !targets.isEmpty() && random.nextInt(4) == 0) {
+            // Forteresse tenue : le raid la vise, jamais le village (Kevin, 23 novembre 2026).
+            dev.nakasar.hytale.peuples.annex.Infrastructures.Work target = fortress != null ? fortress
+                    : targets.get(random.nextInt(targets.size()));
             a.ouvrage = target.workshop().getId();
             announce(world, store, village, a, Message.translation(KEYS + "ouvrage.target")
                     .param("building", Message.translation(target.workshop().nameKey()))
@@ -828,15 +859,9 @@ public final class Raids {
             // Un bâtiment au hasard : à niveaux, il perd un niveau ; sinon il brûle, son responsable meurt et les autres
             // habitants vont au refuge ou campent au bord du village (population/RaidLosses). Le village ne perd jamais
             // de palier (Kevin, 23 novembre 2026) : le bâtiment brûlé se répare contre des ressources (village/Repairs).
-            // Forteresse tenue (annex/Infrastructures) : le feu est contenu, personne ne meurt.
-            boolean keeps = dev.nakasar.hytale.peuples.annex.Infrastructures.keepsTier(world, village);
-            loss = dev.nakasar.hytale.peuples.population.RaidLosses.apply(world, store, village, !keeps);
+            loss = dev.nakasar.hytale.peuples.population.RaidLosses.apply(world, store, village);
             VillageLayout.Building b = loss == null ? null : loss.building();
             burnt = b == null || loss.levelLost() ? null : b.id();
-            if (keeps && b != null && !loss.levelLost()) {
-                softened = "report.kept";
-                softBuilding = Message.translation(Chantiers.buildingKey(b.id()));
-            }
             if (b == null) {
                 // Village sans plan (fondé à la main) : rien à brûler, la jauge d'essor se vide.
                 Villages.addEssor(village, -village.essor());

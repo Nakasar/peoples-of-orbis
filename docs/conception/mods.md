@@ -2614,8 +2614,14 @@ Demande de Kevin : « Retire la perte d'un palier lors d'un raid perdu. Les bât
 réparés contre des ressources. Un village doit pouvoir lancer seul la réparation d'un bâtiment. »
 
 - **Raid perdu** : `RaidLosses.apply` brûle toujours un bâtiment (ou fait perdre un niveau à un bâtiment à niveaux),
-  mais `Chantiers.burn` ne touche plus au palier ni à la jauge d'essor. La Forteresse tenue (`Infrastructures.keepsTier`),
-  qui gardait le palier, contient maintenant le feu : le responsable du bâtiment ne meurt pas.
+  mais `Chantiers.burn` ne touche plus au palier ni à la jauge d'essor.
+- **Forteresse** (demande de Kevin : « Si la forteresse est construite et tenue par le village, elle empêche les raids
+  contre le village. Les raids ciblent la forteresse pour tenter de la capturer. ») : `Infrastructures.fortress` rend la
+  forteresse debout que le village possède et tient (assiégée comprise). À la nuit d'un raid, `Raids.divert` : avec un
+  village assaillant (`sender`, le camp trork), le raid devient `Ouvrages.raidSiege` (siège ordinaire, prise puis
+  reprise possibles ; rien si elle est déjà assiégée) et `RaidRecord.divert` clôt la nuit sans bilan. Sans assaillant
+  (Scaraks, culte, Vide), le raid se joue contre la forteresse (`a.ouvrage`) : perdu, elle est rasée. Le village ne
+  brûle jamais tant qu'il la tient.
 - **Coût** (`Repairs.cost`) : 30 % (arrondi au-dessus) des matériaux du chantier du palier du bâtiment (palier 1 pour
   un bâtiment du palier 0), ou du terrain pour un projet d'emplacement, pris au dépôt. **Durée** : 8 heures de jeu.
 - **Lancer** : onglet Bâtir (carte au liseré rouge « Brûlé », action « Réparer » ; en réparation, liseré du chantier),

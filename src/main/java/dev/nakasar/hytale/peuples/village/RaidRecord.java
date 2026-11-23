@@ -154,6 +154,13 @@ public final class RaidRecord {
         tierSeen = value;
     }
 
+    /** Le raid de la nuit `value` s'est détourné sur la forteresse du village (siège) : rien d'autre ne change. */
+    public void divert(long value) {
+        lastNight = value;
+        active = false;
+        unschedule();
+    }
+
     /** Note le bilan d'un raid joué la nuit `value`. */
     public void record(long value, boolean victory, int raiders, int killed, int fallen, String burnt) {
         lastNight = value;

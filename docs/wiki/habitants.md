@@ -45,7 +45,7 @@ Chaque maison a un lit par villageois à métier qui y dort, plus deux pour la f
 - Raid **perdu** : un grand bâtiment est tiré au hasard.
   - Un bâtiment à niveaux (bâtiment de métier, projet d'emplacement) au niveau II ou plus **perd un niveau**. Personne ne meurt.
   - Sinon il **brûle** (le village garde son palier, le bâtiment se répare). Seul son **responsable** meurt : le villageois qui y travaille, ou pour une maison l'adulte le plus âgé du foyer. Les autres habitants vont au **refuge** désigné par un Hôte (dès le palier 2), sinon au camp de réfugiés au bord du village. Le deuil dure 3 jours.
-- Une forteresse tenue contient le feu : personne ne meurt dans l'incendie.
+- Une forteresse tenue détourne les raids : ils l'assiègent au lieu du village (voir [Infrastructures](infrastructures.md#raids-et-ruines)).
 - Quand le bâtiment est réparé ou rebâti, son poste est repris tout de suite : par un héritier, un adulte sans poste, sinon un nouveau venu.
 
 ## L'onglet Habitants

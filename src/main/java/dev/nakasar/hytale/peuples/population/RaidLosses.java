@@ -46,8 +46,7 @@ public final class RaidLosses {
     }
 
     /**
-     * Applique la perte du raid ; {@code deadly} faux (Forteresse tenue, annex/Infrastructures) : le bâtiment brûle
-     * mais le feu est contenu, son responsable ne meurt pas.
+     * Applique la perte du raid ; {@code deadly} faux : le bâtiment brûle mais son responsable ne meurt pas.
      */
     public static Loss apply(World world, Store<EntityStore> store, Village village, boolean deadly) {
         VillageLayout layout = Chantiers.layout(village);

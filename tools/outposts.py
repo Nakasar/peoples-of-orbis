@@ -102,8 +102,8 @@ NAMES = {  # (nom fr, nom en, rôle fr, rôle en, métier fr, métier en, icône
               "Placed by a route beacon: no more ambushes within 64 blocks.", "Garde des routes", "Road warden", "Furniture_Desert_Lantern_Tall"),
     "Fortin": ("Fortin", "Fort", "Étend le territoire du village de 96 blocs autour ; +1 garde aux lieux-dits tenus à moins de 200 blocs.",
                "Extends the village territory 96 blocks around; +1 guard in held hamlets within 200 blocks.", "Soldat", "Soldier", "Weapon_Shield_Wood"),
-    "Forteresse": ("Forteresse", "Fortress", "Un raid perdu brûle un bâtiment mais le feu est contenu, personne n'y meurt ; +1 lieu-dit tenu.",
-                   "A lost raid burns a building but the fire is contained, nobody dies in it; +1 held hamlet.", "Capitaine", "Captain", "Weapon_Shield_Iron"),
+    "Forteresse": ("Forteresse", "Fortress", "Tenue, elle détourne les raids du village : les pillards l'assiègent pour la prendre ; +1 lieu-dit tenu.",
+                   "While held, it draws raids away from the village: raiders besiege it to take it; +1 held hamlet.", "Capitaine", "Captain", "Weapon_Shield_Iron"),
 }
 
 # Matériaux propres au peuple : bois, pierre taillée, brique.
