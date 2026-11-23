@@ -311,7 +311,7 @@ public final class Plots {
             player.sendMessage(Chantiers.obstacleLine(b, o));
             return false;
         }
-        begin(world, store, village, plot, s, layout, b, h);
+        begin(world, store, village, plot, s, layout, b, h, false);
         Chantiers.announce(world, village, Message.translation(KEYS + "started").param("player", player.getUsername())
                 .param("building", Message.translation(Chantiers.buildingKey(b.id()))).param("hours", plot.hours()), null,
                 NotificationStyle.Success);
@@ -324,22 +324,32 @@ public final class Plots {
      * 2026-11-21) : mêmes conditions que pour un joueur (matériaux au dépôt, emprise libre), sans rang.
      */
     public static boolean startByVillage(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot) {
+        return startByVillage(world, store, village, plot, false);
+    }
+
+    /**
+     * Comme {@link #startByVillage(World, Store, Village, VillageLayout.Plot)} ; `paid` : matériaux déjà pris au dépôt par
+     * le conseil du matin (world/Autonomy), le dépôt n'a pas besoin d'être chargé. Terrain chargé.
+     */
+    public static boolean startByVillage(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot, boolean paid) {
         PlotState s = village.plot(plot.id());
         VillageLayout layout = Chantiers.layout(village);
         VillageLayout.Building b = s.project() == null || layout == null ? null : layout.building(s.project());
         if (b == null || s.working() || village.isBuilt(b.id()) || !isOpen(village, plot)) {
             return false;
         }
-        Map<String, Integer> missing = missing(world, village, plot);
-        if (missing == null || !missing.isEmpty()) {
-            return false;
+        if (!paid) {
+            Map<String, Integer> missing = missing(world, village, plot);
+            if (missing == null || !missing.isEmpty()) {
+                return false;
+            }
         }
         removeStakes(world, village, plot, s);
         int h = Chantiers.siteHeight(world, village, b);
         if (Chantiers.obstacles(world, village, b, h).any()) {
             return false;
         }
-        begin(world, store, village, plot, s, layout, b, h);
+        begin(world, store, village, plot, s, layout, b, h, paid);
         Chantiers.announce(world, village, Message.translation(KEYS + "startedByVillage").param("village", village.name())
                 .param("building", Message.translation(Chantiers.buildingKey(b.id()))).param("hours", plot.hours()), null,
                 NotificationStyle.Success);
@@ -357,10 +367,12 @@ public final class Plots {
 
     /** Matériaux pris au dépôt, terrain aplani, échafaudage, {@code Hours} h de travaux. */
     private static void begin(World world, Store<EntityStore> store, Village village, VillageLayout.Plot plot, PlotState s,
-                              VillageLayout layout, VillageLayout.Building b, int h) {
-        ItemContainer chest = Requests.depositContainer(world, village);
-        for (VillageLayout.Material m : plot.materials()) {
-            Requests.take(chest, m.itemId(), m.quantity());
+                              VillageLayout layout, VillageLayout.Building b, int h, boolean paid) {
+        if (!paid) {
+            ItemContainer chest = Requests.depositContainer(world, village);
+            for (VillageLayout.Material m : plot.materials()) {
+                Requests.take(chest, m.itemId(), m.quantity());
+            }
         }
         Chantiers.prepare(world, new Terrain(world), village, layout, b, h);
         village.setSiteY(b.id(), h);

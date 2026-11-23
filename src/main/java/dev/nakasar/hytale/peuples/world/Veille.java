@@ -171,8 +171,9 @@ public final class Veille {
         long[] chunks = chunks(x0, x1, z0, z1);
         Hold h = new Hold(key, chunks, busy);
         HOLDS.put(world, h);
-        List<int[]> blocks = depositsIn(world, x0, x1, z0, z1);
-        load(world, chunks).thenCompose(ignored -> loadSections(world, blocks)).whenComplete((ignored, error) -> world.execute(() -> {
+        // Toutes les sections du lieu : relief, chantiers et prefabs se lisent et se collent section par section.
+        List<int[]> sections = dev.nakasar.hytale.peuples.village.Terrain.sections(x0, x1, z0, z1);
+        load(world, chunks).thenCompose(ignored -> loadSectionsAt(world, sections)).whenComplete((ignored, error) -> world.execute(() -> {
             if (HOLDS.get(world) != h) {
                 return;
             }
@@ -182,8 +183,9 @@ public final class Veille {
                 return;
             }
             keep(world, chunks, h.kept);
-            keepSections(world, blocks, h.keptSections);
+            int found = keepSectionsAt(world, sections, h.keptSections);
             h.ready = true;
+            PeuplesPlugin.get().getLogger().atInfo().log("Peuples (veille) : %s prêt (%d section(s) sur %d)", key, found, sections.size());
             h.readyAt = System.currentTimeMillis();
         }));
         PeuplesPlugin.get().getLogger().atInfo().log("Peuples (veille) : %s tenu sans joueur (%d chunks)", key, chunks.length);
@@ -213,7 +215,9 @@ public final class Veille {
         }
         long now = System.currentTimeMillis();
         boolean busy = h.busy != null && h.busy.getAsBoolean();
-        if (now - h.since >= MAX_HOLD_MILLIS || (h.ready && now - h.readyAt >= HOLD_MILLIS && !busy)) {
+        // Chargement : colonnes puis sections, chacun borné par LOAD_TIMEOUT_MILLIS ; tenue : bornée à partir de readyAt.
+        boolean stuck = !h.ready && now - h.since >= 2 * LOAD_TIMEOUT_MILLIS + HOLD_MILLIS;
+        if (stuck || h.ready && (now - h.readyAt >= MAX_HOLD_MILLIS || now - h.readyAt >= HOLD_MILLIS && !busy)) {
             release(world);
         }
     }
@@ -301,18 +305,6 @@ public final class Veille {
                 .orTimeout(LOAD_TIMEOUT_MILLIS, java.util.concurrent.TimeUnit.MILLISECONDS);
     }
 
-    /** Dépôts des villages dont le coffre est dans le rectangle de blocs (tenue d'un lieu). */
-    private static List<int[]> depositsIn(World world, int x0, int x1, int z0, int z1) {
-        List<int[]> out = new ArrayList<>();
-        for (Village v : Villages.registry(world).all()) {
-            int[] d = v.deposit();
-            if (d != null && d[0] >= Math.min(x0, x1) && d[0] <= Math.max(x0, x1) && d[2] >= Math.min(z0, z1) && d[2] <= Math.max(z0, z1)) {
-                out.add(d);
-            }
-        }
-        return out;
-    }
-
     /** Charge la section de chaque bloc (x, y, z) : les sections se chargent à part de leur colonne. */
     private static CompletableFuture<Void> loadSections(World world, List<int[]> blocks) {
         ChunkStore store = world.getChunkStore();
@@ -322,6 +314,33 @@ public final class Veille {
         }
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new))
                 .orTimeout(LOAD_TIMEOUT_MILLIS, java.util.concurrent.TimeUnit.MILLISECONDS);
+    }
+
+    /** Charge les sections (cx, cy, cz) données. */
+    private static CompletableFuture<Void> loadSectionsAt(World world, List<int[]> sections) {
+        ChunkStore store = world.getChunkStore();
+        List<CompletableFuture<?>> futures = new ArrayList<>();
+        for (int[] s : sections) {
+            futures.add(store.getChunkSectionReferenceAsync(s[0], s[1], s[2]));
+        }
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new))
+                .orTimeout(LOAD_TIMEOUT_MILLIS, java.util.concurrent.TimeUnit.MILLISECONDS);
+    }
+
+    /** Garde chargées les sections (cx, cy, cz) données ; rend le nombre de sections trouvées. */
+    private static int keepSectionsAt(World world, List<int[]> sections, List<ChunkSection> kept) {
+        ChunkStore store = world.getChunkStore();
+        int found = 0;
+        for (int[] s : sections) {
+            Ref<ChunkStore> ref = store.getChunkSectionReference(s[0], s[1], s[2]);
+            ChunkSection c = ref == null || !ref.isValid() ? null : store.getStore().getComponent(ref, ChunkSection.getComponentType());
+            if (c != null) {
+                found++;
+                c.addKeepLoaded();
+                kept.add(c);
+            }
+        }
+        return found;
     }
 
     /** Garde chargées les sections des blocs donnés ; rend le nombre de sections trouvées. */
