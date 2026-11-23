@@ -36,7 +36,11 @@ public final class Terrain {
         this.chunks = world.getChunkStore();
     }
 
-    /** Charge (ou génère) les chunks qui couvrent le rectangle de blocs donné. À appeler depuis le thread du monde. */
+    /**
+     * Charge (ou génère) les chunks qui couvrent le rectangle de blocs donné, puis toutes leurs sections : le serveur
+     * 0.7.7 charge les sections à part de leur colonne (loin des joueurs, une colonne chargée peut n'avoir aucune section
+     * lisible : relief introuvable, prefab « pas chargé »). À appeler depuis le thread du monde.
+     */
     public static CompletableFuture<Void> load(World world, int x0, int x1, int z0, int z1) {
         ChunkStore store = world.getChunkStore();
         List<CompletableFuture<?>> futures = new ArrayList<>();
@@ -45,7 +49,31 @@ public final class Terrain {
                 futures.add(store.getChunkReferenceAsync(ChunkUtil.indexChunk(cx, cz)));
             }
         }
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new))
+                .thenCompose(ignored -> loadSections(world, x0, x1, z0, z1));
+    }
+
+    /** Charge toutes les sections (du bas au haut du monde) des colonnes du rectangle de blocs. Thread du monde. */
+    public static CompletableFuture<Void> loadSections(World world, int x0, int x1, int z0, int z1) {
+        ChunkStore store = world.getChunkStore();
+        List<CompletableFuture<?>> futures = new ArrayList<>();
+        for (int[] s : sections(x0, x1, z0, z1)) {
+            futures.add(store.getChunkSectionReferenceAsync(s[0], s[1], s[2]));
+        }
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+    }
+
+    /** Coordonnées de section (cx, cy, cz) de toutes les sections des colonnes du rectangle de blocs. */
+    public static List<int[]> sections(int x0, int x1, int z0, int z1) {
+        List<int[]> out = new ArrayList<>();
+        for (int cx = ChunkUtil.chunkCoordinate(Math.min(x0, x1)); cx <= ChunkUtil.chunkCoordinate(Math.max(x0, x1)); cx++) {
+            for (int cz = ChunkUtil.chunkCoordinate(Math.min(z0, z1)); cz <= ChunkUtil.chunkCoordinate(Math.max(z0, z1)); cz++) {
+                for (int cy = ChunkUtil.MIN_SECTION; cy < ChunkUtil.MIN_SECTION + ChunkUtil.HEIGHT_SECTIONS; cy++) {
+                    out.add(new int[]{cx, cy, cz});
+                }
+            }
+        }
+        return out;
     }
 
     /** Vrai pour un bloc de relief naturel (terre, pierre, sable...) : ni plante, ni bois, ni meuble. */

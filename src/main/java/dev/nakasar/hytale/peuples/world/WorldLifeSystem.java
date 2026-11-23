@@ -140,5 +140,8 @@ public final class WorldLifeSystem extends TickingSystem<EntityStore> {
         dev.nakasar.hytale.peuples.workshop.Inputs.morning(world, store);
         // Conseil du matin des villages autonomes : ateliers, terrains, avant-postes (Autonomy).
         Autonomy.council(world, store, day, random);
+        // Décisions sur les données, dépôts chargés : chantier du palier, projets de terrain, réparations (Autonomy) ;
+        // la pose des blocs attend que le village soit chargé.
+        Autonomy.decide(world, store, day);
     }
 }

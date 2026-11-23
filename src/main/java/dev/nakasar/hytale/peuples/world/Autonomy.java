@@ -574,6 +574,7 @@ public final class Autonomy {
             String reserved = get(world, "P:" + key);
             if (reserved != null && (!reserved.equals(s.project()) || v.isBuilt(reserved))) {
                 put(world, "P:" + key, null); // un joueur a choisi autre chose, ou c'est bâti
+                unpayPlot(world, v, plot);
             }
             boolean free = Plots.isOpen(v, plot) && s.project() == null && !s.working();
             if (!free) {
@@ -734,11 +735,27 @@ public final class Autonomy {
             if (reserved == null || !reserved.equals(s.project()) || s.working() || v.isBuilt(reserved)) {
                 continue;
             }
+            String fail = "F:" + v.id() + "|" + plot.id();
+            boolean paid = reserved.equals(get(world, PLOT_PAID + v.id() + "|" + plot.id()));
+            if (paid) {
+                // Matériaux mis de côté au conseil du matin : il ne reste que la pose (terrain chargé).
+                if (!Plots.startByVillage(world, store, v, plot, true)) {
+                    SHORT.put(v.id(), day);
+                    giveBack(world, v, plot, fail, day);
+                    continue;
+                }
+                put(world, PLOT_PAID + v.id() + "|" + plot.id(), null);
+                put(world, fail, null);
+                put(world, "P:" + v.id() + "|" + plot.id(), null);
+                TradeLog.add(world, v, TradeLog.Kind.COUNCIL, null, Message.translation("nakasar_peuples.plot.startedByVillage")
+                        .param("village", v.name()).param("building", Message.translation(Chantiers.buildingKey(reserved)))
+                        .param("hours", plot.hours()));
+                continue;
+            }
             Map<String, Integer> missing = Plots.missing(world, v, plot);
             if (missing == null) {
                 continue;
             }
-            String fail = "F:" + v.id() + "|" + plot.id();
             if (Projects.projectMissing(world, v, Plots.workshop(v, reserved)) != null) {
                 // Les ressources du projet manquent (route perdue...) : le terrain est rendu au bout de quelques jours.
                 SHORT.put(v.id(), day);
@@ -749,7 +766,7 @@ public final class Autonomy {
                 SHORT.put(v.id(), day); // la récolte met ses matériaux de côté
                 continue;
             }
-            if (!Plots.startByVillage(world, store, v, plot)) {
+            if (!Plots.startByVillage(world, store, v, plot, false)) {
                 // Emprise encombrée (bloc de joueur...) : plus de tenue pour ça aujourd'hui, terrain rendu s'il dure.
                 SHORT.put(v.id(), day);
                 giveBack(world, v, plot, fail, day);
@@ -800,6 +817,7 @@ public final class Autonomy {
             return;
         }
         Plots.reserveByVillage(v, plot, null);
+        unpayPlot(world, v, plot);
         put(world, "P:" + v.id() + "|" + plot.id(), null);
         put(world, fail, null);
         log("%s rend le terrain %s (chantier impossible depuis %d jours)", v.id(), plot.id(), PLOT_FAIL_DAYS);
@@ -815,7 +833,16 @@ public final class Autonomy {
             return true;
         }
         Long short_ = SHORT.get(v.id());
-        if (short_ != null && short_ == GameClock.day(store)) {
+        boolean shortToday = short_ != null && short_ == GameClock.day(store);
+        for (VillageLayout.Plot plot : Plots.plots(v)) {
+            String reserved = get(world, "P:" + v.id() + "|" + plot.id());
+            PlotState s = v.plot(plot.id());
+            if (!shortToday && reserved != null && reserved.equals(get(world, PLOT_PAID + v.id() + "|" + plot.id()))
+                    && reserved.equals(s.project()) && !s.working() && !v.isBuilt(reserved)) {
+                return true; // payé ce matin : la pose attend la tenue
+            }
+        }
+        if (shortToday) {
             return false;
         }
         for (VillageLayout.Plot plot : Plots.plots(v)) {
@@ -902,6 +929,149 @@ public final class Autonomy {
         } catch (NumberFormatException e) {
             return ANNEX_TRIES;
         }
+    }
+
+    // ---- Décisions du matin, sans joueur ni village chargé ----
+
+    /** Chantier de palier décidé et payé par le conseil (clé + id du village → palier visé). */
+    private static final String CHANTIER_PAID = "CP:";
+    /** Projet de terrain payé par le conseil (clé + id du village|terrain → bâtiment). */
+    private static final String PLOT_PAID = "PP:";
+
+    /**
+     * Conseil du matin, dépôts chargés (Kevin, 23 novembre 2026 : « même dans le mode veille, le village peut décider de
+     * lancer des chantiers, des paliers, des bâtiments, des réparations, même si le chunk n'est pas chargé et que le
+     * joueur n'est pas là »). Tout ce qui se décide sur les données se décide ici : le chantier du palier suivant et le
+     * projet de terrain réservé prennent leurs matériaux au dépôt (mis de côté, notés dans le registre), la réparation
+     * d'un bâtiment brûlé commence. Il ne reste aux pas suivants que la pose des blocs, quand le village est chargé (joueur
+     * proche ou tenue de la veille, qui charge alors ses sections). Thread du monde.
+     */
+    static void decide(World world, Store<EntityStore> store, long day) {
+        if (!Veille.on(world)) {
+            return;
+        }
+        for (Village v : new ArrayList<>(Villages.registry(world).all())) {
+            if (v.isHamlet() || Chantiers.layout(v) == null || Villages.depositChest(world, v) == null) {
+                continue; // dépôt pas lu ce matin : la tenue du village décidera sur place
+            }
+            try {
+                decideChantier(world, v);
+                if (on(world)) {
+                    repair(world, store, v);
+                    payPlots(world, v);
+                }
+            } catch (RuntimeException e) {
+                PeuplesPlugin.get().getLogger().atWarning().withCause(e).log("Peuples (autonomie) : décision du matin de %s", v.id());
+            }
+        }
+    }
+
+    /** Jauge pleine, luxes et matériaux là : le conseil décide le chantier du palier suivant et en paie les matériaux. */
+    private static void decideChantier(World world, Village v) {
+        if (v.chantier() != null || get(world, CHANTIER_PAID + v.id()) != null
+                || Chantiers.blocker(world, v, false) != Chantiers.Block.NONE) {
+            return;
+        }
+        int target = v.tier() + 1;
+        VillageLayout.Chantier spec = Chantiers.layout(v).chantier(target);
+        ItemContainer chest = Requests.depositContainer(world, v);
+        if (spec == null || chest == null) {
+            return;
+        }
+        for (VillageLayout.Material m : spec.materials()) {
+            Requests.take(chest, m.itemId(), m.quantity());
+        }
+        put(world, CHANTIER_PAID + v.id(), Integer.toString(target));
+        TradeLog.add(world, v, TradeLog.Kind.COUNCIL, null, Message.translation(KEYS + "chantier").param("village", v.name())
+                .param("tier", Message.translation(Tiers.nameKey(target))));
+        log("%s décide le chantier du palier %d (matériaux mis de côté)", v.id(), target);
+    }
+
+    /** Vrai si le conseil a décidé et payé le chantier du palier suivant, qui attend d'être posé. */
+    public static boolean chantierPaid(World world, Village v) {
+        return get(world, CHANTIER_PAID + v.id()) != null;
+    }
+
+    /**
+     * Village chargé : ouvre le chantier décidé au matin (matériaux déjà pris). Si le chantier ne peut plus s'ouvrir
+     * (palier changé, chantier ouvert entre-temps), les matériaux reviennent au dépôt. Thread du monde.
+     */
+    public static void openPaidChantier(World world, Village v, Runnable done) {
+        int target = parse(get(world, CHANTIER_PAID + v.id()));
+        Chantiers.Block b = Chantiers.blocker(world, v, true);
+        if (b == Chantiers.Block.BUSY) {
+            return;
+        }
+        if (b != Chantiers.Block.NONE || target != v.tier() + 1) {
+            refundChantier(world, v, target);
+            return;
+        }
+        Chantiers.start(world, v, true, state -> {
+            put(world, CHANTIER_PAID + v.id(), null);
+            log("%s ouvre le chantier décidé du palier %d", v.id(), state.tier());
+            if (done != null) {
+                done.run();
+            }
+        });
+    }
+
+    private static void refundChantier(World world, Village v, int target) {
+        put(world, CHANTIER_PAID + v.id(), null);
+        VillageLayout layout = Chantiers.layout(v);
+        VillageLayout.Chantier spec = layout == null ? null : layout.chantier(target);
+        if (spec == null) {
+            return;
+        }
+        List<ItemStack> back = new ArrayList<>();
+        for (VillageLayout.Material m : spec.materials()) {
+            back.add(new ItemStack(m.itemId(), m.quantity()));
+        }
+        TradeRoutes.deliver(world, v, back);
+        log("%s : chantier décidé du palier %d abandonné, matériaux rendus", v.id(), target);
+    }
+
+    /** Projets de terrain réservés dont le dépôt a les matériaux : ils sont pris, la pose attend le terrain chargé. */
+    private static void payPlots(World world, Village v) {
+        ItemContainer chest = Requests.depositContainer(world, v);
+        if (chest == null) {
+            return;
+        }
+        for (VillageLayout.Plot plot : Plots.plots(v)) {
+            String key = v.id() + "|" + plot.id();
+            String reserved = get(world, "P:" + key);
+            PlotState s = v.plot(plot.id());
+            if (reserved == null || !reserved.equals(s.project()) || s.working() || v.isBuilt(reserved)
+                    || reserved.equals(get(world, PLOT_PAID + key))
+                    || Projects.projectMissing(world, v, Plots.workshop(v, reserved)) != null) {
+                continue;
+            }
+            Map<String, Integer> missing = Plots.missing(world, v, plot);
+            if (missing == null || !missing.isEmpty()) {
+                continue;
+            }
+            for (VillageLayout.Material m : plot.materials()) {
+                Requests.take(chest, m.itemId(), m.quantity());
+            }
+            put(world, PLOT_PAID + key, reserved);
+            TradeLog.add(world, v, TradeLog.Kind.COUNCIL, null, Message.translation(KEYS + "plotPaid").param("village", v.name())
+                    .param("building", Message.translation(Chantiers.buildingKey(reserved))));
+            log("%s met de côté les matériaux de %s (terrain %s)", v.id(), reserved, plot.id());
+        }
+    }
+
+    /** Le projet payé du terrain n'est plus le bon (rendu, autre choix) : ses matériaux reviennent au dépôt. */
+    private static void unpayPlot(World world, Village v, VillageLayout.Plot plot) {
+        String key = PLOT_PAID + v.id() + "|" + plot.id();
+        if (get(world, key) == null) {
+            return;
+        }
+        put(world, key, null);
+        List<ItemStack> back = new ArrayList<>();
+        for (VillageLayout.Material m : plot.materials()) {
+            back.add(new ItemStack(m.itemId(), m.quantity()));
+        }
+        TradeRoutes.deliver(world, v, back);
+        log("%s : matériaux du terrain %s rendus", v.id(), plot.id());
     }
 
     // ---- Journal ----

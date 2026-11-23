@@ -96,7 +96,10 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
                 continue;
             }
             if (village.chantier() == null) {
-                if (village.tier() < Tiers.MAX && village.essor() >= Tiers.threshold(village.tier())
+                if (dev.nakasar.hytale.peuples.world.Autonomy.chantierPaid(world, village)) {
+                    // Décidé et payé au conseil du matin, sans joueur : il ne reste que la pose.
+                    dev.nakasar.hytale.peuples.world.Autonomy.openPaidChantier(world, village, Villagers::forgetGround);
+                } else if (village.tier() < Tiers.MAX && village.essor() >= Tiers.threshold(village.tier())
                         && Chantiers.start(world, village, false, state -> Villagers.forgetGround()) == Chantiers.Block.MATERIALS
                         && !watched(village, players)) {
                     // Tenu sans joueur, matériaux absents : pas de nouvelle tenue pour ça avant demain.
@@ -135,6 +138,9 @@ public final class VillageLifeSystem extends TickingSystem<EntityStore> {
         }
         if (Chantiers.layout(village) == null) {
             return false;
+        }
+        if (village.chantier() == null && dev.nakasar.hytale.peuples.world.Autonomy.chantierPaid(world, village)) {
+            return true; // chantier décidé au matin : la pose attend la tenue
         }
         if (village.chantier() == null) {
             // Dépôt pas chargé : on ne sait pas encore s'il a les matériaux, la tenue le dira.
