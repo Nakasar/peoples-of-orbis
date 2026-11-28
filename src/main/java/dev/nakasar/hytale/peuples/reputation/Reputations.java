@@ -17,7 +17,6 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.NotificationUtil;
 import dev.nakasar.hytale.peuples.PeuplesPlugin;
 import dev.nakasar.hytale.peuples.player.PeuplesPlayer;
-import dev.nakasar.hytale.peuples.request.GameClock;
 import dev.nakasar.hytale.peuples.village.People;
 import dev.nakasar.hytale.peuples.village.Village;
 import dev.nakasar.hytale.peuples.village.Villages;
@@ -29,7 +28,7 @@ import org.joml.Vector3d;
  * <ul>
  *   <li><b>réputation de village</b>, gardée par le mod avec le joueur ({@link PeuplesPlayer}) : monte par les demandes
  *       remplies, descend quand on frappe ou tue un villageois et quand on casse un bâtiment du village ; elle décline
- *       vers « toléré » après {@value #ABSENCE_DAYS} jours de jeu d'absence, jamais en dessous ;</li>
+ *       pendant l'absence du joueur, en temps réel ({@link AbsenceDecay}) ;</li>
  *   <li><b>réputation de peuple</b>, gardée par le ReputationPlugin vanilla (groupe {@code Nakasar_Peuples_<Peuple>},
  *       assets {@code Server/NPC/Reputation/Groups}) : un tiers de chaque gain ou perte de village. Le plugin vanilla
  *       en tire l'attitude de tous les PNJ du peuple envers le joueur, où qu'ils soient (villages vanilla compris).</li>
@@ -47,10 +46,6 @@ public final class Reputations {
     public static final String KEYS = "nakasar_peuples.reputation.";
     /** Les PNJ du peuple à moins de cette distance (horizontale) d'un de ses villages suivent le rang de ce village. */
     public static final int ATTITUDE_RADIUS = 96;
-    /** Jours de jeu d'absence avant le déclin de la réputation de village. */
-    public static final int ABSENCE_DAYS = 10;
-    /** Réputation perdue par jour d'absence au-delà de {@value #ABSENCE_DAYS} jours. */
-    public static final int DECAY_PER_DAY = 10;
     /** La réputation de peuple reçoit 1/{@value #PEOPLE_SHARE} de chaque gain ou perte de village. */
     public static final int PEOPLE_SHARE = 3;
 
@@ -188,7 +183,7 @@ public final class Reputations {
         PeuplesPlayer data = PeuplesPlayer.ensure(store, ref);
         Standing before = standing(store, ref, village);
         data.setVillageReputation(village.id(), Rank.clamp((long) before.village() + amount));
-        data.setLastVisit(village.id(), GameClock.day(store));
+        data.setLastSeen(village.id(), System.currentTimeMillis());
         changePeople(store, ref, village.people(), amount / PEOPLE_SHARE);
         if (amount > 0) {
             // Étape 7 : aider un peuple coûte auprès de son rival (réputations croisées).
@@ -227,7 +222,7 @@ public final class Reputations {
         Rank before = rank(store, ref, village);
         PeuplesPlayer data = PeuplesPlayer.ensure(store, ref);
         data.setVillageReputation(village.id(), Rank.clamp(value));
-        data.setLastVisit(village.id(), GameClock.day(store));
+        data.setLastSeen(village.id(), System.currentTimeMillis());
         announceRank(player, village, before, rank(store, ref, village));
     }
 
@@ -237,29 +232,39 @@ public final class Reputations {
     }
 
     /**
-     * Le joueur entre dans le village : après plus de {@value #ABSENCE_DAYS} jours de jeu d'absence, sa réputation de
-     * village recule de {@value #DECAY_PER_DAY} par jour en trop, sans descendre sous le rang toléré (GDD : « revenir
-     * ne coûte qu'une ou deux demandes »). Le jour de la visite est noté.
+     * Le joueur entre dans le village : sa réputation de village paie son absence, comptée en temps réel depuis sa
+     * dernière présence ({@link AbsenceDecay} : une semaine pour descendre au minimum de son rang, deux semaines à ce
+     * minimum, puis le rang précédent ; jamais sous Étranger). Un joueur sans présence notée (ancienne sauvegarde)
+     * commence son horloge maintenant.
      */
     public static void visit(World world, Store<EntityStore> store, Ref<EntityStore> ref, PlayerRef player, Village village) {
         if (ref == null || !ref.isValid()) {
             return;
         }
         PeuplesPlayer data = PeuplesPlayer.ensure(store, ref);
-        long today = GameClock.day(store);
-        Long last = data.lastVisit(village.id());
+        long now = System.currentTimeMillis();
+        Long last = data.lastSeen(village.id());
         int value = villageValue(data, village);
-        if (last != null && today - last > ABSENCE_DAYS && value > Rank.TOLERE.min()) {
-            long loss = Math.min(value - Rank.TOLERE.min(), (today - last - ABSENCE_DAYS) * (long) DECAY_PER_DAY);
-            if (loss > 0) {
+        if (last != null && now > last) {
+            int after = AbsenceDecay.decayed(value, now - last);
+            if (after < value) {
                 Rank before = rank(store, ref, village);
-                data.setVillageReputation(village.id(), (int) (value - loss));
+                data.setVillageReputation(village.id(), after);
+                long days = Math.max(1, Math.round((now - last) / (double) AbsenceDecay.DAY_MS));
                 player.sendMessage(Message.translation(KEYS + "decay").param("village", village.name())
-                        .param("days", today - last).param("amount", loss));
+                        .param("days", days).param("amount", value - after));
                 announceRank(player, village, before, rank(store, ref, village));
             }
         }
-        data.setLastVisit(village.id(), today);
+        data.setLastSeen(village.id(), now);
+    }
+
+    /** Le joueur est dans le village : l'horloge de l'absence ne tourne pas (appelé à chaque passage du VillageEntrySystem). */
+    public static void present(Store<EntityStore> store, Ref<EntityStore> ref, Village village) {
+        PeuplesPlayer data = ref == null || !ref.isValid() ? null : PeuplesPlayer.get(store, ref);
+        if (data != null) {
+            data.setLastSeen(village.id(), System.currentTimeMillis());
+        }
     }
 
     private static void announceRank(PlayerRef player, Village village, Rank before, Rank after) {

@@ -508,11 +508,18 @@ vérifie qu'ils collent à l'enum `Rank` (bornes, attitude). Un joueur neuf part
 | Frapper un villageois du peuple | -5 | -1 |
 | Tuer un villageois du peuple | -40 | -13 |
 | Casser un bloc d'un bâtiment collé, du dépôt, du tableau ou de la bannière (pas les potagers) | -2 par bloc | 0 |
-| Absence de plus de 10 jours de jeu | -10 par jour de plus, jamais sous Toléré | |
+| Absence (temps réel, voir plus bas) | jusqu'au minimum du rang en une semaine, puis le rang précédent après deux semaines de plus | |
 
 Hors de tout village, frapper ou tuer un Kweebec coûte la même chose à la réputation de peuple seule. Chaque changement
 s'annonce par une notification ; un changement de rang l'annonce au tchat avec ce que le nouveau rang ouvre. Une
 demande peut fixer son gain avec le champ optionnel `Reputation` (sinon son essor).
+
+Absence (Kevin, 28 novembre 2026, `reputation/AbsenceDecay`) : comptée en **temps réel** (et non en jours de jeu, le
+monde tournant sans joueur), depuis la dernière présence notée dans le village (`PeuplesPlayer.LastSeen`, mise à jour
+à chaque passage du `VillageEntrySystem` tant que le joueur est à moins de 52 blocs du cœur, et à chaque changement de
+réputation). En revenant, la réputation de village paie l'absence : une semaine de descente régulière jusqu'au minimum
+du rang de départ, deux semaines à ce minimum, puis le rang précédent (minimum - 1), et le cycle reprend ; jamais sous
+Étranger (un Étranger ou un Honni ne perd rien). La réputation de peuple ne décline pas.
 
 ### Attitude des villageois
 

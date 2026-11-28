@@ -34,7 +34,20 @@ Votre rang dans un village est le **meilleur des deux** : un ami des Kweebecs es
 | Frapper un villageois | -5 | -1 |
 | Tuer un villageois | -40 | -13 |
 | Casser un bloc d'un bâtiment, du dépôt, du tableau ou de la bannière | -2 par bloc | 0 |
-| Absence de plus de 10 jours | -10 par jour de plus, jamais sous Toléré | |
+| Absence (temps réel, voir plus bas) | jusqu'au minimum du rang en une semaine, puis le rang précédent après deux semaines de plus | |
+
+### Absence
+
+Un village oublie peu à peu ceux qui ne passent plus. L'absence se compte en **temps réel**, depuis votre dernier passage
+dans le village (le temps passé dedans ne compte pas) :
+
+1. pendant **une semaine** environ, votre réputation de village descend régulièrement jusqu'au minimum de votre rang
+   (200 pour Ami, 50 pour Toléré…) ;
+2. elle reste à ce minimum **deux semaines** de plus ;
+3. au terme, vous passez au **rang précédent**, et le même cycle recommence dans ce rang.
+
+Vous avez donc deux à trois semaines pour revenir et garder votre rang : une demande remplie remonte la jauge. L'absence
+ne vous fait jamais tomber sous Étranger, et la perte vous est annoncée en revenant au village.
 
 ## Rivaux et alliés
 
