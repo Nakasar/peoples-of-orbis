@@ -27,8 +27,9 @@ import java.util.WeakHashMap;
 /**
  * Entrée dans un village (GDD, Exploration : « le village est repéré et nommé ») : quand un joueur passe à moins de
  * {@value #ENTER_RADIUS} blocs du cœur, un titre d'écran donne le nom du village, son peuple, le rang du joueur et
- * l'humeur du village. Il ne revient qu'après être ressorti au-delà de {@value #LEAVE_RADIUS} blocs. L'entrée note aussi
- * la visite (déclin de la réputation après une longue absence, {@link Reputations#visit}).
+ * l'humeur du village. Il ne revient qu'après être ressorti au-delà de {@value #LEAVE_RADIUS} blocs. L'entrée fait aussi
+ * payer l'absence à la réputation ({@link Reputations#visit}) ; tant que le joueur reste dans le village, sa présence
+ * est notée ({@link Reputations#present}) et l'absence ne court pas.
  *
  * <p>La bannière du village est un marqueur de carte découvrable : on la révèle au joueur qui passe à moins de
  * {@value #REVEAL_RADIUS} blocs (elle reste ensuite sur sa carte).
@@ -104,6 +105,8 @@ public final class VillageEntrySystem extends TickingSystem<EntityStore> {
                 state.inside.put(id, nearest.id());
                 Reputations.visit(world, store, ref, player, nearest);
                 showTitle(store, ref, player, nearest);
+            } else if (current != null) {
+                Reputations.present(store, ref, current);
             }
         }
         state.inside.keySet().retainAll(here);

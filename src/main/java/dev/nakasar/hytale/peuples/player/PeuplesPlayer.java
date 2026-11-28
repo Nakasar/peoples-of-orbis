@@ -51,7 +51,10 @@ public final class PeuplesPlayer implements Component<EntityStore> {
             .documentation("Réputation de village (étape 4) : id=valeur, séparés par des virgules.")
             .add()
             .append(new KeyedCodec<>("Visits", Codec.STRING), (p, v) -> readMap(v, p.visits), p -> writeMap(p.visits))
-            .documentation("Dernier jour de jeu passé dans chaque village : id=jour (déclin de la réputation après une longue absence).")
+            .documentation("Dernier jour de jeu noté par lieu : id=jour (Source de l'Écho ; ancien déclin de réputation).")
+            .add()
+            .append(new KeyedCodec<>("LastSeen", Codec.STRING), (p, v) -> readMap(v, p.lastSeen), p -> writeMap(p.lastSeen))
+            .documentation("Dernière présence dans chaque village, en temps réel : id=millisecondes epoch (déclin de la réputation pendant l'absence).")
             .add()
             .build();
 
@@ -66,6 +69,7 @@ public final class PeuplesPlayer implements Component<EntityStore> {
     private final Map<String, Integer> helped = new TreeMap<>();
     private final Map<String, Long> reputation = new TreeMap<>();
     private final Map<String, Long> visits = new TreeMap<>();
+    private final Map<String, Long> lastSeen = new TreeMap<>();
 
     public static void setComponentType(ComponentType<EntityStore, PeuplesPlayer> type) {
         componentType = type;
@@ -176,7 +180,7 @@ public final class PeuplesPlayer implements Component<EntityStore> {
         }
     }
 
-    /** Dernier jour de jeu passé dans le village, ou null. */
+    /** Dernier jour de jeu noté pour cette clé, ou null. */
     public Long lastVisit(String villageId) {
         return visits.get(villageId);
     }
@@ -187,10 +191,22 @@ public final class PeuplesPlayer implements Component<EntityStore> {
         }
     }
 
+    /** Dernière présence du joueur dans le village, en millisecondes réelles (epoch), ou null. */
+    public Long lastSeen(String villageId) {
+        return lastSeen.get(villageId);
+    }
+
+    public void setLastSeen(String villageId, long epochMs) {
+        if (validKey(villageId)) {
+            lastSeen.put(villageId, epochMs);
+        }
+    }
+
     /** Oublie la réputation de tous les villages (commande d'essai). */
     public void clearVillageReputation() {
         reputation.clear();
         visits.clear();
+        lastSeen.clear();
     }
 
     private static boolean validKey(String key) {
